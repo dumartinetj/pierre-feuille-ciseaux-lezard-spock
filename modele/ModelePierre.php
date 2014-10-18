@@ -1,13 +1,12 @@
 <?php
 
-class ModelePierre extends ModeleFigure {
+class static ModelePierre extends ModeleFigure {
 
-    private static final $forces; // à initialiser avec array de ses forces
-    private static final $faiblesses; // à initialiser avec array de ses faiblesses
-	
-    public function __construct() {
-		parent::__construct();
-    }
+	protected static $image = "LIEN_VERS_LIMAGE";
+	protected static $son "LIEN_VERS_LE_SON";;
+	private static final $forces = array(ModeleCiseaux, ModeleLezard); // je ne suis pas sur du tout de la syntaxe de l'array
+    private static final $faiblesses = array(ModeleFeuille, ModeleSpock); // je ne suis pas sur du tout de la syntaxe de l'array
+
 }
 
 ?>
