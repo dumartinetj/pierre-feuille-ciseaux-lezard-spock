@@ -10,7 +10,7 @@ class static abstract ModeleFigure {
 	}
 	
 	public function estDansSesFaiblesses() { // $figure est elle dans les faiblesses de la figure this ?
-		return (in_array($figure, $faiblesses)); // inutile, car si pas dans les forces alors dans les faiblesses
+		return (in_array($figure, $faiblesses)); // utile, car si pas dans les forces et pas dans les faiblesses -> draw
 	}
 	
 }
