@@ -17,8 +17,8 @@ and open the template in the editor.
             define('DS', dirname(DIRECTORY_SEPARATOR));
             // include fait une inclusion textuelle (comme un copier/coller) du fichier
             // ./controller/dispatcher.php (sous Linux)
-            include ROOT . DS . 'controller' . DS . 'ControllerCoup.php';
-            require_once ROOT . DS . 'controller' . DS . 'ControllerCoup.php';
+            include ROOT . DS . 'controleur' . DS . 'ControleurCoup.php';
+            require_once ROOT . DS . 'controleur' . DS . 'ControleurCoup.php';
         ?>
     </body>
 </html>
