@@ -1,6 +1,6 @@
 <?php
 
-class abstract ModeleCoup {
+class ModeleCoup {
 
     private $identifiant;
     private $figureJoueur1;
