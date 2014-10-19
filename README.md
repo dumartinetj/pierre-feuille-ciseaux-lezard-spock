@@ -1,4 +1,4 @@
 pierre-feuille-ciseaux-lezard-spock
 ===================================
 
-Dépôt du projet tuteuré de S3
+Dépôt du projet tutoré de S3
