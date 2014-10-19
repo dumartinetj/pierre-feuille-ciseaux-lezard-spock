@@ -15,11 +15,9 @@ class ModelePartie {
         $this->listeManche = array();
     }
 	
-	// je laisse ça là pour pas l'oublier
-	// comment ajouter dans un tableau quand on connait pas le nb d'objets
-	// array_push($array, $donnes);
-    // ou $array[] = $donnes; pour les objets simples
-	// stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
+	public function ajoutManche($m) {
+		array_push($this->listeManche, $m) // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
+	}
 }
 
 ?>
