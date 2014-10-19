@@ -8,7 +8,7 @@ class abstract ModelePartie {
     private $joueur2;
     private $listeManche; // array de manches : mini une manche -> nb de manche set
 	
-    public function __construct($i, $lc, $j1, $j2) {
+    public function __construct($i, $j1, $j2) {
         $this->identifiant = $i;
         $this->joueur1 = $j1;
         $this->joueur2 = $j2;
