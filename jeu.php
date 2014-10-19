@@ -10,6 +10,14 @@
 			include('modele/ModeleJoueur.php');
 			include('modele/ModelePartie.php');
 			include('modele/ModeleManche.php');
+			include('modele/ModeleCoup.php');
+			include('modele/ModeleFigure.php');
+			include('modele/ModeleCiseaux.php');
+			include('modele/ModeleLezard.php');
+			include('modele/ModeleSpock.php');
+			include('modele/ModeleFeuille.php');
+			include('modele/ModelePierre.php');
+			
 		
             //define('ROOT', dirname(__FILE__));
             //define('DS', dirname(DIRECTORY_SEPARATOR));
@@ -20,7 +28,7 @@
 			$j2 = new ModeleJoueur(2, "Jeanne", "Femme", 22);
 			$p1 = new ModelePartie(1, $j1, $j2);
 			$nbmanche = 1;
-			while ($nbmanche =! 3) {
+			while ($nbmanche != 3) {
 				echo 'Début de la manche '.$nbmanche.'<br/>';
                 $m = new ModeleManche($nbmanche);
                 $nbcoup=1;
