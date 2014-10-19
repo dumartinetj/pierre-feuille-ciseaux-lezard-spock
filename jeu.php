@@ -22,10 +22,29 @@
 			$nbmanche = 1;
 			$nbcoup = 1;
 			while ($nbmanche =! 3) {
+<<<<<<< HEAD
 				$m = new Manche($nbmanche);
 				$c = new Coup($nbcoup, $fig1, $fig2);
 				$p1.ajoutManche($m);
 				$nbmanche++;  
+=======
+                            $m = new ModeleManche($nbmanche);
+                            $nbcoup=1;
+                            $coup=new ModeleCoup($nbcoup,new ModeleCiseaux(),new ModeleCiseaux());
+                            if($coup.estUnDraw){
+                                while($coup.estUnDraw()){
+                                    $m.ajoutCoup($coup);
+                                    $nbcoup++;
+                                    $coup=new ModeleCoup($nbcoup,new ModeleLezard(), new ModelePierre());
+                                }   
+                            }
+                            else{
+                                $coup.evaluer();
+                                $m.ajoutCoup($coup);
+                            }
+                            $p1.ajoutManche($m);
+                            $nbmanche++;  
+>>>>>>> origin/master
 			}
 
         ?>
