@@ -20,9 +20,10 @@
 			$j2 = new ModeleJoueur(2, "Jeanne", "Femme", 22);
 			$p1 = new ModelePartie(1, $j1, $j2);
 			$nbmanche = 1;
+			$nbcoup = 1;
 			while ($nbmanche =! 3) {
 				$m = new Manche($nbmanche);
-				//reste du code à faire
+				$c = new Coup($nbcoup, $fig1, $fig2);
 				$p1.ajoutManche($m);
 				$nbmanche++;  
 			}
