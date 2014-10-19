@@ -19,7 +19,7 @@ class abstract ModeleCoup {
 	// évalue le coup et set le gagnant et le perdant
 	
 	public function eval() {
-		if ($this->figureJoueur1 != $this->figureJoueur2) { 					// si pas de draw
+		if ($this.estUnDraw()) { 	// pas sur de la syntaxe
 			$f1win = $this->figureJoueur1.estDansSesForces($this->figureJoueur2);
 			$f2win = $this->figureJoueur1.estDansSesFaiblesses($this->figureJoueur1);
 			if ($this->f1win == true) {
@@ -29,6 +29,10 @@ class abstract ModeleCoup {
 				$this->joueur2 = true;
 			}
 		}
+	}
+	
+	public function estUnDraw() {
+		return ($this->figureJoueur1 == $this->figureJoueur2);
 	}
 }
 
