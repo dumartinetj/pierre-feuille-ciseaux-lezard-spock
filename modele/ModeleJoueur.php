@@ -19,6 +19,34 @@ class ModeleJoueur {
 		$this->nbDefaite = 0;		
 		$this->ratio = 0;
     }
+	
+	public function getIdentifiant() {
+		return $this->identifiant;
+	}
+	
+	public function getPseudo() {
+		return $this->pseudo;
+	}
+	
+	public function getSexe() {
+		return $this->sexe;
+	}
+	
+	public function getAge() {
+		return $this->age;
+	}
+	
+	public function getNbVictoire() {
+		return $this->nbVictoire;
+	}
+	
+	public function getNbDefaite() {
+		return $this ->nbDefaite;
+	}
+	
+	public function getRatio() {
+		return $this ->ratio;
+	}
 }
 
 ?>

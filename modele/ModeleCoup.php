@@ -18,15 +18,11 @@ class abstract ModeleCoup {
 	
 	// évalue le coup et set le gagnant et le perdant
 	
-<<<<<<< HEAD
-	public function eval() {
-		if (!($this.estUnDraw())) { 	// pas sur de la syntaxe
-=======
+
 	public function evaluer() {
-		if (!$this.estUnDraw()) { 	// pas sur de la syntaxe
->>>>>>> origin/master
-			$f1win = $this->figureJoueur1.estDansSesForces($this->figureJoueur2);
-			$f2win = $this->figureJoueur1.estDansSesFaiblesses($this->figureJoueur1);
+		if (!($this->estUnDraw())) { 
+			$f1win = $this->getFigureJoueur1().estDansSesForces($this->getFigureJoueur2());
+			$f2win = $this->getFigureJoueur1().estDansSesFaiblesses($this->getFigureJoueur2());
 			if ($this->f1win == true) {
 				$this->joueur1 = true;
 			}
@@ -37,8 +33,16 @@ class abstract ModeleCoup {
 	}
 	
 	public function estUnDraw() {
-		return ($this->figureJoueur1 == $this->figureJoueur2);
+		return ($this->getFigureJoueur1() == $this->getFigureJoueur2());
 	}
+	
+	public function getFigureJoueur1() {
+		return $this->figureJoueur1;
+	}
+	
+	public function getFigureJoueur2() {
+		return $this->figureJoueur2;
+	}
+	
 }
-
 ?>
