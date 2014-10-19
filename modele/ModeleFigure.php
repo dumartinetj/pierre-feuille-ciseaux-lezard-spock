@@ -13,6 +13,10 @@ class static abstract ModeleFigure {
 		return (in_array($figure, $faiblesses)); // utile, car si pas dans les forces et pas dans les faiblesses -> draw
 	}
 	
+	public function afficher() {
+		echo $this->quiSuisJe();
+	}
+	
 }
 
 ?>
