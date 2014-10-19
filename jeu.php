@@ -34,7 +34,7 @@
                 $nbcoup=1;
                 $coup = new ModeleCoup($nbcoup,new ModeleCiseaux(),new ModeleCiseaux());
 				echo 'Joueur 1 a joué '.($coup.getFigureJoueur1()).afficher().'<br/>';
-				echo 'Joueur 1 a joué '.($coup.getFigureJoueur2()).afficher().'<br/>';
+				echo 'Joueur 2 a joué '.($coup.getFigureJoueur2()).afficher().'<br/>';
                 if($coup.estUnDraw){
 					while($coup.estUnDraw()){
 						echo 'Le coup joué est un draw !<br/>';
