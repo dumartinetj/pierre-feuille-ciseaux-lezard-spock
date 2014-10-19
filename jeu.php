@@ -13,8 +13,8 @@
             require_once ROOT . DS . 'controleur' . DS . 'ControleurCoup.php';
 			j1 = new Joueur(1, "Jean", "Homme", 25);
 			j2 = new Joueur(2, "Jeanne", "Femme", 22);
-			// on créer une nouvelle partie avec 3 manches
-			// etc.
+			p1 = new Partie(1, j1, j2);
+			
         ?>
     </body>
 </html>
