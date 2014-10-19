@@ -7,6 +7,9 @@ class static ModeleCiseaux extends ModeleFigure {
 	private static final $forces = array(ModeleFeuille, ModeleLezard); // je ne suis pas sur du tout de la syntaxe de l'array
     private static final $faiblesses = array(ModeleSpock, ModelePierre); // je ne suis pas sur du tout de la syntaxe de l'array
 
+		public quiSuisJe() {
+		return "Ciseaux";
+	}
 }
 
 ?>
