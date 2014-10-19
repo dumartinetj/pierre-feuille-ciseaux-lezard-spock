@@ -22,30 +22,32 @@
 			$nbmanche = 1;
 			$nbcoup = 1;
 			while ($nbmanche =! 3) {
-<<<<<<< HEAD
-				$m = new Manche($nbmanche);
-				$c = new Coup($nbcoup, $fig1, $fig2);
-				$p1.ajoutManche($m);
-				$nbmanche++;  
-=======
-                            $m = new ModeleManche($nbmanche);
-                            $nbcoup=1;
-                            $coup=new ModeleCoup($nbcoup,new ModeleCiseaux(),new ModeleCiseaux());
-                            if($coup.estUnDraw){
-                                while($coup.estUnDraw()){
-                                    $m.ajoutCoup($coup);
-                                    $nbcoup++;
-                                    $coup=new ModeleCoup($nbcoup,new ModeleLezard(), new ModelePierre());
-                                }   
-                            }
-                            else{
-                                $coup.evaluer();
-                                $m.ajoutCoup($coup);
-                            }
-                            $p1.ajoutManche($m);
-                            $nbmanche++;  
->>>>>>> origin/master
+				echo 'Début de la manche '.$nbmanche.'<br/>';
+                $m = new ModeleManche($nbmanche);
+                $nbcoup=1;
+                $coup = new ModeleCoup($nbcoup,new ModeleCiseaux(),new ModeleCiseaux());
+				echo 'Joueur 1 a joué '.($coup->getFigureJoueur1())->afficher().'<br/>';
+				echo 'Joueur 1 a joué '.($coup->getFigureJoueur2())->afficher().'<br/>';
+                if($coup.estUnDraw){
+					while($coup.estUnDraw()){
+						echo 'Le coup joué est un draw !<br/>';
+						$m.ajoutCoup($coup);
+						$nbcoup++;
+						$coup=new ModeleCoup($nbcoup,new ModeleLezard(), new ModelePierre());
+						echo 'Joueur 1 a joué '.($coup->getFigureJoueur1())->afficher().'<br/>';
+						echo 'Joueur 1 a joué '.($coup->getFigureJoueur2())->afficher().'<br/>';
+					}   
+				}
+                else{
+					$coup.eval();
+					echo 'Le coup joué est validé !';
+                    $m.ajoutCoup($coup);
+                }
+                $p1.ajoutManche($m);
+                $nbmanche++;  
+				echo 'Manche terminé';
 			}
+			echo 'Partie terminé';
 
         ?>
     </body>
