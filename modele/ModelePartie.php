@@ -16,7 +16,7 @@ class ModelePartie {
     }
 	
 	public function ajoutManche($m) {
-		array_push($this->listeManche, $m) // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
+		array_push($this->listeManche, $m); // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
 	}
 }
 
