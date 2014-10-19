@@ -21,10 +21,22 @@
 			$p1 = new ModelePartie(1, $j1, $j2);
 			$nbmanche = 1;
 			while ($nbmanche =! 3) {
-				$m = new Manche($nbmanche);
-				//reste du code à faire
-				$p1.ajoutManche($m);
-				$nbmanche++;  
+                            $m = new ModeleManche($nbmanche);
+                            $nbcoup=1;
+                            $coup=new ModeleCoup($nbcoup,new ModeleCiseaux(),new ModeleCiseaux());
+                            if($coup.estUnDraw){
+                                while($coup.estUnDraw()){
+                                    $m.ajoutCoup($coup);
+                                    $nbcoup++;
+                                    $coup=new ModeleCoup($nbcoup,new ModeleLezard(), new ModelePierre());
+                                }   
+                            }
+                            else{
+                                $coup.evaluer();
+                                $m.ajoutCoup($coup);
+                            }
+                            $p1.ajoutManche($m);
+                            $nbmanche++;  
 			}
 
         ?>
