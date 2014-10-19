@@ -1,6 +1,6 @@
 <?php
 
-class abstract ModelePartie {
+class ModelePartie {
 
     private $identifiant;
 	private $nbManche; // je sais pas si cet attribut sera utile - doit être impair et sup à 2

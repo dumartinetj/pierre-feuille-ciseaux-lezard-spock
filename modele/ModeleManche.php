@@ -1,11 +1,11 @@
 <?php
 
-class abstract ModeleManche {
+class ModeleManche {
 
     private $identifiant;
     private $listeCoup; // array de coup : mini un coup -> infinité de coup
 	
-    public function __construct($i, $lc) {
+    public function __construct($i) {
         $this->identifiant = $i;
         $this->listeCoup = array();
     }
