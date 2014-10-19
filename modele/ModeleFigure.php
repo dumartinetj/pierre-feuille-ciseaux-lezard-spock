@@ -1,9 +1,11 @@
 <?php
 
-class static abstract ModeleFigure {
+abstract class ModeleFigure {
 
 	protected static $image; // pas sur de ça je pense on le mettra direct dans la vue non ?
 	protected static $son; // pareil ici
+	
+	public function __construct() { }
 	
 	public function estDansSesForces($figure) { // $figure est elle dans les forces de la figure this ?
 		return (in_array($figure, $forces));
