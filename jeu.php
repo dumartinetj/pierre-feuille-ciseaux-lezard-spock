@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -16,6 +11,10 @@ and open the template in the editor.
             include ROOT . DS . 'controleur' . DS . 'ControleurCoup.php';
             //AFTER CHRONO
             require_once ROOT . DS . 'controleur' . DS . 'ControleurCoup.php';
+			j1 = new Joueur(1, "Jean", "Homme", 25);
+			j2 = new Joueur(2, "Jeanne", "Femme", 22);
+			// on créer une nouvelle partie avec 3 manches
+			// etc.
         ?>
     </body>
 </html>

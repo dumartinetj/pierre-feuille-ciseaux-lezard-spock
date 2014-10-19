@@ -4,8 +4,8 @@ class ModeleJoueur {
 
     private $identifiant;
     private $pseudo;
-    private $sexe;
-	private $age;
+    private $sexe; // doit être seulement Homme ou Femme
+	private $age; // compris entre 0 et 100 ?
 	private $nbVictoire;
 	private $nbDefaite;
 	private $ratio;	
