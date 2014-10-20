@@ -6,7 +6,7 @@
     </head>
     <body>
         <?php
-		
+
 			include('modele/Joueur.php');
 			include('modele/Partie.php');
 			include('modele/Manche.php');
@@ -23,7 +23,7 @@
             //include ROOT . DS . 'controleur' . DS . 'ControleurCoup.php';
             //AFTER CHRONO
             //require_once ROOT . DS . 'controleur' . DS . 'ControleurCoup.php';
-			
+
 			$j1 = new Joueur(1, "Jean", "Homme", 25);
 			$j2 = new Joueur(2, "Jeanne", "Femme", 22);
 			$p1 = new Partie(1, $j1, $j2);
@@ -37,8 +37,8 @@
 				$f2 = $coup->getFigureJoueur2();
 				echo 'Joueur 1 a joué '.$f1->quiSuisJe().'<br/>';
 				echo 'Joueur 2 a joué '.$f2->quiSuisJe().'<br/>';
-                if($coup->estUnDraw()){
-					while($coup->estUnDraw()){
+                if($m->verfiFinManche($coup)){
+					while($m->verfiFinManche($coup)){
 						echo 'Le coup joué est un draw !<br/>';
 						$m->ajoutCoup($coup);
 						$nbcoup++;
@@ -47,7 +47,7 @@
 						$f2 = $coup->getFigureJoueur2();
 						echo 'Joueur 1 a joué '.$f1->quiSuisJe().'<br/>';
 						echo 'Joueur 1 a joué '.$f2->quiSuisJe().'<br/>';
-					}   
+					}
 				}
                 else{
                     $coup->evaluer();
@@ -55,7 +55,7 @@
                     $m->ajoutCoup($coup);
                 }
                 $p1->ajoutManche($m);
-                $nbmanche++;  
+                $nbmanche++;
 		echo 'Manche terminé<br/>';
             }
             echo 'Partie terminé<br/>';
