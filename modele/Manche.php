@@ -16,7 +16,8 @@ class Manche {
     }
         
 	public function estGagnantManche(){
-		return $gagnantManche=end($listeCoup)->getJoueurGagnant();
+		$c = end($this->listeCoup);
+		return $c->getJoueurGagnant();
     }
 	
 }
