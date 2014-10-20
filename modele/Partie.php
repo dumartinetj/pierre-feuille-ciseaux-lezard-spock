@@ -20,13 +20,13 @@ class Partie {
 		array_push($this->listeManche, $m); // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
 	}
 	
-	public function estGagnantPartie(){
+	/*public function estGagnantPartie(){
 	if (listeManche(1).getGagnantManche()==listeManche(2).getGagnantManche()){
 	          gagnantPartie=listeManche(1).getGagnantManche();
 	}
 	else{ ajoutManche(new Manche(3));
 		gagnantPartie=listeManche(3).getGagnantManche();
-	}
+	}*/
 }
 
 ?>
