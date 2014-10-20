@@ -8,24 +8,29 @@
     <body>
 <?php
 
-include ('modele/Figure.php');
+include('modele/Figure.php');
 include('modele/Ciseaux.php');
 include('modele/Lezard.php');
 include('modele/Spock.php');
 include('modele/Feuille.php');
 include('modele/Pierre.php');
 
-$f1 = new Lezard();
-$f2 = new Ciseaux();
-$f3 = new Spock();
-$f4 = new Pierre();
+$f1 = new Pierre();
+$f2 = new Feuille();
+$f3 = new Ciseaux();
+$f4 = new Lezard();
+$f5 = new Spock();
 
-echo($f1.quiSuisJe());
-echo($f2.quiSuisJe());
-echo($f3.quiSuisJe());
-echo($f4.quiSuisJe());
-
-
+echo($f1->quiSuisJe());
+echo($f2->quiSuisJe());
+echo($f3->quiSuisJe());
+echo($f4->quiSuisJe());
+echo($f5->quiSuisJe());
+echo($f1->getIdentifiant());
+echo($f2->getIdentifiant());
+echo($f3->getIdentifiant());
+echo($f4->getIdentifiant());
+echo($f5->getIdentifiant());
 
 ?>
 

@@ -4,19 +4,21 @@ require_once 'Figure.php';
 
 class Pierre extends Figure {
 
-	protected static $image = "LIEN_VERS_LIMAGE";
-	protected static $son = "LIEN_VERS_LE_SON";
-	private static $forces = array(Ciseaux, Lezard); // je ne suis pas sur du tout de la syntaxe de l'array
-    private static $faiblesses = array(Feuille, Spock); // je ne suis pas sur du tout de la syntaxe de l'array
+	protected static $identifiant = 1;
+	private static $forces = array(3, 4);
+    private static $faiblesses = array(2, 5);
 	
 	public function __construct() { 
 		parent::__construct();
 	}
-
+	
+	public function getIdentifiant() {
+		return self::$identifiant;
+	}	
+	
 	public function quiSuisJe() {
 		return __CLASS__;
 	}
-	
 }
 
 ?>
