@@ -24,7 +24,7 @@ class Partie {
 	if (listeManche(1).getGagnantManche()==listeManche(2).getGagnantManche()){
 	          gagnantPartie=listeManche(1).getGagnantManche();
 	}
-	else{ ajoutManche(new Manche($i));
+	else{ ajoutManche(new Manche(3));
 		gagnantPartie=listeManche(3).getGagnantManche();
 	}
 }
