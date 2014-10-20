@@ -7,16 +7,16 @@
     <body>
         <?php
 		
-			include('modele/ModeleJoueur.php');
-			include('modele/ModelePartie.php');
-			include('modele/ModeleManche.php');
-			include('modele/ModeleCoup.php');
-			include('modele/ModeleFigure.php');
-			include('modele/ModeleCiseaux.php');
-			include('modele/ModeleLezard.php');
-			include('modele/ModeleSpock.php');
-			include('modele/ModeleFeuille.php');
-			include('modele/ModelePierre.php');
+			include('modele/Joueur.php');
+			include('modele/Partie.php');
+			include('modele/Manche.php');
+			include('modele/Coup.php');
+			include('modele/Figure.php');
+			include('modele/Ciseaux.php');
+			include('modele/Lezard.php');
+			include('modele/Spock.php');
+			include('modele/Feuille.php');
+			include('modele/Pierre.php');
 			
 		
             //define('ROOT', dirname(__FILE__));
@@ -24,15 +24,15 @@
             //include ROOT . DS . 'controleur' . DS . 'ControleurCoup.php';
             //AFTER CHRONO
             //require_once ROOT . DS . 'controleur' . DS . 'ControleurCoup.php';
-			$j1 = new ModeleJoueur(1, "Jean", "Homme", 25);
-			$j2 = new ModeleJoueur(2, "Jeanne", "Femme", 22);
-			$p1 = new ModelePartie(1, $j1, $j2);
+			$j1 = new Joueur(1, "Jean", "Homme", 25);
+			$j2 = new Joueur(2, "Jeanne", "Femme", 22);
+			$p1 = new Partie(1, $j1, $j2);
 			$nbmanche = 1;
 			while ($nbmanche != 3) {
 				echo 'Début de la manche '.$nbmanche.'<br/>';
-                $m = new ModeleManche($nbmanche);
+                $m = new Manche($nbmanche);
                 $nbcoup=1;
-                $coup = new ModeleCoup($nbcoup,new ModeleCiseaux(),new ModeleCiseaux());
+                $coup = new Coup($nbcoup,new Ciseaux(),new Ciseaux());
 				echo 'Joueur 1 a joué '.($coup.getFigureJoueur1()).afficher().'<br/>';
 				echo 'Joueur 2 a joué '.($coup.getFigureJoueur2()).afficher().'<br/>';
                 if($coup.estUnDraw){
@@ -40,7 +40,7 @@
 						echo 'Le coup joué est un draw !<br/>';
 						$m.ajoutCoup($coup);
 						$nbcoup++;
-						$coup=new ModeleCoup($nbcoup,new ModeleLezard(), new ModelePierre());
+						$coup=new Coup($nbcoup,new Lezard(), new Pierre());
 						echo 'Joueur 1 a joué '.($coup.getFigureJoueur1()).afficher().'<br/>';
 						echo 'Joueur 1 a joué '.($coup.getFigureJoueur2()).afficher().'<br/>';
 					}   
