@@ -37,8 +37,8 @@
 				$f2 = $coup->getFigureJoueur2();
 				echo 'Joueur 1 a joué '.$f1->quiSuisJe().'<br/>';
 				echo 'Joueur 2 a joué '.$f2->quiSuisJe().'<br/>';
-                if($m->verfiFinManche($coup)){
-					while($m->verfiFinManche($coup)){
+                if(!$m->verfiFinManche($coup)){
+					while(!$m->verfiFinManche($coup)){
 						echo 'Le coup joué est un draw !<br/>';
 						$m->ajoutCoup($coup);
 						$nbcoup++;
@@ -46,7 +46,7 @@
 						$f1 = $coup->getFigureJoueur1();
 						$f2 = $coup->getFigureJoueur2();
 						echo 'Joueur 1 a joué '.$f1->quiSuisJe().'<br/>';
-						echo 'Joueur 1 a joué '.$f2->quiSuisJe().'<br/>';
+						echo 'Joueur 2 a joué '.$f2->quiSuisJe().'<br/>';
 					}
 				}
                 else{
