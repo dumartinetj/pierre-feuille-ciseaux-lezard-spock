@@ -54,9 +54,11 @@
                     echo 'Le coup joué est validé !<br/>';
                     $m->ajoutCoup($coup);
                 }
-                $p1->ajoutManche($m);
-                $nbmanche++;  
-		echo 'Manche terminé<br/>';
+				$f1 = $m->estGagnantManche();				
+				echo $f1->getPseudo().' a gagné la manche !<br/>';
+				$p1->ajoutManche($m);
+                $nbmanche++;
+				echo 'Manche terminé<br/>';
             }
             echo 'Partie terminé<br/>';
         ?>
