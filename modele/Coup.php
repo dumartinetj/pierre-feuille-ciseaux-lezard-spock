@@ -23,13 +23,15 @@ class Coup {
 
 	public function evaluer() {
 		if (!($this->estUnDraw())) { 
-			$f1win = $this->getFigureJoueur1().estDansSesForces($this->getFigureJoueur2());
-			$f2win = $this->getFigureJoueur1().estDansSesFaiblesses($this->getFigureJoueur2());
-			if ($this->f1win == true) {
-                            $this->gagnant = $joueur1;
+			$f1win = $this->getFigureJoueur1();
+			$f1win = $f1win->estDansSesForces($this->figureJoueur2->getIdentifiant());
+			$f2win = $this->getFigureJoueur1();
+			$f2win = $f2win->estDansSesFaiblesses($this->figureJoueur2->getIdentifiant());
+			if ($f1win == true) {
+				$this->gagnant = $joueur1;
 			}
-			else if($this->f2win == true) {
-                            $this->gagnant = $joueur2;
+			else if ($f2win == true) {
+				$this->gagnant = $joueur2;
 			}
 		}
 	}
