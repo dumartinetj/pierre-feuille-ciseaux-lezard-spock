@@ -32,7 +32,7 @@
 				echo 'Début de la manche '.$nbmanche.'<br/>';
                 $m = new Manche($nbmanche);
                 $nbcoup=1;
-                $coup = new Coup($nbcoup,new Ciseaux(),new Ciseaux());
+                $coup = new Coup($nbcoup,new Ciseaux(),new Ciseaux(),$j1,$j2);
 				$f1 = $coup->getFigureJoueur1();
 				$f2 = $coup->getFigureJoueur2();
 				echo 'Joueur 1 a joué '.$f1->quiSuisJe().'<br/>';
@@ -42,7 +42,7 @@
 						echo 'Le coup joué est un draw !<br/>';
 						$m->ajoutCoup($coup);
 						$nbcoup++;
-						$coup=new Coup($nbcoup,new Lezard(), new Pierre());
+						$coup=new Coup($nbcoup,new Lezard(), new Pierre(),$j1,$j2);
 						$f1 = $coup->getFigureJoueur1();
 						$f2 = $coup->getFigureJoueur2();
 						echo 'Joueur 1 a joué '.$f1->quiSuisJe().'<br/>';

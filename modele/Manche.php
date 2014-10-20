@@ -15,7 +15,7 @@ class Manche {
 		array_push($this->listeCoup, $c); // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
     }
         
-	public function estGagnantManche(){
+	public function getJoueurGagnantManche(){
 		$c = end($this->listeCoup);
 		return $c->getJoueurGagnant();
     }
