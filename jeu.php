@@ -37,7 +37,7 @@
 				$f2 = $coup->getFigureJoueur2();
 				echo 'Joueur 1 a joué '.$f1->quiSuisJe().'<br/>';
 				echo 'Joueur 2 a joué '.$f2->quiSuisJe().'<br/>';
-                if(!$m->verifFinManche($coup)){
+                if($m->verifFinManche($coup)){
 					while(!$m->verifFinManche($coup)){
 						echo 'Le coup joué est un draw !<br/>';
 						$m->ajoutCoup($coup);
@@ -53,9 +53,11 @@
                     $coup->evaluer();
                     echo 'Le coup joué est validé !<br/>';
                     $m->ajoutCoup($coup);
+					$x = $coup->getJoueurGagnantCoup();
+					echo ''.$x->getPseudo().' a gagné la manche !<br/>';
                 }
-				$f1 = $m->getJoueurGagnantManche();				
-				echo ''.$f1->getPseudo().' a gagné la manche !<br/>';
+				$g = $m->getJoueurGagnantManche();				
+				//echo ''.$g->getPseudo().' a gagné la manche !<br/>';
 				$p1->ajoutManche($m);
                 $nbmanche++;
 				echo 'Manche terminé<br/>';
