@@ -32,7 +32,7 @@
 				echo 'Début de la manche '.$nbmanche.'<br/>';
                 $m = new Manche($nbmanche);
                 $nbcoup=1;
-                $coup = new Coup($nbcoup,new Ciseaux(),new Ciseaux(),$j1,$j2);
+                $coup = new Coup($nbcoup,new Ciseaux(),new Spock(),$j1,$j2);
 				$f1 = $coup->getFigureJoueur1();
 				$f2 = $coup->getFigureJoueur2();
 				echo 'Joueur 1 a joué '.$f1->quiSuisJe().'<br/>';
@@ -53,8 +53,6 @@
                     $coup->evaluer();
                     echo 'Le coup joué est validé !<br/>';
                     $m->ajoutCoup($coup);
-					$x = $coup->getJoueurGagnantCoup();
-					echo ''.$x->getPseudo().' a gagné la manche !<br/>';
                 }
 				$g = $m->getJoueurGagnantManche();				
 				//echo ''.$g->getPseudo().' a gagné la manche !<br/>';
