@@ -21,12 +21,13 @@ class Partie {
 	}
 	
 	public function estGagnantPartie(){
-		mixed end(listeManche);
-	if (getGagnantManche(end(listeManche))==getGagnantManche(prev(end(listeManche)))){
-	          gagnantPartie=getGagnantManche(current(listeManche);
-	}
-	else{ 
-		gagnantPartie=getGagnantManche(prev(prev(end(listeManche))));
+		end($listeManche);
+		if (getGagnantManche(end($listeManche))==getGagnantManche(prev(end($listeManche)))){
+				  $gagnantPartie=getGagnantManche(current($listeManche));
+		}
+		else{ 
+			$gagnantPartie=getGagnantManche(prev(prev(end($listeManche))));
+		}
 	}
 }
 

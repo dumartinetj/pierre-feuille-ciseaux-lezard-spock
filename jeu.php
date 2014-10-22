@@ -7,16 +7,16 @@
     <body>
         <?php
 
-			include('modele/Joueur.php');
-			include('modele/Partie.php');
-			include('modele/Manche.php');
-			include('modele/Coup.php');
-			include('modele/Figure.php');
-			include('modele/Ciseaux.php');
-			include('modele/Lezard.php');
-			include('modele/Spock.php');
-			include('modele/Feuille.php');
-			include('modele/Pierre.php');
+			include_once('modele/Joueur.php');
+			include_once('modele/Partie.php');
+			include_once('modele/Manche.php');
+			include_once('modele/Coup.php');
+			include_once('modele/Figure.php');
+			include_once('modele/Ciseaux.php');
+			include_once('modele/Lezard.php');
+			include_once('modele/Spock.php');
+			include_once('modele/Feuille.php');
+			include_once('modele/Pierre.php');
 
             //define('ROOT', dirname(__FILE__));
             //define('DS', dirname(DIRECTORY_SEPARATOR));
