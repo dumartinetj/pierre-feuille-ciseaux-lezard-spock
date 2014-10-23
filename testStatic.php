@@ -31,7 +31,6 @@ echo($f2->getIdentifiant());
 echo($f3->getIdentifiant());
 echo($f4->getIdentifiant());
 echo($f5->getIdentifiant());
-echo(implode($f2->getForces())); //Equivalent toString arrayList Forces
 
 
 
