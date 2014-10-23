@@ -3,7 +3,8 @@
 class Manche {
 
     private $identifiant;
-    private $listeCoup; // array de coup : mini un coup -> infinité de coup
+    private $listeCoup; // array de coup : mini un coup -> infinité de coup4
+    private $gagnantManche;
 
     public function __construct($i) {
         $this->identifiant = $i;
@@ -25,7 +26,8 @@ class Manche {
         
 	public function getJoueurGagnantManche(){
 		$c = end($this->listeCoup);
-		return $c->getJoueurGagnantCoup();
+                $this->gagnantManche = $c->getJoueurGagnantCoup();
+		return $this->gagnantManche;
     }
 
 }

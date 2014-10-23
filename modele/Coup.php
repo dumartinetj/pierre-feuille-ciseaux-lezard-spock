@@ -21,40 +21,40 @@ class Coup {
 	// évalue le coup et set le gagnant et le perdant
 	
 
-	public function evaluer() {
-		if (!($this->estUnDraw())) { 
-			$f1 = $this->getFigureJoueur1();
-			$f2 = $this->getFigureJoueur2();
-			$id1 = $f1->getIdentifiant();
-			$id2 = $f2->getIdentifiant();
-			$f1win = $f1->estDansSesForces($id1);
-			$f2win = $f2->estDansSesFaiblesses($id2);
-			if ($f1win) {
-				$this->gagnant = $joueur1;
-			}
-			else if ($f2win) {
-				$this->gagnant = $joueur2;
-			}
-		}
-	}
+    public function evaluer() {
+        if (!($this->estUnDraw())) { 
+            $f1 = $this->getFigureJoueur1();
+            $f2 = $this->getFigureJoueur2();
+            $id1 = $f1->getIdentifiant();
+            $id2 = $f2->getIdentifiant();
+            $f1win = $f1->estDansSesForces($id1);
+            $f2win = $f2->estDansSesFaiblesses($id2);
+            if ($f1win == true) {
+                $this->gagnant = $this->joueur1; 
+            }
+            else if ($f2win == true) {
+                $this->gagnant = $this->joueur2;
+            }
+        }
+    }
 	
-	public function estUnDraw() {
+    public function estUnDraw() {
         $fj1 = $this->figureJoueur1;
         $fj2 = $this->figureJoueur2;
-		$id1 = $fj1->getIdentifiant();
-		$id2 = $fj2->getIdentifiant();
+        $id1 = $fj1->getIdentifiant();
+        $id2 = $fj2->getIdentifiant();
         return ($id1==$id2);
     } 
 	
-	public function getFigureJoueur1() {
-		return $this->figureJoueur1;
-	}
+    public function getFigureJoueur1() {
+        return $this->figureJoueur1;
+    }
 	
-	public function getFigureJoueur2() {
-		return $this->figureJoueur2;
-	}
-	public function getJoueurGagnantCoup(){
-		return $this->gagnant;
+    public function getFigureJoueur2() {
+        return $this->figureJoueur2;
+    }
+    public function getJoueurGagnantCoup(){
+        return $this->gagnant;
     }
 }
 ?>
