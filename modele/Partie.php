@@ -30,7 +30,7 @@ class Partie {
         if($jgm==$this->joueur1){$nbwinJ1++;}
         elseif ($jgm==$this->joueur2) {$nbwinJ2++;}
         while(prev($this->listeManche)!=FALSE){
-            $jgm=prev($this->listeManche)->getJoueurGagnantManche();
+            $jgm=current($this->listeManche)->getJoueurGagnantManche();
             if($jgm==$this->joueur1){$nbwinJ1++;}
             elseif ($jgm==$this->joueur2) {$nbwinJ2++;}
         }
@@ -42,8 +42,12 @@ class Partie {
     
     public function checkPartieFinie() {
 	$nbmjoue=count($this->listeManche);
-        //$ungagnant=$this->getJoueurGagnantPartie();
-        return (($this->nbManche==$nbmjoue) /*or ($this->gagnantPartie==$ungagnant)*/);
+        $unGagnant=FALSE;
+        if($nbmjoue>=1){
+            $winner=$this->getJoueurGagnantPartie();
+            $unGagnant=($winner!=NULL);
+        }
+        return (($this->nbManche==$nbmjoue) or $unGagnant);
     }
 }
 
