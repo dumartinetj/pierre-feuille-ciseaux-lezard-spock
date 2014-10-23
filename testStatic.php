@@ -21,18 +21,23 @@ $f3 = new Ciseaux();
 $f4 = new Lezard();
 $f5 = new Spock();
 
-echo($f1->quiSuisJe());
-echo($f2->quiSuisJe());
-echo($f3->quiSuisJe());
-echo($f4->quiSuisJe());
-echo($f5->quiSuisJe());
-echo($f1->getIdentifiant());
-echo($f2->getIdentifiant());
 echo($f3->getIdentifiant());
-echo($f4->getIdentifiant());
-echo($f5->getIdentifiant());
-echo(implode($f2->getForces())); //Equivalent toString arrayList Forces
-
+echo($f3->quiSuisJe());
+print_r ($f3->getForces());
+print_r ($f3->getFaiblesses());
+$id2 = $f2->getIdentifiant();
+$res = $f3->estDansSesForces($id2);
+var_dump($res); 
+/*$res = $f3->estDansSesFaiblesses($id2);
+var_dump($res);*/
+if ($res)
+  {
+  echo "Dans ses forces";
+  }
+else
+  {
+  echo "Dans ses faiblesses";
+  } 
 
 
 ?>
