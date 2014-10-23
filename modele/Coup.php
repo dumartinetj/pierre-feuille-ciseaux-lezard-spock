@@ -15,7 +15,7 @@ class Coup {
         $this->figureJoueur2 = $fj2;
         $this->joueur1 = $j1; // on suppose au départ que le coup sera un draw
         $this->joueur2 = $j2; // donc j1 & j2 en false
-		$this->gagnant = NULL;
+        $this->gagnant = NULL;
     }
 	
 	// évalue le coup et set le gagnant et le perdant
