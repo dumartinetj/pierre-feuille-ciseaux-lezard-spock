@@ -15,8 +15,9 @@ class Manche {
         array_push($this->listeCoup, $c); // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
     }
 
-    public function verifFinManche($coup){
-	if($coup->estUnDraw()){
+    public function verifFinManche(){
+        $lc = end($this->listeCoup);
+	if($lc->estUnDraw()){
             return false;
 	}
         else{

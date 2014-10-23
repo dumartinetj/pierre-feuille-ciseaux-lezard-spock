@@ -5,8 +5,8 @@ class Coup {
     private $identifiant;
     private $figureJoueur1;
     private $figureJoueur2;
-	private $joueur1;
-	private $joueur2;
+    private $joueur1;
+    private $joueur2;
     private $gagnant;
 	
     public function __construct($i, $fj1, $fj2, $j1, $j2) {
@@ -15,14 +15,14 @@ class Coup {
         $this->figureJoueur2 = $fj2;
         $this->joueur1 = $j1; // on suppose au départ que le coup sera un draw
         $this->joueur2 = $j2; // donc j1 & j2 en false
-        $this->gagnant = NULL;
     }
 	
 	// évalue le coup et set le gagnant et le perdant
 	
 
     public function evaluer() {
-        if (!($this->estUnDraw())) { 
+        if (!$this->estUnDraw()) {
+            echo 'ON RENTRE DANS EVALUER <br>';
             $f1 = $this->getFigureJoueur1();
             $f2 = $this->getFigureJoueur2();
             $id1 = $f1->getIdentifiant();
@@ -30,9 +30,11 @@ class Coup {
             $f1win = $f1->estDansSesForces($id1);
             $f2win = $f2->estDansSesFaiblesses($id2);
             if ($f1win == true) {
+                echo 'ON RENTRE DANS F1WIN <br>';
                 $this->gagnant = $this->joueur1; 
             }
             else if ($f2win == true) {
+                echo 'ON RENTRE DANS F2WIN <br>';
                 $this->gagnant = $this->joueur2;
             }
         }
@@ -43,7 +45,7 @@ class Coup {
         $fj2 = $this->figureJoueur2;
         $id1 = $fj1->getIdentifiant();
         $id2 = $fj2->getIdentifiant();
-        return ($id1==$id2);
+        return ($id1==$id2); 
     } 
 	
     public function getFigureJoueur1() {

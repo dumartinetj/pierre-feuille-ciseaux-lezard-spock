@@ -30,28 +30,27 @@
 		echo 'Début de la manche '.$nbmanche.'<br/>';
                 $m = new Manche($nbmanche);
                 $nbcoup=1;
-                $coup = new Coup($nbcoup,new Ciseaux(),new Spock(),$j1,$j2);
+                $coup = new Coup($nbcoup,new Ciseaux(),new Ciseaux(),$j1,$j2);
+                $m->ajoutCoup($coup);
 		$f1 = $coup->getFigureJoueur1();
 		$f2 = $coup->getFigureJoueur2();
-		echo 'Joueur 1 a joué '.$f1->quiSuisJe().'<br/>';
-		echo 'Joueur 2 a joué '.$f2->quiSuisJe().'<br/>';
-                if($m->verifFinManche($coup)){
-                    while(!$m->verifFinManche($coup)){
+		echo $j1->getPseudo().' a joué '.$f1->quiSuisJe().'<br/>';
+		echo $j2->getPseudo().' a joué '.$f2->quiSuisJe().'<br/>';
+                if(!$m->verifFinManche()){
+                    while(!$m->verifFinManche()){
                         echo 'Le coup joué est un draw !<br/>';
-                        $m->ajoutCoup($coup);
                         $nbcoup++;
                         $coup=new Coup($nbcoup,new Lezard(), new Pierre(),$j1,$j2);
+                        $m->ajoutCoup($coup);
                         $f1 = $coup->getFigureJoueur1();
                         $f2 = $coup->getFigureJoueur2();
-                        echo 'Joueur 1 a joué '.$f1->quiSuisJe().'<br/>';
-                        echo 'Joueur 2 a joué '.$f2->quiSuisJe().'<br/>';
+                        echo $j1->getPseudo().' a joué '.$f1->quiSuisJe().'<br/>';
+                        echo $j2->getPseudo().' a joué '.$f2->quiSuisJe().'<br/>';
                     }
 		}
-                else{
-                    $coup->evaluer();
-                    echo 'Le coup joué est validé !<br/>';
-                    $m->ajoutCoup($coup);
-                }
+                $coup->evaluer();
+                echo 'Le coup joué est validé !<br/>';
+                $m->ajoutCoup($coup);
 		$g = $m->getJoueurGagnantManche();				
 		//echo ''.$g->getPseudo().' a gagné la manche !<br/>';
 		$p1->ajoutManche($m);
