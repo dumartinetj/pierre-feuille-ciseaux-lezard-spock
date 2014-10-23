@@ -18,9 +18,10 @@ class Coup {
         $this->gagnant = NULL;
     }
 	
-	// évalue le coup et set le gagnant et le perdant
-	
-
+	// nom: evaluer
+	// description: évalue le coup et set le gagnant et le perdant
+	// param: rien
+	// retourne: rien
     public function evaluer() {
             $f1 = $this->getFigureJoueur1();
             $f2 = $this->getFigureJoueur2();
@@ -33,6 +34,10 @@ class Coup {
             }
     }
 	
+	// nom: estUnDraw
+	// description: compare les figures des deux joueurs pour voir si il y a un draw
+	// param: rien
+	// retourne: true si les figures sont identique, false si non
     public function estUnDraw() {
         $fj1 = $this->figureJoueur1;
         $fj2 = $this->figureJoueur2;
