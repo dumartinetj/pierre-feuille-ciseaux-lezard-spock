@@ -11,23 +11,23 @@ class Manche {
         $this->listeCoup = array();
     }
 
-	public function ajoutCoup($c) {
-		array_push($this->listeCoup, $c); // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
-	}
+    public function ajoutCoup($c) {
+        array_push($this->listeCoup, $c); // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
+    }
 
-	public function verifFinManche($coup){
-		if($coup->estUnDraw()){
-			return false;
-		}
-		else{
-			return true;
-		}
+    public function verifFinManche($coup){
+	if($coup->estUnDraw()){
+            return false;
 	}
+        else{
+            return true;
+	}
+    }
         
-	public function getJoueurGagnantManche(){
-		$c = end($this->listeCoup);
-                $this->gagnantManche = $c->getJoueurGagnantCoup();
-		return $this->gagnantManche;
+    public function getJoueurGagnantManche(){
+        $c = end($this->listeCoup);
+        $this->gagnantManche = $c->getJoueurGagnantCoup();
+        return $this->gagnantManche;
     }
 
 }

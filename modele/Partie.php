@@ -16,19 +16,18 @@ class Partie {
         $this->listeManche = array();
     }
 	
-	public function ajoutManche($m) {
-		array_push($this->listeManche, $m); // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
-	}
-	
-	public function estGagnantPartie(){
-		end($listeManche);
-		if (getGagnantManche(end($listeManche))==getGagnantManche(prev(end($listeManche)))){
-				  $gagnantPartie=getGagnantManche(current($listeManche));
-		}
-		else{ 
-			$gagnantPartie=getGagnantManche(prev(prev(end($listeManche))));
-		}
-	}
+    public function ajoutManche($m) {
+        array_push($this->listeManche, $m); // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
+    }
+    public function estGagnantPartie(){
+        end($listeManche);
+        if (getGagnantManche(end($listeManche))==getGagnantManche(prev(end($listeManche)))){
+            $gagnantPartie=getGagnantManche(current($listeManche));
+        }
+        else{ 
+            $gagnantPartie=getGagnantManche(prev(prev(end($listeManche))));
+        }
+    }
 }
 
 ?>
