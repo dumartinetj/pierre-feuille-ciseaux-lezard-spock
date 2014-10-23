@@ -27,8 +27,9 @@ class Coup {
             $f2 = $this->getFigureJoueur2();
             $id1 = $f1->getIdentifiant();
             $id2 = $f2->getIdentifiant();
-            $f1win = $f1->estDansSesForces($id1);
-            $f2win = $f2->estDansSesFaiblesses($id2);
+            $f1win = $f1->estDansSesForces($id2);
+            echo $f1win.'<br>';
+            $f2win = $f2->estDansSesForces($id1);
             if ($f1win == true) {
                 echo 'ON RENTRE DANS F1WIN <br>';
                 $this->gagnant = $this->joueur1; 

@@ -24,24 +24,24 @@
             //----DEBUT de La Partie
             $j1 = new Joueur(1, "Jean", "Homme", 25);
             $j2 = new Joueur(2, "Jeanne", "Femme", 22);
-            $p1 = new Partie(1, $j1, $j2);
+            $partie = new Partie(1, $j1, $j2);
             $nbmanche = 1;
             while ($nbmanche <= 3) {
 		echo 'Début de la manche '.$nbmanche.'<br/>';
-                $m = new Manche($nbmanche);
+                $manche = new Manche($nbmanche);
                 $nbcoup=1;
                 $coup = new Coup($nbcoup,new Ciseaux(),new Ciseaux(),$j1,$j2);
-                $m->ajoutCoup($coup);
+                $manche->ajoutCoup($coup);
 		$f1 = $coup->getFigureJoueur1();
 		$f2 = $coup->getFigureJoueur2();
 		echo $j1->getPseudo().' a joué '.$f1->quiSuisJe().'<br/>';
 		echo $j2->getPseudo().' a joué '.$f2->quiSuisJe().'<br/>';
-                if(!$m->verifFinManche()){
-                    while(!$m->verifFinManche()){
+                if(!$manche->verifFinManche()){
+                    while(!$manche->verifFinManche()){
                         echo 'Le coup joué est un draw !<br/>';
                         $nbcoup++;
                         $coup=new Coup($nbcoup,new Lezard(), new Pierre(),$j1,$j2);
-                        $m->ajoutCoup($coup);
+                        $manche->ajoutCoup($coup);
                         $f1 = $coup->getFigureJoueur1();
                         $f2 = $coup->getFigureJoueur2();
                         echo $j1->getPseudo().' a joué '.$f1->quiSuisJe().'<br/>';
@@ -50,10 +50,12 @@
 		}
                 $coup->evaluer();
                 echo 'Le coup joué est validé !<br/>';
-                $m->ajoutCoup($coup);
-		$g = $m->getJoueurGagnantManche();				
-		//echo ''.$g->getPseudo().' a gagné la manche !<br/>';
-		$p1->ajoutManche($m);
+                $gagnantCoup = $coup->getJoueurGagnantCoup();
+                echo ''.$gagnantCoup->getPseudo().' a gagné la manche !<br/>';
+                $manche->ajoutCoup($coup);
+		$gagnantManche = $manche->getJoueurGagnantManche();				
+		echo ''.$gagnantManche->getPseudo().' a gagné la manche !<br/>';
+		$partie->ajoutManche($manche);
                 $nbmanche++;
 		echo 'Manche terminé<br/>';
             }
