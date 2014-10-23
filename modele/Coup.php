@@ -15,30 +15,22 @@ class Coup {
         $this->figureJoueur2 = $fj2;
         $this->joueur1 = $j1; // on suppose au départ que le coup sera un draw
         $this->joueur2 = $j2; // donc j1 & j2 en false
+		$this->gagnant = NULL;
     }
 	
 	// évalue le coup et set le gagnant et le perdant
 	
 
     public function evaluer() {
-        if (!$this->estUnDraw()) {
-            echo 'ON RENTRE DANS EVALUER <br>';
             $f1 = $this->getFigureJoueur1();
             $f2 = $this->getFigureJoueur2();
-            $id1 = $f1->getIdentifiant();
-            $id2 = $f2->getIdentifiant();
-            $f1win = $f1->estDansSesForces($id2);
-            echo $f1win.'<br>';
-            $f2win = $f2->estDansSesForces($id1);
-            if ($f1win == true) {
-                echo 'ON RENTRE DANS F1WIN <br>';
-                $this->gagnant = $this->joueur1; 
+            $f1win = $f1->estDansSesForces($f2->getIdentifiant());
+            if ($f1win) {
+                $this->gagnant = $this->joueur1;				
             }
-            else if ($f2win == true) {
-                echo 'ON RENTRE DANS F2WIN <br>';
+            else {
                 $this->gagnant = $this->joueur2;
             }
-        }
     }
 	
     public function estUnDraw() {

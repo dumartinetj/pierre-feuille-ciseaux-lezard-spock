@@ -21,24 +21,25 @@
             //include ROOT . DS . 'controleur' . DS . 'ControleurCoup.php';
             //AFTER CHRONO
             //require_once ROOT . DS . 'controleur' . DS . 'ControleurCoup.php';
-            //----DEBUT de La Partie
-            $j1 = new Joueur(1, "Jean", "Homme", 25);
-            $j2 = new Joueur(2, "Jeanne", "Femme", 22);
-            $partie = new Partie(1, $j1, $j2);
+            $j1 = new Joueur(1, "Jean", "Homme", 25, "a@a.com", "1234567879");
+            $j2 = new Joueur(2, "Jeanne", "Femme", 22, "a@a.com", "1234567879");
+            $partie = new Partie(1, 5, $j1, $j2);
             $nbmanche = 1;
-            while ($nbmanche <= 3) {
-		echo 'Début de la manche '.$nbmanche.'<br/>';
+			$nbcoup=1;
+            while ($nbmanche <= 3) { // changer la condition par $this->checkPartieFini()
+				echo 'Début de la manche '.$nbmanche.'<br/>';
                 $manche = new Manche($nbmanche);
                 $nbcoup=1;
                 $coup = new Coup($nbcoup,new Ciseaux(),new Ciseaux(),$j1,$j2);
                 $manche->ajoutCoup($coup);
-		$f1 = $coup->getFigureJoueur1();
-		$f2 = $coup->getFigureJoueur2();
-		echo $j1->getPseudo().' a joué '.$f1->quiSuisJe().'<br/>';
-		echo $j2->getPseudo().' a joué '.$f2->quiSuisJe().'<br/>';
-                if(!$manche->verifFinManche()){
-                    while(!$manche->verifFinManche()){
-                        echo 'Le coup joué est un draw !<br/>';
+				$f1 = $coup->getFigureJoueur1();
+				$f2 = $coup->getFigureJoueur2();
+				echo $j1->getPseudo().' a joué '.$f1->quiSuisJe().'<br/>';
+				echo $j2->getPseudo().' a joué '.$f2->quiSuisJe().'<br/>';
+                if($coup->estUnDraw()){
+                    do {
+						echo 'Le coup joué est un draw !<br/>';
+						echo 'On rejout le coup !<br/>';
                         $nbcoup++;
                         $coup=new Coup($nbcoup,new Lezard(), new Pierre(),$j1,$j2);
                         $manche->ajoutCoup($coup);
@@ -46,21 +47,19 @@
                         $f2 = $coup->getFigureJoueur2();
                         echo $j1->getPseudo().' a joué '.$f1->quiSuisJe().'<br/>';
                         echo $j2->getPseudo().' a joué '.$f2->quiSuisJe().'<br/>';
-                    }
-		}
+					} while($coup->estUnDraw());
+				}
                 $coup->evaluer();
                 echo 'Le coup joué est validé !<br/>';
-                $gagnantCoup = $coup->getJoueurGagnantCoup();
-                echo ''.$gagnantCoup->getPseudo().' a gagné la manche !<br/>';
                 $manche->ajoutCoup($coup);
-		$gagnantManche = $manche->getJoueurGagnantManche();				
-		echo ''.$gagnantManche->getPseudo().' a gagné la manche !<br/>';
-		$partie->ajoutManche($manche);
-                $nbmanche++;
-		echo 'Manche terminé<br/>';
+				$gagnantManche = $manche->getJoueurGagnantManche();				
+				echo ''.$gagnantManche->getPseudo().' a gagné la manche !<br/>';
+				$partie->ajoutManche($manche);
+				$nbmanche++;
+				echo 'Manche terminé<br/>';
             }
+			// il faut afficher le gagnant de la partie ici
             echo 'Partie terminé<br/>';
-            //----FIN de la partie
         ?>
     </body>
 </html>

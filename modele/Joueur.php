@@ -8,16 +8,18 @@ class Joueur {
 	private $age; // compris entre 0 et 100 ?
 	private $nbVictoire;
 	private $nbDefaite;
-	private $ratio;	
+	private $password;
+	private $email;
 	
-    public function __construct($i, $p, $s, $a) {
+    public function __construct($i, $p, $s, $a, $em, $pw) {
         $this->identifiant = $i;
         $this->pseudo = $p;
         $this->sexe = $s;
 		$this->age = $a;
 		$this->nbVictoire = 0;
 		$this->nbDefaite = 0;		
-		$this->ratio = 0;
+		$this->password = $pw;		
+		$this->email = $em;		
     }
 	
 	public function getIdentifiant() {
@@ -42,10 +44,10 @@ class Joueur {
 	
 	public function getNbDefaite() {
 		return $this ->nbDefaite;
-	}
+	}	
 	
-	public function getRatio() {
-		return $this ->ratio;
+	public function getEmail() {
+		return $this ->nbDefaite;
 	}
 }
 
