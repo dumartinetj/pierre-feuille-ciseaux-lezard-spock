@@ -28,7 +28,12 @@
             $nbcoup=1;
             echo '-- Début de la partie! --<br/>';
             
-            while (!$partie->checkPartieFinie()) { // changer la condition par $this->checkPartieFini()
+	        // nom: jeu
+		// description: contient toutes les instructions pour jouer une partie
+		// param: rien
+		// retourne: retourne le gagnant de la partie
+            
+            while (!$partie->checkPartieFinie()) {  
 		echo '--- Début de la manche '.$nbmanche.'! ---<br/>';
                 $manche = new Manche($nbmanche);
                 $nbcoup=1;
