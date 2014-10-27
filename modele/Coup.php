@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Classe Coup
+ */
+
 class Coup {
 
     private $identifiant;
@@ -9,19 +13,22 @@ class Coup {
     private $joueur2;
     private $gagnant;
 	
+	/*
+	 * Constructeur de la classe qui instancie un nouveau Coup
+	 */
+	
     public function __construct($i, $fj1, $fj2, $j1, $j2) {
         $this->identifiant = $i;
         $this->figureJoueur1 = $fj1;
         $this->figureJoueur2 = $fj2;
-        $this->joueur1 = $j1; // on suppose au départ que le coup sera un draw
-        $this->joueur2 = $j2; // donc j1 & j2 en false
+        $this->joueur1 = $j1;
+        $this->joueur2 = $j2;
         $this->gagnant = NULL;
     }
 	
-	// nom: evaluer
-	// description: évalue le coup et set le gagnant et le perdant
-	// param: rien
-	// retourne: rien
+	/*
+	 * Évalue le coup et set le gagnant et le perdant
+	 */
     public function evaluer() {
             $f1 = $this->getFigureJoueur1();
             $f2 = $this->getFigureJoueur2();
@@ -34,10 +41,10 @@ class Coup {
             }
     }
 	
-	// nom: estUnDraw
-	// description: compare les figures des deux joueurs pour voir si il y a un draw
-	// param: rien
-	// retourne: true si les figures sont identique, false si non
+	/*
+	 * Compare les deux figures d'un coup
+	 * @return vrai si les figures sont identiques, faux si non
+	 */
     public function estUnDraw() {
         $fj1 = $this->figureJoueur1;
         $fj2 = $this->figureJoueur2;

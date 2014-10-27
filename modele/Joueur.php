@@ -1,16 +1,23 @@
 <?php
 
+/*
+ * Classe Joueur
+ */
+
 class Joueur {
 
     private $identifiant;
     private $pseudo;
-    private $sexe; // doit être seulement Homme ou Femme
-	private $age; // compris entre 0 et 100 ?
+    private $sexe;
+	private $age;
 	private $nbVictoire;
 	private $nbDefaite;
 	private $password;
 	private $email;
 	
+	/*
+	 * Constructeur de la classe qui instancie un nouveau Joueur
+	 */	
     public function __construct($i, $p, $s, $a, $em, $pw) {
         $this->identifiant = $i;
         $this->pseudo = $p;
