@@ -28,7 +28,7 @@ class Manche {
 
 	/*
 	 * Set et retourne le gagnant de this
-	 * @return le gagnant de la partie
+	 * @return le gagnant de la manche
 	 */
     public function getJoueurGagnantManche(){
         $c = end($this->listeCoup);
@@ -36,15 +36,35 @@ class Manche {
         return $this->gagnantManche;
     }
 
-    public function ajoutStatsGlobales(){
-        try {
-          // la fonction à faire est ici
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            die("Erreur lors de l'insertion des stats globales dans la BDD");
-        }
-
+  /*
+   * Get l'id du joueur 1 de this
+   * @return l'id du joueur 1 de this
+   */
+    public function getIdJoueur1(){
+        $c = end($this->listeCoup);
+        $j1 = $c->getJoueur1();
+        return $j1->getIdentifiant();
     }
+
+  /*
+   * Get l'id du joueur 2 de this
+   * @return l'id du joueur 2 de this
+   */
+   public function getIdJoueur2(){
+      $c = end($this->listeCoup);
+      $j1 = $c->getJoueur2();
+      return $j1->getIdentifiant();
+  }
+
+  public function ajoutStatsGlobales(){
+      try {
+      // la fonction à faire est ici
+      } catch (PDOException $e) {
+          echo $e->getMessage();
+          die("Erreur lors de l'insertion des stats globales dans la BDD");
+      }
+
+  }
 
 }
 
