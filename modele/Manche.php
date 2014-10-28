@@ -56,6 +56,20 @@ class Manche {
       return $j1->getIdentifiant();
   }
 
+  /*
+   * Retourne la chaine de caractère correspondant à liste des coup de la manche this
+   * @return retourne la chaine de caractère
+   */
+   public function parsageListeCoups() {
+        $chaineListeCoup = "";
+        while(current($this->listeCoup)!=FALSE){
+            $chaineListeCoup .= current($this->listeCoup)->retourneIds();
+            $chaineListeCoup .= ",";
+          }
+          $chaineListeCoup=rtrim($chaineListeCoup,",");
+          return $chaineListeCoup;
+   }
+
   public function ajoutStatsGlobales(){
       try {
       // la fonction à faire est ici
