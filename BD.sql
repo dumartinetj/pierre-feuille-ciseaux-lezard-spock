@@ -1,54 +1,88 @@
-DROP TABLE Figure;
-DROP TABLE Joueur;
-DROP TABLE StatsPerso;
-DROP TABLE StatsGlobales;
-
-CREATE TABLE Figure
+DROP TABLE IF EXISTS pfcls_Coups;
+DROP TABLE IF EXISTS pfcls_StatistiquesPersonnelles;
+DROP TABLE IF EXISTS pfcls_StatistiquesGlobales;
+DROP TABLE IF EXISTS pfcls_Manches;
+DROP TABLE IF EXISTS pfcls_Parties;
+DROP TABLE IF EXISTS pfcls_Joueurs;
+DROP TABLE IF EXISTS pfcls_Figures;
+CREATE TABLE pfcls_Figures
 (
-	idFigure INTEGER ,
-    nom VARCHAR(10),
-    forces INTEGER,
-    faiblesses INTEGER
-);
-
-CREATE TABLE Joueur
+idFigure INT NOT NULL AUTO_INCREMENT,
+nom VARCHAR(10) NOT NULL,
+forces VARCHAR(3) NOT NULL, /* on a INT,INT */
+faiblesses VARCHAR(3) NOT NULL, /* on a INT,INT */
+PRIMARY KEY (idFigure)
+) ENGINE=INNODB ;
+CREATE TABLE pfcls_Joueurs
 (
-	idJoueur INTEGER ,
-    pseudo VARCHAR(20) ,
-    sexe VARCHAR(1) ,
-    age VARCHAR(100),
-	nbV INTEGER,
-	nvD INTEGER,
-	passw VARCHAR(255) ,
-	email VARCHAR(255)
-);
-
-CREATE TABLE StatsPerso
+idJoueur INT NOT NULL AUTO_INCREMENT,
+pseudo VARCHAR(20) NOT NULL,
+sexe CHAR(1) NOT NULL, /* H ou F */
+age INT UNSIGNED NOT NULL, /* pas de signe donc toujours positif */
+nbV INT UNSIGNED NOT NULL, /* pas de signe donc toujours positif */
+nbD INT UNSIGNED NOT NULL, /* pas de signe donc toujours positif */
+pwd VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL,
+PRIMARY KEY (idJoueur)
+) ENGINE=INNODB ;
+CREATE TABLE pfcls_Parties
 (
-	idCoup INTEGER ,
-	idJoueur INTEGER ,
-	listeCoupManche VARCHAR(255)
-	/* utiliser une méthode pour séparé une string éléments par éléments*/
-);
-
-CREATE TABLE StatsGlobales
+idPartie INT NOT NULL AUTO_INCREMENT,
+nbManche INT UNSIGNED NOT NULL, /* pas de signe donc toujours positif */
+idJoueur1 INT NOT NULL, /* pas de signe donc toujours positif */
+idJoueur2 INT NOT NULL, /* pas de signe donc toujours positif */
+listeManches VARCHAR(255), /* de la forme idCoup1,idCoup2,idCoup3,etc. */
+idJoueurGagnant INT, /* pas de signe donc toujours positif */
+PRIMARY KEY (idPartie),
+FOREIGN KEY (idJoueur1) REFERENCES pfcls_Joueurs(idJoueur),
+FOREIGN KEY (idJoueur2) REFERENCES pfcls_Joueurs(idJoueur),
+FOREIGN KEY (idJoueurGagnant) REFERENCES pfcls_Joueurs(idJoueur)
+) ENGINE=INNODB;
+CREATE TABLE pfcls_Manches
 (
-	idManche INTEGER ,
-	idJoueur1 VARCHAR(20) ,
-	idJoueur2 VARCHAR(20) ,
-	listeCoups VARCHAR(255)
-	/*utiliser une méthode pour séparer une string tout les deux éléments
-	pour obtenir les deux coups jouer par les joueurs,
-	utilisé une méthode qui sépare les string éléments par éléments pour obtenir les coup de chaque joueur
-	coups du joueur1= chiffres impairs et coup joueur2=chiffres pairs*/
-);
-
-/*CREATE TEMPORARY TABLE  Coup_temp
-AS (
-	idCoupTemp INTEGER ,
-	idFig1 INTEGER,
-	idFig2 INTEGER,
-	idJ1 INTEGER,
-	idJ2 INTEGER,
-	idGagnant INTEGER,
-);*/
+idManche INT NOT NULL AUTO_INCREMENT,
+listeCoups VARCHAR(255), /* de la forme idFigure1,idFigure2,idFigure3,etc. */
+idJoueurGagnant INT, /* pas de signe donc toujours positif */
+PRIMARY KEY (idManche),
+CONSTRAINT fk_manches_joueurgagnant_id FOREIGN KEY (idJoueurGagnant) REFERENCES pfcls_Joueurs(idJoueur)
+) ENGINE = INNODB;
+CREATE TABLE pfcls_Coups
+(
+idCoup INT NOT NULL AUTO_INCREMENT,
+idFigure1 INT NOT NULL,
+idFigure2 INT NOT NULL,
+idJoueur1 INT NOT NULL,
+idJoueur2 INT NOT NULL,
+idJoueurGagnant INT, /* pas de signe donc toujours positif */
+PRIMARY KEY (idCoup),
+CONSTRAINT fk_coups_figure1_id FOREIGN KEY (idFigure1) REFERENCES pfcls_Figures(idFigure),
+CONSTRAINT fk_coups_figure2_id FOREIGN KEY (idFigure2) REFERENCES pfcls_Figures(idFigure),	
+CONSTRAINT fk_coups_joueur1_id FOREIGN KEY (idJoueur1) REFERENCES pfcls_Joueurs(idJoueur),
+CONSTRAINT fk_coups_joueur2_id FOREIGN KEY (idJoueur2) REFERENCES pfcls_Joueurs(idJoueur),
+CONSTRAINT fk_coups_joueurgagnant_id FOREIGN KEY (idJoueurGagnant) REFERENCES pfcls_Joueurs(idJoueur)
+) ENGINE = INNODB;
+CREATE TABLE pfcls_StatistiquesPersonnelles
+(
+idStatsPerso INT NOT NULL AUTO_INCREMENT,
+idJoueur INT NOT NULL,
+listeCoups VARCHAR(255), /* de la forme idFigure1,idFigure2,idFigure3,etc. */
+PRIMARY KEY (idStatsPerso),
+CONSTRAINT fk_statsperso_joueur_id FOREIGN KEY (idJoueur) REFERENCES pfcls_Joueurs(idJoueur)
+) ENGINE = INNODB;
+CREATE TABLE pfcls_StatistiquesGlobales
+(
+idStatsGlob INT NOT NULL AUTO_INCREMENT,
+idJoueur1 INT NOT NULL,
+idJoueur2 INT NOT NULL,
+listeCoups VARCHAR(255), /* de la forme (idFigure1,idFigure2)(idFigure3,idFigure4),etc. */
+PRIMARY KEY (idStatsGlob),
+CONSTRAINT fk_statsperso_joueur1_id FOREIGN KEY (idJoueur1) REFERENCES pfcls_Joueurs(idJoueur),
+CONSTRAINT fk_statsperso_joueur2_id FOREIGN KEY (idJoueur2) REFERENCES pfcls_Joueurs(idJoueur)
+) ENGINE = INNODB;
+INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Pierre", "3,4", "2,5");
+INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Feuille", "1,5", "3,4");
+INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Ciseaux", "2,4", "5,1");
+INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Lézard", "2,5", "3,1");
+INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Spock", "1,3", "2,4");
+INSERT INTO pfcls_Joueurs (pseudo, sexe, age, nbV, nbD, pwd, email) VALUES ("monsterkill", "H", 20, 0, 0, "123456789", "aaaa@bbbb.com");
+INSERT INTO pfcls_Joueurs (pseudo, sexe, age, nbV, nbD, pwd, email) VALUES ("dudu34", "F", 25, 0, 0, "123456789", "bbbb@aaaa.com");
