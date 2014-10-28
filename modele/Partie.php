@@ -40,6 +40,12 @@ class Partie {
 	 */
    public function getJoueurGagnantPartie(){
         $nbwinJ1=0;$nbwinJ2=0;
+        foreach($this->listeManche as $lmanche){ //CHECK
+            $lmanche->getJoueurGagnantManche();
+            if($jgm==$this->joueur1){$nbwinJ1++;}
+            elseif ($jgm==$this->joueur2) {$nbwinJ2++;}
+        }
+        /*
         $jgm=end($this->listeManche)->getJoueurGagnantManche();
         if($jgm==$this->joueur1){$nbwinJ1++;}
         elseif ($jgm==$this->joueur2) {$nbwinJ2++;}
@@ -47,7 +53,7 @@ class Partie {
             $jgm=current($this->listeManche)->getJoueurGagnantManche();
             if($jgm==$this->joueur1){$nbwinJ1++;}
             elseif ($jgm==$this->joueur2) {$nbwinJ2++;}
-        }
+        }*/
         $nbMancheMini=$this->nbManche/2;
         if(($nbwinJ1>$nbwinJ2)and($nbwinJ1>$nbMancheMini)){$this->gagnantPartie=$this->joueur1;}
         elseif (($nbwinJ1<$nbwinJ2)and($nbwinJ2>$nbMancheMini)) {$this->gagnantPartie=$this->joueur2;}
