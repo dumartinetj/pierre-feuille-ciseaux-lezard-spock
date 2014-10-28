@@ -4,23 +4,37 @@
  * Classe Figure
  */
 
-class Figure {
+require_once 'Modele.php';
+
+class Figure extends Modele {
 
 	protected $identifiant;
 	/* Liste des forces de la figure */
 	protected $forces;
 	/* Liste des faiblesses de la figure */
 	protected $faiblesses;
-	
+
 	/*
 	 * Constructeur de la classe qui instancie une nouvelle Figure
 	 */
 
     public function __construct($id) {
 		$this->identifiant = $id;
-		// remplir $forces et $faiblesses en fonction de $id
+		try {
+            $req = self::$pdo->prepare("SELECT * FROM pfcls_Figures WHERE idFigure=".$id);
+            $req->execute();
+            if ($req->rowCount() != 0) {
+                $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                $this->forces = explode(",",$data_recup->forces);
+								$this->faiblesses = explode(",",$data_recup->faiblesses);
+						}
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            die("Erreur lors de l'instanciation d'une figure");
+        }
+
 	}
-	
+
 	/*
 	 * Getter de l'identifiant de la figure
 	 * @return l'identifiant de la figure
@@ -28,15 +42,25 @@ class Figure {
 	public function getIdentifiant() {
 		return $this->identifiant;
 	}
-	
+
 	/*
 	 * Retourne le nom de la classe
 	 * @return le nom de la classe
-	 */	
-	public function quiSuisJe() {
-		return get_called_class();
+	 */
+	public function getNom() {
+		try {
+            $req = self::$pdo->prepare("SELECT nom FROM pfcls_Figures WHERE idFigure=".$this->identifiant);
+            $req->execute();
+            if ($req->rowCount() != 0) {
+                $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                 return $data_recup->nom;
+						}
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            die("Erreur lors de la r?cup?ration du nom d'une figure");
+        }
 	}
-	
+
 	/*
 	 * Getter des forces de la figure
 	 * @return la liste des forces de la figure
@@ -44,7 +68,7 @@ class Figure {
 	public function getForces(){
         return $this->forces;
     }
-	
+
 	/*
 	 * Getter des faiblesses de la figure
 	 * @return la liste des faiblesses de la figure
@@ -61,7 +85,7 @@ class Figure {
 	public function estDansSesForces($idfigure) {
 		return in_array($idfigure, $this->forces);
 	}
-	
+
 	/*
 	 * Vérifie si la figure passé en paramètre est dans les forces de la figure
 	 * @param l'id de la figure à comparer
@@ -70,7 +94,7 @@ class Figure {
 	public function estDansSesFaiblesses($idfigure) {
 		return in_array($idfigure, $this->faiblesses);
 	}
-	
+
 }
 
 ?>
