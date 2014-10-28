@@ -20,7 +20,7 @@ class Modele {
                 echo $ex->getMessage();
                 die ("Problème lors de la connexion à la base de données");
             } else {
-                echo "Une erreur est survenue. <a href=""> Retour a la page d'accueil </a>";
+                echo "Une erreur est survenue.";
             }
             die();
         }
