@@ -3,7 +3,7 @@ DROP TABLE Joueur;
 DROP TABLE StatsPerso;
 DROP TABLE StatsGlobales;
 
-CREATE TABLE Figure 
+CREATE TABLE Figure
 (
 	idFigure INTEGER ,
     nom VARCHAR(10),
@@ -11,7 +11,7 @@ CREATE TABLE Figure
     faiblesses INTEGER
 );
 
-CREATE TABLE Joueur 
+CREATE TABLE Joueur
 (
 	idJoueur INTEGER ,
     pseudo VARCHAR(20) ,
@@ -27,7 +27,7 @@ CREATE TABLE StatsPerso
 (
 	idCoup INTEGER ,
 	idJoueur INTEGER ,
-	listeCoupManche VARCHAR(255) 
+	listeCoupManche VARCHAR(255)
 	/* utiliser une méthode pour séparé une string éléments par éléments*/
 );
 
@@ -36,14 +36,14 @@ CREATE TABLE StatsGlobales
 	idManche INTEGER ,
 	idJoueur1 VARCHAR(20) ,
 	idJoueur2 VARCHAR(20) ,
-	listeCoups VARCHAR(255)  
-	/*utiliser une méthode pour séparer une string tout les deux éléments 
-	pour obtenir les deux coups jouer par les joueurs, 
+	listeCoups VARCHAR(255)
+	/*utiliser une méthode pour séparer une string tout les deux éléments
+	pour obtenir les deux coups jouer par les joueurs,
 	utilisé une méthode qui sépare les string éléments par éléments pour obtenir les coup de chaque joueur
 	coups du joueur1= chiffres impairs et coup joueur2=chiffres pairs*/
 );
 
-/*CREATE TEMPORARY TABLE  Coup_temp 
+/*CREATE TEMPORARY TABLE  Coup_temp
 AS (
 	idCoupTemp INTEGER ,
 	idFig1 INTEGER,
@@ -52,7 +52,3 @@ AS (
 	idJ2 INTEGER,
 	idGagnant INTEGER,
 );*/
-
-
-
-	

@@ -3,9 +3,9 @@
 class Config {
 
     private static $database = array(
-        'hostname' => '',
-        'database' => '',
-        'login'    => '',
+        'hostname' => 'localhost',
+        'database' => 'pfcls',
+        'login'    => 'root',
         'password' => ''
     );
 
