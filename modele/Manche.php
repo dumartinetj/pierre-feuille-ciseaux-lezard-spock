@@ -3,8 +3,10 @@
 /*
  * Classe Manche
  */
+ 
+require_once 'Modele.php';
 
-class Manche {
+class Manche extends Modele{
 
     private $identifiant;
     private $listeCoup;
@@ -72,7 +74,14 @@ class Manche {
 
   public function ajoutStatsGlobales(){
       try {
-      // la fonction à faire est ici
+		 $data = array(
+            'idJoueur1' => $this->getIdJoueur1(),
+            'idJoueur2' => $this->getIdJoueur2(),
+            'listeCoups' => $this->parsageListeCoups()
+        );
+         $req = self::$pdo->prepare('INSERT INTO pfcls_StatistiquesGlobales (idJoueur1, idJoueur2, listeCoups) VALUES (:idJoueur1, :idJoueur2, :listeCoups)');
+         $req->execute($data);
+         return self::$pdo->lastInsertId();
       } catch (PDOException $e) {
           echo $e->getMessage();
           die("Erreur lors de l'insertion des stats globales dans la BDD");
