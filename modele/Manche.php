@@ -9,7 +9,7 @@ class Manche {
     private $identifiant;
     private $listeCoup;
     private $gagnantManche;
-	
+
 	/*
 	 * Constructeur de la classe qui instancie une nouvelle Manche
 	 */
@@ -17,7 +17,7 @@ class Manche {
         $this->identifiant = $i;
         $this->listeCoup = array();
     }
-	
+
 	/*
 	 * Ajoute le coup passé en paramètre à listeCoup de this
 	 * @param $c le coup à ajouter
@@ -25,7 +25,7 @@ class Manche {
     public function ajoutCoup($c) {
         array_push($this->listeCoup, $c); // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
     }
-        
+
 	/*
 	 * Set et retourne le gagnant de this
 	 * @return le gagnant de la partie
@@ -34,6 +34,16 @@ class Manche {
         $c = end($this->listeCoup);
         $this->gagnantManche = $c->getJoueurGagnantCoup();
         return $this->gagnantManche;
+    }
+
+    public function ajoutStatsGlobales(){
+        try {
+          // la fonction à faire est ici
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            die("Erreur lors de l'insertion des stats globales dans la BDD");
+        }
+
     }
 
 }
