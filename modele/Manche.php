@@ -3,7 +3,7 @@
 /*
  * Classe Manche
  */
- 
+
 require_once 'Modele.php';
 
 class Manche extends Modele{
@@ -72,6 +72,9 @@ class Manche extends Modele{
         return $chaineListeCoup;
    }
 
+  /*
+   * Insére les stats globales dans la BDD de la manche this
+   */
   public function ajoutStatsGlobales(){
       try {
 		 $data = array(
@@ -81,10 +84,54 @@ class Manche extends Modele{
         );
          $req = self::$pdo->prepare('INSERT INTO pfcls_StatistiquesGlobales (idJoueur1, idJoueur2, listeCoups) VALUES (:idJoueur1, :idJoueur2, :listeCoups)');
          $req->execute($data);
-         return self::$pdo->lastInsertId();
+         Manche::ajoutStatsPersonnelles($data);
       } catch (PDOException $e) {
           echo $e->getMessage();
           die("Erreur lors de l'insertion des stats globales dans la BDD");
+      }
+
+  }
+
+  /*
+   * Parse les données globales en perso
+   * @param un tableau contenant les données globales
+   * @return un tableau contenant les données perso parsées, prêtent à être stocker
+   */
+  public static function parsageStatsPerso($data){
+
+                $lcj1 = "";
+                $lcj2 = "";
+                $tabCoupleCoup = explode(",",$data['listeCoups']);
+				foreach ($tabCoupleCoup as $couple) {
+					$lcj1 .= $couple[0].",";
+					$lcj2 .= $couple[1].",";
+                }
+				$lcj1=rtrim($lcj1,",");
+				$lcj2=rtrim($lcj2,",");
+				$data_new = array(
+					'idJoueur1' => $data['idJoueur1'],
+					'listeCoupsJ1' => $lcj1,
+					'idJoueur2' => $data['idJoueur2'],
+					'listeCoupsJ2' => $lcj2
+				);
+				return $data_new;
+
+  }
+  
+   /*
+   * Insére les stats perso dans la BDD à partir de données globales
+   * @param un tableau contenant les données globales
+   */
+  public static function ajoutStatsPersonnelles($data){
+      try {
+		 $data_new = Manche::parsageStatsPerso($data);
+         $req = self::$pdo->prepare('INSERT INTO pfcls_StatistiquesPersonnelles (idJoueur, listeCoups) VALUES (:idJoueur1, :listeCoupsJ1)');		 
+         $req->execute(array('idJoueur1' => $data_new['idJoueur1'], 'listeCoupsJ1' => $data_new['listeCoupsJ1']));
+		 $req2 = self::$pdo->prepare('INSERT INTO pfcls_StatistiquesPersonnelles (idJoueur, listeCoups) VALUES (:idJoueur2, :listeCoupsJ2)');
+         $req2->execute(array('idJoueur2' => $data_new['idJoueur2'], 'listeCoupsJ2' => $data_new['listeCoupsJ2']));
+      } catch (PDOException $e) {
+          echo $e->getMessage();
+          die("Erreur lors de l'insertion des stats personnelles dans la BDD");
       }
 
   }
