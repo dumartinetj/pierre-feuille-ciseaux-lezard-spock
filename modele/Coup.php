@@ -52,17 +52,18 @@ class Coup {
         $id2 = $fj2->getIdentifiant();
         return ($id1==$id2);
     }
-    
-    	/*
+
+	/*
 	 * Concatene les ids des figures jouées par les 2 joueurs
 	 * @return une string contenant les ids des figures
 	 */
-  public function retourneids(){
-	$fj1 = $this->figureJoueur1;
-        $fj2 = $this->figureJoueur2;
-	$ids = $fj1->getIdentifiant().$fj2->getIdentifiant();
-	return ($ids);
-  }
+    public function retourneIDs(){
+	     $fj1 = $this->figureJoueur1;
+       $fj2 = $this->figureJoueur2;
+	     $ids = ($fj1->getIdentifiant()).($fj2->getIdentifiant());
+	     return $ids;
+    }
+
     public function getFigureJoueur1() {
         return $this->figureJoueur1;
     }
