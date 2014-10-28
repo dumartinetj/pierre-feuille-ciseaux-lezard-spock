@@ -62,12 +62,12 @@ class Manche {
    */
    public function parsageListeCoups() {
         $chaineListeCoup = "";
-        while(current($this->listeCoup)!=FALSE){
-            $chaineListeCoup .= current($this->listeCoup)->retourneIds();
-            $chaineListeCoup .= ",";
-          }
-          $chaineListeCoup=rtrim($chaineListeCoup,",");
-          return $chaineListeCoup;
+        foreach ($this->listeCoup as $coup) {
+			$chaineListeCoup .= $coup->retourneIDs();
+			$chaineListeCoup .= ",";
+		}
+        $chaineListeCoup=rtrim($chaineListeCoup,",");
+        return $chaineListeCoup;
    }
 
   public function ajoutStatsGlobales(){
