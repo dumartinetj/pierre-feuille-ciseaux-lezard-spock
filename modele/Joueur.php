@@ -44,6 +44,7 @@ class Joueur extends Modele {
 			   $req->execute($data);
 			   if ($req->rowCount() != 0) {
 					$data_recup = $req->fetch(PDO::FETCH_OBJ);
+                                        session_start();
 					$_SESSION['idJoueur'] = $data_recup->idJoueur;
 			   }
 			 }  catch (PDOException $e) {
@@ -56,7 +57,10 @@ class Joueur extends Modele {
 			die("Erreur pseudo ou mot de passe erroné"); // gestion des erreurs à améliorer
 		}
 	}
-	
+	public function seDeconnecter(){
+            session_unset();
+            session_destroy();
+        }
 	
 	public static function checkExisteConnexion($data) {
 			try {
