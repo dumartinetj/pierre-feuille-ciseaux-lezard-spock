@@ -37,6 +37,34 @@ class Joueur extends Modele{
             die('Erreur lors de l\'insertion dans la BDD joueur');
         }
     }
+	
+	 public static function delete($data) {
+        try {
+            // Preparation de la requete
+            $req = self::$pdo->prepare('DELETE FROM pfcls_joueurs WHERE pfcls_joueurs.pseudo = :pseudo');
+            // execution de la requete
+            $req->execute($data);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            die('Erreur lors de la recherche d\'un joueur dans la BDD pfcls_joueurs');
+        }
+    }
+	
+	 public static function select($data) {
+        try {
+            // Preparation de la requete
+            $req = self::$pdo->prepare('SELECT * FROM pfcls_joueurs WHERE pfcls_joueurs.pseudo = :pseudo');
+            // execution de la requete
+            $req->execute($data);
+
+            if ($req->rowCount() != 0)
+                return $req->fetch(PDO::FETCH_OBJ);
+            return null;  // Optionel : si return est omis, Php envoie null dans tous les cas
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            die('Erreur lors de la recherche d\'un joueur dans la BDD pfcls_joueurs');
+        }
+    }
 	public function getIdentifiant() {
 		return $this->identifiant;
 	}
