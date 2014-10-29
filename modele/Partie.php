@@ -41,7 +41,7 @@ class Partie {
    public function getJoueurGagnantPartie(){
         $nbwinJ1=0;$nbwinJ2=0;
         foreach($this->listeManche as $lmanche){ //CHECK
-            $lmanche->getJoueurGagnantManche();
+            $jgm=$lmanche->getJoueurGagnantManche();
             if($jgm==$this->joueur1){$nbwinJ1++;}
             elseif ($jgm==$this->joueur2) {$nbwinJ2++;}
         }
