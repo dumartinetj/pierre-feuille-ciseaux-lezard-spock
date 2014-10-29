@@ -59,7 +59,7 @@ class Figure extends Modele {
             echo $e->getMessage();
             die("Erreur lors de la r?cup?ration du nom d'une figure");
         }
-
+	}
 	/*
 	 * Getter des forces de la figure
 	 * @return la liste des forces de la figure
