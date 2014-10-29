@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<?php
-		require VIEW_PATH.$nom.DS.'vue'.ucfirst($vue).ucfirst($nom).'.php';
+		require VIEW_PATH.$page.DS.'vue'.ucfirst($vue).ucfirst($page).'.php';
 		?>
 	</body >
 </html >
