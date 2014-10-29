@@ -27,7 +27,7 @@
                     <input type="email" placeholder="test@email.com" name="email" id="id_email" required/>
                 </p>
                 <input type="hidden" name="action" value="save" />
-                <input type="hidden" name="controleur" value="Joueur" />                
+                <input type="hidden" name="page" value="joueur" />                
                 <p>
                     <input type="submit" value="Créer l'utilisateur" />
                 </p>
