@@ -16,7 +16,7 @@ include_once('modele/Partie.php');
 include_once('modele/Manche.php');
 include_once('modele/Coup.php');
 
-$data = array(
+/*$data = array(
             'pseudo' => "testinscription2",
             'sexe' => "M",
             'age' => 25,
@@ -26,7 +26,15 @@ $data = array(
             'email' => "testinsc2@gmail.com"
 );
 $var = Joueur::inscription($data);
-var_dump($var);
+var_dump($var);*/
+
+$data2 = array(
+            'pseudo' => "testinscription2",
+            'pwd' => "123456789"
+);
+Joueur::connexion($data2);
+var_dump($_SESSION);
+var_dump(Joueur::estConnecte());
 
 $j1 = new Joueur(1, "Jean", "Homme", 25, "a@a.com", "1234567879");
 $j2 = new Joueur(2, "Jeanne", "Femme", 22, "a@a.com", "1234567879");

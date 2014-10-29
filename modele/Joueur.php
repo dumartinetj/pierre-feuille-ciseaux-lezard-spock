@@ -30,14 +30,52 @@ class Joueur extends Modele {
 		    $this->password = $pw;
 		    $this->email = $em;
     }
-
-    public static function inscription($data) {
+	
+	// vérifier si l'utilisateur est connecté
+	public static function estConnecte() {
+		return isset($_SESSION['idJoueur']);
+	}	
+	
+	public static function connexion($data) {
+		if((Joueur::checkExisteConnexion($data))) {
+			try {
+               $data['pwd'] = sha1($data['pwd']);
+               $req = self::$pdo->prepare('SELECT idJoueur FROM pfcls_Joueurs WHERE pseudo = :pseudo AND pwd = :pwd');
+			   $req->execute($data);
+			   if ($req->rowCount() != 0) {
+					$data_recup = $req->fetch(PDO::FETCH_OBJ);
+					$_SESSION['idJoueur'] = $data_recup->idJoueur;
+			   }
+			 }  catch (PDOException $e) {
+                echo $e->getMessage();
+                die("Erreur lors de la connexion d'un utilisateur");
+          }
+			
+		}
+		else {
+			die("Erreur pseudo ou mot de passe erroné"); // gestion des erreurs à améliorer
+		}
+	}
+	
+	
+	public static function checkExisteConnexion($data) {
+			try {
+               $data['pwd'] = sha1($data['pwd']);
+               $req = self::$pdo->prepare('SELECT idJoueur FROM pfcls_Joueurs WHERE pseudo = :pseudo AND pwd = :pwd');
+			   $req->execute($data);
+			   return ($req->rowCount() != 0);
+			 }  catch (PDOException $e) {
+                echo $e->getMessage();
+                die("Erreur lors de la recherche utilisateur dans BDD pour connexion");
+          }
+	}
+	
+	
+	public static function inscription($data) {
       if(!(Joueur::checkAlreadyExist($data))) {
           try {
                $data['pwd'] = sha1($data['pwd']);
-			   var_dump($data);
                $req = self::$pdo->prepare('INSERT INTO pfcls_Joueurs (pseudo, sexe, age, nbV, nbD, pwd, email) VALUES (:pseudo, :sexe, :age, :nbV, :nbD, :pwd, :email) ');
-               var_dump($req);
 			   $req->execute($data);
             } catch (PDOException $e) {
                 echo $e->getMessage();
@@ -45,7 +83,7 @@ class Joueur extends Modele {
           }
       }
       else {
-        return "Erreur pseudo/email existe déjà"; // gestion des erreurs à améliorer
+        die("Erreur pseudo/email existe déjà"); // gestion des erreurs à améliorer
       }
     }
 
