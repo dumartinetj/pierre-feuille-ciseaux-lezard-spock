@@ -44,8 +44,8 @@ class Figure extends Modele {
 	}
 
 	/*
-	 * Retourne le nom de la classe
-	 * @return le nom de la classe
+	 * Retourne le nom de la figure à partir de son id
+	 * @return le nom de la figure
 	 */
 	public function getNom() {
 		try {
@@ -59,7 +59,6 @@ class Figure extends Modele {
             echo $e->getMessage();
             die("Erreur lors de la r?cup?ration du nom d'une figure");
         }
-	}
 
 	/*
 	 * Getter des forces de la figure

@@ -44,7 +44,7 @@ echo '-- Début de la partie! --<br/>';
 			echo 'Le coup joué est un draw !<br/>';
 			echo 'On rejout le coup !<br/>';
                         $nbcoup++;
-                        $coup=new Coup($nbcoup,new Figure(2), new Figure(4),$j1,$j2);
+                        $coup=new Coup($nbcoup,new Figure(1), new Figure(4),$j1,$j2);
                         $manche->ajoutCoup($coup);
                         $f1 = $coup->getFigureJoueur1();
                         $f2 = $coup->getFigureJoueur2();
@@ -54,8 +54,9 @@ echo '-- Début de la partie! --<br/>';
 		}
                 $coup->evaluer();
                 echo 'Le coup joué est validé !<br/>';
-                $manche->ajoutCoup($coup);
-		$gagnantManche = $manche->getJoueurGagnantManche();				
+
+		$gagnantManche = $manche->getJoueurGagnantManche();
+		$manche->ajoutStatsGlobales();
 		echo ''.$gagnantManche->getPseudo().' a gagné la manche'.$nbmanche. '!<br/>';
 		$partie->ajoutManche($manche);
 		echo '--- Manche '.$nbmanche.' terminée! ---<br/><br/>';
