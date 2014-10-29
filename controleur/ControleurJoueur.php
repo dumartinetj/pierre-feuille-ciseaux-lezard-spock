@@ -43,14 +43,14 @@ require_once MODEL_PATH.'Joueur.php';
         $pseudo = $_GET['pseudo'];
         $tab_util = Joueur::select();
         // Chargement de la vue
-        $view="deleted";
+        $vue="deleted";
         $pagetitle="Utilisateur supprimé";
     default:
     // Si l'action est inconnue, nous effectuerons 'read'
 	
 	case "read":
         if (!isset($_GET['pseudo'])) {
-            $view= "error";
+            $vue= "error";
             $pagetitle="ERREUR!";
             break;
         }
@@ -59,14 +59,14 @@ require_once MODEL_PATH.'Joueur.php';
         $u = Joueur::select($data);
         // Chargement de la vue
         if (is_null($u)){
-            $view= "error";
+            $vue= "error";
             $pagetitle="ERREUR!";
             break;
                     
         } //redirige vers une vue d'erreur
         else{
             // Initialisation des variables pour la vue
-            $view="find";
+            $vue="find";
             $pagetitle="Détails d'un joueur";
         }
         break;

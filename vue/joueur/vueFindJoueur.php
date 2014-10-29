@@ -7,7 +7,10 @@ function view1($u) {
     $e = $u->email;
 	$v = $u->nbV;
 	$d = $u->nbD;
-	$r = $v/$d;
+	if($d!=0){
+		$r = $v/$d;
+	}
+	else{ $r=$v; }
 
     // La syntaxe suivante permet de créer facilement des chaînes de caractères multi-lignes
     echo <<< EOT
