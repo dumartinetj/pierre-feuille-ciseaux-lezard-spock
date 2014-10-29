@@ -1,13 +1,18 @@
 <?php
 
-define('VIEW_PATH', ROOT.DS.'view'.DS);
+define('VIEW_PATH', ROOT.DS.'vue'.DS);
 
 // On va chercher le modele dans "./model/ModelUtilisateur.php"
 require_once MODEL_PATH.'Joueur.php';
 
     switch ($action) {
+    case "inscription":
+        $vue="Creation";
+        $pagetitle="Creation d'un utilisateur.";
+        break;
+    
     case "save":
-        if (!(isset($_GET['pseudo']) && isset($_GET['sexe']) && isset($_GET['age']) && isset($_GET['passw']) && isset($_GET['email']))) {
+        if (!(isset($_GET['pseudo']) && isset($_GET['sexe']) && isset($_GET['age']) && isset($_GET['passwd']) && isset($_GET['email']))) {
             die("Veuillez remplir tous les champs du formulaire.");
             break;
         }
@@ -15,20 +20,21 @@ require_once MODEL_PATH.'Joueur.php';
             "pseudo" => $_GET["pseudo"],
             "sexe" => $_GET["sexe"],
             "age" => $_GET["age"],
-            "passw" => $_GET["passw"],
+            "passwd" => $_GET["passwd"],
             "email" => $_GET["email"]
         );
-        Joueur::insert($data);
+        Joueur::inscription($data);
         //$login = $_GET['login'];
         //$tab_util = ModelUtilisateur::selectAll();
-        $view='Created';
+        echo'ok';
+        $vue='Created';
         $pagetitle='Utilisateur Créé';
     break;
     default:
 	
 	case "delete":
         if (!isset($_GET['pseudo'])) {
-            $view="error";
+            $vue="error";
             $pagetitle="ERREUR!";
         }
         $data = array("pseudo" => $_GET['pseudo']);
