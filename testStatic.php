@@ -16,6 +16,18 @@ include_once('modele/Partie.php');
 include_once('modele/Manche.php');
 include_once('modele/Coup.php');
 
+$data = array(
+            'pseudo' => "testinscription2",
+            'sexe' => "M",
+            'age' => 25,
+            'nbV' => 0,
+            'nbD' => 0,
+            'pwd' => "123456789",
+            'email' => "testinsc2@gmail.com"
+);
+$var = Joueur::inscription($data);
+var_dump($var);
+
 $j1 = new Joueur(1, "Jean", "Homme", 25, "a@a.com", "1234567879");
 $j2 = new Joueur(2, "Jeanne", "Femme", 22, "a@a.com", "1234567879");
 $partie = new Partie(1, 5, $j1, $j2);
