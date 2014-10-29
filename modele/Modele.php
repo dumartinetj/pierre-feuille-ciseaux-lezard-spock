@@ -1,7 +1,6 @@
 <?php
 
 require_once ROOT . DS . 'config' . DS . 'Config.php';
-
 class Modele {
 
     public static $pdo;

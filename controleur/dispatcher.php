@@ -14,11 +14,11 @@ else
 
 switch ($page) {
     case "index":
-        require_once "controleurIndex.php";
+        require_once "ControleurIndex.php";
         break;
 
-    case "autre":
-        require_once "controleurAutre.php";
+    case "joueur":
+        require_once "ControleurJoueur.php";
         break;
 
     default:
