@@ -1,35 +1,20 @@
-<?php
-
-function view1($u) {
-    $p = $u->pseudo;
-    $a = $u->age;
-    $s = $u->sexe;
-    $e = $u->email;
-	$v = $u->nbV;
-	$d = $u->nbD;
-	if($d!=0){
-		$r = $v/$d;
-	}
-	else{ $r=$v; }
-
-    // La syntaxe suivante permet de créer facilement des chaînes de caractères multi-lignes
-    echo <<< EOT
-    $p
-	Age : $a
-	Sexe : $s
-	E-mail : $e
-	Nombre de victoire : $v
-	Nombre de défaite : $d
-	Ratio : $r
-	
-    <a href='?action=update&controleur=Joueur&pseudo=$p'>Mettre à jour</a>, 
-    <a href='?action=delete&controleur=Joueur&pseudo=$p'>Supprimer</a>
-EOT;
-}
-?>
-<!DOCTYPE html>
-
-        <?php view1($u); ?>
         <p>
-            Retour à la <a href="?">page principale</a>.
+			<?php
+			if($u->nbD!=0){
+				$r = $u->nbV/$u->nbD;
+			}
+			else{ $r=$u->nbV; }
+			echo <<< EOT
+			Pseudo : $u->pseudo <br/>
+			Age : $u->age <br/>
+			Sexe : $u->sexe <br/>
+			E-mail : $u->email <br/>
+			Nombre de victoire : $u->nbV <br/>
+			Nombre de dÃ©faite : $u->nbD <br/>
+			Ratio : $r <br/>
+EOT;
+			?>
+			<a href='?action=update&controleur=Joueur&pseudo=$p'>Mettre Ã  jour</a><br/>
+			<a href='?action=delete&controleur=Joueur&pseudo=$p'>Supprimer</a><br/>
+            Retour Ã  la <a href="?">page principale</a>
         </p>
