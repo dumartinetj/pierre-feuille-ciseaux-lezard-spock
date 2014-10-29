@@ -65,6 +65,7 @@ require_once MODEL_PATH.'Joueur.php';
         else{
             // Initialisation des variables pour la vue
             $view="find";
+			$nom="joueur";
             $pagetitle="Détails d'un joueur";
         }
         break;
