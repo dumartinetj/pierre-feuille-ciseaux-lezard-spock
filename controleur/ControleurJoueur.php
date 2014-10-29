@@ -3,7 +3,7 @@
 define('VIEW_PATH', ROOT.DS.'view'.DS);
 
 // On va chercher le modele dans "./model/ModelUtilisateur.php"
-require_once MODEL_PATH.'modeleJoueur.php';
+require_once MODEL_PATH.'Joueur.php';
 
     switch ($action) {
     case "save":
@@ -22,7 +22,7 @@ require_once MODEL_PATH.'modeleJoueur.php';
             "passw" => $_GET["passw"],
             "email" => $_GET["email"]
         );
-        modeleJoueur::insert($data);
+        Joueur::insert($data);
         //$login = $_GET['login'];
         //$tab_util = ModelUtilisateur::selectAll();
         $view='Created';
