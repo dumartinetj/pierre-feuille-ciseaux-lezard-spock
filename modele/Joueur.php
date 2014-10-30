@@ -31,64 +31,64 @@ class Joueur extends Modele {
 		    $this->email = $em;
     }
 	
-	// vérifier si l'utilisateur est connecté
-	public static function estConnecte() {
-		return isset($_SESSION['idJoueur']);
-	}	
-	
-	public static function connexion($data) {
-		if((Joueur::checkExisteConnexion($data))) {
-			try {
-               $data['pwd'] = sha1($data['pwd']);
-               $req = self::$pdo->prepare('SELECT idJoueur FROM pfcls_Joueurs WHERE pseudo = :pseudo AND pwd = :pwd');
-			   $req->execute($data);
-			   if ($req->rowCount() != 0) {
-					$data_recup = $req->fetch(PDO::FETCH_OBJ);
-                                        session_start();
-					$_SESSION['idJoueur'] = $data_recup->idJoueur;
-			   }
-			 }  catch (PDOException $e) {
+    // vérifier si l'utilisateur est connecté
+    public static function estConnecte() {
+            return isset($_SESSION['idJoueur']);
+    }	
+
+    public static function connexion($data) {
+        if((Joueur::checkExisteConnexion($data))) {
+            try {
+                $data['pwd'] = sha1($data['pwd']);
+                $req = self::$pdo->prepare('SELECT idJoueur FROM pfcls_Joueurs WHERE pseudo = :pseudo AND pwd = :pwd');
+                $req->execute($data);
+                if ($req->rowCount() != 0) {
+                    $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                    session_start();
+                    $_SESSION['idJoueur'] = $data_recup->idJoueur;
+                }
+            }catch (PDOException $e) {
                 echo $e->getMessage();
                 die("Erreur lors de la connexion d'un utilisateur");
-          }
-			
-		}
-		else {
-			die("Erreur pseudo ou mot de passe erroné"); // gestion des erreurs à améliorer
-		}
-	}
-	public function seDeconnecter(){
-            session_unset();
-            session_destroy();
+            }
         }
+        else {
+            die("Erreur pseudo ou mot de passe erroné"); // gestion des erreurs à améliorer
+        }
+    }
+    
+    public function seDeconnecter(){
+        session_unset();
+        session_destroy();
+    }
+
+    public static function checkExisteConnexion($data) {
+        try {
+            $data['pwd'] = sha1($data['pwd']);
+            $req = self::$pdo->prepare('SELECT idJoueur FROM pfcls_Joueurs WHERE pseudo = :pseudo AND pwd = :pwd');
+            $req->execute($data);
+            return ($req->rowCount() != 0);
+        }  catch (PDOException $e) {
+            echo $e->getMessage();
+            die("Erreur lors de la recherche utilisateur dans BDD pour connexion");
+        }
+    }
 	
-	public static function checkExisteConnexion($data) {
-			try {
-               $data['pwd'] = sha1($data['pwd']);
-               $req = self::$pdo->prepare('SELECT idJoueur FROM pfcls_Joueurs WHERE pseudo = :pseudo AND pwd = :pwd');
-			   $req->execute($data);
-			   return ($req->rowCount() != 0);
-			 }  catch (PDOException $e) {
-                echo $e->getMessage();
-                die("Erreur lors de la recherche utilisateur dans BDD pour connexion");
-          }
-	}
 	
-	
-	public static function inscription($data) {
-      if(!(Joueur::checkAlreadyExist($data))) {
-          try {
-               $data['pwd'] = sha1($data['pwd']);
-               $req = self::$pdo->prepare('INSERT INTO pfcls_Joueurs (pseudo, sexe, age, pwd, email) VALUES (:pseudo, :sexe, :age, :pwd, :email) ');
-               $req->execute($data);
+    public static function inscription($data) {
+        if(!(Joueur::checkAlreadyExist($data))) {
+            try {
+                $data['pwd'] = sha1($data['pwd']);
+                $req = self::$pdo->prepare('INSERT INTO pfcls_Joueurs (pseudo, sexe, age, pwd, email) VALUES (:pseudo, :sexe, :age, :pwd, :email) ');
+                $req->execute($data);
             } catch (PDOException $e) {
                 echo $e->getMessage();
                 die("Erreur lors de l'insertion d'un utilisateur dans la BDD");
-          }
-      }
-      else {
-        die("Erreur pseudo/email existe déjà"); // gestion des erreurs à améliorer
-      }
+            }
+        }
+        else {
+            die("Erreur pseudo/email existe déjà"); // gestion des erreurs à améliorer
+        }
     }
 
     public static function checkAlreadyExist($data) {

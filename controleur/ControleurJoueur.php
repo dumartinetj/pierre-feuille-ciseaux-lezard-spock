@@ -5,7 +5,7 @@ require_once MODEL_PATH.'Joueur.php';
 
     switch ($action) {
     case "inscription":
-        if(!estConnecte()){
+        if(!Joueur::estConnecte()){
             $vue="Creation";
             $pagetitle="Formulaire d'inscription.";
             break;
@@ -15,15 +15,27 @@ require_once MODEL_PATH.'Joueur.php';
         }
     
     case "connexion":
-        if(!estConnecte()){
+        if(!Joueur::estConnecte()){
             $vue="connexion";
-            $pagetitle="connexion";
+            $pagetitle="Connexion";
             break;
         }
         else{
           die('Vous êtes déjà connecté.');
         }
-    
+    case "connect":
+        if (!(isset($_POST['pseudo']) && isset($_POST['pwd']))){
+            die("Veuillez saisir les informations de connexion.");
+        }
+        $data = array(
+            "pseudo" => $_POST['pseudo'],
+            "pwd" => $_POST['pwd']
+        );
+        Joueur::connexion($data);
+        $vue="connecte";
+        $pagetitle="Connexion réussie!";
+    break;
+
     case "save":
         if (!(isset($_POST['pseudo']) && isset($_POST['sexe']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
             die("Veuillez remplir tous les champs du formulaire.");
