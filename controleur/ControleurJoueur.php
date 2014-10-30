@@ -5,13 +5,24 @@ require_once MODEL_PATH.'Joueur.php';
 
     switch ($action) {
     case "inscription":
-        $vue="Creation";
-        $pagetitle="Formulaire d'inscription.";
-        break;
+        if(!estConnecte()){
+            $vue="Creation";
+            $pagetitle="Formulaire d'inscription.";
+            break;
+        }
+        else{
+          die('Vous êtes déjà connecté.');
+        }
     
     case "connexion":
-        $vue="connexion";
-        $pagetitle="connexion";
+        if(!estConnecte()){
+            $vue="connexion";
+            $pagetitle="connexion";
+            break;
+        }
+        else{
+          die('Vous êtes déjà connecté.');
+        }
     
     case "save":
         if (!(isset($_POST['pseudo']) && isset($_POST['sexe']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
