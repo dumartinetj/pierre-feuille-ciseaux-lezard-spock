@@ -125,6 +125,21 @@ class Joueur extends Modele {
             die('Erreur lors de la recherche d\'un joueur dans la BDD pfcls_joueurs');
         }
     }
+    public static function updateProfil($data) {
+        if(!checkAlreadyExist($data)){
+            try {
+                $data['pwd'] = sha1($data['pwd']);
+                $req = self::$pdo->prepare('UPDATE pfcls_joueurs SET pseudo= :pseudo, age= :age, pwd= :pwd, email= :email WHERE idJoueur= :idJoueur');
+                $req->execute($data);
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                die('Erreur lors de la mise à jour d\'un Joueur dans la BDD ');
+            }
+        }
+        else{
+            die('Ce pseudo ou cet email est déjà utilisé!');
+        }
+    }
 
     public static function getProfil() {
          try {
