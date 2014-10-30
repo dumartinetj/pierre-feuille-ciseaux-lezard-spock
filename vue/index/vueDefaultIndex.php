@@ -1,0 +1,1 @@
+<h3>Bienvenue sur la page d'accueil!</h3>
