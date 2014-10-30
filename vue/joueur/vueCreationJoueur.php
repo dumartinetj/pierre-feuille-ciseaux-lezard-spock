@@ -1,4 +1,4 @@
-        <form method="get" action="">
+<form method="post" action="joueur.php?action=save">
             <fieldset>
                 <legend>Créer un utilisateur</legend>
                 <p>
@@ -25,9 +25,7 @@
                 <p>
                     <label for="id_email">Email</label> :
                     <input type="email" placeholder="test@email.com" name="email" id="id_email" required/>
-                </p>
-                <input type="hidden" name="action" value="save" />
-                <input type="hidden" name="page" value="joueur" />                
+                </p>             
                 <p>
                     <input type="submit" value="Créer l'utilisateur" />
                 </p>

@@ -40,7 +40,7 @@
 						<div class="collapse navbar-collapse navHeaderCollapse">
 							<ul class="nav navbar-nav">
 								<li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
-								<li><a href="#"><span class="glyphicon glyphicon-refresh"></span> Menu 2</a></li>
+								<li><a href="joueur.php"><span class="glyphicon glyphicon-refresh"></span> Joueur</a></li>
 								<li><a href="#"><span class="glyphicon glyphicon-calendar"></span> Menu 3</a></li>
 								<li><a href="#"><span class="glyphicon glyphicon-cloud-download"></span> Menu 4</a></li>
 								<li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Menu 5</a></li>

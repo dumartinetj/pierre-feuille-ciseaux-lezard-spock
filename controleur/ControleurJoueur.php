@@ -9,39 +9,43 @@ require_once MODEL_PATH.'Joueur.php';
         $pagetitle="Formulaire d'inscription.";
         break;
     
+    case "connexion":
+        $vue="connexion";
+        $pagetitle="connexion";
+    
     case "save":
-        if (!(isset($_GET['pseudo']) && isset($_GET['sexe']) && isset($_GET['age']) && isset($_GET['pwd']) && isset($_GET['pwd2']) && isset($_GET['email']))) {
+        if (!(isset($_POST['pseudo']) && isset($_POST['sexe']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
             die("Veuillez remplir tous les champs du formulaire.");
             break;
         }
         $data = array(
-            "pseudo" => $_GET["pseudo"],
-            "sexe" => $_GET["sexe"],
-            "age" => $_GET["age"],
-            "pwd" => $_GET["pwd"],
-            "email" => $_GET["email"]
+            "pseudo" => $_POST["pseudo"],
+            "sexe" => $_POST["sexe"],
+            "age" => $_POST["age"],
+            "pwd" => $_POST["pwd"],
+            "email" => $_POST["email"]
         );
-        if($data['pwd']==$_GET["pwd2"]){
+        if($data['pwd']==$_POST["pwd2"]){
             Joueur::inscription($data);
         }
         else {
             die("Veuillez re-confirmer votre mot de passe.");
         }
-        //$login = $_GET['login'];
+        //$login = $_POST['login'];
         //$tab_util = ModelUtilisateur::selectAll();
         $vue='created';
         $pagetitle='Utilisateur Créé';
     break;
     
     case "delete":
-        if (!isset($_GET['pseudo'])) {
+        if (!isset($_POST['pseudo'])) {
             $vue="error";
             $pagetitle="ERREUR!";
         }
-        $data = array("pseudo" => $_GET['pseudo']);
+        $data = array("pseudo" => $_POST['pseudo']);
         $u = Joueur::delete($data);
         // Initialisation des variables pour la vue
-        $pseudo = $_GET['pseudo'];
+        $pseudo = $_POST['pseudo'];
         $tab_util = Joueur::select();
         // Chargement de la vue
         $vue="deleted";
@@ -49,13 +53,13 @@ require_once MODEL_PATH.'Joueur.php';
     break;
 
     case "read":
-        if (!isset($_GET['pseudo'])) {
+        if (!isset($_POST['pseudo'])) {
             $vue= "error";
             $pagetitle="ERREUR!";
             break;
         }
         // Initialisation des variables pour la vue        
-        $data = array("pseudo" => $_GET['pseudo']);
+        $data = array("pseudo" => $_POST['pseudo']);
         $u = Joueur::select($data);
         // Chargement de la vue
         if (is_null($u)){
