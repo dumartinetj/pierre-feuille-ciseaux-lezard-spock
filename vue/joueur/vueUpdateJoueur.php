@@ -1,3 +1,4 @@
+<?php
 echo <<< EOT
 <form method="post" action="joueur.php?action=updated">
     <fieldset>
@@ -28,4 +29,4 @@ echo <<< EOT
         </p>
     </fieldset>
 </form>
-EOT
+EOT;

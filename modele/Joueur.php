@@ -126,10 +126,10 @@ class Joueur extends Modele {
         }
     }
     public static function updateProfil($data) {
-        if(!checkAlreadyExist($data)){
+        if(!(Joueur::checkAlreadyExist($data))) {
             try {
                 $data['pwd'] = sha1($data['pwd']);
-                $req = self::$pdo->prepare('UPDATE pfcls_joueurs SET pseudo= :pseudo, age= :age, pwd= :pwd, email= :email WHERE idJoueur= :idJoueur');
+                $req = self::$pdo->prepare('UPDATE pfcls_joueurs SET pseudo= :pseudo, age= :age, pwd= :pwd, email= :email WHERE idJoueur='.$_SESSION['idJoueur']);
                 $req->execute($data);
             } catch (PDOException $e) {
                 echo $e->getMessage();
