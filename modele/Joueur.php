@@ -79,8 +79,8 @@ class Joueur extends Modele {
       if(!(Joueur::checkAlreadyExist($data))) {
           try {
                $data['pwd'] = sha1($data['pwd']);
-               $req = self::$pdo->prepare('INSERT INTO pfcls_Joueurs (pseudo, sexe, age, nbV, nbD, pwd, email) VALUES (:pseudo, :sexe, :age, :nbV, :nbD, :pwd, :email) ');
-			   $req->execute($data);
+               $req = self::$pdo->prepare('INSERT INTO pfcls_Joueurs (pseudo, sexe, age, pwd, email) VALUES (:pseudo, :sexe, :age, :pwd, :email) ');
+               $req->execute($data);
             } catch (PDOException $e) {
                 echo $e->getMessage();
                 die("Erreur lors de l'insertion d'un utilisateur dans la BDD");

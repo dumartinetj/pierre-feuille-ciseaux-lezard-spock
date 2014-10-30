@@ -12,7 +12,7 @@ require_once MODEL_PATH.'Joueur.php';
         break;
     
     case "save":
-        if (!(isset($_GET['pseudo']) && isset($_GET['sexe']) && isset($_GET['age']) && isset($_GET['passwd']) && isset($_GET['email']))) {
+        if (!(isset($_GET['pseudo']) && isset($_GET['sexe']) && isset($_GET['age']) && isset($_GET['pwd']) && isset($_GET['pwd2']) && isset($_GET['email']))) {
             die("Veuillez remplir tous les champs du formulaire.");
             break;
         }
@@ -20,14 +20,18 @@ require_once MODEL_PATH.'Joueur.php';
             "pseudo" => $_GET["pseudo"],
             "sexe" => $_GET["sexe"],
             "age" => $_GET["age"],
-            "passwd" => $_GET["passwd"],
+            "pwd" => $_GET["pwd"],
             "email" => $_GET["email"]
         );
-        Joueur::inscription($data);
+        if($data['pwd']==$_GET["pwd2"]){
+            Joueur::inscription($data);
+        }
+        else {
+            die("Veuillez re-confirmer votre mot de passe.");
+        }
         //$login = $_GET['login'];
         //$tab_util = ModelUtilisateur::selectAll();
-        echo'ok';
-        $vue='Created';
+        $vue='created';
         $pagetitle='Utilisateur Créé';
     break;
     default:

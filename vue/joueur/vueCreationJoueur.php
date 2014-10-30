@@ -6,21 +6,21 @@
                     <input type="text" placeholder="Jack235334" name="pseudo" id="id_pseudo" required/>
                 </p>
                 <p>
-                    <label for="id_sexe">Sexe</label> :
-                    <input type="radio" name="sexe" id="id_sexe" value="h" required/>Homme<br>
-                    <input type="radio" name="sexe" id="id_sexe" value="f">Femme
+                    <label for="id_sexe">Sexe</label> :<br>
+                    <input type="radio" name="sexe" id="id_sexe" value="H" required/>Homme<br>
+                    <input type="radio" name="sexe" id="id_sexe" value="F">Femme
                 </p>
                 <p>
                     <label for="id_age">Age</label> :
                     <input type="number" placeholder="22" name="age" id="id_age" min="1" max="130" required/>
                 </p>
                 <p>
-                    <label for="id_pass">Mot de passe</label> :
-                    <input type="password" name="passwd" id="id_pass" required/>
+                    <label for="id_pwd">Mot de passe</label> :
+                    <input type="password" name="pwd" id="id_pwd" required/>
                 </p>
                 <p>
-                    <label for="id_pass2">Confirmer Mot de passe</label> :
-                    <input type="password" name="passwd2" id="id_pass2" required/>
+                    <label for="id_pwd2">Confirmer Mot de passe</label> :
+                    <input type="password" name="pwd2" id="id_pwd2" required/>
                 </p>
                 <p>
                     <label for="id_email">Email</label> :
