@@ -44,7 +44,7 @@ class Joueur extends Modele {
                 $req->execute($data);
                 if ($req->rowCount() != 0) {
                     $data_recup = $req->fetch(PDO::FETCH_OBJ);
-                    session_start();
+                    //session_start();
                     $_SESSION['idJoueur'] = $data_recup->idJoueur;
                 }
             }catch (PDOException $e) {
@@ -57,7 +57,7 @@ class Joueur extends Modele {
         }
     }
     
-    public function seDeconnecter(){
+    public function Deconnexion(){
         session_unset();
         session_destroy();
     }

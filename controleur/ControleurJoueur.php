@@ -4,6 +4,11 @@
 require_once MODEL_PATH.'Joueur.php';
 
     switch ($action) {
+        
+    /*
+     * action=inscription
+     * Permet d'accéder au formulaire d'inscription
+     */
     case "inscription":
         if(!Joueur::estConnecte()){
             $vue="Creation";
@@ -13,30 +18,12 @@ require_once MODEL_PATH.'Joueur.php';
         else{
           die('Vous êtes déjà connecté.');
         }
-    
-    case "connexion":
-        if(!Joueur::estConnecte()){
-            $vue="connexion";
-            $pagetitle="Connexion";
-            break;
-        }
-        else{
-          die('Vous êtes déjà connecté.');
-        }
-    case "connect":
-        if (!(isset($_POST['pseudo']) && isset($_POST['pwd']))){
-            die("Veuillez saisir les informations de connexion.");
-        }
-        $data = array(
-            "pseudo" => $_POST['pseudo'],
-            "pwd" => $_POST['pwd']
-        );
-        Joueur::connexion($data);
-        $vue="connecte";
-        $pagetitle="Connexion réussie!";
     break;
-
-    case "save":
+    /*
+     * action=save
+     * Insertion d'un joueur dans la BDD (après une inscription)
+     */
+    case "save": 
         if (!(isset($_POST['pseudo']) && isset($_POST['sexe']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
             die("Veuillez remplir tous les champs du formulaire.");
             break;
@@ -54,10 +41,50 @@ require_once MODEL_PATH.'Joueur.php';
         else {
             die("Veuillez re-confirmer votre mot de passe.");
         }
-        //$login = $_POST['login'];
-        //$tab_util = ModelUtilisateur::selectAll();
         $vue='created';
         $pagetitle='Utilisateur Créé';
+    break;
+    
+    /*
+     * action=connexion
+     * Permet d'accéder au formulaire de connexion
+     */
+    case "connexion":
+        if(!Joueur::estConnecte()){
+            $vue="connexion";
+            $pagetitle="Connexion";
+            break;
+        }
+        else{
+          die('Vous êtes déjà connecté.');
+        }
+    /*
+     * action=connect
+     * Verifie que les données saisies dans le formulaire sont bonnes et ouvre la session
+     */
+    case "connect":
+        if (!(isset($_POST['pseudo']) && isset($_POST['pwd']))){
+            die("Veuillez saisir les informations de connexion.");
+        }
+        $data = array(
+            "pseudo" => $_POST['pseudo'],
+            "pwd" => $_POST['pwd']
+        );
+        Joueur::connexion($data);
+        $vue="connecte";
+        $pagetitle="Connexion réussie!";
+    break;
+    
+    case "deconnexion":
+        if(Joueur::estConnecte()==1){
+            Joueur::Deconnexion();
+            $vue="deconnexion";
+            $pagetitle="Deconnexion Réussie!";
+        }
+        else{
+            $vue="default";
+            $pagetitle="Deco FAIL PD";
+        }
     break;
     
     case "delete":
