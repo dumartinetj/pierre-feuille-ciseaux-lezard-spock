@@ -33,7 +33,7 @@ class Joueur extends Modele {
 	
     // vérifier si l'utilisateur est connecté
     public static function estConnecte() {
-            return isset($_SESSION['idJoueur']);
+        return(isset($_SESSION['idJoueur']));
     }	
 
     public static function connexion($data) {
@@ -44,7 +44,6 @@ class Joueur extends Modele {
                 $req->execute($data);
                 if ($req->rowCount() != 0) {
                     $data_recup = $req->fetch(PDO::FETCH_OBJ);
-                    //session_start();
                     $_SESSION['idJoueur'] = $data_recup->idJoueur;
                 }
             }catch (PDOException $e) {
@@ -57,7 +56,7 @@ class Joueur extends Modele {
         }
     }
     
-    public function Deconnexion(){
+    public static function Deconnexion(){
         session_unset();
         session_destroy();
     }

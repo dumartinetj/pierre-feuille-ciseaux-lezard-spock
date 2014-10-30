@@ -10,7 +10,7 @@ require_once MODEL_PATH.'Joueur.php';
      * Permet d'accéder au formulaire d'inscription
      */
     case "inscription":
-        if(Joueur::estConnecte()==2){
+        if(!Joueur::estConnecte()){
             $vue="Creation";
             $pagetitle="Formulaire d'inscription.";
             break;
@@ -50,7 +50,7 @@ require_once MODEL_PATH.'Joueur.php';
      * Permet d'accéder au formulaire de connexion
      */
     case "connexion":
-        if(Joueur::estConnecte()==2){
+        if(!Joueur::estConnecte()){
             $vue="connexion";
             $pagetitle="Connexion";
             break;
@@ -76,7 +76,7 @@ require_once MODEL_PATH.'Joueur.php';
     break;
     
     case "deconnexion":
-        if(Joueur::estConnecte()==1){
+        if(Joueur::estConnecte()){
             Joueur::Deconnexion();
             $vue="deconnexion";
             $pagetitle="Deconnexion Réussie!";
