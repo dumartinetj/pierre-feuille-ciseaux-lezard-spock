@@ -25,10 +25,9 @@
                 <p>
                     <label for="id_email">Email</label> :
                     <input type="email" placeholder="test@email.com" name="email" id="id_email" required/>
-                </p>             
+                </p>
                 <p>
                     <input type="submit" value="Créer l'utilisateur" />
                 </p>
             </fieldset>
         </form>
-
