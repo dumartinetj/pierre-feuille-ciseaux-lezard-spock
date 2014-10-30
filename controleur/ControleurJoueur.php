@@ -101,6 +101,67 @@ require_once MODEL_PATH.'Joueur.php';
         $pagetitle="Utilisateur supprimé";
     break;
 
+    case "profil":
+        if(estConnecte()){
+            $joueur = Joueur::getProfil();
+            $p = $joueur->pseudo;
+            $a = $joueur->age;
+            $s = $joueur->sexe;
+            $e = $joueur->email;
+            $nbv = $joueur->nbV;
+            $nbd = $joueur->nbD;
+            $r = 0;
+            if($nbd!=0) $r = $nbv/$nbd;
+            $vue="profil";
+            $pagetitle="Votre profil";
+        }
+        else{
+            die("Vous n'êtes pas connecté !");
+        }
+    break;
+
+    case "update":
+        if(estConnecte()){
+            $joueur = Joueur::getProfil();
+            $p = $joueur->pseudo;
+            $a = $joueur->age;
+            $s = $joueur->sexe;
+            $e = $joueur->email;
+            $vue="update";
+            $pagetitle="Mise à jour de votre profil";
+            break;
+        }
+        else{
+          die("Vous n'êtes pas connecté !");
+        }
+    break;
+
+    case "updated":
+        if(estConnecte()){
+        if (!(isset($_POST['pseudo']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
+            die("Veuillez remplir tous les champs du formulaire.");
+            break;
+        }
+        $data = array(
+            "pseudo" => $_POST["pseudo"],
+            "age" => $_POST["age"],
+            "pwd" => $_POST["pwd"],
+            "email" => $_POST["email"]
+        );
+        if($data['pwd']==$_POST["pwd2"]){
+            Joueur::updateProfil($data);
+        }
+        else {
+            die("Veuillez re-confirmer votre mot de passe.");
+        }
+        $vue='updated';
+        $pagetitle='Profil mis à jour !';
+        }
+        else{
+          die("Vous n'êtes pas connecté !");
+        }
+    break;
+
     case "read":
         if (!isset($_POST['pseudo'])) {
             $vue= "error";
