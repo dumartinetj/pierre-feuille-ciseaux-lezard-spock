@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once('config.inc.php');
     $page = 'joueur';
     if (isset($_GET['action']))

@@ -14,47 +14,26 @@
 				<!-- Menu -->
 				<div class="navbar navbar-default navbar-fixed-top" role="navigation">
 					<div class="container">
-				  <div class="navbar-header">
-				    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				      <span class="icon-bar"></span>
-				      <span class="icon-bar"></span>
-				      <span class="icon-bar"></span>
-				    </button>
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
 						<a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-home"></span></a>
-				  </div>
-				  <div class="navbar-collapse collapse">
-				    <ul class="nav navbar-nav">
-				      <li><a href="joueur.php">Joueur</a></li>
-				      <li><a href="#">Autre</a></li>
-				      <li><a href="#">Autre</a>
-				        <ul class="dropdown-menu">
-				          <li><a href="#">Autre</a></li>
-				          <li><a href="#">Autre</a></li>
-				          <li><a href="#">Autre</a></li>
-				          <li class="divider"></li>
-				          <li><a href="#">Autre</a></li>
-				          <li><a href="#">Autre</a>
-				            <ul class="dropdown-menu">
-				              <li><a href="#">Autre</a></li>
-				              <li><a href="#">Autre</a></li>
-				              <li><a href="#">Autre</a>
-				                <ul class="dropdown-menu">
-				                  <li><a href="#">Autre</a></li>
-				                  <li><a href="#">Autre</a></li>
-				                  <li><a href="#">Autre</a></li>
-				                  <li><a href="#">Autre</a></li>
-				                </ul>
-				              </li>
-				              <li><a href="#">Autre</a></li>
-				              <li><a href="#">Autre</a></li>
-				            </ul>
-				          </li>
-				        </ul>
-				      </li>
-				    </ul>
-				  </div><!--/.nav-collapse -->
+					</div>
+					<div class="navbar-collapse collapse">
+						<ul class="nav navbar-nav">
+							<li><a href="#">Jouer !</a></li>
+							<li><a href="#">Statistiques</a></li>
+							<li><a href="#">Règle du jeu</a></li>
+							<?php if(estConnecte()) include_once VIEW_PATH.'menu'.DS.'vueMenuConnecte.php';
+										else include_once  VIEW_PATH.'menu'.DS.'vueMenuNonConnecte.php';
+							?>
+						</ul>
+					</div><!--/.nav-collapse -->
 				</div><!--/.container -->
-			</div>
+				</div>
 				<!-- Fin du menu -->
 				<div id="wrap">
 					<div class="container">

@@ -3,7 +3,7 @@
 /*
  * Classe Joueur
  */
- 
+
 require_once 'Modele.php';
 
 class Joueur extends Modele {
@@ -30,11 +30,6 @@ class Joueur extends Modele {
 		    $this->password = $pw;
 		    $this->email = $em;
     }
-	
-    // vérifier si l'utilisateur est connecté
-    public static function estConnecte() {
-        return(isset($_SESSION['idJoueur']));
-    }	
 
     public static function connexion($data) {
         if((Joueur::checkExisteConnexion($data))) {
@@ -55,8 +50,8 @@ class Joueur extends Modele {
             die("Erreur pseudo ou mot de passe erroné"); // gestion des erreurs à améliorer
         }
     }
-    
-    public static function Deconnexion(){
+
+    public static function deconnexion(){
         session_unset();
         session_destroy();
     }
@@ -72,8 +67,8 @@ class Joueur extends Modele {
             die("Erreur lors de la recherche utilisateur dans BDD pour connexion");
         }
     }
-	
-	
+
+
     public static function inscription($data) {
         if(!(Joueur::checkAlreadyExist($data))) {
             try {
@@ -102,7 +97,7 @@ class Joueur extends Modele {
           }
     }
 
-	
+
 	 public static function delete($data) {
         try {
             // Preparation de la requete
@@ -114,7 +109,7 @@ class Joueur extends Modele {
             die('Erreur lors de la recherche d\'un joueur dans la BDD pfcls_joueurs');
         }
     }
-	
+
 	 public static function select($data) {
         try {
             // Preparation de la requete

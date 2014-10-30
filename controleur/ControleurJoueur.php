@@ -4,13 +4,13 @@
 require_once MODEL_PATH.'Joueur.php';
 
     switch ($action) {
-        
+
     /*
      * action=inscription
      * Permet d'accéder au formulaire d'inscription
      */
     case "inscription":
-        if(!Joueur::estConnecte()){
+        if(!estConnecte()){
             $vue="Creation";
             $pagetitle="Formulaire d'inscription.";
             break;
@@ -23,7 +23,7 @@ require_once MODEL_PATH.'Joueur.php';
      * action=save
      * Insertion d'un joueur dans la BDD (après une inscription)
      */
-    case "save": 
+    case "save":
         if (!(isset($_POST['pseudo']) && isset($_POST['sexe']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
             die("Veuillez remplir tous les champs du formulaire.");
             break;
@@ -44,13 +44,13 @@ require_once MODEL_PATH.'Joueur.php';
         $vue='created';
         $pagetitle='Utilisateur Créé';
     break;
-    
+
     /*
      * action=connexion
      * Permet d'accéder au formulaire de connexion
      */
     case "connexion":
-        if(!Joueur::estConnecte()){
+        if(!estConnecte()){
             $vue="connexion";
             $pagetitle="Connexion";
             break;
@@ -74,10 +74,10 @@ require_once MODEL_PATH.'Joueur.php';
         $vue="connecte";
         $pagetitle="Connexion réussie!";
     break;
-    
+
     case "deconnexion":
-        if(Joueur::estConnecte()){
-            Joueur::Deconnexion();
+        if(estConnecte()){
+            Joueur::deconnexion();
             $vue="deconnexion";
             $pagetitle="Deconnexion Réussie!";
         }
@@ -85,7 +85,7 @@ require_once MODEL_PATH.'Joueur.php';
             die("Vous n'êtes pas connecté!");
         }
     break;
-    
+
     case "delete":
         if (!isset($_POST['pseudo'])) {
             $vue="error";
@@ -107,7 +107,7 @@ require_once MODEL_PATH.'Joueur.php';
             $pagetitle="ERREUR!";
             break;
         }
-        // Initialisation des variables pour la vue        
+        // Initialisation des variables pour la vue
         $data = array("pseudo" => $_POST['pseudo']);
         $u = Joueur::select($data);
         // Chargement de la vue
@@ -115,7 +115,7 @@ require_once MODEL_PATH.'Joueur.php';
             $vue= "error";
             $pagetitle="ERREUR!";
             break;
-                    
+
         } //redirige vers une vue d'erreur
         else{
             // Initialisation des variables pour la vue
@@ -123,10 +123,10 @@ require_once MODEL_PATH.'Joueur.php';
             $pagetitle="Détails d'un joueur";
         }
     break;
-    
+
     default :
         $vue='default';
         $pagetitle='Page Joueur!';
-        
+
 }
 require VIEW_PATH.'vue.php';
