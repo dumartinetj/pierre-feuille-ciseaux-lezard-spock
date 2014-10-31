@@ -139,7 +139,7 @@ require_once MODEL_PATH.'Joueur.php';
     case "updated":
         if(estConnecte()){
         if (!(isset($_POST['pseudo']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
-            die("Veuillez remplir tous les champs du formulaire.");
+            die("Veuillez remplir tous les champs du formulaire");
             break;
         }
         $data = array(
@@ -152,7 +152,7 @@ require_once MODEL_PATH.'Joueur.php';
             Joueur::updateProfil($data);
         }
         else {
-            die("Veuillez re-confirmer votre mot de passe.");
+            die("Vous avez saisi deux mot de passe différents !");
         }
         $vue='updated';
         $pagetitle='Profil mis à jour !';

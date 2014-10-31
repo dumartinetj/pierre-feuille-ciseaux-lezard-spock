@@ -1,5 +1,5 @@
 <h3>Votre profil</h3>
-
+<hr>
 <p>
 <?php
 echo <<< EOT
@@ -13,3 +13,4 @@ Ratio : $r <br/>
 EOT;
 ?>
 </p>
+<a href='joueur.php?action=update'>Mettre à jour votre profil</a><br/>

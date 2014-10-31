@@ -87,8 +87,14 @@ class Joueur extends Modele {
 
     public static function checkAlreadyExist($data) {
       try {
-              $req = self::$pdo->prepare("SELECT * FROM pfcls_Joueurs WHERE pseudo = :pseudo OR email = :email");
+              $var = "SELECT * FROM pfcls_Joueurs WHERE";
+              if (estConnecte()) $var .= " idJoueur !=".$_SESSION['idJoueur']." AND";
+              $var .= " (pseudo = :pseudo OR email = :email)";
+              $req = self::$pdo->prepare($var);
+              var_dump($var);
               $req->execute(array('pseudo' => $data['pseudo'], 'email' => $data['email']));
+              $data_recup = $req->fetch(PDO::FETCH_OBJ);
+              var_dump($data_recup);
               return ($req->rowCount() != 0);
               }
            catch (PDOException $e) {
