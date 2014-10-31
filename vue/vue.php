@@ -24,7 +24,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Jouer !</a></li>
+                    <li><a href="jouer.php">Jouer !</a></li>
                     <li><a href="#">Règle du jeu</a></li>
                     <li><a href="#">Statistiques</a></li>
                     <?php if(estConnecte()) include_once VIEW_PATH.'menu'.DS.'vueMenuConnecte.php';
