@@ -99,18 +99,27 @@ require_once MODEL_PATH.'Joueur.php';
     break;
 
     case "delete":
-        if (!isset($_POST['pseudo'])) {
-            $vue='Erreur';
-            $contenuErreur="Veuillez saisir le pseudo du joueur à supprimer.";
+        if(estConnecte()){
+            $vue="delete";
+            $pagetitle="Confirmation suppression de votre profil";
         }
-        $data = array("pseudo" => $_POST['pseudo']);
-        $u = Joueur::delete($data);
-        // Initialisation des variables pour la vue
-        $pseudo = $_POST['pseudo'];
-        $tab_util = Joueur::select();
-        // Chargement de la vue
-        $vue="deleted";
-        $pagetitle="Utilisateur supprimé";
+        else{
+            $vue='Erreur';
+            $contenuErreur="Vous n'êtes pas connecté.";
+        }
+    break;
+
+    case "deleted":
+        if(estConnecte()){
+          Joueur::deleteProfil();
+          Joueur::deconnexion();
+          $vue="deleted";
+          $pagetitle="Compte supprimé !";
+          }
+        else{
+            $vue='Erreur';
+            $contenuErreur="Vous n'êtes pas connecté.";
+        }
     break;
 
     case "profil":

@@ -103,19 +103,6 @@ class Joueur extends Modele {
           }
     }
 
-    public static function delete($data) {
-        try {
-            // Preparation de la requete
-            $req = self::$pdo->prepare('DELETE FROM pfcls_joueurs WHERE pfcls_joueurs.pseudo = :pseudo');
-            // execution de la requete
-            $req->execute($data);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            $vue='Erreur';
-            $contenuErreur="Erreur lors de la suppression d'un joueur de la base de données.";
-        }
-    }
-
     public static function select($data) {
         try {
             // Preparation de la requete
@@ -147,6 +134,17 @@ class Joueur extends Modele {
         else{
             $vue='Erreur';
             $contenuErreur="Pseudo/Email déjà utilisé!";
+        }
+    }
+
+    public static function deleteProfil() {
+        try {
+            $req = self::$pdo->prepare('DELETE FROM pfcls_joueurs WHERE idJoueur ='.$_SESSION['idJoueur']);
+            $req->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $vue='Erreur';
+            $contenuErreur="Erreur lors de la suppression d'un joueur de la base de données";
         }
     }
 

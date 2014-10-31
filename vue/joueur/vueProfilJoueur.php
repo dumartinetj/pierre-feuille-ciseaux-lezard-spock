@@ -13,4 +13,6 @@ Ratio : $r <br/>
 EOT;
 ?>
 </p>
+<hr>
 <a href='joueur.php?action=update'>Mettre à jour votre profil</a><br/>
+<a href='joueur.php?action=delete'>Supprimer votre profil de la matrice !</a><br/>
