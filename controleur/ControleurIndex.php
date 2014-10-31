@@ -1,6 +1,6 @@
 <?php
     if (empty($_GET)) {
-      $vue='default';
+      $vue="default";
       $pagetitle='Bienvenue sur PFCLS !';
     }
     else if (isset($action)) {
@@ -12,4 +12,4 @@
     else {
       $messageErreur="Il semblerait que vous ayez trouvé un glitch dans le système !";
     }
-    require VIEW_PATH . 'vue.php';
+    require VIEW_PATH . "vue.php";

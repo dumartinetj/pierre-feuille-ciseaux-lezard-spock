@@ -1,3 +1,6 @@
-<p> Succès ! </p>
+<div class="col-md-3"></div>
+<div class="col-md-6">
+<h3> Profil mis à jour </h3>
 <p> Votre profil a bien été mis à jour ! </p>
-<p> <a href="joueur.php?action=profil">Revenir à votre profil</a> </p>
+<a href="joueur.php?action=profil">Revenir à votre profil</a>
+</div>

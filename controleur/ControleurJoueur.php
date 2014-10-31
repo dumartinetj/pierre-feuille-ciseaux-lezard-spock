@@ -1,11 +1,10 @@
 <?php
 
-// On va chercher le modele dans "./model/ModelUtilisateur.php"
-require_once MODEL_PATH.'Joueur.php';
+require_once MODEL_PATH."Joueur.php";
 
     if (empty($_GET)) {
-      $vue='defaut';
-      $pagetitle='Vue par défaut sans param';
+      $vue="defaut";
+      $pagetitle="Vue par défaut sans param";
     }
     else if (isset($action)) {
         switch ($action) {
@@ -21,7 +20,7 @@ require_once MODEL_PATH.'Joueur.php';
                 break;
             }
             else{
-                $messageErreur="Vous êtes déjà connecté";
+                $messageErreur="Vous êtes déjà connecté !";
             }
         break;
         /*
@@ -48,11 +47,11 @@ require_once MODEL_PATH.'Joueur.php';
                   $messageErreur="Vous avez saisi deux mots de passe différents !";
                   break;
               }
-              $vue='created';
-              $pagetitle='Utilisateur enregistré !';
+              $vue="created";
+              $pagetitle="Inscription terminée !";
             }
             else{
-              $messageErreur="Vous êtes déjà connecté";
+              $messageErreur="Vous êtes déjà connecté !";
             }
         break;
 
@@ -67,7 +66,7 @@ require_once MODEL_PATH.'Joueur.php';
                 break;
             }
             else{
-              $messageErreur="Vous êtes déjà connecté";
+              $messageErreur="Vous êtes déjà connecté !";
             }
         /*
          * action=connect
@@ -93,7 +92,7 @@ require_once MODEL_PATH.'Joueur.php';
                 }
             }
             else{
-              $messageErreur="Vous êtes déjà connecté";
+              $messageErreur="Vous êtes déjà connecté !";
             }
         break;
 
@@ -101,10 +100,10 @@ require_once MODEL_PATH.'Joueur.php';
             if(estConnecte()){
                 Joueur::deconnexion();
                 $vue="deconnexion";
-                $pagetitle="Deconnexion Réussie!";
+                $pagetitle="Déconnexion réussie !";
             }
             else{
-                $messageErreur="Vous n'êtes pas connecté";
+                $messageErreur="Vous n'êtes pas connecté !";
             }
         break;
 
@@ -114,7 +113,7 @@ require_once MODEL_PATH.'Joueur.php';
                 $pagetitle="Confirmation suppression de votre profil";
             }
             else{
-                $messageErreur="Vous n'êtes pas connecté";
+                $messageErreur="Vous n'êtes pas connecté !";
             }
         break;
 
@@ -123,10 +122,10 @@ require_once MODEL_PATH.'Joueur.php';
               Joueur::deleteProfil();
               Joueur::deconnexion();
               $vue="deleted";
-              $pagetitle="Compte supprimé !";
+              $pagetitle="Profil supprimé !";
               }
             else{
-                $messageErreur="Vous n'êtes pas connecté";
+                $messageErreur="Vous n'êtes pas connecté !";
             }
         break;
 
@@ -145,7 +144,7 @@ require_once MODEL_PATH.'Joueur.php';
                 $pagetitle="Votre profil";
             }
             else{
-                $messageErreur="Vous n'êtes pas connecté";
+                $messageErreur="Vous n'êtes pas connecté !";
             }
         break;
 
@@ -161,7 +160,7 @@ require_once MODEL_PATH.'Joueur.php';
                 break;
             }
             else{
-                $messageErreur="Vous n'êtes pas connecté";
+                $messageErreur="Vous n'êtes pas connecté !";
             }
         break;
 
@@ -181,10 +180,10 @@ require_once MODEL_PATH.'Joueur.php';
                 Joueur::updateProfil($data);
             }
             else {
-                $messageErreur="Veuillez re-confirmer votre mot de passe";
+                $messageErreur="Vous avez saisi deux mots de passe différents !";
                 break;
             }
-            $vue='updated';
+            $vue="updated";
             $pagetitle='Profil mis à jour !';
             }
             else{
@@ -192,7 +191,7 @@ require_once MODEL_PATH.'Joueur.php';
             }
         break;
 
-        case "read":
+        /*case "read":
             if (!isset($_POST['pseudo'])) {
                 $vue='Erreur';
                 $messageErreur="Veuillez saisir un pseudo.";
@@ -212,7 +211,7 @@ require_once MODEL_PATH.'Joueur.php';
                 $vue="find";
                 $pagetitle="Détails d'un joueur";
             }
-        break;
+        break; */
 
         default :
             $messageErreur="Il semblerait que vous ayez trouvé un glitch dans le système !";
@@ -222,4 +221,4 @@ require_once MODEL_PATH.'Joueur.php';
       else {
         $messageErreur="Il semblerait que vous ayez trouvé un glitch dans le système !";
       }
-require VIEW_PATH.'vue.php';
+require VIEW_PATH."vue.php";

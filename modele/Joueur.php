@@ -59,7 +59,7 @@ class Joueur extends Modele {
             return ($req->rowCount() != 0);
         }  catch (PDOException $e) {
             echo $e->getMessage();
-            $messageErreur="Erreur lors de la recherche dans la base de données";
+            $messageErreur="Erreur lors de la recherche dans la base de données checkConnexion";
         }
     }
 
@@ -72,11 +72,11 @@ class Joueur extends Modele {
                 $req->execute($data);
             } catch (PDOException $e) {
                 echo $e->getMessage();
-                $messageErreur="Erreur lors de l'insertion dans la base de données";
+                $messageErreur="Erreur lors de l'insertion dans la base de données pour inscription";
             }
         }
         else {
-            $messageErreur="Pseudo/Email déjà existant";
+            $messageErreur="Pseudo ou email déjà existant";
         }
     }
 
@@ -86,10 +86,8 @@ class Joueur extends Modele {
               if (estConnecte()) $var .= " idJoueur !=".$_SESSION['idJoueur']." AND";
               $var .= " (pseudo = :pseudo OR email = :email)";
               $req = self::$pdo->prepare($var);
-              var_dump($var);
               $req->execute(array('pseudo' => $data['pseudo'], 'email' => $data['email']));
               $data_recup = $req->fetch(PDO::FETCH_OBJ);
-              var_dump($data_recup);
               return ($req->rowCount() != 0);
               }
            catch (PDOException $e) {
@@ -98,7 +96,7 @@ class Joueur extends Modele {
           }
     }
 
-    public static function select($data) {
+    /*public static function select($data) {
         try {
             // Preparation de la requete
             $req = self::$pdo->prepare('SELECT * FROM pfcls_joueurs WHERE pfcls_joueurs.pseudo = :pseudo');
@@ -112,7 +110,8 @@ class Joueur extends Modele {
             echo $e->getMessage();
             $messageErreur="Erreur lors de la recherche d'un joueur dans la base de données";
         }
-    }
+    }*/
+
     public static function updateProfil($data) {
         if(!(Joueur::checkAlreadyExist($data))) {
             try {
@@ -125,7 +124,7 @@ class Joueur extends Modele {
             }
         }
         else{
-            $messageErreur="Pseudo/Email déjà utilisé !";
+            $messageErreur="Pseudo ou email déjà utilisé !";
         }
     }
 
