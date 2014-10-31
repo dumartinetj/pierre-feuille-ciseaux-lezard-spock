@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS pfcls_Parties;
 DROP TABLE IF EXISTS pfcls_Joueurs;
 DROP TABLE IF EXISTS pfcls_Figures;
 
-CREATE TABLE pfcls_Figures 
+CREATE TABLE pfcls_Figures
 (
 	idFigure INT NOT NULL AUTO_INCREMENT,
     nom VARCHAR(10) NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE pfcls_Coups
 	idJoueurGagnant INT, /* pas de signe donc toujours positif */
 	PRIMARY KEY (idCoup),
 	CONSTRAINT fk_coups_figure1_id FOREIGN KEY (idFigure1) REFERENCES pfcls_Figures(idFigure),
-	CONSTRAINT fk_coups_figure2_id FOREIGN KEY (idFigure2) REFERENCES pfcls_Figures(idFigure),	
+	CONSTRAINT fk_coups_figure2_id FOREIGN KEY (idFigure2) REFERENCES pfcls_Figures(idFigure),
 	CONSTRAINT fk_coups_joueur1_id FOREIGN KEY (idJoueur1) REFERENCES pfcls_Joueurs(idJoueur),
 	CONSTRAINT fk_coups_joueur2_id FOREIGN KEY (idJoueur2) REFERENCES pfcls_Joueurs(idJoueur),
 	CONSTRAINT fk_coups_joueurgagnant_id FOREIGN KEY (idJoueurGagnant) REFERENCES pfcls_Joueurs(idJoueur)
@@ -92,5 +92,3 @@ INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Feuille", "1,5", "3
 INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Ciseaux", "2,4", "5,1");
 INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Lézard", "2,5", "3,1");
 INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Spock", "1,3", "2,4");
-INSERT INTO pfcls_Joueurs (pseudo, sexe, age, nbV, nbD, pwd, email) VALUES ("monsterkill", "H", 20, 0, 0, "123456789", "aaaa@bbbb.com");
-INSERT INTO pfcls_Joueurs (pseudo, sexe, age, nbV, nbD, pwd, email) VALUES ("dudu34", "F", 25, 0, 0, "123456789", "bbbb@aaaa.com");
