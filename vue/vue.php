@@ -1,10 +1,9 @@
-<?php if($vue=='erreur' OR $vue=='Erreur'){ require_once VIEW_PATH.'vueErreur.php';} ?>
 <!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
-        <title >PFCLS - <?php echo $pagetitle; ?></title>
+        <title >PFCLS - <?php if (isset($pagetitle)) echo "$pagetitle"; else echo "Erreur" ?></title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="<?= VIEW_PATH_BASE; ?>css/bootstrap.min.css" rel="stylesheet">
@@ -42,8 +41,8 @@
         <div class="row" id="main-content">
             <div class="col-md-1"></div>
             <div class="col-md-12">
-                <?php require VIEW_PATH.$page.DS.'vue'.ucfirst($vue).ucfirst($page).'.php'; ?>
-                
+                <?php if(!isset($vue)) echo "<h3>$messageErreur</h3>";
+                  else require VIEW_PATH.$page.DS.'vue'.ucfirst($vue).ucfirst($page).'.php';?>
             </div>
         </div>
         </div>

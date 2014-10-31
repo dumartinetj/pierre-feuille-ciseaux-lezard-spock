@@ -42,8 +42,7 @@ class Joueur extends Modele {
             }
         }catch (PDOException $e) {
             echo $e->getMessage();
-            $vue='Erreur';
-            $contenuErreur="Echec lors de la connexion d'un utilisateur.";
+            $messageErreur="Échec lors de la connexion d'un utilisateur";
         }
     }
 
@@ -60,8 +59,7 @@ class Joueur extends Modele {
             return ($req->rowCount() != 0);
         }  catch (PDOException $e) {
             echo $e->getMessage();
-            $vue='Erreur';
-            $contenuErreur="Erreur lors de la recherche dans la base de données.";
+            $messageErreur="Erreur lors de la recherche dans la base de données";
         }
     }
 
@@ -74,13 +72,11 @@ class Joueur extends Modele {
                 $req->execute($data);
             } catch (PDOException $e) {
                 echo $e->getMessage();
-                $vue='Erreur';
-                $contenuErreur="Erreur lors de l'insertion dans la base de données.";
+                $messageErreur="Erreur lors de l'insertion dans la base de données";
             }
         }
         else {
-            $vue='Erreur';
-            $contenuErreur="Pseudo/Email déjà existant.";
+            $messageErreur="Pseudo/Email déjà existant";
         }
     }
 
@@ -97,9 +93,8 @@ class Joueur extends Modele {
               return ($req->rowCount() != 0);
               }
            catch (PDOException $e) {
-              $vue='Erreur';
               echo $e->getMessage();
-              die("Erreur lors de la recherche d'un utilisateur dans la BDD pour le check pseudo/mail");
+              $messageErreur="Erreur lors de la recherche d'un utilisateur dans la BDD pour le check pseudo/mail";
           }
     }
 
@@ -115,8 +110,7 @@ class Joueur extends Modele {
             return null;  // Optionel : si return est omis, Php envoie null dans tous les cas
         } catch (PDOException $e) {
             echo $e->getMessage();
-            $vue='Erreur';
-            $contenuErreur="Erreur lors de la recherche d'un joueur dans la base de données.";
+            $messageErreur="Erreur lors de la recherche d'un joueur dans la base de données";
         }
     }
     public static function updateProfil($data) {
@@ -127,13 +121,11 @@ class Joueur extends Modele {
                 $req->execute($data);
             } catch (PDOException $e) {
                 echo $e->getMessage();
-                $vue='Erreur';
-                $contenuErreur="Erreur lors de la mise à jour d'un joueur dans la base de données.";
+                $messageErreur="Erreur lors de la mise à jour d'un joueur dans la base de données";
             }
         }
         else{
-            $vue='Erreur';
-            $contenuErreur="Pseudo/Email déjà utilisé!";
+            $messageErreur="Pseudo/Email déjà utilisé !";
         }
     }
 
@@ -143,8 +135,7 @@ class Joueur extends Modele {
             $req->execute();
         } catch (PDOException $e) {
             echo $e->getMessage();
-            $vue='Erreur';
-            $contenuErreur="Erreur lors de la suppression d'un joueur de la base de données";
+            $messageErreur="Erreur lors de la suppression d'un joueur de la base de données";
         }
     }
 
@@ -155,8 +146,7 @@ class Joueur extends Modele {
             return $req->fetch(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
             echo $e->getMessage();
-            $vue='Erreur';
-            $contenuErreur="Erreur lors de la recherche d'un joueur dans la base de données.";
+            $messageErreur="Erreur lors de la recherche d'un joueur dans la base de données";
         }
     }
 
