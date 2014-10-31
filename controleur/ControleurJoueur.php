@@ -16,7 +16,8 @@ require_once MODEL_PATH.'Joueur.php';
             break;
         }
         else{
-          die('Vous êtes déjà connecté.');
+            $vue='Erreur';
+            $contenuErreur="Vous êtes déjà connecté.";
         }
     break;
     /*
@@ -25,7 +26,8 @@ require_once MODEL_PATH.'Joueur.php';
      */
     case "save":
         if (!(isset($_POST['pseudo']) && isset($_POST['sexe']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
-            die("Veuillez remplir tous les champs du formulaire.");
+            $vue='Erreur';
+            $contenuErreur="Veuillez remplir tous les champs du formulaire.";
             break;
         }
         $data = array(
@@ -39,7 +41,8 @@ require_once MODEL_PATH.'Joueur.php';
             Joueur::inscription($data);
         }
         else {
-            die("Veuillez re-confirmer votre mot de passe.");
+            $vue='Erreur';
+            $contenuErreur="Veuillez re-confirmer votre mot de passe.";
         }
         $vue='created';
         $pagetitle='Utilisateur Créé';

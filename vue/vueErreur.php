@@ -2,7 +2,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
-        <title >PFCLS - <?php echo 'ERREUR: '.$pagetitle; ?></title>
+        <title >PFCLS - <?php echo 'ERREUR: '.ucfirst($action) ?></title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="<?= VIEW_PATH_BASE; ?>css/bootstrap.min.css" rel="stylesheet">
@@ -40,7 +40,7 @@
         <div class="row" id="main-content">
             <div class="col-md-1"></div>
             <div class="col-md-12">
-                <?php echo 'Message d\'erreur: '.$contenuErreur ?>                
+                <h3><?php echo 'Message d\'erreur: '.$contenuErreur ?></h3>                
             </div>
         </div>
         </div>
