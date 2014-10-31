@@ -40,7 +40,7 @@
         <div class="row" id="main-content">
             <div class="col-md-1"></div>
             <div class="col-md-12">
-                <h3><?php echo 'Message d\'erreur: '.$contenuErreur ?></h3>                
+                <h3><?php echo 'Message d\'erreur: '.$contenuErreur ?></h3>
             </div>
         </div>
         </div>

@@ -59,7 +59,8 @@ require_once MODEL_PATH.'Joueur.php';
             break;
         }
         else{
-          die('Vous êtes déjà connecté.');
+          $vue='Erreur';
+          $contenuErreur="Vous êtes déjà connecté.";
         }
     /*
      * action=connect
@@ -67,15 +68,22 @@ require_once MODEL_PATH.'Joueur.php';
      */
     case "connect":
         if (!(isset($_POST['pseudo']) && isset($_POST['pwd']))){
-            die("Veuillez saisir les informations de connexion.");
+            $vue='Erreur';
+            $contenuErreur="Veuillez saisir les informations de connexion.";
         }
         $data = array(
             "pseudo" => $_POST['pseudo'],
             "pwd" => $_POST['pwd']
         );
-        Joueur::connexion($data);
-        $vue="connecte";
-        $pagetitle="Connexion réussie!";
+        if((Joueur::checkExisteConnexion($data))) {
+            Joueur::connexion($data);
+            $vue="connecte";
+            $pagetitle="Connexion réussie!";
+        }
+        else{
+            $vue='Erreur';
+            $contenuErreur="Pseudo ou mot de passe erroné!";
+        }
     break;
 
     case "deconnexion":
@@ -85,14 +93,15 @@ require_once MODEL_PATH.'Joueur.php';
             $pagetitle="Deconnexion Réussie!";
         }
         else{
-            die("Vous n'êtes pas connecté!");
+            $vue='Erreur';
+            $contenuErreur="Vous n'êtes pas connecté.";
         }
     break;
 
     case "delete":
         if (!isset($_POST['pseudo'])) {
-            $vue="error";
-            $pagetitle="ERREUR!";
+            $vue='Erreur';
+            $contenuErreur="Veuillez saisir le pseudo du joueur à supprimer.";
         }
         $data = array("pseudo" => $_POST['pseudo']);
         $u = Joueur::delete($data);
@@ -119,7 +128,8 @@ require_once MODEL_PATH.'Joueur.php';
             $pagetitle="Votre profil";
         }
         else{
-            die("Vous n'êtes pas connecté !");
+            $vue='Erreur';
+            $contenuErreur="Vous n'êtes pas connecté.";
         }
     break;
 
@@ -135,15 +145,16 @@ require_once MODEL_PATH.'Joueur.php';
             break;
         }
         else{
-          die("Vous n'êtes pas connecté !");
+            $vue='Erreur';
+            $contenuErreur="Vous n'êtes pas connecté.";
         }
     break;
 
     case "updated":
         if(estConnecte()){
         if (!(isset($_POST['pseudo']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
-            die("Veuillez remplir tous les champs du formulaire.");
-            break;
+            $vue='Erreur';
+            $contenuErreur="Veuillez remplir tous les champs du formulaire.";
         }
         $data = array(
             "pseudo" => $_POST["pseudo"],
@@ -155,20 +166,22 @@ require_once MODEL_PATH.'Joueur.php';
             Joueur::updateProfil($data);
         }
         else {
-            die("Veuillez re-confirmer votre mot de passe.");
+            $vue='Erreur';
+            $contenuErreur="Veuillez re-confirmer votre mot de passe.";
         }
         $vue='updated';
         $pagetitle='Profil mis à jour !';
         }
         else{
-          die("Vous n'êtes pas connecté !");
+            $vue='Erreur';
+            $contenuErreur="Vous n'êtes pas connecté!";
         }
     break;
 
     case "read":
         if (!isset($_POST['pseudo'])) {
-            $vue= "error";
-            $pagetitle="ERREUR!";
+            $vue='Erreur';
+            $contenuErreur="Veuillez saisir un pseudo.";
             break;
         }
         // Initialisation des variables pour la vue
@@ -176,8 +189,8 @@ require_once MODEL_PATH.'Joueur.php';
         $u = Joueur::select($data);
         // Chargement de la vue
         if (is_null($u)){
-            $vue= "error";
-            $pagetitle="ERREUR!";
+            $vue='Erreur';
+            $contenuErreur="Utilisateur invalide.";
             break;
 
         } //redirige vers une vue d'erreur

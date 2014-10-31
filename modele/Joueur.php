@@ -32,22 +32,18 @@ class Joueur extends Modele {
     }
 
     public static function connexion($data) {
-        if((Joueur::checkExisteConnexion($data))) {
-            try {
-                $data['pwd'] = sha1($data['pwd']);
-                $req = self::$pdo->prepare('SELECT idJoueur FROM pfcls_Joueurs WHERE pseudo = :pseudo AND pwd = :pwd');
-                $req->execute($data);
-                if ($req->rowCount() != 0) {
-                    $data_recup = $req->fetch(PDO::FETCH_OBJ);
-                    $_SESSION['idJoueur'] = $data_recup->idJoueur;
-                }
-            }catch (PDOException $e) {
-                echo $e->getMessage();
-                die("Erreur lors de la connexion d'un utilisateur");
+        try {
+            $data['pwd'] = sha1($data['pwd']);
+            $req = self::$pdo->prepare('SELECT idJoueur FROM pfcls_Joueurs WHERE pseudo = :pseudo AND pwd = :pwd');
+            $req->execute($data);
+            if ($req->rowCount() != 0) {
+                $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                $_SESSION['idJoueur'] = $data_recup->idJoueur;
             }
-        }
-        else {
-            die("Erreur pseudo ou mot de passe erroné"); // gestion des erreurs à améliorer
+        }catch (PDOException $e) {
+            echo $e->getMessage();
+            $vue='Erreur';
+            $contenuErreur="Echec lors de la connexion d'un utilisateur.";
         }
     }
 
@@ -64,7 +60,8 @@ class Joueur extends Modele {
             return ($req->rowCount() != 0);
         }  catch (PDOException $e) {
             echo $e->getMessage();
-            die("Erreur lors de la recherche utilisateur dans BDD pour connexion");
+            $vue='Erreur';
+            $contenuErreur="Erreur lors de la recherche dans la base de données.";
         }
     }
 
@@ -77,28 +74,30 @@ class Joueur extends Modele {
                 $req->execute($data);
             } catch (PDOException $e) {
                 echo $e->getMessage();
-                die("Erreur lors de l'insertion d'un utilisateur dans la BDD");
+                $vue='Erreur';
+                $contenuErreur="Erreur lors de l'insertion dans la base de données.";
             }
         }
         else {
-            die("Erreur pseudo/email existe déjà"); // gestion des erreurs à améliorer
+            $vue='Erreur';
+            $contenuErreur="Pseudo/Email déjà existant.";
         }
     }
 
     public static function checkAlreadyExist($data) {
-      try {
-              $req = self::$pdo->prepare("SELECT * FROM pfcls_Joueurs WHERE pseudo = :pseudo OR email = :email");
-              $req->execute(array('pseudo' => $data['pseudo'], 'email' => $data['email']));
-              return ($req->rowCount() != 0);
-              }
-           catch (PDOException $e) {
-              echo $e->getMessage();
-              die("Erreur lors de la recherche d'un utilisateur dans la BDD pour le check inscription");
+        try {
+            $req = self::$pdo->prepare("SELECT * FROM pfcls_Joueurs WHERE pseudo = :pseudo OR email = :email");
+            $req->execute(array('pseudo' => $data['pseudo'], 'email' => $data['email']));
+            return ($req->rowCount() != 0);
+            }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+            $vue='Erreur';
+            $contenuErreur="Erreur lors de la recherche dans la base de données.";
           }
     }
 
-
-	 public static function delete($data) {
+    public static function delete($data) {
         try {
             // Preparation de la requete
             $req = self::$pdo->prepare('DELETE FROM pfcls_joueurs WHERE pfcls_joueurs.pseudo = :pseudo');
@@ -106,11 +105,12 @@ class Joueur extends Modele {
             $req->execute($data);
         } catch (PDOException $e) {
             echo $e->getMessage();
-            die('Erreur lors de la recherche d\'un joueur dans la BDD pfcls_joueurs');
+            $vue='Erreur';
+            $contenuErreur="Erreur lors de la suppression d'un joueur de la base de données.";
         }
     }
 
-	 public static function select($data) {
+    public static function select($data) {
         try {
             // Preparation de la requete
             $req = self::$pdo->prepare('SELECT * FROM pfcls_joueurs WHERE pfcls_joueurs.pseudo = :pseudo');
@@ -122,7 +122,8 @@ class Joueur extends Modele {
             return null;  // Optionel : si return est omis, Php envoie null dans tous les cas
         } catch (PDOException $e) {
             echo $e->getMessage();
-            die('Erreur lors de la recherche d\'un joueur dans la BDD pfcls_joueurs');
+            $vue='Erreur';
+            $contenuErreur="Erreur lors de la recherche d'un joueur dans la base de données.";
         }
     }
     public static function updateProfil($data) {
@@ -133,24 +134,27 @@ class Joueur extends Modele {
                 $req->execute($data);
             } catch (PDOException $e) {
                 echo $e->getMessage();
-                die('Erreur lors de la mise à jour d\'un Joueur dans la BDD ');
+                $vue='Erreur';
+                $contenuErreur="Erreur lors de la mise à jour d'un joueur dans la base de données.";
             }
         }
         else{
-            die('Ce pseudo ou cet email est déjà utilisé!');
+            $vue='Erreur';
+            $contenuErreur="Pseudo/Email déjà utilisé!";
         }
     }
 
     public static function getProfil() {
-         try {
-             $req = self::$pdo->prepare('SELECT * FROM pfcls_joueurs WHERE pfcls_joueurs.idJoueur ='.$_SESSION['idJoueur']);
-             $req->execute();
-             return $req->fetch(PDO::FETCH_OBJ);
-         } catch (PDOException $e) {
-             echo $e->getMessage();
-             die("Erreur lors de la recherche d'un joueur dans la BDD via son identifiant");
-         }
-     }
+        try {
+            $req = self::$pdo->prepare('SELECT * FROM pfcls_joueurs WHERE pfcls_joueurs.idJoueur ='.$_SESSION['idJoueur']);
+            $req->execute();
+            return $req->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $vue='Erreur';
+            $contenuErreur="Erreur lors de la recherche d'un joueur dans la base de données.";
+        }
+    }
 
 	public function getIdentifiant() {
 		return $this->identifiant;
