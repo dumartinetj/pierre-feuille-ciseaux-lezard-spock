@@ -1,6 +1,7 @@
 <?php
 
 require_once MODEL_PATH."Jeu.php";
+require_once MODEL_PATH.'Partie.php';
 
     if (empty($_GET)) {
       if(estConnecte()){
@@ -38,7 +39,9 @@ require_once MODEL_PATH."Jeu.php";
                         Jeu::deleteAttente($_SESSION['idJoueur']);
                         Jeu::deleteAttente($idJoueurAdverse);
                         Partie::ajouterPartie($data2);
-                        //TO DO: Créer la partie entre les deux hippies
+                        $vue="Partie";
+                        $pagetitle="Partie en cours...";
+                        //Ne change la vue que pour une personne (la dernière à avoir fait la recherche)
                     }
                 }
                 else{
