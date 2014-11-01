@@ -190,8 +190,14 @@ require_once MODEL_PATH."Joueur.php";
                 $messageErreur="Vous n'êtes pas connecté !";
             }
         break;
-
-        /*case "read":
+		
+		case "search":
+		
+				$vue='find';
+				$pagetitle="Recherche d'un joueur";
+				break;
+				
+        case "read":
             if (!isset($_POST['pseudo'])) {
                 $vue='Erreur';
                 $messageErreur="Veuillez saisir un pseudo.";
@@ -200,6 +206,7 @@ require_once MODEL_PATH."Joueur.php";
             // Initialisation des variables pour la vue
             $data = array("pseudo" => $_POST['pseudo']);
             $u = Joueur::select($data);
+			
             // Chargement de la vue
             if (is_null($u)){
                 $messageErreur="Utilisateur invalide";
@@ -208,10 +215,10 @@ require_once MODEL_PATH."Joueur.php";
             } //redirige vers une vue d'erreur
             else{
                 // Initialisation des variables pour la vue
-                $vue="find";
+                $vue="found";
                 $pagetitle="Détails d'un joueur";
             }
-        break; */
+        break; 
 
         default :
             $messageErreur="Il semblerait que vous ayez trouvé un glitch dans le système !";

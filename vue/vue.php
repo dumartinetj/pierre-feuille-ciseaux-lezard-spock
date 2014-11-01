@@ -27,6 +27,7 @@
                     <li><a href="jouer.php">Jouer !</a></li>
                     <li><a href="#">Règle du jeu</a></li>
                     <li><a href="#">Statistiques</a></li>
+					<li><a href="joueur.php?action=search">Rechercher un joueur</a></li>
                     <?php if(estConnecte()) include_once VIEW_PATH.'menu'.DS.'vueMenuConnecte.php';
                     else include_once  VIEW_PATH.'menu'.DS.'vueMenuNonConnecte.php';
                     ?>

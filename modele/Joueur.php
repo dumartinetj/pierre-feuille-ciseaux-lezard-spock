@@ -96,10 +96,12 @@ class Joueur extends Modele {
           }
     }
 
-    /*public static function select($data) {
+    public static function select($data) {
         try {
             // Preparation de la requete
-            $req = self::$pdo->prepare('SELECT * FROM pfcls_joueurs WHERE pfcls_joueurs.pseudo = :pseudo');
+			$p = 'pseudo';
+			$t = 'pfcls_joueurs';
+            $req = self::$pdo->prepare("SELECT * FROM $t WHERE $p = $p");
             // execution de la requete
             $req->execute($data);
 
@@ -110,7 +112,7 @@ class Joueur extends Modele {
             echo $e->getMessage();
             $messageErreur="Erreur lors de la recherche d'un joueur dans la base de données";
         }
-    }*/
+    }
 
     public static function updateProfil($data) {
         if(!(Joueur::checkAlreadyExist($data))) {
