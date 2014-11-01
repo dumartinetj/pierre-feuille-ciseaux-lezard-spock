@@ -8,4 +8,4 @@
     <li><a href="#">Autre</a>
   </ul>
 </li>
-<li><a href="joueur.php?action=deconnexion">Se déconnecter</a></li>
+<li><a href="joueur.php?action=deconnexion">Se déconnecter (<?php echo $_SESSION['pseudo']; ?>)</a></li>

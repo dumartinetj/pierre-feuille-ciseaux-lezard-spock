@@ -183,6 +183,7 @@ require_once MODEL_PATH."Joueur.php";
                 $messageErreur="Vous avez saisi deux mots de passe différents !";
                 break;
             }
+            $_SESSION['pseudo'] = $_POST["pseudo"];
             $vue="updated";
             $pagetitle='Profil mis à jour !';
             }

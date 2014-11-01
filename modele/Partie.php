@@ -3,9 +3,20 @@
 /*
  * Classe Partie
  */
+require_once 'Modele.php';
+    
+class Partie extends Modele{
 
-class Partie {
-
+    public static function ajouterPartie($data) {
+        try {
+            $req = self::$pdo->prepare('INSERT INTO pfcls_parties (nbManche, idJoueur1, idJoueur2) VALUES (:nbManche, :idJoueur1, :idJoueur2) ');
+            $req->execute($data);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $messageErreur="Erreur lors de l'insertion de la partie dans la base de données.";
+        }
+    }
+    
     private $identifiant;
     private $nbManche;
     private $joueur1;
