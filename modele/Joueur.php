@@ -49,7 +49,9 @@ class Joueur extends Modele {
     }
 
     public static function deconnexion(){
-        //Jeu::deleteAttente($_SESSION['idJoueur']);
+        if(checkDejaAttente($_SESSION['idJoueur'])){
+            Jeu::deleteAttente($_SESSION['idJoueur']);
+        }
         session_unset();
         session_destroy();
     }
