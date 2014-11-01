@@ -1,0 +1,1 @@
+<h3>Vous êtes bien sorti de la file d'attente de recherche d'une partie!</h3>

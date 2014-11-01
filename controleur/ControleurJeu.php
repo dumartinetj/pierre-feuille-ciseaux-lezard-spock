@@ -39,7 +39,15 @@ require_once MODEL_PATH."Jeu.php";
                 if(estConnecte()){
                     if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){
                         Jeu::deleteAttente($_SESSION['idJoueur']);
+                        $vue="deleted";
+                        $pagetitle="Annulation de la recherche d'une partie!";
                     }
+                    else{
+                        $messageErreur="Vous n'êtes pas dans la liste d'attente!";
+                    }
+                }
+                else{
+                    $messageErreur="Vous n'êtes pas connecté!";
                 }
             break;
 
