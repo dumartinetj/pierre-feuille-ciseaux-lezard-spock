@@ -26,7 +26,7 @@ class Jeu extends Modele{
                     return $idAdversaire;
                 }
                 else{
-                    return NULL; //TO DO
+                    return NULL;
                 }
             }catch (PDOException $e) {
                 echo $e->getMessage();
