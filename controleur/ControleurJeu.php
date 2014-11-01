@@ -30,8 +30,14 @@ require_once MODEL_PATH."Jeu.php";
                     }
                     else{
                         $idJoueurAdverse=$search;
+                        $data2 = array(
+                            "idJoueur" => $_SESSION['idJoueur'],
+                            "idJoueur2" => $idJoueurAdverse,
+                            "nbManche" => $_POST['nbManche']
+                        );
                         Jeu::deleteAttente($_SESSION['idJoueur']);
                         Jeu::deleteAttente($idJoueurAdverse);
+                        Partie::ajouterPartie($data2);
                         //TO DO: Créer la partie entre les deux hippies
                     }
                 }

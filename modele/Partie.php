@@ -3,9 +3,25 @@
 /*
  * Classe Partie
  */
+require_once 'Modele.php';
+    
+class Partie extends Modele{
 
-class Partie {
-
+        public static function ajouterPartie($data) {
+        if(!Jeu::checkDejaAttente($data['idJoueur'])){
+            try {
+                $req = self::$pdo->prepare('INSERT INTO pfcls_parties_en_attente (idJoueur, nbManche) VALUES (:idJoueur, :nbManche) ');
+                $req->execute($data);
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                $messageErreur="Erreur lors de l'insertion dans la base de données pour inscription";
+            }
+        }
+        else{
+            $messageErreur="Vous êtes déjà dans la file d'attente.";
+        }
+    }
+    
     private $identifiant;
     private $nbManche;
     private $joueur1;
