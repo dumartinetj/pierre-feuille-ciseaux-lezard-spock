@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS pfcls_StatistiquesPersonnelles;
 DROP TABLE IF EXISTS pfcls_StatistiquesGlobales;
 DROP TABLE IF EXISTS pfcls_Manches;
 DROP TABLE IF EXISTS pfcls_Parties;
+DROP TABLE IF EXISTS pfcls_Parties_en_attente;
 DROP TABLE IF EXISTS pfcls_Joueurs;
 DROP TABLE IF EXISTS pfcls_Figures;
 
@@ -27,6 +28,15 @@ CREATE TABLE pfcls_Joueurs
 	email VARCHAR(255) NOT NULL,
 	PRIMARY KEY (idJoueur)
 ) ENGINE=INNODB ;
+
+CREATE TABLE pfcls_Parties_en_attente
+(
+	idPartie_en_attente INT NOT NULL AUTO_INCREMENT,
+	idJoueur INT NOT NULL, /* pas de signe donc toujours positif */
+		nbManche INT UNSIGNED NOT NULL, /* pas de signe donc toujours positif */
+	PRIMARY KEY (idPartie_en_attente),
+	FOREIGN KEY (idJoueur) REFERENCES pfcls_Joueurs(idJoueur)
+) ENGINE=INNODB;
 
 CREATE TABLE pfcls_Parties
 (
