@@ -17,21 +17,26 @@ require_once MODEL_PATH."Jeu.php";
         switch ($action) {
 
             case "rechercher":
-                $search=Jeu::recherchePartie($_POST['nbManche']);
-                $data = array(
-                    "idJoueur" => $_SESSION['idJoueur'],
-                    "nbManche" => $_POST['nbManche']
-                );
-                if($search==NULL){
-                    Jeu::ajouterAttente($data);
-                    $vue="attente";
-                    $pagetitle="En attente d'un adversaire !";
+                if(estConnecte()){
+                    $search=Jeu::recherchePartie($_POST['nbManche']);
+                    $data = array(
+                        "idJoueur" => $_SESSION['idJoueur'],
+                        "nbManche" => $_POST['nbManche']
+                    );
+                    if($search==NULL){
+                        Jeu::ajouterAttente($data);
+                        $vue="attente";
+                        $pagetitle="En attente d'un adversaire !";
+                    }
+                    else{
+                        $idJoueurAdverse=$search;
+                        Jeu::deleteAttente($_SESSION['idJoueur']);
+                        Jeu::deleteAttente($idJoueurAdverse);
+                        //TO DO: Créer la partie entre les deux hippies
+                    }
                 }
                 else{
-                    $idJoueurAdverse=$search;
-                    Jeu::deleteAttente($_SESSION['idJoueur']);
-                    Jeu::deleteAttente($idJoueurAdverse);
-                    //TO DO: Créer la partie entre les deux hippies
+                    $messageErreur="Vous n'êtes pas connecté!";
                 }
             break;
 
