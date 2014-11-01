@@ -5,6 +5,7 @@
  */
 
 require_once 'Modele.php';
+require_once 'Jeu.php';
 
 class Joueur extends Modele {
 
