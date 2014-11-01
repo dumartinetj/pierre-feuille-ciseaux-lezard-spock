@@ -15,7 +15,7 @@ require_once MODEL_PATH."Jeu.php";
     }
     else if (isset($action)) {
         switch ($action) {
-            
+
             case "rechercher":
                 $search=Jeu::recherchePartie($_POST['nbManche']);
                 $data = array(
@@ -23,10 +23,9 @@ require_once MODEL_PATH."Jeu.php";
                     "nbManche" => $_POST['nbManche']
                 );
                 if($search==NULL){
-                    //while($search==NULL) ??
                     Jeu::ajouterAttente($data);
                     $vue="attente";
-                    $pagetitle="En attente d'un adversaire!";
+                    $pagetitle="En attente d'un adversaire !";
                 }
                 else{
                     $idJoueurAdverse=$search;
@@ -35,7 +34,7 @@ require_once MODEL_PATH."Jeu.php";
                     //TO DO: Créer la partie entre les deux hippies
                 }
             break;
-            
+
             case "annuler":
                 if(estConnecte()){
                     if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){
