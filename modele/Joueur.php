@@ -34,11 +34,12 @@ class Joueur extends Modele {
     public static function connexion($data) {
         try {
             $data['pwd'] = sha1($data['pwd']);
-            $req = self::$pdo->prepare('SELECT idJoueur FROM pfcls_Joueurs WHERE pseudo = :pseudo AND pwd = :pwd');
+            $req = self::$pdo->prepare('SELECT idJoueur, pseudo FROM pfcls_Joueurs WHERE pseudo = :pseudo AND pwd = :pwd');
             $req->execute($data);
             if ($req->rowCount() != 0) {
                 $data_recup = $req->fetch(PDO::FETCH_OBJ);
                 $_SESSION['idJoueur'] = $data_recup->idJoueur;
+                $_SESSION['pseudo'] = $data_recup->pseudo;
             }
         }catch (PDOException $e) {
             echo $e->getMessage();
