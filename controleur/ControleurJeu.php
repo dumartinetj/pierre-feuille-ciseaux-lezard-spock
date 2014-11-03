@@ -5,8 +5,16 @@ require_once MODEL_PATH.'Partie.php';
 
     if (empty($_GET)) {
       if(estConnecte()){
-        $vue="defaut";
-        $pagetitle="Jouer !";
+
+        if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){
+            $pagetitle="En attente d'un adversaire !";
+            $vue="attente";
+        }
+        else{
+            $pagetitle="Jouer !";
+            $vue="recherche";
+        }
+
 
       }
       else {
