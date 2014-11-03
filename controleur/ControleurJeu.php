@@ -49,6 +49,24 @@ require_once MODEL_PATH.'Partie.php';
                 }
             break;
 
+            case "waiting":
+                if(estConnecte()){
+                    $en_attente = Jeu::checkDejaAttente($_SESSION['idJoueur']);
+                    if($en_attente){
+                        $vue="attente";
+                        $pagetitle="En attente d'un adversaire !";
+                    }
+                    else{
+                        $vue="Partie";
+                        $pagetitle="Partie en cours...";
+                        //Ne change la vue que pour une personne (la dernière à avoir fait la recherche)
+                    }
+                }
+                else{
+                    $messageErreur="Vous n'êtes pas connecté!";
+                }
+            break;
+
             case "annuler":
                 if(estConnecte()){
                     if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){
