@@ -18,7 +18,7 @@ class Jeu extends Modele{
         if(estConnecte()){
             try {
                 $idJoueurR=$_SESSION['idJoueur'];
-                $req = self::$pdo->prepare('SELECT idJoueur FROM pfcls_parties_en_attente WHERE nbManche= '.$nbManche.' AND idJoueur != '.$idJoueurR);
+                $req = self::$pdo->prepare('SELECT idJoueur FROM pfcls_Parties_en_attente WHERE nbManche= '.$nbManche.' AND idJoueur != '.$idJoueurR);
                 $req->execute();
                 if ($req->rowCount() != 0) {
                     $data_recup = $req->fetch(PDO::FETCH_OBJ);
@@ -39,7 +39,7 @@ class Jeu extends Modele{
     }
     public static function checkDejaAttente($idJoueur){
         try {
-            $req = self::$pdo->prepare('SELECT * FROM pfcls_parties_en_attente WHERE idJoueur= '.$idJoueur);
+            $req = self::$pdo->prepare('SELECT * FROM pfcls_Parties_en_attente WHERE idJoueur= '.$idJoueur);
             $req->execute();
             if ($req->rowCount() != 0) {
                 return true;
@@ -56,7 +56,7 @@ class Jeu extends Modele{
     public static function ajouterAttente($data) {
         if(!Jeu::checkDejaAttente($data['idJoueur'])){
             try {
-                $req = self::$pdo->prepare('INSERT INTO pfcls_parties_en_attente (idJoueur, nbManche) VALUES (:idJoueur, :nbManche) ');
+                $req = self::$pdo->prepare('INSERT INTO pfcls_Parties_en_attente (idJoueur, nbManche) VALUES (:idJoueur, :nbManche) ');
                 $req->execute($data);
             } catch (PDOException $e) {
                 echo $e->getMessage();
@@ -70,7 +70,7 @@ class Jeu extends Modele{
 
     public static function deleteAttente($idJoueur) {
         try {
-            $req = self::$pdo->prepare('DELETE FROM pfcls_parties_en_attente WHERE idJoueur = '.$idJoueur);
+            $req = self::$pdo->prepare('DELETE FROM pfcls_Parties_en_attente WHERE idJoueur = '.$idJoueur);
             $req->execute();
         } catch (PDOException $e) {
             echo $e->getMessage();
