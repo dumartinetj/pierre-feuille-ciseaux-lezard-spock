@@ -8,9 +8,9 @@
 		Les régles du jeu vous serons expliqué par Sheldon Cooper le personnage de la série The Big Bang Theory. Un schéma récapitulatif des règles est aussi présent <a href="vueReglesIndex.php">ici</a>.
 	</p>
 	Passons maintenant à l'explication du pourquoi de ce site.
-		<p> Le but premier de ce projet est de recueillir des statistiques sur les joueurs, à terme on pourra savoir par exemple si une
+		<p> Le but premier de ce projet est de recueillir des statistiques sur les joueurs, à terme on pourra savoir par exemple si une femme
 			est meilleure qu'un homme à ce jeu ou de déterminer si les hommes de 20 à 30 ans sont meilleurs que les hommes de 30 à 40 ans.
-			Ce sont en somme des statistiques basiques mais, qui vont servir ensuite pour programmer une Intelligence Artificielle (IA) qui permettra, à vous joueur, de jouer contre une IA qui pourra 
+			Ce sont en somme des statistiques basiques mais, qui vont servir ensuite pour programmer une Intelligence Artificielle (IA) qui vous permettra de jouer contre une IA qui pourra 
 			selon votre âge et votre sexe déterminer les coups que vous allez jouer pour pouvoir les contrer du mieux possible. L'IA pourra prévoir le coup qu'il faut jouer pour gagner contre vous,
 			en cela elle se comporte comme l'IA d'un jeu d'échec qui prédit le meilleur coup à jouer grâce à l'expérience accumulées au cours de nombreuses parties.
 		</p>
