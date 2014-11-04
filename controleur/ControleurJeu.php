@@ -40,16 +40,16 @@ require_once MODEL_PATH.'Partie.php';
                     else{
                         $idJoueurAdverse=$search;
                         $data2 = array(
-                            "idJoueur" => $_SESSION['idJoueur'],
+                            "idJoueur1" => $_SESSION['idJoueur'],
                             "idJoueur2" => $idJoueurAdverse,
                             "nbManche" => $_POST['nbManche']
                         );
+                        var_dump($data2);
                         Jeu::deleteAttente($_SESSION['idJoueur']);
                         Jeu::deleteAttente($idJoueurAdverse);
                         Partie::ajouterPartie($data2);
                         $vue="Partie";
                         $pagetitle="Partie en cours...";
-                        //Ne change la vue que pour une personne (la dernière à avoir fait la recherche)
                     }
                 }
                 else{
