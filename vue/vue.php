@@ -20,7 +20,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-home"></span></a>
+                <a class="navbar-brand" href="index.php"><img src="<?= VIEW_PATH_BASE; ?>img/logo.png" alt=""></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
