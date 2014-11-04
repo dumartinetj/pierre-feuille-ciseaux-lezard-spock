@@ -23,7 +23,11 @@
 		<li> Spock vaporise la pierre </li> 
 	</ul>
 </p>
+<hr>
 <p>
-    <img src="<?php echo VIEW_PATH_BASE.'index/regles.png'?>" alt="Schéma des régles"/>
+	Et voici le fameux schéma:
+</p>
+<p>
+	<img src="<?php echo VIEW_PATH_BASE.'index/regles.png'?>" alt="Schéma des régles"/>
 </p>
 </div>
