@@ -24,6 +24,6 @@
 	</ul>
 </p>
 <p>
-<img src="<?= VIEW_PATH_BASE $vue; ?>regles.png" alt="Schéma des régles" />
+echo '<img src="<?= VIEW_PATH_BASE $vue; ?>regles.png" alt="Schéma des régles" />';
 </p>
 </div>
