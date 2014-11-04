@@ -1,8 +1,8 @@
-<div class="col-md-3"></div>
-<div class="col-md-6">
 <h3>Confirmation de suppression de votre profil</h3>
 <hr>
 <p>Êtes-vous sûr de vouloir supprimer votre profil définitivement ?</p>
+<div class="col-md-3"></div>
+<div class="col-md-6">
 <form method="post" action="joueur.php?action=deleted">
   <input class="btn" type="submit" name="submit" value="Confirmer la suppression définitive"/>
 </form>

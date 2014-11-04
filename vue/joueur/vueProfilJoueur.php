@@ -1,5 +1,3 @@
-<div class="col-md-3"></div>
-<div class="col-md-6">
 <h3>Votre profil</h3>
 <hr>
 <p>
@@ -18,4 +16,3 @@ EOT;
 <hr>
 <a href='joueur.php?action=update'>Mettre à jour votre profil</a><br/>
 <a href='joueur.php?action=delete'>Supprimer votre profil de la matrice !</a><br/>
-</div>

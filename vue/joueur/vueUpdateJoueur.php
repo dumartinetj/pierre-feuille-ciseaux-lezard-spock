@@ -1,7 +1,5 @@
 <?php
 echo <<< EOT
-<div class="col-md-3"></div>
-<div class="col-md-6">
 <form method="post" action="joueur.php?action=updated">
     <fieldset>
         <legend>Mettre à jour votre profil</legend>
@@ -31,5 +29,4 @@ echo <<< EOT
         </p>
     </fieldset>
 </form>
-</div>
 EOT;

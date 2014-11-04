@@ -1,5 +1,3 @@
-<div class="col-md-3"></div>
-<div class="col-md-6">
 <h3>Un joueur trouvé !</h3>
 <hr>
 <p>
@@ -14,4 +12,3 @@ Ratio : $r <br/>
 EOT;
 ?>
 </p>
-</div>
