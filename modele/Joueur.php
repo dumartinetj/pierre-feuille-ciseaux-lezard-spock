@@ -147,7 +147,7 @@ class Joueur extends Modele {
 
     public static function getProfil() {
         try {
-            $req = self::$pdo->prepare('SELECT * FROM pfcls_Joueurs WHERE pfcls_Joueurs.idJoueur ='.$_SESSION['idJoueur']);
+            $req = self::$pdo->prepare('SELECT * FROM pfcls_Joueurs WHERE idJoueur ='.$_SESSION['idJoueur']);
             $req->execute();
             return $req->fetch(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
