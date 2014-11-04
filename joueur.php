@@ -3,5 +3,5 @@
     $page = 'joueur';
     if (isset($_GET['action']))
         $action = $_GET['action'];
-    include CTR_PATH.'controleurJoueur.php';
+    include CTR_PATH.'ControleurJoueur.php';
 ?>
