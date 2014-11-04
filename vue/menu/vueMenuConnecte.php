@@ -1,3 +1,4 @@
+<li><a href="joueur.php?action=search">Rechercher un joueur</a></li>
 <li><a href="joueur.php?action=profil">Profil</a>
   <ul class="dropdown-menu">
     <li><a href="#">Autre</a></li>

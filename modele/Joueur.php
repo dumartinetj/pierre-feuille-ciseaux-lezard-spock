@@ -101,18 +101,12 @@ class Joueur extends Modele {
           }
     }
 
-    public static function select($data) {
+    public static function search($data) {
         try {
-            // Preparation de la requete
-			$p = 'pseudo';
-			$t = 'pfcls_joueurs';
-            $req = self::$pdo->prepare("SELECT * FROM $t WHERE $p = $p");
-            // execution de la requete
+            $req = self::$pdo->prepare("SELECT * FROM pfcls_Joueurs WHERE pseudo = :pseudo");
             $req->execute($data);
-
             if ($req->rowCount() != 0)
                 return $req->fetch(PDO::FETCH_OBJ);
-            return null;  // Optionel : si return est omis, Php envoie null dans tous les cas
         } catch (PDOException $e) {
             echo $e->getMessage();
             $messageErreur="Erreur lors de la recherche d'un joueur dans la base de données";

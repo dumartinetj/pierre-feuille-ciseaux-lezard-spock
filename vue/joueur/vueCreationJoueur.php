@@ -5,8 +5,8 @@
         <legend>Inscription</legend>
             <input type="text" class="form-control" placeholder="Pseudo" name="pseudo" id="id_pseudo" required/><br/>
             <div>
-              <input type="radio" name="sexe" id="id_sexe" value="H" required> ♂</input>
-              <input type="radio" name="sexe" id="id_sexe" value="F" required> ♀</input>
+              <input type="radio" name="sexe" id="id_sexe" value="H" required> ♂<br/>
+              <input type="radio" name="sexe" id="id_sexe" value="F" required> ♀<br/>
             </div><br/>
             <input type="number" class="form-control" placeholder="Âge" name="age" id="id_age" min="1" max="130" required/><br/>
             <input type="password" class="form-control" name="pwd" placeholder="Mot de passe" id="id_pwd" required/><br/>

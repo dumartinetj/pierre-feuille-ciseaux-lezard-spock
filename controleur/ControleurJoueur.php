@@ -191,35 +191,48 @@ require_once MODEL_PATH."Joueur.php";
                 $messageErreur="Vous n'êtes pas connecté !";
             }
         break;
-		
-		case "search":
-		
-				$vue='find';
-				$pagetitle="Recherche d'un joueur";
-				break;
-				
-        case "read":
-            if (!isset($_POST['pseudo'])) {
-                $vue='Erreur';
-                $messageErreur="Veuillez saisir un pseudo.";
-                break;
-            }
-            // Initialisation des variables pour la vue
-            $data = array("pseudo" => $_POST['pseudo']);
-            $u = Joueur::select($data);
-			
-            // Chargement de la vue
-            if (is_null($u)){
-                $messageErreur="Utilisateur invalide";
-                break;
 
-            } //redirige vers une vue d'erreur
-            else{
-                // Initialisation des variables pour la vue
-                $vue="found";
-                $pagetitle="Détails d'un joueur";
+    		case "search":
+    		    if(estConnecte()){
+        				$vue='find';
+        				$pagetitle="Recherche d'un joueur";
             }
-        break; 
+            else{
+                $messageErreur="Vous n'êtes pas connecté !";
+            }
+    				break;
+
+
+        case "searched":
+            if(estConnecte()){
+              if (!isset($_POST['pseudo'])) {
+                  $messageErreur='<a href="joueur.php?action=search">Rechercher un joueur</a>';
+                  break;
+              }
+              $data = array("pseudo" => $_POST['pseudo']);
+              $joueur = Joueur::search($data);
+              if (is_null($joueur)){
+                  $vue="notFound";
+                  $pagetitle="Aucun résultat";
+                  break;
+              }
+              else{
+                  $p = $joueur->pseudo;
+                  $a = $joueur->age;
+                  $s = $joueur->sexe;
+                  $e = $joueur->email;
+                  $nbv = $joueur->nbV;
+                  $nbd = $joueur->nbD;
+                  $r = 0;
+                  if($nbd!=0) $r = $nbv/$nbd;
+                  $vue="found";
+                  $pagetitle="Résultat trouvé";
+              }
+            }
+              else{
+                  $messageErreur="Vous n'êtes pas connecté !";
+              }
+              break;
 
         default :
             $messageErreur="Il semblerait que vous ayez trouvé un glitch dans le système !";
