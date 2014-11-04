@@ -9,7 +9,7 @@ class Partie extends Modele{
 
     public static function ajouterPartie($data) {
         try {
-            $req = self::$pdo->prepare('INSERT INTO pfcls_parties (nbManche, idJoueur1, idJoueur2) VALUES (:nbManche, :idJoueur1, :idJoueur2) ');
+            $req = self::$pdo->prepare('INSERT INTO pfcls_Parties (nbManche, idJoueur1, idJoueur2) VALUES (:nbManche, :idJoueur1, :idJoueur2) ');
             $req->execute($data);
         } catch (PDOException $e) {
             echo $e->getMessage();
