@@ -24,6 +24,6 @@
 	</ul>
 </p>
 <p>
-    <img src="<?php echo VIEW_PATH_BASE.'index/regles.png'?>" />
+    <img src="<?php echo VIEW_PATH_BASE.'index/regles.png'?>" alt="Schéma des régles"/>
 </p>
 </div>
