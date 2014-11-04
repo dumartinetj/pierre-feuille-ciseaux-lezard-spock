@@ -1,6 +1,7 @@
 <div class="col-md-3"></div>
 <div class="col-md-6">
 <h3>Bienvenue sur PFCLS !</h3>
+<hr>
 	<p> <h5>Premièrement bonjour.</h5>
 	
 		Bienvenu sur le site PFCLS, ce site contient le jeu Pierre, Feuille, Ciseaux amélioré par l'ajout de Lézard et Spock.
