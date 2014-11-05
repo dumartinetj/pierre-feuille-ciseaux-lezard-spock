@@ -64,8 +64,8 @@ CREATE TABLE pfcls_Manches
 CREATE TABLE pfcls_Coups
 (
 	idCoup INT NOT NULL AUTO_INCREMENT,
-    idFigure1 INT NOT NULL,
-    idFigure2 INT NOT NULL,
+    idFigure1 INT,
+    idFigure2 INT,
     idJoueur1 INT NOT NULL,
     idJoueur2 INT NOT NULL,
 	idJoueurGagnant INT, /* pas de signe donc toujours positif */
