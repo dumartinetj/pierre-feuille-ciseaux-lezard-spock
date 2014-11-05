@@ -2,6 +2,7 @@
 
 require_once MODEL_PATH."Jeu.php";
 require_once MODEL_PATH.'Partie.php';
+require_once MODEL_PATH.'Coup.php';
 
     if (empty($_GET)) {
       if(estConnecte()){
