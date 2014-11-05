@@ -1,7 +1,12 @@
 <?php
-    define('VIEW_PATH', ROOT . DS . 'vues' . DS . 'jeu' . DS);
-    define('VIEW_PATH_IMG', ROOT . DS . 'vues' . DS . 'jeu' . DS.'img'.DS);
-    //require_once MODEL_PATH . 'ModelUtilisateur.php';
+    require_once MODEL_PATH."Coup.php";
+    
+    /*
+     * en gros avant d'insert il check si l'autre à joué ou pas, 
+     * si c'est pas le cas il insert son coup, 
+     * sinon il récupère celui de l'autre et il effectue les 
+     * tests pour s'avoir qui gagne et après seulement il insert
+     */
     if(isset($_GET['action'])){ //Verifie si une action est bien passé en paramètre.
         $action = $_GET['action']; //Récupère l'action.
         switch ($action) { //Switch différentes actions.
