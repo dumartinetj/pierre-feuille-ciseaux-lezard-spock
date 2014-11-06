@@ -9,29 +9,6 @@ require_once 'Jeu.php';
 
 class Joueur extends Modele {
 
-    private $identifiant;
-    private $pseudo;
-    private $sexe;
-	private $age;
-	private $nbVictoire;
-	private $nbDefaite;
-	private $password;
-	private $email;
-
-	/*
-	 * Constructeur de la classe qui instancie un nouveau Joueur
-	 */
-    public function __construct($i, $p, $s, $a, $pw, $em) {
-        $this->identifiant = $i;
-        $this->pseudo = $p;
-        $this->sexe = $s;
-		    $this->age = $a;
-		    $this->nbVictoire = 0;
-		    $this->nbDefaite = 0;
-		    $this->password = $pw;
-		    $this->email = $em;
-    }
-
     public static function connexion($data) {
         try {
             $data['pwd'] = sha1($data['pwd']);
