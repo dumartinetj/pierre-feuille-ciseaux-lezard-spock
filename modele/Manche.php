@@ -5,6 +5,7 @@
  */
 
 require_once 'Modele.php';
+require_once 'Coup.php';
 
 class Manche extends Modele{
 
@@ -12,18 +13,22 @@ class Manche extends Modele{
     private $listeCoup;
     private $gagnantManche;
 
-	/*
-	 * Constructeur de la classe qui instancie une nouvelle Manche
-	 */
-    public function __construct($i) {
-        $this->identifiant = $i;
-        $this->listeCoup = array();
+
+    public static function ajoutManche($idP) {
+        try {
+            $req = self::$pdo->prepare('INSERT INTO pfcls_Manches (idPartie) VALUES ('.$idP.')');
+            $req->execute();
+            return self::$pdo->lastInsertId(); //retourne le dernier id insérer dans la BDD sur cette session
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $messageErreur="Erreur lors de l'insertion de la manche dans la base de données";
+        }
     }
 
 	/*
 	 * Ajoute le coup passé en paramètre à listeCoup de this
 	 * @param $c le coup à ajouter
-	 */
+	 
     public function ajoutCoup($c) {
         array_push($this->listeCoup, $c); // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
     }
@@ -117,7 +122,7 @@ class Manche extends Modele{
 				return $data_new;
 
   }
-  
+
    /*
    * Insére les stats perso dans la BDD à partir de données globales
    * @param un tableau contenant les données globales
@@ -125,7 +130,7 @@ class Manche extends Modele{
   public static function ajoutStatsPersonnelles($data){
       try {
 		 $data_new = Manche::parsageStatsPerso($data);
-         $req = self::$pdo->prepare('INSERT INTO pfcls_StatistiquesPersonnelles (idJoueur, listeCoups) VALUES (:idJoueur1, :listeCoupsJ1)');		 
+         $req = self::$pdo->prepare('INSERT INTO pfcls_StatistiquesPersonnelles (idJoueur, listeCoups) VALUES (:idJoueur1, :listeCoupsJ1)');
          $req->execute(array('idJoueur1' => $data_new['idJoueur1'], 'listeCoupsJ1' => $data_new['listeCoupsJ1']));
 		 $req2 = self::$pdo->prepare('INSERT INTO pfcls_StatistiquesPersonnelles (idJoueur, listeCoups) VALUES (:idJoueur2, :listeCoupsJ2)');
          $req2->execute(array('idJoueur2' => $data_new['idJoueur2'], 'listeCoupsJ2' => $data_new['listeCoupsJ2']));

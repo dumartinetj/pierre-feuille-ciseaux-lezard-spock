@@ -81,7 +81,7 @@ class Coup extends Modele {
 
     public static function ajoutCoup($data) {
         try {
-                $req = self::$pdo->prepare('INSERT INTO pfcls_Coups (idJoueur1, idJoueur2) VALUES (:idJoueur1, :idJoueur2)');
+                $req = self::$pdo->prepare('INSERT INTO pfcls_Coups (idJoueur1, idJoueur2, idManche) VALUES (:idJoueur1, :idJoueur2, :idManche)');
                 $req->execute($data);
                 return self::$pdo->lastInsertId(); //retourne le dernier id insérer dans la BDD sur cette session
             } catch (PDOException $e) {
@@ -97,6 +97,41 @@ class Coup extends Modele {
             } catch (PDOException $e) {
                 echo $e->getMessage();
                 $messageErreur="Erreur lors de la supression d'un coup dans la BDD";
+            }
+    }
+
+    public static function whoUpdateCoup($data) {
+        try {
+                $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idJoueur1 = :idJoueur1 AND idFigure1 IS NULL");
+                $req->execute($data);
+                return ($req->rowCount() != 0);
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                $messageErreur="Erreur lors de who MAJ d'un coup dans la BDD";
+            }
+    }
+
+    public static function updateCoup($data) {
+        try {
+                if(Coup::whoUpdateCoup(array('idJoueur1' => $data['idJoueur']))) {
+                  $data2 = array(
+                      "idFigure1" => $data['idFigure'],
+                      "idJoueur1" => $data['idJoueur']
+                  );
+                  $req = self::$pdo->prepare("UPDATE pfcls_Coups SET idFigure1 = :idFigure1 WHERE idJoueur1 = :idJoueur1 AND idFigure1 IS NULL");
+                  $req->execute($data2);
+                }
+                else {
+                  $data2 = array(
+                      "idFigure2" => $data['idFigure'],
+                      "idJoueur2" => $data['idJoueur']
+                  );
+                  $req = self::$pdo->prepare("UPDATE pfcls_Coups SET idFigure2 = :idFigure2 WHERE idJoueur2 = :idJoueur2 AND idFigure2 IS NULL");
+                  $req->execute($data2);
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                $messageErreur="Erreur lors de la MAJ d'un coup dans la BDD";
             }
     }
 

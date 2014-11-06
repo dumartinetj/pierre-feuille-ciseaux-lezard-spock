@@ -4,47 +4,29 @@
  * Classe Partie
  */
 require_once 'Modele.php';
-    
-class Partie extends Modele{
+require_once 'Manche.php';
+
+class Partie extends Modele {
 
     public static function ajouterPartie($data) {
         try {
             $req = self::$pdo->prepare('INSERT INTO pfcls_Parties (nbManche, idJoueur1, idJoueur2) VALUES (:nbManche, :idJoueur1, :idJoueur2) ');
             $req->execute($data);
+            return self::$pdo->lastInsertId(); //retourne le dernier id insérer dans la BDD sur cette session
         } catch (PDOException $e) {
             echo $e->getMessage();
-            $messageErreur="Erreur lors de l'insertion de la partie dans la base de données.";
+            $messageErreur="Erreur lors de l'insertion de la partie dans la base de données";
         }
     }
-    
-    private $identifiant;
-    private $nbManche;
-    private $joueur1;
-    private $joueur2;
-    private $listeManche;	
-    private $gagnantPartie;
-	
-	/*
-	 * Constructeur de la classe qui instancie une nouvelle Partie
-	 */
-	
-    public function __construct($i, $nb, $j1, $j2) {
-        $this->identifiant = $i;
-        $this->joueur1 = $j1;
-        $this->joueur2 = $j2;
-        $this->nbManche = $nb;
-        $this->listeManche = array();
-        $this->gagnantPartie = NULL;
-    }
-	
+
 	/*
 	 * Ajoute la manche passé en paramètre à listeManche de this
 	 * @param $m la manche à ajouter
-	 */
+	 
     public function ajoutManche($m) {
         array_push($this->listeManche, $m);
     }
-	
+
 	/*
 	 * Set et retourne le gagnant de this
 	 * @return le gagnant de la partie
@@ -70,7 +52,7 @@ class Partie extends Modele{
         elseif (($nbwinJ1<$nbwinJ2)and($nbwinJ2>$nbMancheMini)) {$this->gagnantPartie=$this->joueur2;}
         return $this->gagnantPartie;
     }
-    
+
 	/*
 	 * Vérifie si la partie est terminée
 	 * @return vraie si la partie est finie, faux sinon

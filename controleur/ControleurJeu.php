@@ -45,12 +45,18 @@ require_once MODEL_PATH.'Coup.php';
                             "idJoueur2" => $idJoueurAdverse,
                             "nbManche" => $_POST['nbManche']
                         );
-                        var_dump($data2);
                         Jeu::deleteAttente($_SESSION['idJoueur']);
                         Jeu::deleteAttente($idJoueurAdverse);
-                        Partie::ajouterPartie($data2);
-                        $vue="Partie";
-                        $pagetitle="Partie en cours...";
+                        $_SESSION['idPartieEnCours'] = Partie::ajouterPartie($data2);
+                        $_SESSION['idMancheEnCours'] = Manche::ajoutManche($_SESSION['idPartieEnCours']);
+                        $data3 = array(
+                            "idJoueur1" => $_SESSION['idJoueur'],
+                            "idJoueur2" => $idJoueurAdverse,
+                            "idManche" => $_SESSION['idMancheEnCours']
+                        );
+                        $_SESSION['idCoupEnCours'] = Coup::ajoutCoup($data3);
+                        $vue="choix";
+                        $pagetitle="Choisissez votre figure";
                     }
                 }
                 else{
@@ -66,9 +72,8 @@ require_once MODEL_PATH.'Coup.php';
                         $pagetitle="En attente d'un adversaire !";
                     }
                     else{
-                        $vue="Partie";
-                        $pagetitle="Partie en cours...";
-                        //Ne change la vue que pour une personne (la dernière à avoir fait la recherche)
+                        $vue="choix";
+                        $pagetitle="Choisissez votre figure";
                     }
                 }
                 else{
@@ -89,6 +94,27 @@ require_once MODEL_PATH.'Coup.php';
                 }
                 else{
                     $messageErreur="Vous n'êtes pas connecté!";
+                }
+            break;
+
+            case "jouer":
+                if(estConnecte()){
+                    // test si isset post idfigure
+                    // fonction de test si partie est finie
+                    //fonction de test si manche finie
+                    $idFigure=$_POST['idFigure'];
+                    var_dump($idFigure);
+                    $data = array(
+                        "idFigure" => $_POST['idFigure'],
+                        "idJoueur" => $_SESSION['idJoueur']
+                    );
+                    var_dump($data);
+                    Coup::updateCoup($data);
+                    $vue="resulatCoup";
+                    $pagetitle="Résulat du coup !";
+                }
+                else{
+                    $messageErreur="Vous n'êtes pas encore connecté!";
                 }
             break;
 
