@@ -55,26 +55,30 @@ CREATE TABLE pfcls_Parties
 CREATE TABLE pfcls_Manches
 (
 	idManche INT NOT NULL AUTO_INCREMENT,
+	idPartie INT NOT NULL,
     listeCoups VARCHAR(255), /* de la forme idFigure1,idFigure2,idFigure3,etc. */
 	idJoueurGagnant INT, /* pas de signe donc toujours positif */
 	PRIMARY KEY (idManche),
-	CONSTRAINT fk_manches_joueurgagnant_id FOREIGN KEY (idJoueurGagnant) REFERENCES pfcls_Joueurs(idJoueur)
+	FOREIGN KEY (idJoueurGagnant) REFERENCES pfcls_Joueurs(idJoueur),
+	FOREIGN KEY (idPartie) REFERENCES pfcls_Parties(idPartie)
 ) ENGINE = INNODB;
 
 CREATE TABLE pfcls_Coups
 (
 	idCoup INT NOT NULL AUTO_INCREMENT,
+	idManche INT NOT NULL,
     idFigure1 INT,
     idFigure2 INT,
     idJoueur1 INT NOT NULL,
     idJoueur2 INT NOT NULL,
 	idJoueurGagnant INT, /* pas de signe donc toujours positif */
 	PRIMARY KEY (idCoup),
-	CONSTRAINT fk_coups_figure1_id FOREIGN KEY (idFigure1) REFERENCES pfcls_Figures(idFigure),
-	CONSTRAINT fk_coups_figure2_id FOREIGN KEY (idFigure2) REFERENCES pfcls_Figures(idFigure),
-	CONSTRAINT fk_coups_joueur1_id FOREIGN KEY (idJoueur1) REFERENCES pfcls_Joueurs(idJoueur),
-	CONSTRAINT fk_coups_joueur2_id FOREIGN KEY (idJoueur2) REFERENCES pfcls_Joueurs(idJoueur),
-	CONSTRAINT fk_coups_joueurgagnant_id FOREIGN KEY (idJoueurGagnant) REFERENCES pfcls_Joueurs(idJoueur)
+	FOREIGN KEY (idManche) REFERENCES pfcls_Manches(idManche),
+	FOREIGN KEY (idFigure1) REFERENCES pfcls_Figures(idFigure),
+	FOREIGN KEY (idFigure2) REFERENCES pfcls_Figures(idFigure),
+	FOREIGN KEY (idJoueur1) REFERENCES pfcls_Joueurs(idJoueur),
+	FOREIGN KEY (idJoueur2) REFERENCES pfcls_Joueurs(idJoueur),
+	FOREIGN KEY (idJoueurGagnant) REFERENCES pfcls_Joueurs(idJoueur)
 ) ENGINE = INNODB;
 
 CREATE TABLE pfcls_StatistiquesPersonnelles
