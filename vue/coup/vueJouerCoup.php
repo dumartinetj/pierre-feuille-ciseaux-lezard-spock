@@ -1,1 +1,0 @@
-<h3>Vous avez joué votre coup !</h3>
