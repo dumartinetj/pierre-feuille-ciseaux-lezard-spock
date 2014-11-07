@@ -1,18 +1,9 @@
 <?php
 
 require_once 'Modele.php';
+require_once 'Partie.php';
 
 class Jeu extends Modele{
-
-    private $identifiant;
-	private $nbManche; // je sais pas si cet attribut sera utile - doit être impair et sup à 2
-	private $joueur;
-
-    public function __construct($i, $j1, $nb) {
-        $this->identifiant = $i;
-        $this->joueur = $j1;
-        $this->nbManche = $nb;
-    }
 
     public static function recherchePartie($nbManche) {
         if(estConnecte()){
@@ -30,7 +21,7 @@ class Jeu extends Modele{
                 }
             }catch (PDOException $e) {
                 echo $e->getMessage();
-                $messageErreur="Échec lors de la recherche d'une partie";
+                $messageErreur="Échec lors de la recherche d'une partie en attente";
             }
         }
         else{
@@ -49,7 +40,7 @@ class Jeu extends Modele{
             }
         } catch (PDOException $e) {
             echo $e->getMessage();
-            $messageErreur="Erreur lors de l'insertion dans la base de données pour inscription";
+            $messageErreur="Erreur lors de la sélection dans la base de données pour vérifier une partie en attente";
         }
     }
 
@@ -60,7 +51,7 @@ class Jeu extends Modele{
                 $req->execute($data);
             } catch (PDOException $e) {
                 echo $e->getMessage();
-                $messageErreur="Erreur lors de l'insertion dans la base de données pour inscription";
+                $messageErreur="Erreur lors de l'insertion dans la base de données pour ajouter un partie en attente";
             }
         }
         else{
@@ -77,11 +68,6 @@ class Jeu extends Modele{
             $messageErreur="Erreur lors de la suppression d'une partie en attente de la base de données";
         }
     }
-	// je laisse ça là pour pas l'oublier
-	// comment ajouter dans un tableau quand on connait pas le nb d'objets
-	// array_push($array, $donnes);
-    // ou $array[] = $donnes; pour les objets simples
-	// stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
 }
 
 ?>

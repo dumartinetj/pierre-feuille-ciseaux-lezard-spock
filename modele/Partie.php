@@ -8,6 +8,25 @@ require_once 'Manche.php';
 
 class Partie extends Modele {
 
+    public static function getIDAdversaire($data) {
+        try {
+            $req = self::$pdo->prepare('SELECT idJoueur1, idJoueur2 FROM pfcls_Parties WHERE idJoueur1 = :idJoueur1 OR idJoueur2 = :idJoueur2');
+            $req->execute($data);
+            if ($req->rowCount() != 0) {
+                $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                if ($data_recup->idJoueur1 == $data['idJoueur1']) {
+                  return $data_recup->idJoueur2;
+                }
+                else {
+                  return $data_recup->idJoueur1;
+                }
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $messageErreur="Erreur lors de l'insertion de la partie dans la base de données";
+        }
+    }
+
     public static function ajouterPartie($data) {
         try {
             $req = self::$pdo->prepare('INSERT INTO pfcls_Parties (nbManche, idJoueur1, idJoueur2) VALUES (:nbManche, :idJoueur1, :idJoueur2) ');
@@ -22,7 +41,7 @@ class Partie extends Modele {
 	/*
 	 * Ajoute la manche passé en paramètre à listeManche de this
 	 * @param $m la manche à ajouter
-	 
+
     public function ajoutManche($m) {
         array_push($this->listeManche, $m);
     }

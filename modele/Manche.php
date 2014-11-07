@@ -9,11 +9,6 @@ require_once 'Coup.php';
 
 class Manche extends Modele{
 
-    private $identifiant;
-    private $listeCoup;
-    private $gagnantManche;
-
-
     public static function ajoutManche($idP) {
         try {
             $req = self::$pdo->prepare('INSERT INTO pfcls_Manches (idPartie) VALUES ('.$idP.')');
@@ -28,7 +23,7 @@ class Manche extends Modele{
 	/*
 	 * Ajoute le coup passé en paramètre à listeCoup de this
 	 * @param $c le coup à ajouter
-	 
+
     public function ajoutCoup($c) {
         array_push($this->listeCoup, $c); // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
     }

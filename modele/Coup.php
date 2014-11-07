@@ -9,9 +9,37 @@ require_once 'Modele.php';
 
 class Coup extends Modele {
 
+    public static function getCoup($id) {
+        try {
+                $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idCoup=".$id);
+                $req->execute();
+                if ($req->rowCount() != 0) {
+                    $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                    return $data_recup;
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                die("Erreur lors de la récupération du coup dans la BDD");
+            }
+    }
+
+    public static function getDernierCoup($data) {
+        try {
+                $req = self::$pdo->prepare("SELECT MAX(idCoup) AS id FROM pfcls_Coups WHERE idJoueur1 = :idJoueur1 AND idJoueur2 = :idJoueur2");
+                $req->execute($data);
+                if ($req->rowCount() != 0) {
+                    $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                    return $data_recup->id;
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                die("Erreur lors de la récupération du coup dans la BDD");
+            }
+    }
+
     public static function getIDFigureJoueur1($id) {
         try {
-                $req = self::$pdo->prepare("SELECT idFigure1 FROM pfcls_Coups WHERE idCoup=".$id);
+                $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idCoup=".$id);
                 $req->execute();
                 if ($req->rowCount() != 0) {
                     $data_recup = $req->fetch(PDO::FETCH_OBJ);
@@ -25,7 +53,7 @@ class Coup extends Modele {
 
     public static function getIDFigureJoueur2($id) {
         try {
-                $req = self::$pdo->prepare("SELECT idFigure2 FROM pfcls_Coups WHERE idCoup=".$id);
+                $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idCoup=".$id);
                 $req->execute();
                 if ($req->rowCount() != 0) {
                     $data_recup = $req->fetch(PDO::FETCH_OBJ);
@@ -90,7 +118,7 @@ class Coup extends Modele {
             }
     }
 
-    public static function deleteCoup($id) {
+    public static function deleteCoup($id) { // à modifier, l'idée est bonne
         try {
                 $req = self::$pdo->prepare("DELETE FROM pfcls_Coups WHERE idCoup=".$id);
                 $req->execute();
@@ -102,7 +130,7 @@ class Coup extends Modele {
 
     public static function whoUpdateCoup($data) {
         try {
-                $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idJoueur1 = :idJoueur1 AND idFigure1 IS NULL");
+                $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idJoueur2= :idJoueur2 AND idFigure2 IS NULL");
                 $req->execute($data);
                 return ($req->rowCount() != 0);
             } catch (PDOException $e) {
@@ -113,7 +141,7 @@ class Coup extends Modele {
 
     public static function updateCoup($data) {
         try {
-                if(Coup::whoUpdateCoup(array('idJoueur1' => $data['idJoueur']))) {
+                if(!Coup::whoUpdateCoup(array('idJoueur2' => $data['idJoueur']))) {
                   $data2 = array(
                       "idFigure1" => $data['idFigure'],
                       "idJoueur1" => $data['idJoueur']
@@ -132,6 +160,17 @@ class Coup extends Modele {
             } catch (PDOException $e) {
                 echo $e->getMessage();
                 $messageErreur="Erreur lors de la MAJ d'un coup dans la BDD";
+            }
+    }
+
+    public static function checkCoupPretAEvaluer($idC) {
+        try {
+                $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idCoup = ".$idC." AND (idFigure1 IS NULL OR idFigure2 IS NULL)");
+                $req->execute();
+                return ($req->rowCount() == 0);
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                $messageErreur="Erreur lors de who MAJ d'un coup dans la BDD";
             }
     }
 
@@ -171,8 +210,6 @@ class Coup extends Modele {
        $idF2 = self::getIDFigureJoueur2($id);
 	     return $idF1.$idF2;
     }
-
-
 }
 
 ?>

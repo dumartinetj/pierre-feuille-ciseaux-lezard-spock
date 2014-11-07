@@ -36,6 +36,7 @@ CREATE TABLE pfcls_Parties_en_attente
 		nbManche INT UNSIGNED NOT NULL, /* pas de signe donc toujours positif */
 	PRIMARY KEY (idPartie_en_attente),
 	FOREIGN KEY (idJoueur) REFERENCES pfcls_Joueurs(idJoueur)
+	ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=INNODB;
 
 CREATE TABLE pfcls_Parties
@@ -47,9 +48,12 @@ CREATE TABLE pfcls_Parties
 	listeManches VARCHAR(255), /* de la forme idCoup1,idCoup2,idCoup3,etc. */
 	idJoueurGagnant INT, /* pas de signe donc toujours positif */
 	PRIMARY KEY (idPartie),
-	FOREIGN KEY (idJoueur1) REFERENCES pfcls_Joueurs(idJoueur),
-	FOREIGN KEY (idJoueur2) REFERENCES pfcls_Joueurs(idJoueur),
+	FOREIGN KEY (idJoueur1) REFERENCES pfcls_Joueurs(idJoueur)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (idJoueur2) REFERENCES pfcls_Joueurs(idJoueur)
+	ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (idJoueurGagnant) REFERENCES pfcls_Joueurs(idJoueur)
+	ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=INNODB;
 
 CREATE TABLE pfcls_Manches
@@ -59,8 +63,10 @@ CREATE TABLE pfcls_Manches
     listeCoups VARCHAR(255), /* de la forme idFigure1,idFigure2,idFigure3,etc. */
 	idJoueurGagnant INT, /* pas de signe donc toujours positif */
 	PRIMARY KEY (idManche),
-	FOREIGN KEY (idJoueurGagnant) REFERENCES pfcls_Joueurs(idJoueur),
+	FOREIGN KEY (idJoueurGagnant) REFERENCES pfcls_Joueurs(idJoueur)
+	ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (idPartie) REFERENCES pfcls_Parties(idPartie)
+	ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 CREATE TABLE pfcls_Coups
@@ -73,12 +79,18 @@ CREATE TABLE pfcls_Coups
     idJoueur2 INT NOT NULL,
 	idJoueurGagnant INT, /* pas de signe donc toujours positif */
 	PRIMARY KEY (idCoup),
-	FOREIGN KEY (idManche) REFERENCES pfcls_Manches(idManche),
-	FOREIGN KEY (idFigure1) REFERENCES pfcls_Figures(idFigure),
-	FOREIGN KEY (idFigure2) REFERENCES pfcls_Figures(idFigure),
-	FOREIGN KEY (idJoueur1) REFERENCES pfcls_Joueurs(idJoueur),
-	FOREIGN KEY (idJoueur2) REFERENCES pfcls_Joueurs(idJoueur),
+	FOREIGN KEY (idManche) REFERENCES pfcls_Manches(idManche)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (idFigure1) REFERENCES pfcls_Figures(idFigure)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (idFigure2) REFERENCES pfcls_Figures(idFigure)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (idJoueur1) REFERENCES pfcls_Joueurs(idJoueur)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (idJoueur2) REFERENCES pfcls_Joueurs(idJoueur)
+	ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (idJoueurGagnant) REFERENCES pfcls_Joueurs(idJoueur)
+	ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 CREATE TABLE pfcls_StatistiquesPersonnelles
@@ -87,7 +99,8 @@ CREATE TABLE pfcls_StatistiquesPersonnelles
     idJoueur INT NOT NULL,
 	listeCoups VARCHAR(255), /* de la forme idFigure1,idFigure2,idFigure3,etc. */
 	PRIMARY KEY (idStatsPerso),
-	CONSTRAINT fk_statsperso_joueur_id FOREIGN KEY (idJoueur) REFERENCES pfcls_Joueurs(idJoueur)
+	FOREIGN KEY (idJoueur) REFERENCES pfcls_Joueurs(idJoueur)
+	ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 CREATE TABLE pfcls_StatistiquesGlobales
@@ -97,8 +110,10 @@ CREATE TABLE pfcls_StatistiquesGlobales
     idJoueur2 INT NOT NULL,
 	listeCoups VARCHAR(255), /* de la forme (idFigure1,idFigure2)(idFigure3,idFigure4),etc. */
 	PRIMARY KEY (idStatsGlob),
-	CONSTRAINT fk_statsperso_joueur1_id FOREIGN KEY (idJoueur1) REFERENCES pfcls_Joueurs(idJoueur),
-	CONSTRAINT fk_statsperso_joueur2_id FOREIGN KEY (idJoueur2) REFERENCES pfcls_Joueurs(idJoueur)
+	FOREIGN KEY (idJoueur1) REFERENCES pfcls_Joueurs(idJoueur)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (idJoueur2) REFERENCES pfcls_Joueurs(idJoueur)
+	ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Pierre", "3,4", "2,5");
