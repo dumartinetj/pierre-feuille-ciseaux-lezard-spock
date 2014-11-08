@@ -137,8 +137,8 @@ require_once MODEL_PATH."Jeu.php";
                           if (!Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
                               Coup::evaluer($_SESSION['idCoupEnCours']);
                               $coup = Coup::getCoup($_SESSION['idCoupEnCours']);
-                              $idF1 = $coup->idFigure1;
-                              $idF2 = $coup->idFigure2;
+                              $nomF1 = Figure::getNom($coup->idFigure1);
+                              $nomF2 = Figure::getNom($coup->idFigure2);
                               $idJG = $coup->idJoueurGagnant;
                               $message = "Vous avez perdu !";
                               if($_SESSION['idJoueur']==$idJG) $message = "Vous avez gagné !";
@@ -170,8 +170,8 @@ require_once MODEL_PATH."Jeu.php";
                             }
                             else {
                               $coup = Coup::getCoup($idCoup);
-                              $idF1 = $coup->idFigure1;
-                              $idF2 = $coup->idFigure2;
+                              $nomF2 = Figure::getNom($coup->idFigure1);
+                              $nomF1 = Figure::getNom($coup->idFigure2);
                               $idJG = $coup->idJoueurGagnant;
                               $message = "Vous avez perdu !";
                               if($_SESSION['idJoueur']==$idJG) $message = "Vous avez gagné !";
@@ -214,8 +214,8 @@ require_once MODEL_PATH."Jeu.php";
                           if (!Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
                               //Coup::evaluer($_SESSION['idCoupEnCours']);
                               $coup = Coup::getCoup($_SESSION['idCoupEnCours']);
-                              $idF1 = $coup->idFigure1;
-                              $idF2 = $coup->idFigure2;
+                              $nomF1 = Figure::getNom($coup->idFigure1);
+                              $nomF2 = Figure::getNom($coup->idFigure2);
                               $idJG = $coup->idJoueurGagnant;
                               $message = "Vous avez perdu !";
                               if($_SESSION['idJoueur']==$idJG) $message = "Vous avez gagné !";
@@ -247,8 +247,8 @@ require_once MODEL_PATH."Jeu.php";
                             }
                             else {
                               $coup = Coup::getCoup($idCoup);
-                              $idF1 = $coup->idFigure1;
-                              $idF2 = $coup->idFigure2;
+                              $nomF2 = Figure::getNom($coup->idFigure1);
+                              $nomF1 = Figure::getNom($coup->idFigure2);
                               $idJG = $coup->idJoueurGagnant;
                               $message = "Vous avez perdu !";
                               if($_SESSION['idJoueur']==$idJG) $message = "Vous avez gagné !";
