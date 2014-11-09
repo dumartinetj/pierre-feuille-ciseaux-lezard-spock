@@ -5,7 +5,7 @@ echo <<< EOT
 EOT;
 ?>
 <h5>Cette page s'actualisera automatiquement dans 5 secondes...</h5>
-<form name="" id="" action="jouer.php?action=" method="POST">
+<form name="jouer" id="jouer" action="jouer.php?action=jouer" method="POST">
 </form>
 
 <script type="text/javascript">
@@ -13,7 +13,7 @@ EOT;
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
         function submitform(){
-          document.forms[""].submit();
+          document.forms["jouer"].submit();
         }
 
         function autoRefresh(){

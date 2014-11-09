@@ -20,43 +20,49 @@ class Manche extends Modele{
         }
     }
 
-	/*
-	 * Ajoute le coup passé en paramètre à listeCoup de this
-	 * @param $c le coup à ajouter
+  public static function ajoutListeCoup($data) {
+    try {
+        $req = self::$pdo->prepare('UPDATE pfcls_Manches SET listeCoups=:listeCoups WHERE idManche=:idManche');
+        $req->execute($data);
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        $messageErreur="Erreur lors de l'insertion du coup dans la liste de coups de la manche dans la base de données";
+    }
+        }
 
-    public function ajoutCoup($c) {
-        array_push($this->listeCoup, $c); // aide sur stackoverflow : http://stackoverflow.com/questions/5385433/how-to-create-an-empty-array-in-php-with-predefined-size
+    public static function updateListeCoup($data) {
+        try {
+            $req = self::$pdo->prepare("UPDATE pfcls_Manches SET listeCoups = CONCAT(listeCoups,',','".$data['listeCoups']."') WHERE idManche=".$data['idManche']);
+            $req->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $messageErreur="Erreur lors de la MAJ de la liste de coups de la manche dans la base de données";
+        }
+            }
+
+    public static function setGagnantManche($data){
+        try {
+          $req = self::$pdo->prepare('UPDATE pfcls_Manches SET idJoueurGagnant=:idJoueurGagnant WHERE idManche=:idManche');
+          $req->execute($data);
+        } catch (PDOException $e) {
+          echo $e->getMessage();
+          $messageErreur="Erreur lors de l'insertion du joueur gagnant de la manche dans la base de données";
+        }
     }
 
-	/*
-	 * Set et retourne le gagnant de this
-	 * @return le gagnant de la manche
-	 */
-    public function getJoueurGagnantManche(){
-        $c = end($this->listeCoup);
-        $this->gagnantManche = $c->getJoueurGagnantCoup();
-        return $this->gagnantManche;
+    public static function getIDJoueurGagnant($idM) {
+        try {
+            $req = self::$pdo->prepare('SELECT idJoueurGagnant FROM pfcls_Manches WHERE idManche='.$idM);
+            $req->execute();
+            if ($req->rowCount() != 0) {
+                $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                return $data_recup->idJoueurGagnant;
+             }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $messageErreur="Erreur lors de la récup de l'id joueur gagnant de la manche dans la base de données";
+        }
     }
-
-  /*
-   * Get l'id du joueur 1 de this
-   * @return l'id du joueur 1 de this
-   */
-    public function getIdJoueur1(){
-        $c = end($this->listeCoup);
-        $j1 = $c->getJoueur1();
-        return $j1->getIdentifiant();
-    }
-
-  /*
-   * Get l'id du joueur 2 de this
-   * @return l'id du joueur 2 de this
-   */
-   public function getIdJoueur2(){
-      $c = end($this->listeCoup);
-      $j1 = $c->getJoueur2();
-      return $j1->getIdentifiant();
-  }
 
   /*
    * Retourne la chaine de caractère correspondant à liste des coup de la manche this

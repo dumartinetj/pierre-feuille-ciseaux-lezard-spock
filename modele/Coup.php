@@ -141,22 +141,12 @@ class Coup extends Modele {
 
     public static function updateCoup($data) {
         try {
-                if(!Coup::whoUpdateCoup(array('idJoueur2' => $data['idJoueur']))) {
-                  $data2 = array(
-                      "idFigure1" => $data['idFigure'],
-                      "idJoueur1" => $data['idJoueur']
-                  );
-                  $req = self::$pdo->prepare("UPDATE pfcls_Coups SET idFigure1 = :idFigure1 WHERE idJoueur1 = :idJoueur1 AND idFigure1 IS NULL");
-                  $req->execute($data2);
-                }
-                else {
-                  $data2 = array(
-                      "idFigure2" => $data['idFigure'],
-                      "idJoueur2" => $data['idJoueur']
-                  );
-                  $req = self::$pdo->prepare("UPDATE pfcls_Coups SET idFigure2 = :idFigure2 WHERE idJoueur2 = :idJoueur2 AND idFigure2 IS NULL");
-                  $req->execute($data2);
-                }
+                reset($data); // remettre au début du tableau on sait jamais
+                $cle = key($data);
+                $sql = "UPDATE pfcls_Coups SET ".$cle."=:".$cle." WHERE idCoup = :idCoup";
+                $req = self::$pdo->prepare($sql);
+                $req->execute($data);
+
             } catch (PDOException $e) {
                 echo $e->getMessage();
                 $messageErreur="Erreur lors de la MAJ d'un coup dans la BDD";

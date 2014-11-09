@@ -23,7 +23,21 @@ class Partie extends Modele {
             }
         } catch (PDOException $e) {
             echo $e->getMessage();
-            $messageErreur="Erreur lors de l'insertion de la partie dans la base de données";
+            $messageErreur="Erreur lors de la récupération de l'ID adversaire de la partie de la partie dans la base de données";
+        }
+    }
+
+    public static function getIDPartie($data) {
+        try {
+            $req = self::$pdo->prepare('SELECT idPartie FROM pfcls_Parties WHERE idJoueur1 = :idJoueur1 AND idJoueur2 = :idJoueur2');
+            $req->execute($data);
+            if ($req->rowCount() != 0) {
+                $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                  return $data_recup->idPartie;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $messageErreur="Erreur lors de la récupération de l'ID de la partie dans la base de données";
         }
     }
 
@@ -38,13 +52,70 @@ class Partie extends Modele {
         }
     }
 
-	/*
-	 * Ajoute la manche passé en paramètre à listeManche de this
-	 * @param $m la manche à ajouter
+	public static function ajoutListeManche($data) {
+   try {
+       $req = self::$pdo->prepare('UPDATE pfcls_Parties SET listeManches=:listeManches WHERE idPartie=:idPartie');
+       $req->execute($data);
+   } catch (PDOException $e) {
+       echo $e->getMessage();
+       $messageErreur="Erreur lors de l'insertion du coup dans la liste de manches de la partie dans la base de données";
+   }
+       }
 
-    public function ajoutManche($m) {
-        array_push($this->listeManche, $m);
-    }
+   public static function updateListeManche($data) {
+       try {
+           $req = self::$pdo->prepare("UPDATE pfcls_Parties SET listeManches = CONCAT(listeManches,',','".$data['listeManches']."') WHERE idPartie=".$data['idPartie']);
+           $req->execute();
+       } catch (PDOException $e) {
+           echo $e->getMessage();
+           $messageErreur="Erreur lors de la MAJ de la liste de manches de la partie dans la base de données";
+       }
+   }
+
+   public static function getListeManches($idP) {
+       try {
+           $req = self::$pdo->prepare('SELECT listeManches FROM pfcls_Parties WHERE idPartie='.$idP);
+           $req->execute();
+           if ($req->rowCount() != 0) {
+                $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                $listeManches = explode(",",$data_recup->listeManches);
+                return $listeManches;
+            }
+       } catch (PDOException $e) {
+           echo $e->getMessage();
+           $messageErreur="Erreur lors de récupération de la liste des manches de la partie dans la base de données";
+       }
+   }
+
+   public static function getNbManches($idP) {
+       try {
+           $req = self::$pdo->prepare('SELECT nbManche FROM pfcls_Parties WHERE idPartie='.$idP);
+           $req->execute();
+           if ($req->rowCount() != 0) {
+                $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                return $data_recup->nbManche;
+            }
+       } catch (PDOException $e) {
+           echo $e->getMessage();
+           $messageErreur="Erreur lors de récupération du nombre de manches de la partie dans la base de données";
+       }
+   }
+
+   public static function estTerminee() {
+       $nbVictoireJ1 = 0;
+       $nbVictoireJ2 = 0;
+       $listeManches = static::getListeManches($_SESSION['idPartieEnCours']);
+       foreach($listeManches as $lmanche){
+         $jgm=Manche::getIDJoueurGagnant($lmanche);
+         if($jgm==$_SESSION['idJoueur']){$nbVictoireJ1++;}
+         elseif ($jgm==$_SESSION['idJoueurAdverse']) {$nbVictoireJ2++;}
+       }
+       $nbMancheMini=static::getNbManches($_SESSION['idPartieEnCours']);
+       $nbMancheMini = $nbMancheMini/2;
+       if(($nbVictoireJ1>$nbVictoireJ2)and($nbVictoireJ1>$nbMancheMini)){return true;}
+       elseif (($nbVictoireJ1<$nbVictoireJ2)and($nbVictoireJ2>$nbMancheMini)) {return true;}
+       return false;
+  }
 
 	/*
 	 * Set et retourne le gagnant de this
@@ -57,6 +128,7 @@ class Partie extends Modele {
             if($jgm==$this->joueur1){$nbwinJ1++;}
             elseif ($jgm==$this->joueur2) {$nbwinJ2++;}
         }
+
         /*
         $jgm=end($this->listeManche)->getJoueurGagnantManche();
         if($jgm==$this->joueur1){$nbwinJ1++;}
