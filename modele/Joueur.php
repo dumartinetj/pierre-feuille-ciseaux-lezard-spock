@@ -94,7 +94,7 @@ class Joueur extends Modele {
         if(!(Joueur::checkAlreadyExist($data))) {
             try {
                 $data['pwd'] = sha1($data['pwd']);
-                $req = self::$pdo->prepare('UPDATE pfcls_joueurs SET pseudo= :pseudo, age= :age, pwd= :pwd, email= :email WHERE idJoueur='.$_SESSION['idJoueur']);
+                $req = self::$pdo->prepare('UPDATE pfcls_Joueurs SET pseudo= :pseudo, age= :age, pwd= :pwd, email= :email WHERE idJoueur='.$_SESSION['idJoueur']);
                 $req->execute($data);
             } catch (PDOException $e) {
                 echo $e->getMessage();
@@ -139,29 +139,26 @@ class Joueur extends Modele {
         }
     }
 
-	public function getIdentifiant() {
-		return $this->identifiant;
-	}
+    public static function updateNbVictoire($idJ) {
+            try {
+                $req = self::$pdo->prepare('UPDATE pfcls_Joueurs SET nbV=nbV+1 WHERE idJoueur='.$idJ);
+                $req->execute();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                $messageErreur="Erreur lors de la mise à jour du nb de victoire d'un joueur dans la base de données";
+            }
+    }
 
-	public function getSexe() {
-		return $this->sexe;
-	}
+    public static function updateNbDefaite($idJ) {
+            try {
+                $req = self::$pdo->prepare('UPDATE pfcls_Joueurs SET nbD=nbD+1 WHERE idJoueur='.$idJ);
+                $req->execute();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                $messageErreur="Erreur lors de la mise à jour du nb de défaite d'un joueur dans la base de données";
+            }
+    }
 
-	public function getAge() {
-		return $this->age;
-	}
-
-	public function getNbVictoire() {
-		return $this->nbVictoire;
-	}
-
-	public function getNbDefaite() {
-		return $this ->nbDefaite;
-	}
-
-	public function getEmail() {
-		return $this ->nbDefaite;
-	}
 }
 
 ?>

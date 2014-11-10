@@ -117,10 +117,21 @@ require_once MODEL_PATH."Joueur.php";
                 if(estConnecte()){
                         if($_SESSION['JoueurMaster'] == true) {
                           if(Partie::estTerminee($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],$_SESSION['idJoueurAdverse'])) {
-                            // on incrément les nbV/nbD et get gagant
+                            $idJoueurGagnant = Partie::getIDJoueurGagnant($_SESSION['idPartieEnCours']);
+                            $nomJoueurGagnant = Joueur::getPseudo($idJoueurGagnant);
+                            if($idJoueurGagnant == $_SESSION['idJoueur']) {
+                              Joueur::updateNbVictoire($_SESSION['idJoueur']);
+                              Joueur::updateNbDefaite($_SESSION['idJoueurAdverse']);
+                              $messageFinal = "Vous remportez la partie !";
+                            }
+                            else {
+                              Joueur::updateNbVictoire($_SESSION['idJoueurAdverse']);
+                              Joueur::updateNbDefaite($_SESSION['idJoueur']);
+                              $messageFinal = $nomJoueurGagnant." remporte la partie !";
+                            }
+                            // supprimer les variables de session de lea partie
                             $vue="resultatPartie";
                             $pagetitle="Partie terminée";
-                            // et sortie
                           }
                           else {
                             $_SESSION['idMancheEnCours'] = Manche::ajoutManche($_SESSION['idPartieEnCours']);
@@ -162,10 +173,15 @@ require_once MODEL_PATH."Joueur.php";
                       $pagetitle="Choisissez votre figure";
                     }
                     else {
-                      // recup les donnees pour affichage
+                      $nomJoueurGagnant = Joueur::getPseudo($idJoueurGagnant);
+                      if($idJoueurGagnant == $_SESSION['idJoueur']) {
+                        $messageFinal = "Vous remportez la partie !";
+                      }
+                      else {
+                        $messageFinal = $nomJoueurGagnant." remporte la partie !";
+                      }
                       $vue="resultatPartie";
                       $pagetitle="Partie terminée";
-                      // et sortie
                     }
                 }
                 else{
@@ -222,10 +238,10 @@ require_once MODEL_PATH."Joueur.php";
                               $idJG = $coup->idJoueurGagnant;
                               $nomJoueurGagnant = Joueur::getPseudo($idJG);
                               if($idJG == $_SESSION['idJoueur']) {
-                                $message = "Vous remportez la manche :)";
+                                $message = "Vous remportez la manche !";
                               }
                               else {
-                                $message = $nomJoueurGagnant." remporte la manche :(";
+                                $message = $nomJoueurGagnant." remporte la manche !";
                               }
                               $data5 = array(
                                   "idManche" => $_SESSION['idMancheEnCours'],
@@ -268,10 +284,10 @@ require_once MODEL_PATH."Joueur.php";
                               $idJG = $coup->idJoueurGagnant;
                               $nomJoueurGagnant = Joueur::getPseudo($idJG);
                               if($idJG == $_SESSION['idJoueur']) {
-                                $message = "Vous remportez la manche :)";
+                                $message = "Vous remportez la manche !";
                               }
                               else {
-                                $message = $nomJoueurGagnant." remporte la manche :(";
+                                $message = $nomJoueurGagnant." remporte la manche !";
                               }
                               $vue="resulatCoup";
                               $pagetitle="Résulat du coup !";
@@ -316,10 +332,10 @@ require_once MODEL_PATH."Joueur.php";
                               $idJG = $coup->idJoueurGagnant;
                               $nomJoueurGagnant = Joueur::getPseudo($idJG);
                               if($idJG == $_SESSION['idJoueur']) {
-                                $message = "Vous remportez la manche :)";
+                                $message = "Vous remportez la manche !";
                               }
                               else {
-                                $message = $nomJoueurGagnant." remporte la manche :(";
+                                $message = $nomJoueurGagnant." remporte la manche !";
                               }
                               $data5 = array(
                                   "idManche" => $_SESSION['idMancheEnCours'],
@@ -362,10 +378,10 @@ require_once MODEL_PATH."Joueur.php";
                               $idJG = $coup->idJoueurGagnant;
                               $nomJoueurGagnant = Joueur::getPseudo($idJG);
                               if($idJG == $_SESSION['idJoueur']) {
-                                $message = "Vous remportez la manche :)";
+                                $message = "Vous remportez la manche !";
                               }
                               else {
-                                $message = $nomJoueurGagnant." remporte la manche :(";
+                                $message = $nomJoueurGagnant." remporte la manche !";
                               }
                               $vue="resulatCoup";
                               $pagetitle="Résulat du coup !";

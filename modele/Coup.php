@@ -65,20 +65,6 @@ class Coup extends Modele {
             }
     }
 
-    public static function getIDJoueurGagnantCoup($id){
-        try {
-                $req = self::$pdo->prepare("SELECT idJoueurGagnant FROM pfcls_Coups WHERE idCoup=".$id);
-                $req->execute();
-                if ($req->rowCount() != 0) {
-                    $data_recup = $req->fetch(PDO::FETCH_OBJ);
-                    return $data_recup->idJoueurGagnant;
-                }
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-                die("Erreur lors de la récupération de l'ID du joueur gagnant du coup dans la BDD");
-            }
-    }
-
     public static function getIDJoueur1($id){
         try {
                 $req = self::$pdo->prepare("SELECT idJoueur1 FROM pfcls_Coups WHERE idCoup=".$id);
@@ -118,16 +104,6 @@ class Coup extends Modele {
             }
     }
 
-    public static function deleteCoup($id) { // à modifier, l'idée est bonne
-        try {
-                $req = self::$pdo->prepare("DELETE FROM pfcls_Coups WHERE idCoup=".$id);
-                $req->execute();
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-                $messageErreur="Erreur lors de la supression d'un coup dans la BDD";
-            }
-    }
-
     public static function whoUpdateCoup($data) {
         try {
                 $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idJoueur2= :idJoueur2 AND idFigure2 IS NULL");
@@ -141,7 +117,7 @@ class Coup extends Modele {
 
     public static function updateCoup($data) {
         try {
-                reset($data); // remettre au début du tableau on sait jamais
+                reset($data); // remettre le pointeur interne du tableau au début, on ne sait jamais
                 $cle = key($data);
                 $sql = "UPDATE pfcls_Coups SET ".$cle."=:".$cle." WHERE idCoup = :idCoup";
                 $req = self::$pdo->prepare($sql);

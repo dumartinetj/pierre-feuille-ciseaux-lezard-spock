@@ -55,6 +55,16 @@ class Partie extends Modele {
         }
     }
 
+    public static function setIDJoueurGagnant($data) {
+     try {
+         $req = self::$pdo->prepare('UPDATE pfcls_Parties SET idJoueurGagnant=:idJoueurGagnant WHERE idPartie=:idPartie');
+         $req->execute($data);
+     } catch (PDOException $e) {
+         echo $e->getMessage();
+         $messageErreur="Erreur lors de la MAJ de l'idJoueurGagnant de la partie dans la base de données";
+     }
+         }
+
     public static function ajouterPartie($data) {
         try {
             $req = self::$pdo->prepare('INSERT INTO pfcls_Parties (nbManche, idJoueur1, idJoueur2) VALUES (:nbManche, :idJoueur1, :idJoueur2) ');
@@ -121,56 +131,33 @@ class Partie extends Modele {
        $listeManches = static::getListeManches($idP);
        foreach($listeManches as $manche){
          $jgm = Manche::getIDJoueurGagnant($manche);
-         if($jgm==$idJ){$nbVictoireJ1++;}
-         elseif ($jgm==$idJA) {$nbVictoireJ2++;}
+         if($jgm==$idJ){
+           $nbVictoireJ1++;
+         }
+         elseif ($jgm==$idJA) {
+           $nbVictoireJ2++;
+         }
        }
        $nbMancheMini=static::getNbManches($idP);
        $nbMancheMini = $nbMancheMini/2;
-       if(($nbVictoireJ1>$nbVictoireJ2)and($nbVictoireJ1>$nbMancheMini)){return true;}
-       elseif (($nbVictoireJ1<$nbVictoireJ2)and($nbVictoireJ2>$nbMancheMini)) {return true;}
+       if(($nbVictoireJ1>$nbVictoireJ2)and($nbVictoireJ1>$nbMancheMini)){
+         $data = array(
+             "idPartie" => $idP,
+             "idJoueurGagnant" => $idJ
+         );
+         Partie::setIDJoueurGagnant($data);
+         return true;
+       }
+       elseif (($nbVictoireJ1<$nbVictoireJ2)and($nbVictoireJ2>$nbMancheMini)) {
+         $data = array(
+             "idPartie" => $idP,
+             "idJoueurGagnant" => $idJA
+         );
+         Partie::setIDJoueurGagnant($data);
+         return true;
+       }
        return false;
   }
-
-	/*
-	 * Set et retourne le gagnant de this
-	 * @return le gagnant de la partie
-	 */
-   public function getJoueurGagnantPartie(){
-        $nbwinJ1=0;$nbwinJ2=0;
-        foreach($this->listeManche as $lmanche){ //CHECK
-            $jgm=$lmanche->getJoueurGagnantManche();
-            if($jgm==$this->joueur1){$nbwinJ1++;}
-            elseif ($jgm==$this->joueur2) {$nbwinJ2++;}
-        }
-
-        /*
-        $jgm=end($this->listeManche)->getJoueurGagnantManche();
-        if($jgm==$this->joueur1){$nbwinJ1++;}
-        elseif ($jgm==$this->joueur2) {$nbwinJ2++;}
-        while(prev($this->listeManche)!=FALSE){
-            $jgm=current($this->listeManche)->getJoueurGagnantManche();
-            if($jgm==$this->joueur1){$nbwinJ1++;}
-            elseif ($jgm==$this->joueur2) {$nbwinJ2++;}
-        }*/
-        $nbMancheMini=$this->nbManche/2;
-        if(($nbwinJ1>$nbwinJ2)and($nbwinJ1>$nbMancheMini)){$this->gagnantPartie=$this->joueur1;}
-        elseif (($nbwinJ1<$nbwinJ2)and($nbwinJ2>$nbMancheMini)) {$this->gagnantPartie=$this->joueur2;}
-        return $this->gagnantPartie;
-    }
-
-	/*
-	 * Vérifie si la partie est terminée
-	 * @return vraie si la partie est finie, faux sinon
-	 */
-    public function checkPartieFinie() {
-	$nbmjoue=count($this->listeManche);
-        $unGagnant=FALSE;
-        if($nbmjoue>=1){
-            $winner=$this->getJoueurGagnantPartie();
-            $unGagnant=($winner!=NULL);
-        }
-        return (($this->nbManche==$nbmjoue) or $unGagnant);
-    }
 }
 
 ?>

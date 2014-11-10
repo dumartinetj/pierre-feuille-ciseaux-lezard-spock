@@ -1,5 +1,5 @@
 <h3>Vous êtes actuellement en attente d'un adversaire !</h3>
-<h5>Cette page s'actualisera automatiquement toutes les 10 secondes...</h5>
+<h5>Cette page s'actualisera automatiquement toutes les 5 secondes...</h5>
 <a href="jouer.php?action=annuler">Annuler votre recherche d'adversaire</a>
 <form name="waiting" id="waiting" action="jouer.php?action=waiting" method="POST">
 </form>
@@ -14,7 +14,7 @@
 
         function autoRefresh(){
            clearTimeout(auto);
-           auto = setTimeout(function(){ submitform(); autoRefresh(); }, 10000);
+           auto = setTimeout(function(){ submitform(); autoRefresh(); }, 5000);
         }
     }
 </script>

@@ -64,6 +64,8 @@ class Manche extends Modele{
         }
     }
 
+    // cette partie est à recheck pour générer les stats à fin de chaque partie
+
   /*
    * Retourne la chaine de caractère correspondant à liste des coup de la manche this
    * @return retourne la chaine de caractère
