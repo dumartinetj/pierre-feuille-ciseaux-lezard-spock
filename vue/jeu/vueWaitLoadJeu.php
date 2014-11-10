@@ -1,5 +1,5 @@
 <h3>Préparation des données, veuillez patienter...</h3>
-<h5>Cette page s'actualisera automatiquement dans 10 secondes...</h5>
+<h5>Cette page s'actualisera automatiquement dans 5 secondes...</h5>
 <form name="waitingLoad" id="waitingLoad" action="jouer.php?action=waitingLoad" method="POST">
 </form>
 
@@ -13,7 +13,7 @@
 
         function autoRefresh(){
            clearTimeout(auto);
-           auto = setTimeout(function(){ submitform(); autoRefresh(); }, 10000);
+           auto = setTimeout(function(){ submitform(); autoRefresh(); }, 5000);
         }
     }
 </script>

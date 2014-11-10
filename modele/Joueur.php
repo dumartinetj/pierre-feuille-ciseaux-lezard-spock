@@ -127,12 +127,20 @@ class Joueur extends Modele {
         }
     }
 
+    public static function getPseudo($idJ) {
+        try {
+            $req = self::$pdo->prepare('SELECT pseudo FROM pfcls_Joueurs WHERE idJoueur ='.$idJ);
+            $req->execute();
+            $data_recup = $req->fetch(PDO::FETCH_OBJ);
+            return $data_recup->pseudo;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $messageErreur="Erreur lors de la recherche d'un joueur dans la base de données";
+        }
+    }
+
 	public function getIdentifiant() {
 		return $this->identifiant;
-	}
-
-	public function getPseudo() {
-		return $this->pseudo;
 	}
 
 	public function getSexe() {

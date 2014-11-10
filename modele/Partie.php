@@ -41,6 +41,20 @@ class Partie extends Modele {
         }
     }
 
+    public static function getIDJoueurGagnant($idP) {
+        try {
+            $req = self::$pdo->prepare('SELECT idJoueurGagnant FROM pfcls_Parties WHERE idPartie ='.$idP);
+            $req->execute();
+            if ($req->rowCount() != 0) {
+                $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                  return $data_recup->idJoueurGagnant;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $messageErreur="Erreur lors de la récupération de l'ID du joueur gagnant de la partie dans la base de données";
+        }
+    }
+
     public static function ajouterPartie($data) {
         try {
             $req = self::$pdo->prepare('INSERT INTO pfcls_Parties (nbManche, idJoueur1, idJoueur2) VALUES (:nbManche, :idJoueur1, :idJoueur2) ');
@@ -101,16 +115,16 @@ class Partie extends Modele {
        }
    }
 
-   public static function estTerminee() {
+   public static function estTerminee($idP, $idJ, $idJA) {
        $nbVictoireJ1 = 0;
        $nbVictoireJ2 = 0;
-       $listeManches = static::getListeManches($_SESSION['idPartieEnCours']);
-       foreach($listeManches as $lmanche){
-         $jgm=Manche::getIDJoueurGagnant($lmanche);
-         if($jgm==$_SESSION['idJoueur']){$nbVictoireJ1++;}
-         elseif ($jgm==$_SESSION['idJoueurAdverse']) {$nbVictoireJ2++;}
+       $listeManches = static::getListeManches($idP);
+       foreach($listeManches as $manche){
+         $jgm = Manche::getIDJoueurGagnant($manche);
+         if($jgm==$idJ){$nbVictoireJ1++;}
+         elseif ($jgm==$idJA) {$nbVictoireJ2++;}
        }
-       $nbMancheMini=static::getNbManches($_SESSION['idPartieEnCours']);
+       $nbMancheMini=static::getNbManches($idP);
        $nbMancheMini = $nbMancheMini/2;
        if(($nbVictoireJ1>$nbVictoireJ2)and($nbVictoireJ1>$nbMancheMini)){return true;}
        elseif (($nbVictoireJ1<$nbVictoireJ2)and($nbVictoireJ2>$nbMancheMini)) {return true;}

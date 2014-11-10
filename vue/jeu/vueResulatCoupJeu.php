@@ -4,7 +4,7 @@ echo <<< EOT
 <h1>$message</h1>
 EOT;
 ?>
-<h5>Cette page s'actualisera automatiquement dans 5 secondes...</h5>
+<h5>Cette page s'actualisera automatiquement dans 10 secondes...</h5>
 <form name="jouer" id="jouer" action="jouer.php?action=jouer" method="POST">
 </form>
 
@@ -18,7 +18,7 @@ EOT;
 
         function autoRefresh(){
            clearTimeout(auto);
-           auto = setTimeout(function(){ submitform(); autoRefresh(); }, 5000);
+           auto = setTimeout(function(){ submitform(); autoRefresh(); }, 10000);
         }
     }
 </script>

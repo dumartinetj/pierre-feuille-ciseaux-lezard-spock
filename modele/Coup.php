@@ -160,7 +160,18 @@ class Coup extends Modele {
                 return ($req->rowCount() == 0);
             } catch (PDOException $e) {
                 echo $e->getMessage();
-                $messageErreur="Erreur lors de who MAJ d'un coup dans la BDD";
+                $messageErreur="Erreur lors de check evaluation d'un coup dans la BDD";
+            }
+    }
+
+    public static function checkCoupEstEvaluer($idC) {
+        try {
+                $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idCoup = ".$idC." AND idJoueurGagnant IS NOT NULL");
+                $req->execute();
+                return ($req->rowCount() == 0);
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                $messageErreur="Erreur lors de check evaluation 2 d'un coup dans la BDD";
             }
     }
 
