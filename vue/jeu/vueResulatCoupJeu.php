@@ -1,9 +1,5 @@
-<?php
-echo <<< EOT
-<h1>$nomF1 VS $nomF2</h1>
-<h1>$message</h1>
-EOT;
-?>
+<div><img src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF1.'.png'?>"><h1> VS </h1> <img src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF2.'.png'?>"></div>
+<h1><?= $message ?></h1>
 <h5>Cette page s'actualisera automatiquement dans 5 secondes...</h5>
 <form name="jouer" id="jouer" action="jouer.php?action=jouer" method="POST">
 </form>

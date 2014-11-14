@@ -233,8 +233,8 @@ require_once MODEL_PATH."Joueur.php";
                           if (!Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
                               Coup::evaluer($_SESSION['idCoupEnCours']);
                               $coup = Coup::getCoup($_SESSION['idCoupEnCours']);
-                              $nomF1 = Figure::getNom($coup->idFigure1);
-                              $nomF2 = Figure::getNom($coup->idFigure2);
+                              $idF1 = $coup->idFigure1;
+                              $idF2 = $coup->idFigure2;
                               $idJG = $coup->idJoueurGagnant;
                               $nomJoueurGagnant = Joueur::getPseudo($idJG);
                               if($idJG == $_SESSION['idJoueur']) {
@@ -279,8 +279,8 @@ require_once MODEL_PATH."Joueur.php";
                                 break;
                               }
                               $coup = Coup::getCoup($idCoup);
-                              $nomF2 = Figure::getNom($coup->idFigure1);
-                              $nomF1 = Figure::getNom($coup->idFigure2);
+                              $idF2 = $coup->idFigure1;
+                              $idF1 = $coup->idFigure1;
                               $idJG = $coup->idJoueurGagnant;
                               $nomJoueurGagnant = Joueur::getPseudo($idJG);
                               if($idJG == $_SESSION['idJoueur']) {
@@ -327,8 +327,8 @@ require_once MODEL_PATH."Joueur.php";
                           if (!Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
                               Coup::evaluer($_SESSION['idCoupEnCours']);
                               $coup = Coup::getCoup($_SESSION['idCoupEnCours']);
-                              $nomF1 = Figure::getNom($coup->idFigure1);
-                              $nomF2 = Figure::getNom($coup->idFigure2);
+                              $idF1 = $coup->idFigure1;
+                              $idF2 = $coup->idFigure2;
                               $idJG = $coup->idJoueurGagnant;
                               $nomJoueurGagnant = Joueur::getPseudo($idJG);
                               if($idJG == $_SESSION['idJoueur']) {
@@ -373,8 +373,8 @@ require_once MODEL_PATH."Joueur.php";
                                 break;
                               }
                               $coup = Coup::getCoup($idCoup);
-                              $nomF2 = Figure::getNom($coup->idFigure1);
-                              $nomF1 = Figure::getNom($coup->idFigure2);
+                              $idF2 = $coup->idFigure2;
+                              $idF1 = $coup->idFigure1;
                               $idJG = $coup->idJoueurGagnant;
                               $nomJoueurGagnant = Joueur::getPseudo($idJG);
                               if($idJG == $_SESSION['idJoueur']) {

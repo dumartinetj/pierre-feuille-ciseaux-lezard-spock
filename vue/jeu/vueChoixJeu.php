@@ -1,10 +1,22 @@
-<div class="col-md-3"></div>
-<div class="col-md-6">
-<h3>les chiffres c'est simplement pour faire les tests, on rajoutera les images après</h3>
+<h2>Quel sera votre choix ?</h2>
+<hr>
 <form method="post" action="jouer.php?action=eval">
-    <fieldset>
-            <input type="number" class="form-control" placeholder="Figure" name="idFigure" id="idFigure" min="1" max="5" required/><br/>
-            <input type="submit" class="btn" value="Jouer votre figure !" />
-    </fieldset>
+      <input type="hidden" id="idFigure" name="idFigure" value="1">
+      <input type="image" src="<?= VIEW_PATH_BASE; ?>jeu/img/1.png" alt="submit"/>
 </form>
-</div>
+<form method="post" action="jouer.php?action=eval">
+      <input type="hidden" id="idFigure" name="idFigure" value="2">
+      <input type="image" src="<?= VIEW_PATH_BASE; ?>jeu/img/2.png" alt="submit"/>
+</form>
+<form method="post" action="jouer.php?action=eval">
+      <input type="hidden" id="idFigure" name="idFigure" value="3">
+      <input type="image" src="<?= VIEW_PATH_BASE; ?>jeu/img/3.png" alt="submit"/>
+</form>
+<form method="post" action="jouer.php?action=eval">
+      <input type="hidden" id="idFigure" name="idFigure" value="4">
+      <input type="image" src="<?= VIEW_PATH_BASE; ?>jeu/img/4.png" alt="submit"/>
+</form>
+<form method="post" action="jouer.php?action=eval">
+      <input type="hidden" id="idFigure" name="idFigure" value="5">
+      <input type="image" src="<?= VIEW_PATH_BASE; ?>jeu/img/5.png" alt="submit"/>
+</form>
