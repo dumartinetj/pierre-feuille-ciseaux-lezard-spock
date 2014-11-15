@@ -1,4 +1,4 @@
-<h3>Un joueur trouvé !</h3>
+<h1 id="mainhead">Un joueur trouvé !</h1>
 <hr>
 <p>
 <?php

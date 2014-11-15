@@ -1,8 +1,9 @@
 <?php
 echo <<< EOT
+<h1 id="mainhead">Mettre à jour votre profil</h1>
+<hr>
 <form method="post" action="joueur.php?action=updated">
     <fieldset>
-        <legend>Mettre à jour votre profil</legend>
         <p>
             <label for="pseudo">Pseudo</label>
             <input type="text" class="form-control" value="$p" name="pseudo" id="id_pseudo" required/>

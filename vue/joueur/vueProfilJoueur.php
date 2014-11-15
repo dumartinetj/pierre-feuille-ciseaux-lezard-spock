@@ -1,4 +1,4 @@
-<h3>Votre profil</h3>
+<h1 id="mainhead">Votre profil</h1>
 <hr>
 <p>
 <?php

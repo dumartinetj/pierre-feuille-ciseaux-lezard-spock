@@ -24,8 +24,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li <?php if ($page=="jeu") echo 'class="active"'; ?>><a href="jouer.php">Jouer !</a></li>
-                    <li <?php if ($page=="index" && $vue=="regles") echo 'class="active"'; ?>><a href="index.php?action=regles">Règle du jeu</a></li>
+                    <li <?php if (isset($vue)) if ($page=="jeu") echo 'class="active"'; ?>><a href="jouer.php">Jouer !</a></li>
+                    <li <?php if (isset($vue)) if ($page=="index" && $vue=="regles") echo 'class="active"'; ?>><a href="index.php?action=regles">Règle du jeu</a></li>
                     <?php if(estConnecte()) include_once VIEW_PATH.'menu'.DS.'vueMenuConnecte.php';
                     else include_once  VIEW_PATH.'menu'.DS.'vueMenuNonConnecte.php';
                     ?>
@@ -40,8 +40,12 @@
         <div class="row" id="main-content">
             <div class="col-md-1"></div>
             <div class="col-md-12">
+              <div class="container">
+                <div class="jumbotron">
                 <?php if(!isset($vue)) echo "<h3>$messageErreur</h3>";
                   else require VIEW_PATH.$page.DS.'vue'.ucfirst($vue).ucfirst($page).'.php';?>
+                </div>
+              </div>
             </div>
         </div>
         </div>

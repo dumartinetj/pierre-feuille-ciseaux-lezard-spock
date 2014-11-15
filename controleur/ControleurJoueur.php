@@ -4,7 +4,7 @@ require_once MODEL_PATH."Joueur.php";
 
     if (empty($_GET)) {
       $vue="defaut";
-      $pagetitle="Vue par défaut sans param";
+      $pagetitle="Joueur : vos actions disponibles";
     }
     else if (isset($action)) {
         switch ($action) {

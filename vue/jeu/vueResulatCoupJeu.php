@@ -1,5 +1,21 @@
-<div><img src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF1.'.png'?>"><h1> VS </h1> <img src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF2.'.png'?>"></div>
-<h1><?= $message ?></h1>
+<div class="row">
+          <div class="col-md-4">
+          <div class="thumbnail">
+            <img src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF1.'.png'?>">
+          </div>
+          </div>
+          <div class="col-md-4">
+          <div class="thumbnail">
+            <img src="<?= VIEW_PATH_BASE.'jeu/img/versus.png'?>">
+          </div>
+          </div>
+          <div class="col-md-4">
+          <div class="thumbnail">
+            <img src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF2.'.png'?>">
+          </div>
+          </div>
+</div>
+<h1 id="mainhead"><?= $message ?></h1>
 <h5>Cette page s'actualisera automatiquement dans 5 secondes...</h5>
 <form name="jouer" id="jouer" action="jouer.php?action=jouer" method="POST">
 </form>

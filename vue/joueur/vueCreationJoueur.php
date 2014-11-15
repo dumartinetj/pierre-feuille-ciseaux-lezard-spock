@@ -1,8 +1,7 @@
-<div class="col-md-3"></div>
-<div class="col-md-6">
+<h1 id="mainhead">Inscription</h1>
+<hr>
 <form method="post" action="joueur.php?action=save">
     <fieldset>
-        <legend>Inscription</legend>
             <input type="text" class="form-control" placeholder="Pseudo" name="pseudo" id="id_pseudo" required/><br/>
             <div>
               <input type="radio" name="sexe" id="id_sexe" value="H" required> ♂<br/>
@@ -15,4 +14,3 @@
             <input type="submit" class="btn" value="Valider votre inscription" />
     </fieldset>
 </form>
-</div>
