@@ -12,6 +12,12 @@
                 break;
         break;
 
+        case "apropos":
+                $vue="apropos";
+                $pagetitle="À propos";
+                break;
+        break;
+
         default :
         $messageErreur="Il semblerait que vous ayez trouvé un glitch dans le système !";
       }
