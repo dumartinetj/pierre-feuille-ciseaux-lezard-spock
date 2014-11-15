@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
-        <title >PFCLS - <?php if (isset($pagetitle)) echo "$pagetitle"; else echo "Erreur" ?></title>
+        <title>PFCLS - <?php if (isset($pagetitle)) echo "$pagetitle"; else echo "Erreur" ?></title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="<?= VIEW_PATH_BASE; ?>css/bootstrap.min.css" rel="stylesheet">
@@ -24,9 +24,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="jouer.php">Jouer !</a></li>
-                    <li><a href="index.php?action=regles">Règle du jeu</a></li>
-                    <li><a href="#">Statistiques</a></li>
+                    <li <?php if ($page=="jeu") echo 'class="active"'; ?>><a href="jouer.php">Jouer !</a></li>
+                    <li <?php if ($page=="index" && $vue=="regles") echo 'class="active"'; ?>><a href="index.php?action=regles">Règle du jeu</a></li>
                     <?php if(estConnecte()) include_once VIEW_PATH.'menu'.DS.'vueMenuConnecte.php';
                     else include_once  VIEW_PATH.'menu'.DS.'vueMenuNonConnecte.php';
                     ?>
