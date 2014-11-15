@@ -86,6 +86,12 @@ require_once MODEL_PATH."Jeu.php";
                             "idJoueur2" => $_SESSION['idJoueur']
                         );
                         $_SESSION['idJoueurAdverse'] = Partie::getIDAdversaire($data); // recup l'id de l'adverse
+                        if (!isset($_SESSION['idJoueurAdverse'])) {
+                          // si par exemple on s'est co à deux endroits et qu'on se deco d'un
+                          // l'autre sera toujours en recherche, on doit donc check
+                          $messageErreur="Vous n'êtes pas dans la liste d'attente !";
+                          break;
+                        }
                         $data2 = array(
                             "idJoueur1" => $_SESSION['idJoueurAdverse'],
                             "idJoueur2" => $_SESSION['idJoueur']
