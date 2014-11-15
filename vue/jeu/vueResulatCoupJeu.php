@@ -1,17 +1,17 @@
 <div class="row">
           <div class="col-md-4">
-          <div class="thumbnail">
-            <img src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF1.'.png'?>">
+          <div class="img-circle">
+            <img class="img-responsive" src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF1.'.png'?>">
           </div>
           </div>
           <div class="col-md-4">
-          <div class="thumbnail">
-            <img src="<?= VIEW_PATH_BASE.'jeu/img/versus.png'?>">
+          <div class="img-circle">
+            <img class="img-responsive" src="<?= VIEW_PATH_BASE.'jeu/img/versus.png'?>">
           </div>
           </div>
           <div class="col-md-4">
-          <div class="thumbnail">
-            <img src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF2.'.png'?>">
+          <div class="img-circle">
+            <img class="img-responsive" src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF2.'.png'?>">
           </div>
           </div>
 </div>
