@@ -25,10 +25,6 @@ html,body {
   text-align : center;
 }
 
-#titrezone {
-  margin-bottom: 30px;
-}
-
 #push,#footer {
   height: 60px;
 }
@@ -71,20 +67,12 @@ code {
 	}
 }
 
-.navbar-fixed-top .nav {
-    padding: 15px 0;
-}
-
-.navbar-fixed-top .navbar-brand {
-    padding: 0 15px;
-}
-
 @media(min-width:768px) {
     body {
-        padding-top: 50px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+        padding-top: 70px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
     }
 
     .navbar-fixed-top .navbar-brand {
-        padding: 15px 0;
+        padding: 6px 0;
     }
 }
