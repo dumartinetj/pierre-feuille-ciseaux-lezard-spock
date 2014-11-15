@@ -10,7 +10,7 @@ class Partie extends Modele {
 
     public static function getIDAdversaire($data) {
         try {
-            $req = self::$pdo->prepare('SELECT idJoueur1, idJoueur2 FROM pfcls_Parties WHERE idJoueur1 = :idJoueur1 OR idJoueur2 = :idJoueur2');
+            $req = self::$pdo->prepare('SELECT idJoueur1, idJoueur2 FROM pfcls_Parties WHERE idJoueurGagnant IS NULL AND (idJoueur1 = :idJoueur1 OR idJoueur2 = :idJoueur2)');
             $req->execute($data);
             if ($req->rowCount() != 0) {
                 $data_recup = $req->fetch(PDO::FETCH_OBJ);
@@ -29,7 +29,7 @@ class Partie extends Modele {
 
     public static function getIDPartie($data) {
         try {
-            $req = self::$pdo->prepare('SELECT idPartie FROM pfcls_Parties WHERE idJoueur1 = :idJoueur1 AND idJoueur2 = :idJoueur2');
+            $req = self::$pdo->prepare('SELECT idPartie FROM pfcls_Parties WHERE idJoueurGagnant IS NULL AND (idJoueur1 = :idJoueur1 AND idJoueur2 = :idJoueur2)');
             $req->execute($data);
             if ($req->rowCount() != 0) {
                 $data_recup = $req->fetch(PDO::FETCH_OBJ);
@@ -73,6 +73,16 @@ class Partie extends Modele {
         } catch (PDOException $e) {
             echo $e->getMessage();
             $messageErreur="Erreur lors de l'insertion de la partie dans la base de données";
+        }
+    }
+
+    public static function deletePartie($data) {
+        try {
+            $req = self::$pdo->prepare('DELETE FROM pfcls_Parties WHERE idPartie=:idPartie');
+            $req->execute($data);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $messageErreur="Erreur lors de la suppression de la partie dans la base de données";
         }
     }
 

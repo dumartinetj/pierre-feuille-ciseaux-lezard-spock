@@ -1,7 +1,6 @@
 <?php
 
 require_once MODEL_PATH."Jeu.php";
-require_once MODEL_PATH."Joueur.php";
 
     if (empty($_GET)) {
       if(estConnecte()){
@@ -47,7 +46,6 @@ require_once MODEL_PATH."Joueur.php";
                         Jeu::deleteAttente($_SESSION['idJoueur']);
                         Jeu::deleteAttente($_SESSION['idJoueurAdverse']);
                         $_SESSION['JoueurMaster'] = true;
-                        // check if partie avec notre id et delete partie (cascade ok) si c'est le cas
                         $_SESSION['idPartieEnCours'] = Partie::ajouterPartie($data2);
                         $_SESSION['idMancheEnCours'] = Manche::ajoutManche($_SESSION['idPartieEnCours']);
                         $data5 = array(
@@ -71,7 +69,7 @@ require_once MODEL_PATH."Joueur.php";
                     }
                 }
                 else{
-                    $messageErreur="Vous n'êtes pas connecté!";
+                    $messageErreur="Vous n'êtes pas connecté !";
                 }
             break;
 
@@ -94,12 +92,17 @@ require_once MODEL_PATH."Joueur.php";
                         );
                         $_SESSION['idPartieEnCours'] = Partie::getIDPartie($data2);
                         $_SESSION['JoueurMaster'] = false;
+                        $data2 = array(
+                            "idJoueur1" => $_SESSION['idJoueurAdverse'],
+                            "idJoueur2" => $_SESSION['idJoueur']
+                        );
+                        $_SESSION['idCoupEnCours'] = Coup::getDernierCoup($data2);
                         $vue="choix";
                         $pagetitle="Choisissez votre figure";
                     }
                 }
                 else{
-                    $messageErreur="Vous n'êtes pas connecté!";
+                    $messageErreur="Vous n'êtes pas connecté !";
                 }
             break;
 
@@ -129,7 +132,12 @@ require_once MODEL_PATH."Joueur.php";
                               Joueur::updateNbDefaite($_SESSION['idJoueur']);
                               $messageFinal = $nomJoueurGagnant." remporte la partie !";
                             }
-                            // supprimer les variables de session de lea partie
+                            // supprimer les variables de session de la partie
+                            unset ($_SESSION['idJoueurAdverse']);
+                            unset ($_SESSION['idPartieEnCours']);
+                            unset ($_SESSION['idMancheEnCours']);
+                            unset ($_SESSION['idCoupEnCours']);
+                            unset ($_SESSION['JoueurMaster']);
                             $vue="resultatPartie";
                             $pagetitle="Partie terminée";
                           }
@@ -180,12 +188,17 @@ require_once MODEL_PATH."Joueur.php";
                       else {
                         $messageFinal = $nomJoueurGagnant." remporte la partie !";
                       }
+                      // supprimer les variables de session de la partie
+                      unset ($_SESSION['idJoueurAdverse']);
+                      unset ($_SESSION['idPartieEnCours']);
+                      unset ($_SESSION['idCoupEnCours']);
+                      unset ($_SESSION['JoueurMaster']);
                       $vue="resultatPartie";
                       $pagetitle="Partie terminée";
                     }
                 }
                 else{
-                    $messageErreur="Vous n'êtes pas connecté!";
+                    $messageErreur="Vous n'êtes pas connecté !";
                 }
             break;
 
@@ -194,41 +207,40 @@ require_once MODEL_PATH."Joueur.php";
                     if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){
                         Jeu::deleteAttente($_SESSION['idJoueur']);
                         $vue="deleted";
-                        $pagetitle="Annulation de la recherche d'une partie!";
+                        $pagetitle="Annulation de la recherche d'une partie !";
                     }
                     else{
-                        $messageErreur="Vous n'êtes pas dans la liste d'attente!";
+                        $messageErreur="Vous n'êtes pas dans la liste d'attente !";
                     }
                 }
                 else{
-                    $messageErreur="Vous n'êtes pas connecté!";
+                    $messageErreur="Vous n'êtes pas connecté !";
                 }
             break;
 
             case "eval":
                 if(estConnecte()){
-                    // test si isset post idfigure
+                    // test si isset post idfigure inutile je pense, donc j'en ai pas mis
                     if($_SESSION['JoueurMaster'] == true) {
                       $data = array(
                           "idFigure1" => $_POST['idFigure'],
                           "idCoup" => $_SESSION['idCoupEnCours']
                       );
-                      $idCoup = $_SESSION['idCoupEnCours'];
                     }
                     else {
                       $data2 = array(
                           "idJoueur1" => $_SESSION['idJoueurAdverse'],
                           "idJoueur2" => $_SESSION['idJoueur']
                       );
-                      $idCoup = Coup::getDernierCoup($data2);
+                      $_SESSION['idCoupEnCours'] = Coup::getDernierCoup($data2);
                       $data = array(
                           "idFigure2" => $_POST['idFigure'],
-                          "idCoup" => $idCoup
+                          "idCoup" => $_SESSION['idCoupEnCours']
                       );
 
                     }
                     Coup::updateCoup($data);
-                    if(Coup::checkCoupPretAEvaluer($idCoup)){
+                    if(Coup::checkCoupPretAEvaluer($_SESSION['idCoupEnCours'])){
                         if($_SESSION['JoueurMaster'] == true) {
                           if (!Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
                               Coup::evaluer($_SESSION['idCoupEnCours']);
@@ -268,19 +280,20 @@ require_once MODEL_PATH."Joueur.php";
                           }
                         }
                         else { //on est pas le master
-                            if (Coup::estUnDraw($idCoup)) {
+                            if (Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
                               $vue="resultatDraw";
                               $pagetitle="Et c'est le draw !";
                             }
                             else {
-                              if(Coup::checkCoupEstEvaluer($idCoup)){
-                                $vue="waitCoup";
+                              if(Coup::checkCoupEstEvaluer($_SESSION['idCoupEnCours'])){ // des fois le coup est joué
+                                $temps_attente = 0;
+                                $vue="waitCoup";                                         // mais pas encore évalué
                                 $pagetitle="En attente du coup de votre adversaire !";
                                 break;
                               }
-                              $coup = Coup::getCoup($idCoup);
-                              $idF2 = $coup->idFigure1;
-                              $idF1 = $coup->idFigure1;
+                              $coup = Coup::getCoup($_SESSION['idCoupEnCours']);
+                              $idF2 = $coup->idFigure1; // on échange pour afficher notre figure
+                              $idF1 = $coup->idFigure2; // en premier sur la vue
                               $idJG = $coup->idJoueurGagnant;
                               $nomJoueurGagnant = Joueur::getPseudo($idJG);
                               if($idJG == $_SESSION['idJoueur']) {
@@ -295,34 +308,27 @@ require_once MODEL_PATH."Joueur.php";
                         }
                     }
                     else {
+                      $temps_attente = 0;
                       $vue="waitCoup";
                       $pagetitle="En attente du coup de votre adversaire !";
                     }
 
                 }
                 else{
-                    $messageErreur="Vous n'êtes pas encore connecté!";
+                    $messageErreur="Vous n'êtes pas encore connecté !";
                 }
             break;
 
             case "waitingCoup":
                 if(estConnecte()){
-                    if($_SESSION['JoueurMaster'] == true) {
-                      $idCoup = $_SESSION['idCoupEnCours'];
-                    }
-                    else {
+                    if($_SESSION['JoueurMaster'] == false) {
                       if(Coup::whoUpdateCoup(array('idJoueur2' => $_SESSION['idJoueur']))) {
                         $vue="choix";
                         $pagetitle="Choisissez votre figure";
                         break;
                       }
-                      $data = array(
-                          "idJoueur1" => $_SESSION['idJoueurAdverse'],
-                          "idJoueur2" => $_SESSION['idJoueur']
-                      );
-                      $idCoup = Coup::getDernierCoup($data);
                     }
-                    if(Coup::checkCoupPretAEvaluer($idCoup)){
+                    if(Coup::checkCoupPretAEvaluer($_SESSION['idCoupEnCours'])){
                         if($_SESSION['JoueurMaster'] == true) {
                           if (!Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
                               Coup::evaluer($_SESSION['idCoupEnCours']);
@@ -362,19 +368,19 @@ require_once MODEL_PATH."Joueur.php";
                           }
                         }
                         else { //on est pas le master
-                            if (Coup::estUnDraw($idCoup)) {
+                            if (Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
                               $vue="resultatDraw";
                               $pagetitle="Et c'est le draw !";
                             }
                             else {
-                              if(Coup::checkCoupEstEvaluer($idCoup)){
+                              if(Coup::checkCoupEstEvaluer($_SESSION['idCoupEnCours'])){
                                 $vue="waitCoup";
                                 $pagetitle="En attente du coup de votre adversaire !";
                                 break;
                               }
-                              $coup = Coup::getCoup($idCoup);
-                              $idF2 = $coup->idFigure2;
-                              $idF1 = $coup->idFigure1;
+                              $coup = Coup::getCoup($_SESSION['idCoupEnCours']);
+                              $idF2 = $coup->idFigure1; // on échange pour afficher notre figure
+                              $idF1 = $coup->idFigure2; // en premier sur la vue
                               $idJG = $coup->idJoueurGagnant;
                               $nomJoueurGagnant = Joueur::getPseudo($idJG);
                               if($idJG == $_SESSION['idJoueur']) {
@@ -389,8 +395,24 @@ require_once MODEL_PATH."Joueur.php";
                         }
                     }
                     else {
-                      $vue="waitCoup";
-                      $pagetitle="En attente du coup de votre adversaire !";
+                      $temps_attente = $_POST['temps_attente'];
+                      if ($temps_attente>=15) {
+                        $data = array(
+                            "idPartie" => $_SESSION['idPartieEnCours']
+                        );
+                        Partie::deletePartie($data);
+                        unset ($_SESSION['idJoueurAdverse']);
+                        unset ($_SESSION['idPartieEnCours']);
+                        unset ($_SESSION['idMancheEnCours']); // si elle existe pas, rien ne sera fait
+                        unset ($_SESSION['idCoupEnCours']);
+                        unset ($_SESSION['JoueurMaster']);
+                        $vue="partieAnnulee";
+                        $pagetitle="Partie annulée !";
+                      }
+                      else {
+                        $vue="waitCoup";
+                        $pagetitle="En attente du coup de votre adversaire !";
+                      }
                     }
                 }
                 else{
