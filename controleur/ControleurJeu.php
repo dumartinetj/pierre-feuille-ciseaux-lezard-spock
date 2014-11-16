@@ -4,20 +4,22 @@ require_once MODEL_PATH."Jeu.php";
 
     if (empty($_GET)) {
       if(estConnecte()){
-
-        if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){
+        if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
+          $vue="waitLoad";
+          $pagetitle="Chargement en cours des nouvelles données...";
+        }
+        else if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
             $pagetitle="En attente d'un adversaire !";
             $vue="attente";
         }
-        else{
+        else {
             $pagetitle="Jouer !";
             $vue="recherche";
         }
 
-
       }
       else {
-          $messageErreur="Vous n'êtes pas connecté, vous ne pouvez pas jouer (pas encore) !";
+          $messageErreur="Vous n'êtes pas connecté, vous ne pouvez pas jouer !";
       }
 
     }
@@ -26,6 +28,20 @@ require_once MODEL_PATH."Jeu.php";
 
             case "rechercher":
                 if(estConnecte()){
+                    if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
+                      $vue="waitLoad";
+                      $pagetitle="Chargement en cours des nouvelles données...";
+                      break;
+                    }
+                    else if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                        $pagetitle="En attente d'un adversaire !";
+                        $vue="attente";
+                        break;
+                    }
+                    else if (!isset($_POST['nbManche'])) {
+                      $messageErreur='Vous n\'avez pas saisi un nombre de manches !<br/><br/><a href="jouer.php">Saisir un nombre de manches</a>';
+                      break;
+                    }
                     $search=Jeu::recherchePartie($_POST['nbManche']);
                     $data = array(
                         "idJoueur" => $_SESSION['idJoueur'],
@@ -37,11 +53,11 @@ require_once MODEL_PATH."Jeu.php";
                         $pagetitle="En attente d'un adversaire !";
                     }
                     else{
-                        unset ($_SESSION['idJoueurAdverse']);
-                        unset ($_SESSION['idPartieEnCours']);
-                        unset ($_SESSION['idMancheEnCours']);
-                        unset ($_SESSION['idCoupEnCours']);
-                        unset ($_SESSION['JoueurMaster']);
+                        unset($_SESSION['idJoueurAdverse']);
+                        unset($_SESSION['idPartieEnCours']);
+                        unset($_SESSION['idMancheEnCours']);
+                        unset($_SESSION['idCoupEnCours']);
+                        unset($_SESSION['JoueurMaster']);
                         $_SESSION['idJoueurAdverse']=$search;
                         $data2 = array(
                             "idJoueur1" => $_SESSION['idJoueur'],
@@ -80,16 +96,21 @@ require_once MODEL_PATH."Jeu.php";
 
             case "waiting":
                 if(estConnecte()){
+                    if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
+                      $vue="waitLoad";
+                      $pagetitle="Chargement en cours des nouvelles données...";
+                      break;
+                    } // donc on est attente ou non attente
                     $en_attente = Jeu::checkDejaAttente($_SESSION['idJoueur']);
                     if($en_attente){
                         $vue="attente";
                         $pagetitle="En attente d'un adversaire !";
                     }
-                    else{
-                        unset ($_SESSION['idJoueurAdverse']);
-                        unset ($_SESSION['idPartieEnCours']);
-                        unset ($_SESSION['idCoupEnCours']);
-                        unset ($_SESSION['JoueurMaster']);
+                    else{ // on est plus en attente, mais est-on nous dans une nouvelle partie ?
+                        unset($_SESSION['idJoueurAdverse']);
+                        unset($_SESSION['idPartieEnCours']);
+                        unset($_SESSION['idCoupEnCours']);
+                        unset($_SESSION['JoueurMaster']);
                         $data = array(
                             "idJoueur1" => $_SESSION['idJoueur'],
                             "idJoueur2" => $_SESSION['idJoueur']
@@ -98,7 +119,8 @@ require_once MODEL_PATH."Jeu.php";
                         if (!isset($_SESSION['idJoueurAdverse'])) {
                           // si par exemple on s'est co à deux endroits et qu'on se deco d'un
                           // l'autre sera toujours en recherche, on doit donc check
-                          $messageErreur="Vous n'êtes pas dans la liste d'attente !";
+                          $pagetitle="Jouer !";
+                          $vue="recherche";
                           break;
                         }
                         $data2 = array(
@@ -123,6 +145,16 @@ require_once MODEL_PATH."Jeu.php";
 
             case "rejouerCoup":
                 if(estConnecte()){
+                        if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                            $pagetitle="En attente d'un adversaire !";
+                            $vue="attente";
+                            break;
+                        }
+                        else if (!isset($_SESSION['idJoueurAdverse'])) { // on est pas dans une partie ?
+                          $pagetitle="Jouer !";
+                          $vue="recherche";
+                          break;
+                        } // donc on est dans une partie
                         $vue="choix";
                         $pagetitle="Choisissez votre figure";
                     }
@@ -133,6 +165,16 @@ require_once MODEL_PATH."Jeu.php";
 
             case "jouer":
                 if(estConnecte()){
+                        if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                            $pagetitle="En attente d'un adversaire !";
+                            $vue="attente";
+                            break;
+                        }
+                        else if (!isset($_SESSION['idJoueurAdverse'])) { // on est pas dans une partie ?
+                          $pagetitle="Jouer !";
+                          $vue="recherche";
+                          break;
+                        } // donc on est dans une partie
                         if($_SESSION['JoueurMaster'] == true) {
                           if(Partie::estTerminee($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],$_SESSION['idJoueurAdverse'])) {
                             $idJoueurGagnant = Partie::getIDJoueurGagnant($_SESSION['idPartieEnCours']);
@@ -148,11 +190,11 @@ require_once MODEL_PATH."Jeu.php";
                               $messageFinal = $nomJoueurGagnant." remporte la partie !";
                             }
                             // supprimer les variables de session de la partie
-                            unset ($_SESSION['idJoueurAdverse']);
-                            unset ($_SESSION['idPartieEnCours']);
-                            unset ($_SESSION['idMancheEnCours']);
-                            unset ($_SESSION['idCoupEnCours']);
-                            unset ($_SESSION['JoueurMaster']);
+                            unset($_SESSION['idJoueurAdverse']);
+                            unset($_SESSION['idPartieEnCours']);
+                            unset($_SESSION['idMancheEnCours']);
+                            unset($_SESSION['idCoupEnCours']);
+                            unset($_SESSION['JoueurMaster']);
                             $vue="resultatPartie";
                             $pagetitle="Partie terminée";
                           }
@@ -190,6 +232,16 @@ require_once MODEL_PATH."Jeu.php";
 
             case "waitingLoad":
                 if(estConnecte()){
+                  if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                      $pagetitle="En attente d'un adversaire !";
+                      $vue="attente";
+                      break;
+                  }
+                  else if (!isset($_SESSION['idJoueurAdverse'])) { // on est pas dans une partie ?
+                    $pagetitle="Jouer !";
+                    $vue="recherche";
+                    break;
+                  } // donc on est dans une partie
                     $idJoueurGagnant = Partie::getIDJoueurGagnant($_SESSION['idPartieEnCours']);
                     if ($idJoueurGagnant == NULL) {
                       $vue="choix";
@@ -204,10 +256,10 @@ require_once MODEL_PATH."Jeu.php";
                         $messageFinal = $nomJoueurGagnant." remporte la partie !";
                       }
                       // supprimer les variables de session de la partie
-                      unset ($_SESSION['idJoueurAdverse']);
-                      unset ($_SESSION['idPartieEnCours']);
-                      unset ($_SESSION['idCoupEnCours']);
-                      unset ($_SESSION['JoueurMaster']);
+                      unset($_SESSION['idJoueurAdverse']);
+                      unset($_SESSION['idPartieEnCours']);
+                      unset($_SESSION['idCoupEnCours']);
+                      unset($_SESSION['JoueurMaster']);
                       $vue="resultatPartie";
                       $pagetitle="Partie terminée";
                     }
@@ -219,7 +271,12 @@ require_once MODEL_PATH."Jeu.php";
 
             case "annuler":
                 if(estConnecte()){
-                    if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){
+                    if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
+                      $vue="waitLoad";
+                      $pagetitle="Chargement en cours des nouvelles données...";
+                      break;
+                    }
+                    else if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en attente ?
                         Jeu::deleteAttente($_SESSION['idJoueur']);
                         $vue="deleted";
                         $pagetitle="Annulation de la recherche d'une partie !";
@@ -235,7 +292,33 @@ require_once MODEL_PATH."Jeu.php";
 
             case "eval":
                 if(estConnecte()){
-                    // test si isset post idfigure inutile je pense, donc j'en ai pas mis
+                    if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                        $pagetitle="En attente d'un adversaire !";
+                        $vue="attente";
+                        break;
+                    }
+                    if (!isset($_SESSION['idJoueurAdverse'])) { // on est pas dans une partie ?
+                      $pagetitle="Jouer !";
+                      $vue="recherche";
+                      break;
+                    } // donc on est dans une partie
+                    if (!isset($_POST['idFigure'])) {
+                      $messageErreur='Vous n\'avez pas choisi la figure que vous souhaitez jouer !<br/><a href="jouer.php">Choisir votre figure</a>';
+                      break;
+                    }
+                    $dataAnnul = array(
+                        "idJoueur1" => $_SESSION['idJoueur'],
+                        "idJoueur2" => $_SESSION['idJoueur']
+                    );
+                    if(Partie::getIDAdversaire($dataAnnul) == null){ // la partie a t-elle été annulée ?
+                        unset($_SESSION['idJoueurAdverse']);
+                        unset($_SESSION['idPartieEnCours']);
+                        unset($_SESSION['idMancheEnCours']); // si elle existe pas, rien ne sera fait
+                        unset($_SESSION['idCoupEnCours']);
+                        unset($_SESSION['JoueurMaster']);
+                        $messageErreur="Vous n'avez pas été assez rapide, la partie a donc été annulée !";
+                        break;
+                    }
                     if($_SESSION['JoueurMaster'] == true) {
                       $data = array(
                           "idFigure1" => $_POST['idFigure'],
@@ -336,6 +419,16 @@ require_once MODEL_PATH."Jeu.php";
 
             case "waitingCoup":
                 if(estConnecte()){
+                    if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                        $pagetitle="En attente d'un adversaire !";
+                        $vue="attente";
+                        break;
+                    }
+                    else if (!isset($_SESSION['idJoueurAdverse'])) { // on est pas dans une partie ?
+                      $pagetitle="Jouer !";
+                      $vue="recherche";
+                      break;
+                    } // donc on est dans une partie
                     if($_SESSION['JoueurMaster'] == false) {
                       if(Coup::whoUpdateCoup(array('idJoueur2' => $_SESSION['idJoueur']))) {
                         $vue="choix";
@@ -416,11 +509,11 @@ require_once MODEL_PATH."Jeu.php";
                             "idPartie" => $_SESSION['idPartieEnCours']
                         );
                         Partie::deletePartie($data);
-                        unset ($_SESSION['idJoueurAdverse']);
-                        unset ($_SESSION['idPartieEnCours']);
-                        unset ($_SESSION['idMancheEnCours']); // si elle existe pas, rien ne sera fait
-                        unset ($_SESSION['idCoupEnCours']);
-                        unset ($_SESSION['JoueurMaster']);
+                        unset($_SESSION['idJoueurAdverse']);
+                        unset($_SESSION['idPartieEnCours']);
+                        unset($_SESSION['idMancheEnCours']); // si elle existe pas, rien ne sera fait
+                        unset($_SESSION['idCoupEnCours']);
+                        unset($_SESSION['JoueurMaster']);
                         $vue="partieAnnulee";
                         $pagetitle="Partie annulée !";
                       }
@@ -436,10 +529,28 @@ require_once MODEL_PATH."Jeu.php";
             break;
 
         default :
+            if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                $pagetitle="En attente d'un adversaire !";
+                $vue="attente";
+                break;
+            }
+            else if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
+              $vue="waitLoad";
+              $pagetitle="Chargement en cours des nouvelles données...";
+              break;
+            } // donc une erreur
             $messageErreur="Il semblerait que vous ayez trouvé un glitch dans le système !";
         }
       }
       else {
+        if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+            $pagetitle="En attente d'un adversaire !";
+            $vue="attente";
+        }
+        else if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
+          $vue="waitLoad";
+          $pagetitle="Chargement en cours des nouvelles données...";
+        } // donc une erreur
         $messageErreur="Il semblerait que vous ayez trouvé un glitch dans le système !";
       }
 require VIEW_PATH."vue.php";
