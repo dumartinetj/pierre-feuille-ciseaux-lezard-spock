@@ -37,6 +37,20 @@ class Coup extends Modele {
             }
     }
 
+    public static function getDernierCoupNul($data) {
+        try {
+                $req = self::$pdo->prepare("SELECT MAX(idCoup) AS id FROM pfcls_Coups WHERE idJoueur1 = :idJoueur1 AND idJoueur2 = :idJoueur2 AND idFigure1 IS NULL AND idFigure2 IS NULL AND idJoueurGagnant IS NULL");
+                $req->execute($data);
+                if ($req->rowCount() != 0) {
+                    $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                    return $data_recup->id;
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                die("Erreur lors de la récupération du coup dans la BDD");
+            }
+    }
+
     public static function getIDFigureJoueur1($id) {
         try {
                 $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idCoup=".$id);

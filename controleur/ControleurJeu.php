@@ -242,10 +242,79 @@ require_once MODEL_PATH."Jeu.php";
                     $vue="recherche";
                     break;
                   } // donc on est dans une partie
+                    if($_SESSION['JoueurMaster'] == true) {
+                      if(Partie::estTerminee($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],$_SESSION['idJoueurAdverse'])) {
+                        $idJoueurGagnant = Partie::getIDJoueurGagnant($_SESSION['idPartieEnCours']);
+                        $nomJoueurGagnant = Joueur::getPseudo($idJoueurGagnant);
+                        if($idJoueurGagnant == $_SESSION['idJoueur']) {
+                          Joueur::updateNbVictoire($_SESSION['idJoueur']);
+                          Joueur::updateNbDefaite($_SESSION['idJoueurAdverse']);
+                          $messageFinal = "Vous remportez la partie !";
+                        }
+                        else {
+                          Joueur::updateNbVictoire($_SESSION['idJoueurAdverse']);
+                          Joueur::updateNbDefaite($_SESSION['idJoueur']);
+                          $messageFinal = $nomJoueurGagnant." remporte la partie !";
+                        }
+                        // supprimer les variables de session de la partie
+                        unset($_SESSION['idJoueurAdverse']);
+                        unset($_SESSION['idPartieEnCours']);
+                        unset($_SESSION['idMancheEnCours']);
+                        unset($_SESSION['idCoupEnCours']);
+                        unset($_SESSION['JoueurMaster']);
+                        $vue="resultatPartie";
+                        $pagetitle="Partie terminée";
+                      }
+                      else {
+                        $_SESSION['idMancheEnCours'] = Manche::ajoutManche($_SESSION['idPartieEnCours']);
+                        $data5 = array(
+                            "listeManches" =>   $_SESSION['idMancheEnCours'],
+                            "idPartie" => $_SESSION['idPartieEnCours']
+                        );
+                        Partie::updateListeManche($data5);
+                        $data3 = array(
+                            "idJoueur1" => $_SESSION['idJoueur'],
+                            "idJoueur2" => $_SESSION['idJoueurAdverse'],
+                            "idManche" => $_SESSION['idMancheEnCours']
+                        );
+                        $_SESSION['idCoupEnCours'] = Coup::ajoutCoup($data3);
+                        $data4 = array(
+                            "listeCoups" =>   $_SESSION['idCoupEnCours'],
+                            "idManche" => $_SESSION['idMancheEnCours']
+                        );
+                        Manche::ajoutListeCoup($data4);
+                        $vue="choix";
+                        $pagetitle="Choisissez votre figure";
+                      }
+                    }
+                    else {
                     $idJoueurGagnant = Partie::getIDJoueurGagnant($_SESSION['idPartieEnCours']);
                     if ($idJoueurGagnant == NULL) {
-                      $vue="choix";
-                      $pagetitle="Choisissez votre figure";
+                      $dataAnnul = array(
+                          "idJoueur1" => $_SESSION['idJoueur'],
+                          "idJoueur2" => $_SESSION['idJoueur']
+                      );
+                      if(Partie::getIDAdversaire($dataAnnul) == null){ // la partie a t-elle été annulée ?
+                          unset($_SESSION['idJoueurAdverse']);
+                          unset($_SESSION['idPartieEnCours']);
+                          unset($_SESSION['idMancheEnCours']); // si elle existe pas, rien ne sera fait
+                          unset($_SESSION['idCoupEnCours']);
+                          unset($_SESSION['JoueurMaster']);
+                          $messageErreur="Vous n'avez pas été assez rapide, la partie a donc été annulée !";
+                          break;
+                      }
+                      $dataCheckDonnes = array(
+                          "idJoueur1" => $_SESSION['idJoueurAdverse'],
+                          "idJoueur2" => $_SESSION['idJoueur']
+                      );
+                      if (Coup::getDernierCoupNul($dataCheckDonnes) == null) {
+                        $vue="waitLoad";
+                        $pagetitle="Chargement en cours des nouvelles données...";
+                      }
+                      else {
+                        $vue="choix";
+                        $pagetitle="Choisissez votre figure";
+                      }
                     }
                     else {
                       $nomJoueurGagnant = Joueur::getPseudo($idJoueurGagnant);
@@ -263,6 +332,7 @@ require_once MODEL_PATH."Jeu.php";
                       $vue="resultatPartie";
                       $pagetitle="Partie terminée";
                     }
+                  }
                 }
                 else{
                     $messageErreur="Vous n'êtes pas connecté !";
