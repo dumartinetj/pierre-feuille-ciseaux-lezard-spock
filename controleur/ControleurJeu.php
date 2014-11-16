@@ -37,6 +37,11 @@ require_once MODEL_PATH."Jeu.php";
                         $pagetitle="En attente d'un adversaire !";
                     }
                     else{
+                        unset ($_SESSION['idJoueurAdverse']);
+                        unset ($_SESSION['idPartieEnCours']);
+                        unset ($_SESSION['idMancheEnCours']);
+                        unset ($_SESSION['idCoupEnCours']);
+                        unset ($_SESSION['JoueurMaster']);
                         $_SESSION['idJoueurAdverse']=$search;
                         $data2 = array(
                             "idJoueur1" => $_SESSION['idJoueur'],
@@ -81,6 +86,10 @@ require_once MODEL_PATH."Jeu.php";
                         $pagetitle="En attente d'un adversaire !";
                     }
                     else{
+                        unset ($_SESSION['idJoueurAdverse']);
+                        unset ($_SESSION['idPartieEnCours']);
+                        unset ($_SESSION['idCoupEnCours']);
+                        unset ($_SESSION['JoueurMaster']);
                         $data = array(
                             "idJoueur1" => $_SESSION['idJoueur'],
                             "idJoueur2" => $_SESSION['idJoueur']
