@@ -1,19 +1,26 @@
 <div class="row">
-          <div class="col-md-4">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
+          <div class="col-md-2">
           <div class="img-circle">
             <img class="img-responsive" src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF1.'.png'?>">
           </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-1"></div>
+          <div class="col-md-2">
           <div class="img-circle">
             <img class="img-responsive" src="<?= VIEW_PATH_BASE.'jeu/img/versus.png'?>">
           </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-1"></div>
+          <div class="col-md-2">
           <div class="img-circle">
             <img class="img-responsive" src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF2.'.png'?>">
           </div>
           </div>
+          <div class="col-md-1"></div>
+          <div class="col-md-2"></div>
 </div>
 <h1 id="mainhead"><?= $message ?></h1>
 <h5>Cette page s'actualisera automatiquement dans 5 secondes...</h5>
