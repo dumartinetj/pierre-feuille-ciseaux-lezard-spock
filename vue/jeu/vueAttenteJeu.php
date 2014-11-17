@@ -1,3 +1,4 @@
+<img class="img-responsive center-block" src="<?= VIEW_PATH_BASE.'jeu/img/load.gif'?>">
 <h1 id="mainhead">Vous êtes actuellement en attente d'un adversaire !</h1>
 <h5>Cette page s'actualisera automatiquement toutes les 5 secondes...</h5>
 <a href="jouer.php?action=annuler">Annuler votre recherche d'adversaire</a>
