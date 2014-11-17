@@ -4,19 +4,19 @@
         <div class="col-md-1"></div>
           <div class="col-md-2">
           <div class="img-circle">
-            <img class="img-responsive" src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF1.'.png'?>">
+            <img class="img-responsive center-block" src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF1.'.png'?>">
           </div>
           </div>
           <div class="col-md-1"></div>
           <div class="col-md-2">
           <div class="img-circle">
-            <img class="img-responsive" src="<?= VIEW_PATH_BASE.'jeu/img/versus.png'?>">
+            <img class="img-responsive center-block" src="<?= VIEW_PATH_BASE.'jeu/img/versus.png'?>">
           </div>
           </div>
           <div class="col-md-1"></div>
           <div class="col-md-2">
           <div class="img-circle">
-            <img class="img-responsive" src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF2.'.png'?>">
+            <img class="img-responsive center-block" src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF2.'.png'?>">
           </div>
           </div>
           <div class="col-md-1"></div>

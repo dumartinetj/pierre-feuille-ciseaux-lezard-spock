@@ -26,7 +26,7 @@
   </p>
   </div>
   <div class="col-md-5">
-      <img class="featurette-image img-responsive" height="90%" width="90%" src="<?php echo VIEW_PATH_BASE.'index/img/regles.png'?>" alt="Schéma des règles">
+      <img class="featurette-image img-responsive center-block" height="90%" width="90%" src="<?php echo VIEW_PATH_BASE.'index/img/regles.png'?>" alt="Schéma des règles">
       <div class="caption">
         <h3>Schéma des règles</h3>
         <small><em>Source : Wikipedia</em></small>
