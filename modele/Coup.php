@@ -120,9 +120,12 @@ class Coup extends Modele {
 
     public static function whoUpdateCoup($data) {
         try {
-                $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idJoueur2= :idJoueur2 AND idFigure2 IS NULL");
+                $req = self::$pdo->prepare("SELECT MAX(idCoup) AS id FROM pfcls_Coups WHERE idJoueur2= :idJoueur2 AND idFigure2 IS NULL");
                 $req->execute($data);
-                return ($req->rowCount() != 0);
+                if ($req->rowCount() != 0) {
+                    $data_recup = $req->fetch(PDO::FETCH_OBJ);
+                    return $data_recup->id;
+                }
             } catch (PDOException $e) {
                 echo $e->getMessage();
                 $messageErreur="Erreur lors de who MAJ d'un coup dans la BDD";

@@ -197,6 +197,9 @@ require_once MODEL_PATH."Jeu.php";
                               Joueur::updateNbDefaite($_SESSION['idJoueur']);
                               $messageFinal = $nomJoueurGagnant." remporte la partie !";
                             }
+                            $resultat = Partie::getResultat($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],$_SESSION['idJoueurAdverse']);
+                            $victoireJ1 = $resultat['nbVictoireJ1'];
+                            $victoireJ2 = $resultat['nbVictoireJ2'];
                             // supprimer les variables de session de la partie
                             unset($_SESSION['idJoueurAdverse']);
                             unset($_SESSION['idPartieEnCours']);
@@ -264,6 +267,9 @@ require_once MODEL_PATH."Jeu.php";
                           Joueur::updateNbDefaite($_SESSION['idJoueur']);
                           $messageFinal = $nomJoueurGagnant." remporte la partie !";
                         }
+                        $resultat = Partie::getResultat($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],$_SESSION['idJoueurAdverse']);
+                        $victoireJ1 = $resultat['nbVictoireJ1'];
+                        $victoireJ2 = $resultat['nbVictoireJ2'];
                         // supprimer les variables de session de la partie
                         unset($_SESSION['idJoueurAdverse']);
                         unset($_SESSION['idPartieEnCours']);
@@ -315,7 +321,15 @@ require_once MODEL_PATH."Jeu.php";
                           "idJoueur1" => $_SESSION['idJoueurAdverse'],
                           "idJoueur2" => $_SESSION['idJoueur']
                       );
-                      if (Coup::getDernierCoupNul($dataCheckDonnes) == null) {
+                      $data2 = array(
+                          "idJoueur1" => $_SESSION['idJoueurAdverse'],
+                          "idJoueur2" => $_SESSION['idJoueur']
+                      );
+                      if(Coup::whoUpdateCoup(array('idJoueur2' => $_SESSION['idJoueur']))== Coup::getDernierCoup($data2)) {
+                        $vue="choix";
+                        $pagetitle="Choisissez votre figure";
+                      }
+                      else if (Coup::getDernierCoupNul($dataCheckDonnes) == null) {
                         $vue="waitLoad";
                         $pagetitle="Chargement en cours des nouvelles données...";
                       }
@@ -332,6 +346,9 @@ require_once MODEL_PATH."Jeu.php";
                       else {
                         $messageFinal = $nomJoueurGagnant." remporte la partie !";
                       }
+                      $resultat = Partie::getResultat($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],$_SESSION['idJoueurAdverse']);
+                      $victoireJ1 = $resultat['nbVictoireJ1'];
+                      $victoireJ2 = $resultat['nbVictoireJ2'];
                       // supprimer les variables de session de la partie
                       unset($_SESSION['idJoueurAdverse']);
                       unset($_SESSION['idPartieEnCours']);

@@ -168,6 +168,26 @@ class Partie extends Modele {
        }
        return false;
   }
+
+  public static function getResultat($idP, $idJ, $idJA) {
+      $nbVictoireJ1 = 0;
+      $nbVictoireJ2 = 0;
+      $listeManches = static::getListeManches($idP);
+      foreach($listeManches as $manche){
+        $jgm = Manche::getIDJoueurGagnant($manche);
+        if($jgm==$idJ){
+          $nbVictoireJ1++;
+        }
+        elseif ($jgm==$idJA) {
+          $nbVictoireJ2++;
+        }
+      }
+      $resultat = array(
+          "nbVictoireJ1" => $nbVictoireJ1,
+          "nbVictoireJ2" => $nbVictoireJ2
+      );
+      return $resultat;
+    }
 }
 
 ?>
