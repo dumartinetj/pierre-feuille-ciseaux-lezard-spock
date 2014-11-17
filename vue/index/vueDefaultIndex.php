@@ -1,7 +1,7 @@
 		<h1 id="mainhead">PFCLS - Jeu en ligne</h1>
 		<hr>
 		<p>
-			Bienvenue sur le site PFCLS, ce site contient le jeu <em>Pierre Feuille Ciseaux amélioré</em> par l'ajout de Lézard et Spock.
+			Bienvenue sur le site PFCLS, ce site contient le jeu <em>Pierre Feuille Ciseaux</em> amélioré par l'ajout de Lézard et Spock.
 			Le jeu popularisé a été popularisé par la série <em>The Big Bang Theory</em>. Les règles sont présentes <a href="http://pfcls.me/index.php?action=regles">ici</a>.
 		</p>
 		<hr class="featurette-divider">
