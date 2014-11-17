@@ -42,7 +42,10 @@
             <div class="col-md-12">
               <div class="container">
                 <div class="jumbotron">
-                <?php if(!isset($vue)) echo "<h3>$messageErreur</h3>";
+                <?php if(!isset($vue)) {
+                    echo "<h2>$messageErreur</h2>";
+                    echo '<img class="img-responsive center-block" src="'.VIEW_PATH_BASE.'img/glitch.png" alt="Heeee ?!">';
+                  }
                   else require VIEW_PATH.$page.DS.'vue'.ucfirst($vue).ucfirst($page).'.php';?>
                 </div>
               </div>
