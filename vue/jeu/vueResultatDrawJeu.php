@@ -1,4 +1,28 @@
-<h1 id="mainhead">Vous avez joué deux figures identifiques ! Vous allez devoir rejouez le coup !</h1>
+<div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
+          <div class="col-md-2">
+          <div class="img-circle">
+            <img class="img-responsive" src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF.'.png'?>">
+          </div>
+          </div>
+          <div class="col-md-1"></div>
+          <div class="col-md-2">
+          <div class="img-circle">
+            <img class="img-responsive" src="<?= VIEW_PATH_BASE.'jeu/img/versus.png'?>">
+          </div>
+          </div>
+          <div class="col-md-1"></div>
+          <div class="col-md-2">
+          <div class="img-circle">
+            <img class="img-responsive" src="<?= VIEW_PATH_BASE.'jeu/img/'.$idF.'.png'?>">
+          </div>
+          </div>
+          <div class="col-md-1"></div>
+          <div class="col-md-2"></div>
+</div>
+<h2 id="mainhead">Vous avez joué deux figures identifiques ! Vous allez devoir rejouez le coup !</h2>
 <h5>Cette page s'actualisera automatiquement dans 3 secondes...</h5>
 <form name="rejouerCoup" id="rejouerCoup" action="jouer.php?action=rejouerCoup" method="POST">
 </form>

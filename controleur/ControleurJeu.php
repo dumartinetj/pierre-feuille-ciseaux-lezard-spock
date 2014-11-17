@@ -155,6 +155,14 @@ require_once MODEL_PATH."Jeu.php";
                           $vue="recherche";
                           break;
                         } // donc on est dans une partie
+                        $dataCheckDonnes = array(
+                            "idJoueur1" => $_SESSION['idJoueurAdverse'],
+                            "idJoueur2" => $_SESSION['idJoueur']
+                        );
+                        if (Coup::getDernierCoupNul($dataCheckDonnes) == null) { // le nouveau a-til été créé ?
+                          $vue="waitLoad";
+                          $pagetitle="Chargement en cours des nouvelles données...";
+                        }
                         $vue="choix";
                         $pagetitle="Choisissez votre figure";
                     }
@@ -443,12 +451,14 @@ require_once MODEL_PATH."Jeu.php";
                                 "idManche" => $_SESSION['idMancheEnCours']
                             );
                             Manche::updateListeCoup($data4); // ajout le coup dans listeCoup de la manche
+                            $idF = $_POST['idFigure'];
                             $vue="resultatDraw";
                             $pagetitle="Et c'est le draw !";
                           }
                         }
                         else { //on est pas le master
                             if (Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
+                              $idF = $_POST['idFigure'];
                               $vue="resultatDraw";
                               $pagetitle="Et c'est le draw !";
                             }
@@ -499,13 +509,6 @@ require_once MODEL_PATH."Jeu.php";
                       $vue="recherche";
                       break;
                     } // donc on est dans une partie
-                    if($_SESSION['JoueurMaster'] == false) {
-                      if(Coup::whoUpdateCoup(array('idJoueur2' => $_SESSION['idJoueur']))) {
-                        $vue="choix";
-                        $pagetitle="Choisissez votre figure";
-                        break;
-                      }
-                    }
                     if(Coup::checkCoupPretAEvaluer($_SESSION['idCoupEnCours'])){
                         if($_SESSION['JoueurMaster'] == true) {
                           if (!Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
@@ -535,6 +538,7 @@ require_once MODEL_PATH."Jeu.php";
                                 "idJoueur2" => $_SESSION['idJoueurAdverse'],
                                 "idManche" => $_SESSION['idMancheEnCours']
                             );
+                            $idF = Coup::getCoup($_SESSION['idCoupEnCours'])->idFigure1;
                             $_SESSION['idCoupEnCours'] = Coup::ajoutCoup($data3);
                             $data4 = array(
                                 "listeCoups" =>   $_SESSION['idCoupEnCours'],
@@ -547,6 +551,7 @@ require_once MODEL_PATH."Jeu.php";
                         }
                         else { //on est pas le master
                             if (Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
+                              $idF = Coup::getCoup($_SESSION['idCoupEnCours'])->idFigure1;
                               $vue="resultatDraw";
                               $pagetitle="Et c'est le draw !";
                             }
