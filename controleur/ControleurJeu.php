@@ -347,6 +347,35 @@ require_once MODEL_PATH."Jeu.php";
                 }
             break;
 
+            case "annulerPartie":
+                if(estConnecte()){
+                    if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
+                      $data = array(
+                          "idPartie" => $_SESSION['idPartieEnCours']
+                      );
+                      Partie::deletePartie($data);
+                      unset($_SESSION['idJoueurAdverse']);
+                      unset($_SESSION['idPartieEnCours']);
+                      unset($_SESSION['idMancheEnCours']); // si elle existe pas, rien ne sera fait
+                      unset($_SESSION['idCoupEnCours']);
+                      unset($_SESSION['JoueurMaster']);
+                      $vue="partieAnnulee";
+                      $pagetitle="Partie annulée !";
+                    }
+                    else if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en attente ?
+                        $pagetitle="En attente d'un adversaire !";
+                        $vue="attente";
+                    }
+                    else {
+                        $pagetitle="Jouer !";
+                        $vue="recherche";
+                    }
+                }
+                else{
+                    $messageErreur="Vous n'êtes pas connecté !";
+                }
+            break;
+
             case "annuler":
                 if(estConnecte()){
                     if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
@@ -358,6 +387,7 @@ require_once MODEL_PATH."Jeu.php";
                         Jeu::deleteAttente($_SESSION['idJoueur']);
                         $vue="deleted";
                         $pagetitle="Annulation de la recherche d'une partie !";
+                        break;
                     }
                     else{
                         $messageErreur="Vous n'êtes pas dans la liste d'attente !";
@@ -437,7 +467,7 @@ require_once MODEL_PATH."Jeu.php";
                               );
                               Manche::setGagnantManche($data5); // stocke le gagnant
                               $vue="resulatCoup";
-                              $pagetitle="Résulat du coup !";
+                              $pagetitle="Résultat du coup !";
                           }
                           else {
                             $data3 = array(
@@ -481,7 +511,7 @@ require_once MODEL_PATH."Jeu.php";
                                 $message = $nomJoueurGagnant." remporte la manche !";
                               }
                               $vue="resulatCoup";
-                              $pagetitle="Résulat du coup !";
+                              $pagetitle="Résultat du coup !";
                             }
                         }
                     }
@@ -530,7 +560,7 @@ require_once MODEL_PATH."Jeu.php";
                               );
                               Manche::setGagnantManche($data5); // stocke le gagnant
                               $vue="resulatCoup";
-                              $pagetitle="Résulat du coup !";
+                              $pagetitle="Résultat du coup !";
                           }
                           else {
                             $data3 = array(
@@ -573,29 +603,14 @@ require_once MODEL_PATH."Jeu.php";
                                 $message = $nomJoueurGagnant." remporte la manche !";
                               }
                               $vue="resulatCoup";
-                              $pagetitle="Résulat du coup !";
+                              $pagetitle="Résultat du coup !";
                             }
                         }
                     }
                     else {
                       $temps_attente = $_POST['temps_attente'];
-                      if ($temps_attente>=15) {
-                        $data = array(
-                            "idPartie" => $_SESSION['idPartieEnCours']
-                        );
-                        Partie::deletePartie($data);
-                        unset($_SESSION['idJoueurAdverse']);
-                        unset($_SESSION['idPartieEnCours']);
-                        unset($_SESSION['idMancheEnCours']); // si elle existe pas, rien ne sera fait
-                        unset($_SESSION['idCoupEnCours']);
-                        unset($_SESSION['JoueurMaster']);
-                        $vue="partieAnnulee";
-                        $pagetitle="Partie annulée !";
-                      }
-                      else {
                         $vue="waitCoup";
                         $pagetitle="En attente du coup de votre adversaire !";
-                      }
                     }
                 }
                 else{
