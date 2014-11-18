@@ -200,6 +200,12 @@ require_once MODEL_PATH."Jeu.php";
                             $resultat = Partie::getResultat($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],$_SESSION['idJoueurAdverse']);
                             $victoireJ1 = $resultat['nbVictoireJ1'];
                             $victoireJ2 = $resultat['nbVictoireJ2'];
+                            $dataStats = array(
+                                "idJoueur1" =>   $_SESSION['idJoueur'],
+                                "idJoueur2" => $_SESSION['idJoueurAdverse'],
+                                "idPartie" => $_SESSION['idPartieEnCours']
+                            );
+                            Partie::ajoutStatsGlobales($dataStats);
                             // supprimer les variables de session de la partie
                             unset($_SESSION['idJoueurAdverse']);
                             unset($_SESSION['idPartieEnCours']);
@@ -270,6 +276,12 @@ require_once MODEL_PATH."Jeu.php";
                         $resultat = Partie::getResultat($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],$_SESSION['idJoueurAdverse']);
                         $victoireJ1 = $resultat['nbVictoireJ1'];
                         $victoireJ2 = $resultat['nbVictoireJ2'];
+                        $dataStats = array(
+                            "idJoueur1" =>   $_SESSION['idJoueur'],
+                            "idJoueur2" => $_SESSION['idJoueurAdverse'],
+                            "idPartie" => $_SESSION['idPartieEnCours']
+                        );
+                        Partie::ajoutStatsGlobales($dataStats);
                         // supprimer les variables de session de la partie
                         unset($_SESSION['idJoueurAdverse']);
                         unset($_SESSION['idPartieEnCours']);

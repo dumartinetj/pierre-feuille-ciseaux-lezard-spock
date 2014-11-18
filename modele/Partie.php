@@ -188,6 +188,86 @@ class Partie extends Modele {
       );
       return $resultat;
     }
+
+    /*
+     * Retourne la chaine de caractère correspondant à liste des coups des manches de la partie passé en param
+     * @param id de la partie
+     * @return retourne la chaine de caractères
+     */
+     public static function parsageListeManches($idP) {
+          $chaineListeManches = "";
+          $listeManches = static::getListeManches($idP);
+          foreach ($listeManches as $manche) {
+               $chaineListeManches .= Manche::parsageListeCoups($manche);
+          }
+          $chaineListeManches=rtrim($chaineListeManches,",");
+          return $chaineListeManches;
+     }
+
+    /*
+     * Parse les données globales en perso
+     * @param un tableau contenant les données globales
+     * @return un tableau contenant les données perso parsées, prêtent à être stocker
+     */
+    public static function parsageStatsPerso($data){
+          $lcj1 = "";
+          $lcj2 = "";
+          $tabCoupleCoup = explode(",",$data['listeCoups']);
+          foreach ($tabCoupleCoup as $couple) {
+            $lcj1 .= $couple[0].",";
+            $lcj2 .= $couple[1].",";
+          }
+          $lcj1=rtrim($lcj1,",");
+          $lcj2=rtrim($lcj2,",");
+          $data_new = array(
+            'idJoueur1' => $data['idJoueur1'],
+            'listeCoupsJ1' => $lcj1,
+            'idJoueur2' => $data['idJoueur2'],
+            'listeCoupsJ2' => $lcj2
+          );
+          return $data_new;
+    }
+
+    /*
+     * Insère les stats globales et personnelles dans la BDD
+     * @param tableau contenant l'id de la partie et les id des deux joueurs
+     */
+    public static function ajoutStatsGlobales($data){
+        try {
+             $listeCoups = static::parsageListeManches($data['idPartie']);
+             $data2 = array(
+                 "idJoueur1" => $data['idJoueur1'],
+                 "idJoueur2" => $data['idJoueur2'],
+                 "listeCoups" => $listeCoups
+             );
+             $req = self::$pdo->prepare('INSERT INTO pfcls_StatistiquesGlobales (idJoueur1, idJoueur2, listeCoups) VALUES (:idJoueur1, :idJoueur2, :listeCoups)');
+             $req->execute($data2);
+             static::ajoutStatsPersonnelles($data2);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            die("Erreur lors de l'insertion des stats globales dans la BDD");
+        }
+
+    }
+
+     /*
+     * Insére les stats perso dans la BDD à partir de données globales
+     * @param un tableau contenant les données globales
+     */
+    public static function ajoutStatsPersonnelles($data){
+        try {
+          $data_new = static::parsageStatsPerso($data);
+           $req = self::$pdo->prepare('INSERT INTO pfcls_StatistiquesPersonnelles (idJoueur, listeCoups) VALUES (:idJoueur1, :listeCoupsJ1)');
+           $req->execute(array('idJoueur1' => $data_new['idJoueur1'], 'listeCoupsJ1' => $data_new['listeCoupsJ1']));
+
+           $req2 = self::$pdo->prepare('INSERT INTO pfcls_StatistiquesPersonnelles (idJoueur, listeCoups) VALUES (:idJoueur2, :listeCoupsJ2)');
+           $req2->execute(array('idJoueur2' => $data_new['idJoueur2'], 'listeCoupsJ2' => $data_new['listeCoupsJ2']));
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            die("Erreur lors de l'insertion des stats personnelles dans la BDD");
+        }
+
+    }
 }
 
 ?>

@@ -199,7 +199,7 @@ class Coup extends Modele {
         return ($idF1 == $idF2);
     }
 
-    public static function retourneIDs($id){ // pour les stats
+    public static function retourneIDs($id){
 	     $idF1 = self::getIDFigureJoueur1($id);
        $idF2 = self::getIDFigureJoueur2($id);
 	     return $idF1.$idF2;
