@@ -35,9 +35,9 @@
   </div>
   <hr>
   <p>
-   Pour démarrer une partie, vous deviez indiquer le nombre de manches que vous voulez jouer, ce nombre doit être
+   Pour démarrer une partie, vous devez indiquer le nombre de manches que vous voulez jouer, ce nombre doit être
    impair pour qu’une égalité ne soit pas possible. De plus, le nombre de manches maximum est de 9 pour éviter que les parties soient trop longues.
    Pour gagner une partie, il faut remporter assez de manches pour que l’adversaire, même s’il gagne toutes les manches restantes, ne puisse pas remporter la victoire.
-   Par exemple si vous jouez une partie en cinq manches et que vous remportez les trois premières, vous avez gagné la partie et vous ne jouerez donc pas les manches restantes votre victoire étant déjà assurée.
+   Par exemple si vous jouez une partie en cinq manches et que vous remportez les trois premières, vous avez gagné la partie et vous ne jouerez donc pas les manches restantes, votre victoire étant déjà assurée.
 
   </p>

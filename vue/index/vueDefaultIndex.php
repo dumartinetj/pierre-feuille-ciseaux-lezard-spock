@@ -8,13 +8,13 @@
 		<div class="row featurette">
 	        <div class="col-md-7">
 	          <h2 class="featurette-heading">Présentation du projet<br> <span class="text-muted"></span></h2>
-	          <p class="lead">Le but premier de ce projet est de recueillir des statistiques sur les joueurs, à terme on pourra savoir par exemple si une femme
+	          <p class="lead">Le but premier de ce projet est de recueillir des statistiques sur les joueurs, à terme, on pourra savoir par exemple si une femme
 							est meilleure qu'un homme à ce jeu ou de déterminer si les hommes de 20 à 30 ans sont meilleurs que les hommes de 30 à 40 ans.</p>
 	        </div>
 	        <div class="col-md-5">
 						<img class="featurette-image img-responsive" src="http://placehold.it/500x200" alt="">
 						<div class="caption">
-							<h3>Blablacaca</h3>
+							<h3>Figure 1</h3>
 						</div>
 	        </div>
 	  </div>
@@ -23,14 +23,14 @@
 					<div class="col-md-5">
 						<img class="featurette-image img-responsive" src="http://placehold.it/500x400" alt="">
 						<div class="caption">
-							<h3>Blablacaca</h3>
+							<h3>Figure 2</h3>
 						</div>
 					</div>
 					<div class="col-md-7">
 						<h2 class="featurette-heading">Intelligence Artificielle<br> <span class="text-muted"></span></h2>
-						<p class="lead">Ce sont en somme des statistiques basiques, mais qui vont servir ensuite pour programmer une Intelligence Artificielle (IA). Ce nouvel adversaire pourra selon votre âge et
-							votre sexe déterminer les coups que vous allez jouer pour pouvoir les contrer du mieux possible. L'IA pourra prévoir le coup qu'il faut jouer pour gagner contre vous, en cela, elle se comporte comme
-							l'IA d'un jeu d'échec qui prédit le meilleur coup à jouer grâce à l'expérience accumulée au cours de nombreuses parties. A chaque manches ce "robot" récupère les données pour être le plus précis possible.</p>
+						<p class="lead">Ce sont en somme des statistiques basiques, mais qui vont servir ensuite pour programmer une Intelligence Artificielle (IA). Ce nouvel adversaire pourra selon votre âge et votre sexe 
+									déterminer les coups que vous allez jouer pour pouvoir les contrer du mieux possible. L'IA pourra prévoir le coup qu'il faut jouer pour gagner contre vous, en cela, elle se comporte comme 
+									l'IA d'un jeu d'échec qui prédit le meilleur coup à jouer grâce à l'expérience accumulée au cours de nombreuses parties. À chaque manche, ce "robot" récupère les données pour être le plus précis possible.</p>
 					</div>
 		</div>
 		<hr class="featurette-divider">
