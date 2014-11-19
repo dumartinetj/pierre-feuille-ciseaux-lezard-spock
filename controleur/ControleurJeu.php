@@ -155,51 +155,25 @@ require_once MODEL_PATH."Jeu.php";
                           $vue="recherche";
                           break;
                         } // donc on est dans une partie
-                        if($_SESSION['JoueurMaster'] == true) {
+                        if($_SESSION['JoueurMaster'] == false) {
                           $dataCheckDonnes = array(
-                            "idJoueur1" => $_SESSION['idJoueur'],
-                            "idJoueur2" => $_SESSION['idJoueurAdverse']
+                            "idJoueur1" => $_SESSION['idJoueurAdverse'],
+                            "idJoueur2" => $_SESSION['idJoueur']
                           );
                           if (Coup::getDernierCoupNul($dataCheckDonnes) == null) { // le nouveau a-til été créé ?
-                            $data3 = array(
-                              "idJoueur1" => $_SESSION['idJoueur'],
-                              "idJoueur2" => $_SESSION['idJoueurAdverse'],
-                              "idManche" => $_SESSION['idMancheEnCours']
-                            );
-                            $_SESSION['idCoupEnCours'] = Coup::ajoutCoup($data3);
-                            $data4 = array(
-                              "listeCoups" =>  $_SESSION['idCoupEnCours'],
-                              "idManche" => $_SESSION['idMancheEnCours']
-                            );
-                            Manche::updateListeCoup($data4); // ajout le coup dans listeCoup de la manche
                             $vue="waitLoad";
                             $pagetitle="Chargement en cours des nouvelles données...";
+                            break;
                           }
                           else {
-                            $dataCheck= array(
-                              "idJoueur1" => $_SESSION['idJoueur'],
-                              "idJoueur2" => $_SESSION['idJoueurAdverse']
-                            );
-                            $_SESSION['idCoupEnCours'] = Coup::getDernierCoup($dataCheck);
+                            $_SESSION['idCoupEnCours'] = Coup::getDernierCoup($dataCheckDonnes);
+                            $vue="choix";
+                            $pagetitle="Choisissez votre figure";
+                            break;
                           }
-                          $vue="choix";
-                          $pagetitle="Choisissez votre figure";
                         }
-                        else {
-                            $dataCheckDonnes = array(
-                              "idJoueur1" => $_SESSION['idJoueurAdverse'],
-                              "idJoueur2" => $_SESSION['idJoueur']
-                            );
-                            if (Coup::getDernierCoupNul($dataCheckDonnes) == null) { // le nouveau a-til été créé ?
-                              $vue="waitLoad";
-                              $pagetitle="Chargement en cours des nouvelles données...";
-                            }
-                            else {
-                              $_SESSION['idCoupEnCours'] = Coup::getDernierCoup($dataCheckDonnes);
-                              $vue="choix";
-                              $pagetitle="Choisissez votre figure";
-                            }
-                        }
+                        $vue="choix";
+                        $pagetitle="Choisissez votre figure";
                     }
                 else{
                     $messageErreur="Vous n'êtes pas connecté !";
