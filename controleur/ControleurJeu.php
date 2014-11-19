@@ -157,8 +157,8 @@ require_once MODEL_PATH."Jeu.php";
                         } // donc on est dans une partie
                         if($_SESSION['JoueurMaster'] == true) {
                           $dataCheckDonnes = array(
-                            "idJoueur1" => $_SESSION['idJoueurAdverse'],
-                            "idJoueur2" => $_SESSION['idJoueur']
+                            "idJoueur1" => $_SESSION['idJoueur'],
+                            "idJoueur2" => $_SESSION['idJoueurAdverse']
                           );
                           if (Coup::getDernierCoupNul($dataCheckDonnes) == null) { // le nouveau a-til été créé ?
                             $data3 = array(
