@@ -2,7 +2,7 @@
 		<hr>
 		<p>
 			Bienvenue sur le site PFCLS, ce site contient le jeu <em>Pierre Feuille Ciseaux</em> amélioré par l'ajout de Lézard et Spock.
-			Le jeu popularisé a été popularisé par la série <em>The Big Bang Theory</em>. Les règles sont présentes <a href="http://pfcls.me/index.php?action=regles">ici</a>.
+			Le jeu a été popularisé par la série <em>The Big Bang Theory</em>. Les règles sont présentes <a href="http://pfcls.me/index.php?action=regles">ici</a>.
 		</p>
 		<hr class="featurette-divider">
 		<div class="row featurette">
@@ -28,13 +28,11 @@
 					</div>
 					<div class="col-md-7">
 						<h2 class="featurette-heading">Intelligence Artificielle<br> <span class="text-muted"></span></h2>
-						<p class="lead">Ce sont en somme des statistiques basiques, mais qui vont servir ensuite pour programmer une Intelligence Artificielle (IA). Ce nouvel adversaire pourra selon votre âge et votre sexe 
-									déterminer les coups que vous allez jouer pour pouvoir les contrer du mieux possible. L'IA pourra prévoir le coup qu'il faut jouer pour gagner contre vous, en cela, elle se comporte comme 
-									l'IA d'un jeu d'échec qui prédit le meilleur coup à jouer grâce à l'expérience accumulée au cours de nombreuses parties. À chaque manche, ce "robot" récupère les données pour être le plus précis possible.</p>
+						<p class="lead"> Vous avez battu tous vos amis, et même les autres adversaires qui vous sont proposés en ligne ? Tester vous contre l'IA. Créer par nos soins pour 
+						prévoir vos coups avant même que vous les jouiez, cet adversaire est le plus fort que vous aillez jamais défié. Réussirez-vous à le battre ?</p>
 					</div>
 		</div>
 		<hr class="featurette-divider">
 			<p>
-				Évidemment, le second but de ce site est de divertir les joueurs en fournissant un système de jeu qui permet d'éviter les coups nuls (les deux joueurs utilisent la même figure) grâce à l'ajout
-				des figures Lézard et Spock. Les joueurs ont donc besoin de moins de coups pour parvenir à gagner une manche, le jeu s'en trouve donc plus intéressant, car les parties peuvent s'enchaîner plus rapidement.
+				Montrez au monde de quoi vous êtes capables! Multipliez les victoires pour augmenter votre ratio et atteindre le haut du classement. (Le système de classement est expliqué à la page des régles.)
 			</p>

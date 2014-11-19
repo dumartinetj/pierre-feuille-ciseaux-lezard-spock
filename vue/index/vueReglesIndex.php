@@ -35,9 +35,14 @@
   </div>
   <hr>
   <p>
-   Pour démarrer une partie, vous devez indiquer le nombre de manches que vous voulez jouer, ce nombre doit être
-   impair pour qu’une égalité ne soit pas possible. De plus, le nombre de manches maximum est de 9 pour éviter que les parties soient trop longues.
-   Pour gagner une partie, il faut remporter assez de manches pour que l’adversaire, même s’il gagne toutes les manches restantes, ne puisse pas remporter la victoire.
-   Par exemple si vous jouez une partie en cinq manches et que vous remportez les trois premières, vous avez gagné la partie et vous ne jouerez donc pas les manches restantes, votre victoire étant déjà assurée.
+   Pour démarrer une partie, vous devez indiquer le nombre de manches que vous voulez jouer, vous remarquerai sur la page Jouer! que Les nombres qui vous sont proposés sont tout impairs.
+   En effet pour assurer qu'il y a toujours un vainqueur, nous avons choisi de définir un nombre de manches impair, ce système est présent dans tous les jeux de combat comme Street Fighter ou Mortal Kombat.
+   Pour gagner une partie, il vous remporter un nombre de manches qui est supérieur à la moitié du nombre de manches total. Exemple : vous avez choisi 5 manches, il vous faudra donc remporter 3 manches pour remporter la partie.
+  </p>
+   
+   <hr class="featurette-divider">
+   <p>
+   Le classement est effectué selon le ratio de victoires et de défaites des joueurs. Le ratio se calcule en divisant le nombre de victoire par le nombre de défaites. Cependant, si avez une victoire et zéro défaite votre ratio est de 1 (division par 0 impossibles). 
+   </p>
 
   </p>
