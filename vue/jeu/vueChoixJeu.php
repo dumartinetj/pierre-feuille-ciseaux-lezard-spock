@@ -57,3 +57,6 @@
             </div>
           </div>
 			</div>
+      <div class="alert alert-info">
+        Pour choisir votre figure, cliquez sur l'image de la figure !
+      </div>
