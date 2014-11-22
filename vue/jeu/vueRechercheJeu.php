@@ -45,3 +45,15 @@ Pour connaître les règles du jeu et le déroulement d'une partie, rendez-vous 
     </form>
   </div>
 </div>
+<div>
+    <?php
+        if(estConnecte()){
+            $joueur = Jeu::listeAttente();
+            foreach($joueur as $j) {
+                $p = $j->pseudo;
+                $nb = $j->nbManche;
+                echo "Pseudo: ".$p." Nombre de Manches: ".$nb."</br>";
+            }
+        }
+    ?>
+</div>
