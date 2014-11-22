@@ -45,15 +45,23 @@ Pour connaître les règles du jeu et le déroulement d'une partie, rendez-vous 
     </form>
   </div>
 </div>
+<hr>
 <div>
-    <?php
-        if(estConnecte()){
-            $joueur = Jeu::listeAttente();
-            foreach($joueur as $j) {
-                $p = $j->pseudo;
-                $nb = $j->nbManche;
-                echo "Pseudo: ".$p." Nombre de Manches: ".$nb."</br>";
+
+    <h2>Liste des joueurs en attente de partie:</h2>
+    <p class="lead">
+        <ul class="list-group">
+        <?php
+            if(estConnecte()){
+                $joueur = Jeu::listeAttente();
+                foreach($joueur as $j) {
+                    $p = $j->pseudo;
+                    $nb = $j->nbManche;
+                    echo "<form method='post' action='jouer.php?action=rechercher'> <input type='hidden' name='nbManche' id='id_nbManche' value='".$nb.">";
+                    echo "<li class='list-group-item'> <b>Pseudo:</b>".$p." <b>Nombre de Manches:</b> ".$nb." <button type='submit' class='btn btn-primary btn-lg'>Jouer!</button> </br> </li>";
+                }
             }
-        }
-    ?>
+        ?>
+        </ul>
+    </p>
 </div>

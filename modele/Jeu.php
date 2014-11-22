@@ -74,7 +74,11 @@ class Jeu extends Modele{
         try {
             $req = self::$pdo->prepare('SELECT j.pseudo, pa.nbManche FROM pfcls_Joueurs j JOIN pfcls_Parties_en_attente pa ON pa.idJoueur=j.idJoueur');
             $req->execute();
-            return $req->fetch(PDO::FETCH_OBJ);
+            $attente = array();
+            while($ligne = $req->fetch(PDO::FETCH_OBJ)){
+                array_push($attente, $ligne);
+            }
+            return $attente;
         } catch (PDOException $e) {
             echo $e->getMessage();
             $messageErreur="Erreur lors de la séléction de joueur dans la base de données";
