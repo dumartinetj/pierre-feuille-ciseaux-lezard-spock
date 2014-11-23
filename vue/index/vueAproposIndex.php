@@ -36,7 +36,7 @@
             <div class="caption">
             <h2>Loïc Forthoffer</h2>
             <h2><small>Étudiant</small></h2>
-			Littérature, Star Trek, les mystères de l'univers, nouvelles technologies et bricolage<br/>
+			Littérature, Star Trek, les mystères de l'univers, nouvelle technologie et bricolage<br/>
             <p>
               <a class="btn btn-default btn-xs" href="#" target="_blank" role="button"><span class="glyphicon glyphicon-user"></span>Site(en cour)</a>
               <a class="btn btn-info btn-xs" href="mailto:loic.forthoffer@wanadoo.fr" target="_top" role="button"><span class="glyphicon glyphicon-envelope"></span> E-Mail</a>
