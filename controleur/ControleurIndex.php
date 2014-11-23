@@ -18,6 +18,17 @@
                 break;
         break;
 
+        case "choixmode":
+          if(estConnecte()){
+            $vue="choixMode";
+            $pagetitle="Choix du mode de jeu";
+            break;
+          }
+          else {
+            $messageErreur="Vous n'êtes pas connecté, vous ne pouvez pas jouer !";
+          }
+        break;
+
         default :
         $messageErreur="Il semblerait que vous ayez trouvé un glitch dans le système !";
       }
