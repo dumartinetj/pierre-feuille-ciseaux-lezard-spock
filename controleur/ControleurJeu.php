@@ -13,6 +13,7 @@ require_once MODEL_PATH."Jeu.php";
             $vue="attente";
         }
         else {
+            $listeJoueurs = Jeu::listeAttente();
             $pagetitle="Jouer !";
             $vue="recherche";
         }
@@ -119,6 +120,7 @@ require_once MODEL_PATH."Jeu.php";
                         if (!isset($_SESSION['idJoueurAdverse'])) {
                           // si par exemple on s'est co à deux endroits et qu'on se deco d'un
                           // l'autre sera toujours en recherche, on doit donc check
+                          $listeJoueurs = Jeu::listeAttente();
                           $pagetitle="Jouer !";
                           $vue="recherche";
                           break;
@@ -151,6 +153,7 @@ require_once MODEL_PATH."Jeu.php";
                             break;
                         }
                         else if (!isset($_SESSION['idJoueurAdverse'])) { // on est pas dans une partie ?
+                          $listeJoueurs = Jeu::listeAttente();
                           $pagetitle="Jouer !";
                           $vue="recherche";
                           break;
@@ -188,6 +191,7 @@ require_once MODEL_PATH."Jeu.php";
                             break;
                         }
                         else if (!isset($_SESSION['idJoueurAdverse'])) { // on est pas dans une partie ?
+                          $listeJoueurs = Jeu::listeAttente();
                           $pagetitle="Jouer !";
                           $vue="recherche";
                           break;
@@ -264,6 +268,7 @@ require_once MODEL_PATH."Jeu.php";
                       break;
                   }
                   else if (!isset($_SESSION['idJoueurAdverse'])) { // on est pas dans une partie ?
+                    $listeJoueurs = Jeu::listeAttente();
                     $pagetitle="Jouer !";
                     $vue="recherche";
                     break;
@@ -405,6 +410,7 @@ require_once MODEL_PATH."Jeu.php";
                         $vue="attente";
                     }
                     else {
+                        $listeJoueurs = Jeu::listeAttente();
                         $pagetitle="Jouer !";
                         $vue="recherche";
                     }
@@ -444,6 +450,7 @@ require_once MODEL_PATH."Jeu.php";
                         break;
                     }
                     if (!isset($_SESSION['idJoueurAdverse'])) { // on est pas dans une partie ?
+                      $listeJoueurs = Jeu::listeAttente();
                       $pagetitle="Jouer !";
                       $vue="recherche";
                       break;
@@ -573,6 +580,7 @@ require_once MODEL_PATH."Jeu.php";
                         break;
                     }
                     else if (!isset($_SESSION['idJoueurAdverse'])) { // on est pas dans une partie ?
+                      $listeJoueurs = Jeu::listeAttente();
                       $pagetitle="Jouer !";
                       $vue="recherche";
                       break;

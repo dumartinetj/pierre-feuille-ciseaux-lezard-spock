@@ -24,7 +24,7 @@
 </div>
 <h2 id="mainhead">Vous avez joué deux figures identifiques ! Vous allez devoir rejouez le coup !</h2>
 <h5>Cette page s'actualisera automatiquement dans 3 secondes...</h5>
-<form name="rejouerCoup" id="rejouerCoup" action="jouer.php?action=rejouerCoup" method="POST">
+<form name="rejouerCoup" id="rejouerCoup" action="<?php $_SERVER['PHP_SELF']; ?>?action=rejouerCoup" method="POST">
 </form>
 
 <script type="text/javascript">

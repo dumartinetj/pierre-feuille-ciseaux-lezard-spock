@@ -24,7 +24,7 @@
 </div>
 <h1 id="mainhead"><?= $message ?></h1>
 <h5>Cette page s'actualisera automatiquement dans 5 secondes...</h5>
-<form name="jouer" id="jouer" action="jouer.php?action=jouer" method="POST">
+<form name="jouer" id="jouer" action="<?php $_SERVER['PHP_SELF']; ?>?action=jouer" method="POST">
 </form>
 
 <script type="text/javascript">

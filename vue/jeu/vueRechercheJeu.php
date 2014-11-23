@@ -1,4 +1,44 @@
+<?php
+  function vueListeAttente($listeJoueurs) {
+    if($listeJoueurs == null) echo "Aucun utilisateur n'est en attente d'un adversaire !";
+    else {
+      foreach($listeJoueurs as $joueur) {
+        $p = $joueur->pseudo;
+        $nb = $joueur->nbManche;
+        switch ($nb) {
+          case "1":
+            $couleur = "info";
+          break;
+          case "3":
+            $couleur = "success";
+          break;
+          case "5":
+            $couleur = "primary";
+          break;
+          case "7":
+            $couleur = "warning";
+          break;
+          case "9":
+            $couleur = "danger";
+          break;
+        }
+        echo '<form method="post" action="jouer.php?action=rechercher">
+        <input type="hidden" name="nbManche" id="id_nbManche" value='.$nb.'>
+        <button class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-user"></span> '.$p.'</button>
+        <button class="btn btn-'.$couleur.' btn-sm disabled">'.$nb.'</button>
+        <input type="submit" class="btn btn-primary btn-sm" value="Jouer"/>
+        </form><br/>';
+      }
+    }
+}
+?>
+
 <h1 id="mainhead">Recherche d'un adversaire</h1>
+<hr>
+  <h2>Liste des joueurs en attente d'un adversaire :</h2>
+    <div class="center-block">
+    <?php vueListeAttente($listeJoueurs); ?>
+    </div>
 <hr>
 <p>Choisissez le nombre de manches que vous voulez jouer !<br/>
 Pour connaître les règles du jeu et le déroulement d'une partie, rendez-vous sur la <a href="index.php?action=regles">page des règles du jeu</a></p>
@@ -44,24 +84,4 @@ Pour connaître les règles du jeu et le déroulement d'une partie, rendez-vous 
       <button type="submit" class="btn btn-danger btn-lg">9</button>
     </form>
   </div>
-</div>
-<hr>
-<div>
-
-    <h2>Liste des joueurs en attente de partie:</h2>
-    <p class="lead">
-        <ul class="list-group">
-        <?php
-            if(estConnecte()){
-                $joueur = Jeu::listeAttente();
-                foreach($joueur as $j) {
-                    $p = $j->pseudo;
-                    $nb = $j->nbManche;
-                    echo "<form method='post' action='jouer.php?action=rechercher'> <input type='hidden' name='nbManche' id='id_nbManche' value='".$nb.">";
-                    echo "<li class='list-group-item'> <b>Pseudo:</b>".$p." <b>Nombre de Manches:</b> ".$nb." <button type='submit' class='btn btn-primary btn-lg'>Jouer!</button> </br> </li>";
-                }
-            }
-        ?>
-        </ul>
-    </p>
 </div>

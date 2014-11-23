@@ -1,7 +1,7 @@
 <img class="img-responsive center-block" src="<?= VIEW_PATH_BASE.'jeu/img/load.gif'?>">
 <h1 id="mainhead">Préparation des données, veuillez patienter...</h1>
 <h5>Cette page s'actualisera automatiquement dans 5 secondes...</h5>
-<form name="waitingLoad" id="waitingLoad" action="jouer.php?action=waitingLoad" method="POST">
+<form name="waitingLoad" id="waitingLoad" action="<?php $_SERVER['PHP_SELF']; ?>?action=waitingLoad" method="POST">
 </form>
 
 <script type="text/javascript">
