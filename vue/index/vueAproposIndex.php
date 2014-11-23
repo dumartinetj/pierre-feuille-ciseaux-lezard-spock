@@ -25,7 +25,7 @@
             <h2><small>Étudiant</small></h2>
             Metal \m/, les Harley, séries, films, livres<br/>
             <p>
-              <a class="btn btn-default" href="#" target="pierre.marais@hotmail.fr" role="button">pierre.marais@hotmail.fr</a>
+              <a href="mailto:pierre.marais@hotmail.fr" target="_top" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-envelope"></span> E-mail</a>
             </p>
             </div>
           </div>
