@@ -33,20 +33,21 @@ require_once MODEL_PATH."Joueur.php";
                   $messageErreur='<a href="joueur.php?action=inscription">S\'inscrire</a>';
                   break;
               }
-              $data = array(
-                  "pseudo" => $_POST["pseudo"],
-                  "sexe" => $_POST["sexe"],
-                  "age" => $_POST["age"],
-                  "pwd" => $_POST["pwd"],
-                  "email" => $_POST["email"]
-              );
-              if($data['pwd']==$_POST["pwd2"]){
+			  if($_POST['pwd']==$_POST["pwd2"]){
                   Joueur::inscription($data);
               }
               else {
                   $messageErreur="Vous avez saisi deux mots de passe différents !";
                   break;
               }
+              $data = array(
+                  "pseudo" => $_POST["pseudo"],
+                  "sexe" => $_POST["sexe"],
+                  "age" => $_POST["age"],
+                  "pwd" => hash('sha256',$_POST["mdp"] . Conf::getSeed()],
+                  "email" => $_POST["email"]
+              );
+              
               $vue="created";
               $pagetitle="Inscription terminée !";
             }
@@ -170,19 +171,20 @@ require_once MODEL_PATH."Joueur.php";
                 $messageErreur='<a href="joueur.php?action=update">Mettre à jour son profil</a>';
                 break;
             }
-            $data = array(
-                "pseudo" => $_POST["pseudo"],
-                "age" => $_POST["age"],
-                "pwd" => $_POST["pwd"],
-                "email" => $_POST["email"]
-            );
-            if($data['pwd']==$_POST["pwd2"]){
+			if($_POST['pwd']==$_POST["pwd2"]){
                 Joueur::updateProfil($data);
             }
             else {
                 $messageErreur="Vous avez saisi deux mots de passe différents !";
                 break;
             }
+            $data = array(
+                "pseudo" => $_POST["pseudo"],
+                "age" => $_POST["age"],
+                "pwd" => hash('sha256',$_POST["mdp"] . Conf::getSeed()],,
+                "email" => $_POST["email"]
+            );
+            
             $_SESSION['pseudo'] = $_POST["pseudo"];
             $vue="updated";
             $pagetitle='Profil mis à jour !';
