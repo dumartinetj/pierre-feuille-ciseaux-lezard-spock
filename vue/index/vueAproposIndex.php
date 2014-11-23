@@ -23,7 +23,7 @@
             <div class="caption">
             <h2>Pierre Marais</h2>
             <h2><small>Étudiant</small></h2>
-            J'aime les jeux vidéo, les Harley et le Metal.<br/>
+            Metal \m/, les Harley, séries, films, livres<br/>
             <p>
               <a class="btn btn-default" href="#" target="pierre.marais@hotmail.fr" role="button">pierre.marais@hotmail.fr</a>
             </p>
