@@ -10,8 +10,8 @@ class Config {
     );
 
     private static $debug = true;
-	private static $seed = "Un Anneau pour les amener tous et dans les ténèbres les lier";
-	
+	  private static $seed = "seed_que_vous_voulez";
+
     static public function getLogin() {
         return self::$database['login'];
     }
@@ -31,10 +31,10 @@ class Config {
     static public function getDebug() {
         return self::$debug;
     }
-	
-	static public function getSeed() {
+
+	  static public function getSeed() {
         return self::$seed;
-    
+
     }
 
 }

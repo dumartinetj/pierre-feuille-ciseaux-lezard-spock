@@ -33,21 +33,21 @@ require_once MODEL_PATH."Joueur.php";
                   $messageErreur='<a href="joueur.php?action=inscription">S\'inscrire</a>';
                   break;
               }
-			  if($_POST['pwd']==$_POST["pwd2"]){
+              $data = array(
+                "pseudo" => $_POST["pseudo"],
+                "sexe" => $_POST["sexe"],
+                "age" => $_POST["age"],
+                "pwd" => hash('sha256',$_POST["pwd"].Config::getSeed()),
+                "email" => $_POST["email"]
+              );
+			        if($_POST['pwd']==$_POST["pwd2"]){
                   Joueur::inscription($data);
               }
               else {
                   $messageErreur="Vous avez saisi deux mots de passe différents !";
                   break;
               }
-              $data = array(
-                  "pseudo" => $_POST["pseudo"],
-                  "sexe" => $_POST["sexe"],
-                  "age" => $_POST["age"],
-                  "pwd" => hash('sha256',$_POST["mdp"] . Conf::getSeed()],
-                  "email" => $_POST["email"]
-              );
-              
+
               $vue="created";
               $pagetitle="Inscription terminée !";
             }
@@ -81,7 +81,7 @@ require_once MODEL_PATH."Joueur.php";
               }
                 $data = array(
                 "pseudo" => $_POST['pseudo'],
-                "pwd" => $_POST['pwd']
+                "pwd" => hash('sha256',$_POST["pwd"].Config::getSeed()),
                 );
                 if((Joueur::checkExisteConnexion($data))) {
                     Joueur::connexion($data);
@@ -111,7 +111,7 @@ require_once MODEL_PATH."Joueur.php";
         case "delete":
             if(estConnecte()){
                 $vue="delete";
-                $pagetitle="Confirmation suppression de votre profil";
+                $pagetitle="Configirmation suppression de votre profil";
             }
             else{
                 $messageErreur="Vous n'êtes pas connecté !";
@@ -171,20 +171,19 @@ require_once MODEL_PATH."Joueur.php";
                 $messageErreur='<a href="joueur.php?action=update">Mettre à jour son profil</a>';
                 break;
             }
-			if($_POST['pwd']==$_POST["pwd2"]){
+            $data = array(
+              "pseudo" => $_POST["pseudo"],
+              "age" => $_POST["age"],
+              "pwd" => hash('sha256',$_POST["pwd"].Config::getSeed()),
+              "email" => $_POST["email"]
+            );
+			      if($_POST['pwd']==$_POST["pwd2"]){
                 Joueur::updateProfil($data);
             }
             else {
                 $messageErreur="Vous avez saisi deux mots de passe différents !";
                 break;
             }
-            $data = array(
-                "pseudo" => $_POST["pseudo"],
-                "age" => $_POST["age"],
-                "pwd" => hash('sha256',$_POST["mdp"] . Conf::getSeed()],,
-                "email" => $_POST["email"]
-            );
-            
             $_SESSION['pseudo'] = $_POST["pseudo"];
             $vue="updated";
             $pagetitle='Profil mis à jour !';
