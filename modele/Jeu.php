@@ -69,6 +69,17 @@ class Jeu extends Modele{
             $messageErreur="Erreur lors de la suppression d'une partie en attente de la base de données";
         }
     }
+
+    public static function listeAttente(){
+        try {
+            $req = self::$pdo->prepare('SELECT j.pseudo, pa.nbManche FROM pfcls_Joueurs j JOIN pfcls_Parties_en_attente pa ON pa.idJoueur=j.idJoueur');
+            $req->execute();
+            return $req->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $messageErreur="Erreur lors de la sélection de joueurs en attente dans la base de données";
+        }
+    }
 }
 
 ?>

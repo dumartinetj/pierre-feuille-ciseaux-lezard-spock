@@ -121,3 +121,4 @@ INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Feuille", "1,5", "3
 INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Ciseaux", "2,4", "5,1");
 INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Lézard", "2,5", "3,1");
 INSERT INTO pfcls_Figures (nom, forces, faiblesses) VALUES ("Spock", "1,3", "2,4");
+INSERT INTO pfcls_Joueurs (idJoueur, pseudo, sexe, age, nbV, nbD, pwd, email) VALUES (0, "I.A.", "N", 0, 0, 0, "", "ia@pfcls.me");

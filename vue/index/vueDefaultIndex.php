@@ -28,7 +28,7 @@
 					</div>
 					<div class="col-md-7">
 						<h2 class="featurette-heading">Intelligence Artificielle<br> <span class="text-muted"></span></h2>
-						<p class="lead"> Vous avez battu tous vos amis, et même les autres adversaires qui vous sont proposés en ligne ? Tester vous contre l'IA. Créer par nos soins pour 
+						<p class="lead"> Vous avez battu tous vos amis, et même les autres adversaires qui vous sont proposés en ligne ? Tester vous contre l'IA. Créer par nos soins pour
 						prévoir vos coups avant même que vous les jouiez, cet adversaire est le plus fort que vous aillez jamais défié. Réussirez-vous à le battre ?</p>
 					</div>
 		</div>

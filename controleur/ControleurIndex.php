@@ -1,4 +1,5 @@
 <?php
+    require_once MODEL_PATH."Jeu.php";
     if (empty($_GET)) {
       $vue="default";
       $pagetitle='Bienvenue sur PFCLS !';
@@ -19,14 +20,27 @@
         break;
 
         case "choixmode":
-          if(estConnecte()){
-            $vue="choixMode";
-            $pagetitle="Choix du mode de jeu";
-            break;
-          }
-          else {
-            $messageErreur="Vous n'êtes pas connecté, vous ne pouvez pas jouer !";
-          }
+            
+            if(estConnecte()){
+                if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                    $pagetitle="En attente d'un adversaire !";
+                    $page="jeu";
+                    $vue="attente";
+                    break;
+                }
+                if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
+                    $vue="waitLoad";
+                    $page="jeu";
+                    $pagetitle="Chargement en cours des nouvelles données...";
+                    break;
+                }
+                $vue="choixMode";
+                $pagetitle="Choix du mode de jeu";
+                break;
+            }
+            else {
+                $messageErreur="Vous n'êtes pas connecté, vous ne pouvez pas jouer !";
+            }
         break;
 
         default :
