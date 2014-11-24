@@ -11,7 +11,7 @@ class Joueur extends Modele {
 
     public static function connexion($data) {
         try {
-            $data['pwd'] = sha1($data['pwd']);
+            $data['pwd'] = hash('sha256',$data['pwd'].Config::getSeed());
             $req = self::$pdo->prepare('SELECT idJoueur, pseudo FROM pfcls_Joueurs WHERE pseudo = :pseudo AND pwd = :pwd');
             $req->execute($data);
             if ($req->rowCount() != 0) {
@@ -35,7 +35,7 @@ class Joueur extends Modele {
 
     public static function checkExisteConnexion($data) {
         try {
-            $data['pwd'] = sha1($data['pwd']);
+            $data['pwd'] = hash('sha256',$data['pwd'].Config::getSeed());
             $req = self::$pdo->prepare('SELECT idJoueur FROM pfcls_Joueurs WHERE pseudo = :pseudo AND pwd = :pwd');
             $req->execute($data);
             return ($req->rowCount() != 0);
@@ -49,7 +49,7 @@ class Joueur extends Modele {
     public static function inscription($data) {
         if(!(Joueur::checkAlreadyExist($data))) {
             try {
-                $data['pwd'] = sha1($data['pwd']);
+                $data['pwd'] = hash('sha256',$data['pwd'].Config::getSeed());
                 $req = self::$pdo->prepare('INSERT INTO pfcls_Joueurs (pseudo, sexe, age, pwd, email) VALUES (:pseudo, :sexe, :age, :pwd, :email) ');
                 $req->execute($data);
             } catch (PDOException $e) {
@@ -93,7 +93,7 @@ class Joueur extends Modele {
     public static function updateProfil($data) {
         if(!(Joueur::checkAlreadyExist($data))) {
             try {
-                $data['pwd'] = sha1($data['pwd']);
+                $data['pwd'] = hash('sha256',$data['pwd'].Config::getSeed());
                 $req = self::$pdo->prepare('UPDATE pfcls_Joueurs SET pseudo= :pseudo, age= :age, pwd= :pwd, email= :email WHERE idJoueur='.$_SESSION['idJoueur']);
                 $req->execute($data);
             } catch (PDOException $e) {

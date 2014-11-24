@@ -29,27 +29,26 @@ require_once MODEL_PATH."Joueur.php";
          */
         case "save":
             if(!estConnecte()){
-              if (!(isset($_POST['pseudo']) && isset($_POST['sexe']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
-                  $messageErreur='<a href="joueur.php?action=inscription">S\'inscrire</a>';
-                  break;
-              }
-              $data = array(
+                if (!(isset($_POST['pseudo']) && isset($_POST['sexe']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
+                    $messageErreur='<a href="joueur.php?action=inscription">S\'inscrire</a>';
+                    break;
+                }
+                $data = array(
                 "pseudo" => $_POST["pseudo"],
                 "sexe" => $_POST["sexe"],
                 "age" => $_POST["age"],
-                "pwd" => hash('sha256',$_POST["pwd"].Config::getSeed()),
+                "pwd" => $_POST["pwd"],
                 "email" => $_POST["email"]
-              );
-			        if($_POST['pwd']==$_POST["pwd2"]){
-                  Joueur::inscription($data);
-              }
-              else {
-                  $messageErreur="Vous avez saisi deux mots de passe différents !";
-                  break;
-              }
-
-              $vue="created";
-              $pagetitle="Inscription terminée !";
+                );
+                if($_POST['pwd']==$_POST["pwd2"]){
+                    Joueur::inscription($data);
+                }
+                else {
+                    $messageErreur="Vous avez saisi deux mots de passe différents !";
+                    break;
+                }
+                $vue="created";
+                $pagetitle="Inscription terminée !";
             }
             else{
               $messageErreur="Vous êtes déjà connecté !";
@@ -81,7 +80,7 @@ require_once MODEL_PATH."Joueur.php";
               }
                 $data = array(
                 "pseudo" => $_POST['pseudo'],
-                "pwd" => hash('sha256',$_POST["pwd"].Config::getSeed()),
+                "pwd" => $_POST["pwd"]
                 );
                 if((Joueur::checkExisteConnexion($data))) {
                     Joueur::connexion($data);
@@ -174,10 +173,10 @@ require_once MODEL_PATH."Joueur.php";
             $data = array(
               "pseudo" => $_POST["pseudo"],
               "age" => $_POST["age"],
-              "pwd" => hash('sha256',$_POST["pwd"].Config::getSeed()),
+              "pwd" => $_POST["pwd"],
               "email" => $_POST["email"]
             );
-			      if($_POST['pwd']==$_POST["pwd2"]){
+            if($_POST['pwd']==$_POST["pwd2"]){
                 Joueur::updateProfil($data);
             }
             else {
@@ -193,15 +192,15 @@ require_once MODEL_PATH."Joueur.php";
             }
         break;
 
-    		case "search":
-    		    if(estConnecte()){
-        				$vue='find';
-        				$pagetitle="Recherche d'un joueur";
+        case "search":
+            if(estConnecte()){
+        	$vue='find';
+        	$pagetitle="Recherche d'un joueur";
             }
             else{
                 $messageErreur="Vous n'êtes pas connecté !";
             }
-    				break;
+    	break;
 
 
         case "searched":
