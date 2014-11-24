@@ -14,5 +14,5 @@ EOT;
 ?>
 </p>
 <hr>
-<a href='joueur.php?action=update'>Mettre à jour votre profil</a><br/>
-<a href='joueur.php?action=delete'>Supprimer votre profil de la matrice !</a><br/>
+<p> <a href="joueur.php?action=update" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-refresh"></span> Mettre à jour votre profil</a> </p>
+<p> <a href="joueur.php?action=delete" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-trash"></span> Supprimer votre profil</a> </p>

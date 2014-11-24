@@ -24,8 +24,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li <?php if (isset($vue)) if (($page=="index" && $vue=="choixMode") || $page=="jeu" || $page=="jeuIA") echo 'class="active"'; ?>><a href="index.php?action=choixmode">Jouer !</a></li>
-                    <li <?php if (isset($vue)) if ($page=="index" && $vue=="regles") echo 'class="active"'; ?>><a href="index.php?action=regles">Règles du jeu</a></li>
+                    <li <?php if (isset($vue)) if (($page=="index" && $vue=="choixMode") || $page=="jeu" || $page=="jeuIA") echo 'class="active"'; ?>><a href="index.php?action=choixmode"><span class="glyphicon glyphicon-heart"></span> Jouer</a></li>
+                    <li <?php if (isset($vue)) if ($page=="index" && $vue=="regles") echo 'class="active"'; ?>><a href="index.php?action=regles"><span class="glyphicon glyphicon-align-center"></span> Règles du jeu</a></li>
                     <?php if(estConnecte()) include_once VIEW_PATH.'menu'.DS.'vueMenuConnecte.php';
                     else include_once  VIEW_PATH.'menu'.DS.'vueMenuNonConnecte.php';
                     ?>

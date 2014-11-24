@@ -1,3 +1,3 @@
-<li <?php if (isset($vue)) if ($page=='joueur' && ($vue=="find" || $vue=="found" || $vue=="notFound")) echo 'class="active"'; ?>><a href="joueur.php?action=search">Rechercher un joueur</a></li>
-<li <?php if (isset($vue)) if ($page=='joueur' && ($vue=="defaut" || $vue=="profil" || $vue=='update' || $vue=='updated'|| $vue=='delete')) echo 'class="active"'; ?>><a href="joueur.php?action=profil">Votre profil</a></li>
-<li><a href="joueur.php?action=deconnexion">Se déconnecter (<?php echo $_SESSION['pseudo']; ?>)</a></li>
+<li <?php if (isset($vue)) if ($page=='joueur' && ($vue=="find" || $vue=="found" || $vue=="notFound")) echo 'class="active"'; ?>><a href="joueur.php?action=search"><span class="glyphicon glyphicon-search"></span> Rechercher un joueur</a></li>
+<li <?php if (isset($vue)) if ($page=='joueur' && ($vue=="defaut" || $vue=="profil" || $vue=='update' || $vue=='updated'|| $vue=='delete')) echo 'class="active"'; ?>><a href="joueur.php?action=profil"><span class="glyphicon glyphicon-user"></span> Profil</a></li>
+<li><a href="joueur.php?action=deconnexion"><span class="glyphicon glyphicon-off"></span> Se déconnecter (<?php echo $_SESSION['pseudo']; ?>)</a></li>
