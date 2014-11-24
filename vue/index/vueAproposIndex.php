@@ -5,14 +5,14 @@
           <div class="col-md-1">
           </div>
           <div class="col-md-2">
-            <img class="img-circle" src="http://placehold.it/100x100" alt="">
+            <img class="img-circle" src="<?php echo VIEW_PATH_BASE.'index/img/julien2.jpg'?>" alt="">
             <div class="caption">
             <h2>Julien Dumartinet</h2>
             <h2><small>Étudiant</small></h2>
-            blablacaca<br/>
+            Informatique, high tech, basketball, séries/films, musique et voitures américaines.<br/>
             <p>
-              <a class="btn btn-default" href="#" target="_blank" role="button">Lien</a>
-              <a class="btn btn-default" href="#" target="_blank" role="button">Lien</a>
+              <a href="http://e-portfolio.dumartinetj.fr/" class="btn btn-default btn-xs" target="_blank"><span class="glyphicon glyphicon-user"></span> Site web</a>
+              <a href="mailto: julien.dumartinet@dumartinetj.fr" target="_top" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-envelope"></span> E-mail</a>
             </p>
             </div>
           </div>
