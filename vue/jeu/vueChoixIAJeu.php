@@ -1,4 +1,4 @@
-<h1 id="mainhead">Recherche d'un adversaire</h1>
+<h1 id="mainhead">Choix nombre de manches</h1>
 <hr>
 <p>Choisissez le nombre de manches que vous voulez jouer contre l'IA !<br/>
   Pour connaître les règles du jeu et le déroulement d'une partie, rendez-vous sur la <a href="index.php?action=regles">page des règles du jeu</a></p>
