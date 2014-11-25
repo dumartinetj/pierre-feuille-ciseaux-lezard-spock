@@ -2,7 +2,7 @@
     require_once MODEL_PATH."Jeu.php";
     if (empty($_GET)) {
       $vue="default";
-      $pagetitle='Bienvenue sur PFCLS !';
+      $pagetitle='Le jeu';
     }
     else if (isset($action)) {
       switch ($action) {
@@ -20,7 +20,7 @@
         break;
 
         case "choixmode":
-            
+
             if(estConnecte()){
                 if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
                     $pagetitle="En attente d'un adversaire !";
