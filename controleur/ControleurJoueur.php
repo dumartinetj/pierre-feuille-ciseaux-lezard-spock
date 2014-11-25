@@ -37,7 +37,7 @@ require_once MODEL_PATH."Joueur.php";
                 "pseudo" => $_POST["pseudo"],
                 "sexe" => $_POST["sexe"],
                 "age" => $_POST["age"],
-                "pwd" => hash('sha256',$_POST["pwd"].Config::getSeed()),
+                "pwd" => $_POST["pwd"],
                 "email" => $_POST["email"]
               );
 			        if($_POST['pwd']==$_POST["pwd2"]){
@@ -81,7 +81,7 @@ require_once MODEL_PATH."Joueur.php";
               }
                 $data = array(
                 "pseudo" => $_POST['pseudo'],
-                "pwd" => hash('sha256',$_POST["pwd"].Config::getSeed()),
+                "pwd" => $_POST["pwd"],
                 );
                 if((Joueur::checkExisteConnexion($data))) {
                     Joueur::connexion($data);
@@ -140,15 +140,15 @@ require_once MODEL_PATH."Joueur.php";
                 $nbv = $joueur->nbV;
                 $nbd = $joueur->nbD;
                 $r = 0;
-				if($nbv==0 && $nbd!=0) $r = 0;
-				if($nbv!=0 && $nbd==0) {
-					$r = $nbv;
-					$r = substr($r, 0, 4);	
-				}
-                if($nbv!=0 $$ $nbd!=0) {
-					$r = $nbv/$nbd;
-					$r = substr($r, 0, 4); // on coupe la chaine de caractère $r 2 chiffres après la virgule	
-				}
+				        if($nbv==0 && $nbd!=0) $r = 0;
+				        if($nbv!=0 && $nbd==0) {
+					         $r = $nbv;
+					         $r = substr($r, 0, 4);
+                }
+                if($nbv!=0 && $nbd!=0) {
+					         $r = $nbv/$nbd;
+					         $r = substr($r, 0, 4); // on coupe la chaine de caractère $r 2 chiffres après la virgule
+				        }
                 $vue="profil";
                 $pagetitle="Votre profil";
             }
@@ -182,7 +182,7 @@ require_once MODEL_PATH."Joueur.php";
             $data = array(
               "pseudo" => $_POST["pseudo"],
               "age" => $_POST["age"],
-              "pwd" => hash('sha256',$_POST["pwd"].Config::getSeed()),
+              "pwd" => $_POST["pwd"],
               "email" => $_POST["email"]
             );
 			      if($_POST['pwd']==$_POST["pwd2"]){
