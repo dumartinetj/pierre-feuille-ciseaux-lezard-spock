@@ -14,5 +14,9 @@ EOT;
 ?>
 </p>
 <hr>
-<p> <a href="joueur.php?action=update" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-refresh"></span> Mettre à jour votre profil</a> </p>
-<p> <a href="joueur.php?action=delete" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-trash"></span> Supprimer votre profil</a> </p>
+<div class="row">
+  <div class="col-md-12">
+    <p> <a href="joueur.php?action=update" class="btn btn-primary"><span class="glyphicon glyphicon-refresh"></span> Mettre à jour votre profil</a> </p>
+    <p> <a href="joueur.php?action=delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Supprimer votre profil</a> </p>
+</div>
+</div>
