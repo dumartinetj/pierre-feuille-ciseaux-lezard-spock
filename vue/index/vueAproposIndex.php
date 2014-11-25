@@ -5,14 +5,14 @@
           <div class="col-md-1">
           </div>
           <div class="col-md-2">
-            <img class="img-circle" src="http://placehold.it/100x100" alt="">
+            <img class="img-circle" src="<?php echo VIEW_PATH_BASE.'index/img/julien2.jpg'?>" alt="">
             <div class="caption">
             <h2>Julien Dumartinet</h2>
             <h2><small>Étudiant</small></h2>
-            blablacaca<br/>
+            Informatique, high tech, basketball, séries/films, musique et voitures américaines.<br/>
             <p>
-              <a class="btn btn-default" href="#" target="_blank" role="button">Lien</a>
-              <a class="btn btn-default" href="#" target="_blank" role="button">Lien</a>
+              <a href="http://e-portfolio.dumartinetj.fr/" class="btn btn-default btn-xs" target="_blank"><span class="glyphicon glyphicon-user"></span> Site web</a>
+              <a href="mailto: julien.dumartinet@dumartinetj.fr" target="_top" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-envelope"></span> E-mail</a>
             </p>
             </div>
           </div>
@@ -25,7 +25,7 @@
             <h2><small>Étudiant</small></h2>
             Metal \m/, les Harley, séries, films, heroic fantasy<br/>
             <p>
-			  <a class="btn btn-default btn-xs" href="#" target="_blank" role="button"><span class="glyphicon glyphicon-user"></span>Site(en cours de développement)</a>
+			        <a class="btn btn-default btn-xs" href="#" target="_blank" role="button"><span class="glyphicon glyphicon-user"></span> Site (en cours de développement)</a>
               <a href="mailto:pierre.marais@hotmail.fr" target="_top" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-envelope"></span> E-mail</a>
             </p>
             </div>
@@ -39,15 +39,15 @@
             <h2><small>Étudiant</small></h2>
 			Littérature, Star Trek, les mystères de l'univers, nouvelle technologie et bricolage<br/>
             <p>
-              <a class="btn btn-default btn-xs" href="#" target="_blank" role="button"><span class="glyphicon glyphicon-user"></span>Site(en cours)</a>
-              <a class="btn btn-info btn-xs" href="mailto:loic.forthoffer@wanadoo.fr" target="_top" role="button"><span class="glyphicon glyphicon-envelope"></span> E-Mail</a>
+              <a class="btn btn-default btn-xs" href="#" target="_blank" role="button"><span class="glyphicon glyphicon-user"></span> Site (en cours)</a>
+              <a class="btn btn-info btn-xs" href="mailto:loic.forthoffer@wanadoo.fr" target="_top" role="button"><span class="glyphicon glyphicon-envelope"></span> E-mail</a>
             </p>
             </div>
           </div>
           <div class="col-md-1">
           </div>
           <div class="col-md-2">
-            <img class="img-circle img-responsive center-block" src="<?php echo VIEW_PATH_BASE.'index/img/gael.png'?>" style="width: 100px; height: 100px;" alt="Gaël">
+            <img class="img-circle img-responsive center-block" src="<?php echo VIEW_PATH_BASE.'index/img/gael.jpg'?>" style="width: 100px; height: 100px;" alt="Gaël">
             <div class="caption">
             <h2>Gaël Foppolo</h2>
             <h2><small>Étudiant</small></h2>
@@ -59,18 +59,18 @@
             </div>
           </div>
           <div class="col-md-1">
-            
+
           </div>
           <div class="col-md-2">
-            <img class="img-circle" src="http://placehold.it/100x100" alt="">
+            <img class="img-circle img-responsive center-block" src="<?php echo VIEW_PATH_BASE.'index/img/madalina.jpeg'?>" style="width: 100px; height: 100px;" alt="">
             <div class="caption">
-            <h2>Madalina Croitoru</h2>
-            <h2><small>Tutrice</small></h2>
-            blablacaca<br/>
-            <p>
-              <a class="btn btn-default" href="#" target="_blank" role="button">Lien</a>
-              <a class="btn btn-default" href="#" target="_blank" role="button">Lien</a>
-            </p>
+              <h2>Madalina Croitoru</h2>
+              <h2><small>Tutrice</small></h2>
+              Maître de conférences, adore les chats, membre de la team GraphIK au LIRMM<br/>
+              <p>
+                <a href="http://www.lirmm.fr/~croitoru/" class="btn btn-default btn-xs" target="_blank"><span class="glyphicon glyphicon-user"></span> Site web</a>
+                <a href="mailto:croitoru@lirmm.fr" target="_top" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-envelope"></span> E-mail</a>
+                </p>
             </div>
           </div>
       </div>
