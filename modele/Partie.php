@@ -139,6 +139,7 @@ class Partie extends Modele {
        $nbVictoireJ1 = 0;
        $nbVictoireJ2 = 0;
        $listeManches = static::getListeManches($idP);
+       if (is_null($listeManches)) return true;
        foreach($listeManches as $manche){
          $jgm = Manche::getIDJoueurGagnant($manche);
          if($jgm==$idJ){
