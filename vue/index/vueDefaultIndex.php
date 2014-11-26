@@ -28,11 +28,13 @@
 					</div>
 					<div class="col-md-7">
 						<h2 class="featurette-heading">Intelligence Artificielle<br> <span class="text-muted"></span></h2>
-						<p class="lead"> Vous avez battu tous vos amis, et même les autres adversaires qui vous sont proposés en ligne ? Tester vous contre l'IA. Créer par nos soins pour
-						prévoir vos coups avant même que vous les jouiez, cet adversaire est le plus fort que vous aillez jamais défié. Réussirez-vous à le battre ?</p>
+						<p class="lead"> Vos rivaux ne vous offrent aucun challenge ? Tester vous contre GLaDOS ! Grâce à son intelligence artificielle développée par nos soins pour
+											prévoir vos coups avant même que vous les jouiez, cet adversaire est le plus fort que vous aillez jamais défié. Réussirez-vous à le battre ?
+
+</p>
 					</div>
 		</div>
 		<hr class="featurette-divider">
 			<p>
-				Montrez au monde de quoi vous êtes capables! Multipliez les victoires pour augmenter votre ratio et atteindre le haut du classement. (Le système de classement est expliqué à la page des régles.)
+				Montrez au monde de quoi vous êtes capables ! Multipliez les victoires pour augmenter votre ratio et atteindre le haut du classement(le système de classement est expliqué à la page des règles).
 			</p>
