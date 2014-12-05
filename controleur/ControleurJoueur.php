@@ -30,7 +30,7 @@ require_once MODEL_PATH."Joueur.php";
         case "save":
             if(!estConnecte()){
               if (!(isset($_POST['pseudo']) && isset($_POST['sexe']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
-                  $messageErreur='<a href="joueur.php?action=inscription">S\'inscrire</a>';
+                  header('Location: joueur.php?action=inscription');
                   break;
               }
               $data = array(
@@ -76,7 +76,7 @@ require_once MODEL_PATH."Joueur.php";
         case "connect":
             if(!estConnecte()){
               if (!(isset($_POST['pseudo']) || isset($_POST['pwd']))){
-                  $messageErreur='<a href="joueur.php?action=connexion">Se connecter</a>';
+                  header('Location: joueur.php?action=connexion');
                   break;
               }
                 $data = array(
@@ -176,7 +176,7 @@ require_once MODEL_PATH."Joueur.php";
         case "updated":
             if(estConnecte()){
             if (!(isset($_POST['pseudo']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
-                $messageErreur='<a href="joueur.php?action=update">Mettre à jour son profil</a>';
+                header('Location: joueur.php?action=update');
                 break;
             }
             $data = array(
@@ -215,7 +215,7 @@ require_once MODEL_PATH."Joueur.php";
         case "searched":
             if(estConnecte()){
               if (!isset($_POST['pseudo'])) {
-                  $messageErreur='<a href="joueur.php?action=search">Rechercher un joueur</a>';
+                  header('Location: joueur.php?action=search');
                   break;
               }
               $data = array("pseudo" => $_POST['pseudo']);

@@ -40,7 +40,7 @@ require_once MODEL_PATH."Jeu.php";
                         break;
                     }
                     else if (!isset($_POST['nbManche'])) {
-                      $messageErreur='Vous n\'avez pas saisi un nombre de manches !<br/><br/><a href="jouer.php">Saisir un nombre de manches</a>';
+                      header('Location: jouer.php');
                       break;
                     }
                     $search=Jeu::recherchePartie($_POST['nbManche']);
@@ -456,7 +456,7 @@ require_once MODEL_PATH."Jeu.php";
                       break;
                     } // donc on est dans une partie
                     if (!isset($_POST['idFigure'])) {
-                      $messageErreur='Vous n\'avez pas choisi la figure que vous souhaitez jouer !<br/><a href="jouer.php">Choisir votre figure</a>';
+                      header('Location: jouer.php');
                       break;
                     }
                     $dataAnnul = array(
