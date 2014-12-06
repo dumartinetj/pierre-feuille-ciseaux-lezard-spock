@@ -1,40 +1,44 @@
-		<h1 id="mainhead">PFCLS - Jeu en ligne</h1>
-		<hr>
-		<p>
-			Bienvenue sur le site PFCLS, ce site contient le jeu <em>Pierre Feuille Ciseaux</em> amélioré par l'ajout de Lézard et Spock.
-			Le jeu a été popularisé par la série <em>The Big Bang Theory</em>. Les règles sont présentes <a href="http://pfcls.me/index.php?action=regles">ici</a>.
-		</p>
-		<hr class="featurette-divider">
-		<div class="row featurette">
-	        <div class="col-md-7">
-	          <h2 class="featurette-heading">Présentation du projet<br> <span class="text-muted"></span></h2>
-	          <p class="lead">Le but premier de ce projet est de recueillir des statistiques sur les joueurs, à terme, on pourra savoir par exemple si une femme
-							est meilleure qu'un homme à ce jeu ou de déterminer si les hommes de 20 à 30 ans sont meilleurs que les hommes de 30 à 40 ans.</p>
-	        </div>
-	        <div class="col-md-5">
-						<img class="featurette-image img-responsive" src="http://placehold.it/500x200" alt="">
-						<div class="caption">
-							<h3>Figure 1</h3>
-						</div>
-	        </div>
-	  </div>
-		<hr class="featurette-divider">
-		<div class="row featurette">
-					<div class="col-md-5">
-						<img class="featurette-image img-responsive" src="http://placehold.it/500x400" alt="">
-						<div class="caption">
-							<h3>Figure 2</h3>
-						</div>
-					</div>
-					<div class="col-md-7">
-						<h2 class="featurette-heading">Intelligence Artificielle<br> <span class="text-muted"></span></h2>
-						<p class="lead"> Vos rivaux ne vous offrent aucun challenge ? Tester vous contre GLaDOS ! Grâce à son intelligence artificielle développée par nos soins pour
-											prévoir vos coups avant même que vous les jouiez, cet adversaire est le plus fort que vous aillez jamais défié. Réussirez-vous à le battre ?
-
-</p>
-					</div>
+<div class="row featurette index">
+	<div class="col-md-5 intro">
+			<h1 id="mainhead">PFCLS</h1>
+			<p></p>
+			<h3>PFCLS est une interface web permettant de jouer au jeu Pierre Feuille Ciseaux Lézard Spock !</h3>
+			<p></p>
+			<a href="index.php?action=choixmode" class="btn btn-default btn-lg">Commencer une partie !</a>
+			<p></p>
 		</div>
-		<hr class="featurette-divider">
-			<p>
-				Montrez au monde de quoi vous êtes capables ! Multipliez les victoires pour augmenter votre ratio et atteindre le haut du classement(le système de classement est expliqué à la page des règles).
-			</p>
+		<div class="col-md-7">
+				<img class="featurette-image img-responsive center-block" height="420px" width="600px" src="<?php echo VIEW_PATH_BASE.'index/img/tv.png'?>">
+		</div>
+</div>
+<hr class="featurette-divider">
+<div class="row featurette" id="index_description">
+	<div class="col-md-3">
+		<span class="glyphicon glyphicon-user glyphicon-big"></span>
+		<div>
+			<h3>User friendly</h3>
+			<p><small>PFCLS est facile à utiliser. Une fois connectée(e), vous n'avez qu'à lancer une partie et à affronter votre adversaire !</small></p>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<span class="glyphicon glyphicon-phone glyphicon-big"></span>
+		<div>
+			<h3>Responsive</h3>
+			<p><small>Utilisant les dernières innovations du web, PFCLS est accessible depuis tous les supports possédant un navigateur Internet.</small></p>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<span class="glyphicon glyphicon-flash glyphicon-big"></span>
+		<div>
+			<h3>Puissant</h3>
+			<p><small>L'intelligence articielle du jeu est construite grâce à un nouvel algorithme séquentiel. Venez vous y frotter !</small></p>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<span class="glyphicon glyphicon-heart glyphicon-big"></span>
+		<div>
+			<h3>Open source</h3>
+			<p><small>Notre <a href="https://www.github.com/gaelfoppolo/pierre-feuille-ciseaux-lezard-spock">code</a> est libre et est hébergé sur <a href="https://www.github.com">Github</a>. Nous faisons de notre mieux pour vous fournir la meilleure expérience possible.</small></p>
+		</div>
+	</div>
+</div>
