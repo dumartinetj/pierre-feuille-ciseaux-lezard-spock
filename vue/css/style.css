@@ -1,5 +1,15 @@
 html,body {
   height: 100%;
+  font-family: "Asap",sans-serif;
+}
+
+body {
+  background: url('../img/background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color:#333;
 }
 
 #wrap {
@@ -8,6 +18,7 @@ html,body {
   height: 100%;
   margin: 0 auto -60px;
 }
+
 .col-md-2{
   padding : 20px 0;
   text-align : center;
@@ -75,4 +86,41 @@ code {
     .navbar-fixed-top .navbar-brand {
         padding: 6px 0;
     }
+}
+
+.index {
+  margin-bottom:-20px;
+}
+
+.intro {
+  padding-top: 50px;
+}
+
+@font-face {
+  font-family: 'Asap';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Asap'), local('Asap-Regular'), url(../fonts/asap-regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Asap';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Asap Bold'), local('Asap-Bold'), url(../fonts/asap-bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Asap';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Asap Italic'), local('Asap-Italic'), url(../fonts/asap-italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Asap';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Asap Bold Italic'), local('Asap-BoldItalic'), url(../fonts/asap-bold-italic.ttf) format('truetype');
+}
+
+span.glyphicon-big {
+  font-size: 3em;
 }
