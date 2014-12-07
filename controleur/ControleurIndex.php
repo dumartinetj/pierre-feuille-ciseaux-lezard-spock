@@ -1,8 +1,13 @@
 <?php
     require_once MODEL_PATH."Jeu.php";
     if (empty($_GET)) {
-      $vue="default";
-      $pagetitle='Le jeu';
+      if(estConnecte()){
+        header('Location: index.php?action=choixmode');
+      }
+      else {
+        $vue="default";
+        $pagetitle='Le jeu';
+      }
     }
     else if (isset($action)) {
       switch ($action) {
