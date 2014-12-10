@@ -41,7 +41,6 @@ require_once MODEL_PATH."Jeu.php";
                     }
                     else if (!isset($_POST['nbManche'])) {
                       header('Location: jouer.php');
-                      break;
                     }
                     $search=Jeu::recherchePartie($_POST['nbManche']);
                     $data = array(
@@ -457,7 +456,6 @@ require_once MODEL_PATH."Jeu.php";
                     } // donc on est dans une partie
                     if (!isset($_POST['idFigure'])) {
                       header('Location: jouer.php');
-                      break;
                     }
                     $dataAnnul = array(
                         "idJoueur1" => $_SESSION['idJoueur'],

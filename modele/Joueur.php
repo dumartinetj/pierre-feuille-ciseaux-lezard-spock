@@ -80,7 +80,7 @@ class Joueur extends Modele {
 
     public static function search($data) {
         try {
-            $req = self::$pdo->prepare("SELECT * FROM pfcls_Joueurs WHERE pseudo = :pseudo");
+            $req = self::$pdo->prepare("SELECT * FROM pfcls_Joueurs WHERE pseudo LIKE :pseudo");
             $req->execute($data);
             if ($req->rowCount() != 0)
                 return $req->fetch(PDO::FETCH_OBJ);

@@ -31,7 +31,6 @@ require_once MODEL_PATH."Joueur.php";
             if(!estConnecte()){
               if (!(isset($_POST['pseudo']) && isset($_POST['sexe']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
                   header('Location: joueur.php?action=inscription');
-                  break;
               }
               $data = array(
                 "pseudo" => $_POST["pseudo"],
@@ -175,7 +174,6 @@ require_once MODEL_PATH."Joueur.php";
             if(estConnecte()){
             if (!(isset($_POST['pseudo']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
                 header('Location: joueur.php?action=update');
-                break;
             }
             $data = array(
               "pseudo" => $_POST["pseudo"],
@@ -214,9 +212,8 @@ require_once MODEL_PATH."Joueur.php";
             if(estConnecte()){
               if (!isset($_POST['pseudo'])) {
                   header('Location: joueur.php?action=search');
-                  break;
               }
-              $data = array("pseudo" => $_POST['pseudo']);
+              $data = array("pseudo" => "%".$_POST['pseudo']."%");
               $joueur = Joueur::search($data);
               if (is_null($joueur)){
                   $vue="notFound";
