@@ -66,5 +66,6 @@
         <script src="<?= VIEW_PATH_BASE; ?>js/bootstrap.min.js"></script>
         <script src="<?= VIEW_PATH_BASE; ?>js/jquery.smartmenus.bootstrap.min.js"></script>
         <script src="<?= VIEW_PATH_BASE; ?>js/jquery.smartmenus.min.js"></script>
+        <script type="text/javascript" src="<?= VIEW_PATH_BASE; ?>js/canvasjs.min.js"></script>
     </body >
 </html >
