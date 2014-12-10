@@ -20,7 +20,7 @@ require_once MODEL_PATH."Joueur.php";
                 break;
             }
             else{
-                $messageErreur="Vous êtes déjà connecté !";
+              header('Location: .');
             }
         break;
         /*
@@ -52,7 +52,7 @@ require_once MODEL_PATH."Joueur.php";
               $pagetitle="Inscription terminée !";
             }
             else{
-              $messageErreur="Vous êtes déjà connecté !";
+              header('Location: joueur.php?action=connexion');
             }
         break;
 
@@ -67,7 +67,7 @@ require_once MODEL_PATH."Joueur.php";
                 break;
             }
             else{
-              $messageErreur="Vous êtes déjà connecté !";
+              header('Location: .');
             }
         /*
          * action=connect
@@ -77,7 +77,6 @@ require_once MODEL_PATH."Joueur.php";
             if(!estConnecte()){
               if (!(isset($_POST['pseudo']) || isset($_POST['pwd']))){
                   header('Location: joueur.php?action=connexion');
-                  break;
               }
                 $data = array(
                 "pseudo" => $_POST['pseudo'],
@@ -85,36 +84,36 @@ require_once MODEL_PATH."Joueur.php";
                 );
                 if((Joueur::checkExisteConnexion($data))) {
                     Joueur::connexion($data);
-                    $vue="connecte";
-                    $pagetitle="Connexion réussie !";
+                    if(isset($_POST['redirurl'])) $url = $_POST['redirurl'];
+                    else $url = ".";
+                    header("Location:$url");
                 }
                 else{
                     $messageErreur="Pseudo ou mot de passe erroné !";
                 }
             }
             else{
-              $messageErreur="Vous êtes déjà connecté !";
+              header('Location: .');
             }
         break;
 
         case "deconnexion":
             if(estConnecte()){
                 Joueur::deconnexion();
-                $vue="deconnexion";
-                $pagetitle="Déconnexion réussie !";
+                header('Location: .');
             }
             else{
-                $messageErreur="Vous n'êtes pas connecté !";
+              header('Location: joueur.php?action=connexion');
             }
         break;
 
         case "delete":
             if(estConnecte()){
                 $vue="delete";
-                $pagetitle="Configirmation suppression de votre profil";
+                $pagetitle="Confirmation suppression de votre profil";
             }
             else{
-                $messageErreur="Vous n'êtes pas connecté !";
+              header('Location: joueur.php?action=connexion');
             }
         break;
 
@@ -126,7 +125,7 @@ require_once MODEL_PATH."Joueur.php";
               $pagetitle="Profil supprimé !";
               }
             else{
-                $messageErreur="Vous n'êtes pas connecté !";
+              header('Location: joueur.php?action=connexion');
             }
         break;
 
@@ -153,7 +152,7 @@ require_once MODEL_PATH."Joueur.php";
                 $pagetitle="Votre profil";
             }
             else{
-                $messageErreur="Vous n'êtes pas connecté !";
+              header('Location: joueur.php?action=connexion');
             }
         break;
 
@@ -169,7 +168,7 @@ require_once MODEL_PATH."Joueur.php";
                 break;
             }
             else{
-                $messageErreur="Vous n'êtes pas connecté !";
+              header('Location: joueur.php?action=connexion');
             }
         break;
 
@@ -197,7 +196,7 @@ require_once MODEL_PATH."Joueur.php";
             $pagetitle='Profil mis à jour !';
             }
             else{
-                $messageErreur="Vous n'êtes pas connecté !";
+              header('Location: joueur.php?action=connexion');
             }
         break;
 
@@ -207,7 +206,7 @@ require_once MODEL_PATH."Joueur.php";
         				$pagetitle="Recherche d'un joueur";
             }
             else{
-                $messageErreur="Vous n'êtes pas connecté !";
+              header('Location: joueur.php?action=connexion');
             }
     				break;
 
@@ -239,7 +238,7 @@ require_once MODEL_PATH."Joueur.php";
               }
             }
               else{
-                  $messageErreur="Vous n'êtes pas connecté !";
+                header('Location: joueur.php?action=connexion');
               }
               break;
 

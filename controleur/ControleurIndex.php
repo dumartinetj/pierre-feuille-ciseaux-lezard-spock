@@ -44,7 +44,7 @@
                 break;
             }
             else {
-                $messageErreur="Vous n'êtes pas connecté, vous ne pouvez pas jouer !";
+                header('Location: joueur.php?action=connexion');
             }
         break;
 
