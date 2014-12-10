@@ -26,7 +26,7 @@ echo <<< EOT
             <input type="email" class="form-control" value="$e" name="email" id="id_email" required/>
         </p>
         <p>
-            <input type="submit" class="btn" value="MAJ profil !" />
+            <input type="submit" class="btn btn-default btn-lg" value="MAJ profil !" />
         </p>
     </fieldset>
 </form>

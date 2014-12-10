@@ -4,7 +4,7 @@
     <fieldset>
         <p>
             <input type="text" id="id_pseudo" class="form-control" name="pseudo" placeholder="Pseudo" required/><br/>
-            <input type="submit" class="btn" name="submit" value="Rechercher"/>
+            <input type="submit" class="btn btn-default btn-lg" name="submit" value="Rechercher"/>
         </p>
     </fieldset>
 </form>

@@ -11,6 +11,6 @@
             <input type="password" class="form-control" name="pwd" placeholder="Mot de passe" id="id_pwd" required/><br/>
             <input type="password" class="form-control" name="pwd2" placeholder="Confirmer votre mot de passe" id="id_pwd2" required/><br/>
             <div class="input-group"><span class="input-group-addon">@</span><input type="email" class="form-control" placeholder="E-mail" name="email" id="id_email" required/></div><br/>
-            <input type="submit" class="btn" value="Valider votre inscription" />
+            <input type="submit" class="btn btn-default btn-lg" value="Valider votre inscription" />
     </fieldset>
 </form>
