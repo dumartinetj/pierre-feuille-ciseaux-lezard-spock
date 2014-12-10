@@ -47,12 +47,11 @@ require_once MODEL_PATH."Joueur.php";
                   $messageErreur="Vous avez saisi deux mots de passe différents !";
                   break;
               }
-
               $vue="created";
               $pagetitle="Inscription terminée !";
             }
             else{
-              header('Location: joueur.php?action=connexion');
+              header('Location: .');
             }
         break;
 
