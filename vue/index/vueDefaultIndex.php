@@ -1,14 +1,21 @@
-<div class="row featurette index">
+<div class="row featurette">
 	<div class="col-md-5 intro">
 			<h1 id="mainhead">PFCLS</h1>
 			<p></p>
 			<h3>PFCLS est une interface web permettant de jouer au jeu Pierre Feuille Ciseaux Lézard Spock !</h3>
 			<p></p>
-			<a href="index.php?action=choixmode" class="btn btn-default btn-lg">Commencer une partie !</a>
+			<a href="index.php?action=choixmode" class="btn btn-default">Commencer une partie !</a>
 			<p></p>
 		</div>
 		<div class="col-md-7">
+			<div class="tv embed-responsive embed-responsive-4by3">
 				<img class="featurette-image img-responsive center-block" height="420px" width="600px" src="<?php echo VIEW_PATH_BASE.'index/img/tv.png'?>">
+				<video class="embed-responsive-item-tv" poster="<?php echo VIEW_PATH_BASE.'index/img/thumb.png'?>" preload="auto" autoplay loop>
+					<source src="" type="video/ogv" />
+					<source src="" type="video/mp4" />
+					<source src="" type="video/webm" />
+				</video>
+			</div>
 		</div>
 </div>
 <hr class="featurette-divider">
@@ -31,7 +38,7 @@
 		<span class="glyphicon glyphicon-flash glyphicon-big"></span>
 		<div>
 			<h3>Puissant</h3>
-			<p><small>L'intelligence articielle du jeu est construite grâce à un nouvel algorithme séquentiel. Venez vous y frotter !</small></p>
+			<p><small>L'intelligence artificielle du jeu est construite grâce à un nouvel algorithme séquentiel. Venez vous y frotter !</small></p>
 		</div>
 	</div>
 	<div class="col-md-3">

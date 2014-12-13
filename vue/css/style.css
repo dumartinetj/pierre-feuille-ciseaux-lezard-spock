@@ -88,12 +88,9 @@ code {
     }
 }
 
-.index {
-  margin-bottom:-20px;
-}
-
 .intro {
-  padding-top: 50px;
+  padding-top: 9%;
+  padding-bottom:8%;
 }
 
 @font-face {
@@ -135,4 +132,48 @@ span.glyphicon-big {
 .nav-tabs, .nav-pills {
   text-align:center;
   font-size: 1.4em;
+}
+
+.tv {
+  position:relative;
+  z-index:1;
+}
+
+@-webkit-keyframes fadeIn { from { opacity: 0.5; } to { opacity: 1; } }
+@-moz-keyframes fadeIn { from { opacity: 0.5; } to { opacity: 1; } }
+@-ms-keyframes fadeIn { from { opacity: 0.5 ; } to { opacity: 1; } }
+@-o-keyframes fadeIn { from { opacity: 0.5; } to { opacity: 1; } }
+@keyframes fadeIn { from { opacity: 0.5; } to { opacity: 1; } }
+
+.tv video {
+  margin-top: -6%;
+  margin-left: 6%;
+  position:absolute;
+  z-index:2;
+  -webkit-animation: fadeIn ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-duration: 1s;
+  -moz-animation: fadeIn ease-in 1;
+  -moz-animation-fill-mode: forwards;
+  -moz-animation-duration: 1s;
+  -ms-animation: fadeIn ease-in 1;
+  -ms-animation-fill-mode: forwards;
+  -ms-animation-duration: 1s;
+  -o-animation: fadeIn ease-in 1;
+  -o-animation-fill-mode: forwards;
+  -o-animation-duration: 1s;
+  animation: fadeIn ease-in 1;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+
+.embed-responsive-item-tv{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  width:91%;
+  height:96%;
+  border:0;
+  z-index:2;
 }
