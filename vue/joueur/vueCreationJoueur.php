@@ -24,8 +24,8 @@
               </label>
             </div><br/>
             <div class="input-group"><span class="input-group-addon"><i class="fa fa-calculator"></i></span><input type="number" class="form-control" placeholder="Âge" name="age" id="id_age" min="1" max="100" required/></div><br/>
-            <div class="input-group"><span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span><input type="password" class="form-control strength" name="pwd" placeholder="Mot de passe" id="id_pwd" required/></div><br/>
-            <div class="input-group"><span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span><input type="password" class="form-control" name="pwd2" placeholder="Confirmer votre mot de passe" id="id_pwd2" required/></div><br/>
+            <div class="input-group"><span class="input-group-addon"><i class="fa fa-key"></i></span><input type="password" class="form-control strength" name="pwd" placeholder="Mot de passe" id="id_pwd" required/></div><br/>
+            <div class="input-group"><span class="input-group-addon"><i class="fa fa-key"></i></span><input type="password" class="form-control" name="pwd2" placeholder="Confirmer votre mot de passe" id="id_pwd2" required/></div><br/>
             <div class="input-group"><span class="input-group-addon"><i class="fa fa-at"></i></span><input type="email" class="form-control" placeholder="E-mail" name="email" id="id_email" required/></div><br/>
             <input type="submit" class="btn btn-default btn-lg" value="&#xf00c; Valider votre inscription" />
     </fieldset>
