@@ -24,7 +24,7 @@
         }
         echo '<form method="post" action="jouer.php?action=rechercher">
         <input type="hidden" name="nbManche" id="id_nbManche" value='.$nb.'>
-        <button class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-user"></span> '.$p.'</button>
+        <button class="btn btn-default btn-sm disabled"><span class="fa fa-user"></span> '.$p.'</button>
         <button class="btn btn-'.$couleur.' btn-sm disabled">'.$nb.'</button>
         <input type="submit" class="btn btn-primary btn-sm" value="Jouer"/>
         </form><br/>';

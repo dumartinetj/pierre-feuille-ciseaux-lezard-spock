@@ -7,6 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="<?= VIEW_PATH_BASE; ?>css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?= VIEW_PATH_BASE; ?>css/font-awesome.min.css" rel="stylesheet">
         <link href="<?= VIEW_PATH_BASE; ?>css/style.css" rel="stylesheet">
         <link href="<?= VIEW_PATH_BASE; ?>css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
     </head>
@@ -16,16 +17,14 @@
             <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="fa fa-bars"></span>
                 </button>
                 <a href="index.php"><img class="navbar-brand img-responsive" src="<?= VIEW_PATH_BASE; ?>img/logo.png" alt=""></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li <?php if (isset($vue)) if (($page=="index" && $vue=="choixMode") || $page=="jeu" || $page=="jeuIA") echo 'class="active"'; ?>><a href="index.php?action=choixmode"><span class="glyphicon glyphicon-heart"></span> Jouer</a></li>
-                    <li <?php if (isset($vue)) if ($page=="index" && $vue=="regles") echo 'class="active"'; ?>><a href="index.php?action=regles"><span class="glyphicon glyphicon-align-center"></span> Règles du jeu</a></li>
+                    <li <?php if (isset($vue)) if (($page=="index" && $vue=="choixMode") || $page=="jeu" || $page=="jeuIA") echo 'class="active"'; ?>><a href="index.php?action=choixmode"><span class="fa fa-gamepad"></span> Jouer</a></li>
+                    <li <?php if (isset($vue)) if ($page=="index" && $vue=="regles") echo 'class="active"'; ?>><a href="index.php?action=regles"><span class="fa fa-file-text"></span> Règles du jeu</a></li>
                     <?php if(estConnecte()) include_once VIEW_PATH.'menu'.DS.'vueMenuConnecte.php';
                     else include_once  VIEW_PATH.'menu'.DS.'vueMenuNonConnecte.php';
                     ?>
@@ -58,7 +57,7 @@
         </div>
         <div id="footer">
             <div class="container">
-                <p class="credit">Copyright © 2014 - <a href="index.php?action=apropos">À propos</a></p>
+                <p class="credit">PFCLS <span class="fa fa-copyright"></span> 2014 - <a href="index.php?action=apropos">À propos</a></p>
             </div>
         </div>
         <!-- JS placé à la fin pour un chargement plus rapide -->

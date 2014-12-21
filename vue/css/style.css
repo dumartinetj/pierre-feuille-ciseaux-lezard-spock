@@ -118,10 +118,6 @@ code {
   src: local('Asap Bold Italic'), local('Asap-BoldItalic'), url(../fonts/asap-bold-italic.ttf) format('truetype');
 }
 
-span.glyphicon-big {
-  font-size: 3em;
-}
-
 .nav-tabs > li, .nav-pills > li {
   float:none;
   display:inline-block;

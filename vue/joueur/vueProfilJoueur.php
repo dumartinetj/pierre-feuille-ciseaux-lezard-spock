@@ -1,8 +1,8 @@
   <div class="container">
     <ul class="nav nav-pills">
-      <li class="active"><a href="#profil" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Informations personnelles</a></li>
-      <li><a href="#stats" data-toggle="tab"><span class="glyphicon glyphicon-eye-open"></span> Statistiques de jeu</a></li>
-      <li><a href="#historique" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Historique des parties</a></li>
+      <li class="active"><a href="#profil" data-toggle="tab"><span class="fa fa-user"></span></span> Informations personnelles</a></li>
+      <li><a href="#stats" data-toggle="tab"><span class="fa fa-bar-chart"></span> Statistiques de jeu</a></li>
+      <li><a href="#historique" data-toggle="tab"><span class="fa fa-history"></span> Historique des parties</a></li>
     </ul>
     <div class="tab-content">
       <div class="tab-pane active" id="profil">
@@ -22,8 +22,8 @@ EOT;
 
         <div class="row">
           <div class="col-md-12">
-            <p> <a href="joueur.php?action=update" class="btn btn-primary"><span class="glyphicon glyphicon-refresh"></span> Mettre à jour votre profil</a> </p>
-            <p> <a href="joueur.php?action=delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Supprimer votre profil</a> </p>
+            <p> <a href="joueur.php?action=update" class="btn btn-primary"><span class="fa fa-refresh fa-spin"></span> Mettre à jour votre profil</a> </p>
+            <p> <a href="joueur.php?action=delete" class="btn btn-danger"><span class="fa fa-trash"></span> Supprimer votre profil</a> </p>
           </div>
         </div>
       </div>

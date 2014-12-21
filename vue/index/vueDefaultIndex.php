@@ -21,31 +21,31 @@
 <hr class="featurette-divider">
 <div class="row featurette" id="index_description">
 	<div class="col-md-3">
-		<span class="glyphicon glyphicon-user glyphicon-big"></span>
+		<span class="fa fa-user fa-3x"></span>
 		<div>
 			<h3>User friendly</h3>
 			<p><small>PFCLS est facile à utiliser. Une fois connectée(e), vous n'avez qu'à lancer une partie et à affronter votre adversaire !</small></p>
 		</div>
 	</div>
 	<div class="col-md-3">
-		<span class="glyphicon glyphicon-phone glyphicon-big"></span>
+		<span class="fa fa-mobile fa-3x"></span>
 		<div>
 			<h3>Responsive</h3>
 			<p><small>Utilisant les dernières innovations du web, PFCLS est accessible depuis tous les supports possédant un navigateur Internet.</small></p>
 		</div>
 	</div>
 	<div class="col-md-3">
-		<span class="glyphicon glyphicon-flash glyphicon-big"></span>
+		<span class="fa fa-flash fa-3x" style="color:#ffba00;"></span>
 		<div>
 			<h3>Puissant</h3>
 			<p><small>L'intelligence artificielle du jeu est construite grâce à un nouvel algorithme séquentiel. Venez vous y frotter !</small></p>
 		</div>
 	</div>
 	<div class="col-md-3">
-		<span class="glyphicon glyphicon-heart glyphicon-big"></span>
+		<span class="fa fa-github fa-3x"></span>
 		<div>
 			<h3>Open source</h3>
-			<p><small>Notre <a href="https://www.github.com/gaelfoppolo/pierre-feuille-ciseaux-lezard-spock">code</a> est libre et est hébergé sur <a href="https://www.github.com">Github</a>. Nous faisons de notre mieux pour vous fournir la meilleure expérience possible.</small></p>
+			<p><small>Notre <a href="https://www.github.com/gaelfoppolo/pierre-feuille-ciseaux-lezard-spock">code</a> est libre et est hébergé sur Github. Il est publié sous la licence open-source <a href="http://opensource.org/licenses/GPL-3.0" target="_blank">GPLv3</a>.</small></p>
 		</div>
 	</div>
 </div>
