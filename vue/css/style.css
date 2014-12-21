@@ -1,6 +1,6 @@
 html,body {
   height: 100%;
-  font-family: "Asap",sans-serif;
+  font-family: "Asap","FontAwesome",sans-serif;
 }
 
 body {
@@ -172,4 +172,29 @@ code {
   height:96%;
   border:0;
   z-index:2;
+}
+
+/* Hidding the radiobuttons & checkboxes */
+input[type="radio"], input[type="checkbox"] {
+  display: none;
+}
+/* Hidding the "check" status of inputs */
+input[type="radio"] + label .fa-circle,
+input[type="checkbox"] + label .fa-check  {
+  display: none;
+}
+/* Styling the "check" status */
+input[type="radio"]:checked + label .fa-circle,
+input[type="checkbox"]:checked + label .fa-check {
+  display: block;
+}
+/* Styling checkboxes */
+input[type="checkbox"]:checked + label .fa-check {
+  position: relative;
+  left: .125em;
+  bottom: .125em;
+}
+/* Styling radiobuttons */
+input[type="radio"]:checked + label .fa-circle-o {
+  display: none;
 }

@@ -8,8 +8,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="<?= VIEW_PATH_BASE; ?>css/bootstrap.min.css" rel="stylesheet">
         <link href="<?= VIEW_PATH_BASE; ?>css/font-awesome.min.css" rel="stylesheet">
-        <link href="<?= VIEW_PATH_BASE; ?>css/style.css" rel="stylesheet">
         <link href="<?= VIEW_PATH_BASE; ?>css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
+        <link href="<?= VIEW_PATH_BASE; ?>css/strength-meter.min.css" rel="stylesheet">
+        <link href="<?= VIEW_PATH_BASE; ?>css/style.css" rel="stylesheet">
     </head>
     <body>
         <!-- Menu -->
@@ -66,5 +67,6 @@
         <script src="<?= VIEW_PATH_BASE; ?>js/jquery.smartmenus.bootstrap.min.js"></script>
         <script src="<?= VIEW_PATH_BASE; ?>js/jquery.smartmenus.min.js"></script>
         <script type="text/javascript" src="<?= VIEW_PATH_BASE; ?>js/canvasjs.min.js"></script>
+        <script type="text/javascript" src="<?= VIEW_PATH_BASE; ?>js/strength-meter.min.js"></script>
     </body >
 </html >
