@@ -29,7 +29,7 @@ EOT;
       </div>
         <div class="col-md-6">
           <h2>Ratio <?php echo $r ?></h2>
-          <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+          <div id="ratio" style="height: 300px; width: 100%;"></div>
         </div>
       </div>
     </div>
@@ -42,35 +42,42 @@ EOT;
     </div>
         </div>
         <script type="text/javascript">
-        window.onload = function () {
-          var chart = new CanvasJS.Chart("chartContainer",
-          {
-            backgroundColor: "#eeeeee",
-            legend: {
-              horizontalAlign: "center", // "center" , "right"
-              verticalAlign: "bottom",  // "top" , "bottom"
-              fontFamily: "Asap"
-            },
-            data: [
+        var nbv = <?php echo $nbv ?>;
+        var nbd = <?php echo $nbd ?>;
+        if(nbv+nbd==0) {
+          document.getElementById("ratio").innerHTML = "Aucune données de jeu n'est disponible !";
+        }
+        else {
+          window.onload = function () {
+            var chart = new CanvasJS.Chart("ratio",
             {
-              type: "doughnut",
-              showInLegend: true,
-              startAngle:0,
-              indexLabelFontSize: 25,
-              indexLabelFontFamily: "Asap",
-              indexLabelFontColor: "#eeeeee",
-              indexLabelLineColor: "#eeeeee",
-              indexLabelPlacement: "outside",
-              indexLabelLineThickness: 0,
-              toolTipContent: "{y} {label} - <strong>#percent%</strong>",
-              indexLabel: "",
-              dataPoints: [
-              {  y: <?php echo $nbv ?>, legendText:"Victoire(s)", label: "victoire(s)" },
-              {  y: <?php echo $nbd ?>, legendText:"Défaite(s)", label: "défaite(s)" }
+              backgroundColor: "#eeeeee",
+              legend: {
+                horizontalAlign: "center", // "center" , "right"
+                verticalAlign: "bottom",  // "top" , "bottom"
+                fontFamily: "Asap"
+              },
+              data: [
+              {
+                type: "doughnut",
+                showInLegend: true,
+                startAngle:0,
+                indexLabelFontSize: 25,
+                indexLabelFontFamily: "Asap",
+                indexLabelFontColor: "#eeeeee",
+                indexLabelLineColor: "#eeeeee",
+                indexLabelPlacement: "outside",
+                indexLabelLineThickness: 0,
+                toolTipContent: "{y} {label} - <strong>#percent%</strong>",
+                indexLabel: "",
+                dataPoints: [
+                {  y: nbv, legendText:"Victoire(s)", label: "victoire(s)" },
+                {  y: nbd, legendText:"Défaite(s)", label: "défaite(s)" }
+                ]
+              }
               ]
-            }
-            ]
-          });
-          chart.render();
+            });
+            chart.render();
+          }
         }
         </script>
