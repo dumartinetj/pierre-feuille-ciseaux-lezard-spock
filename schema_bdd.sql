@@ -19,15 +19,18 @@ CREATE TABLE pfcls_Figures
 CREATE TABLE pfcls_Joueurs
 (
 	idJoueur INT NOT NULL AUTO_INCREMENT,
-    pseudo VARCHAR(20) NOT NULL,
-    sexe CHAR(1) NOT NULL, /* H ou F */
-    age INT UNSIGNED NOT NULL, /* pas de signe donc toujours positif */
+  pseudo VARCHAR(20) NOT NULL,
+  sexe CHAR(1) NOT NULL, /* H ou F */
+  age INT UNSIGNED NOT NULL, /* pas de signe donc toujours positif */
 	nbV INT UNSIGNED NOT NULL, /* pas de signe donc toujours positif */
 	nbD INT UNSIGNED NOT NULL, /* pas de signe donc toujours positif */
 	pwd VARCHAR(255) NOT NULL,
 	email VARCHAR(255) NOT NULL,
+	active VARCHAR(255) NOT NULL,
+	resetToken VARCHAR(255) DEFAULT NULL,
+	resetCompleted VARCHAR(3) DEFAULT 'Non',
 	PRIMARY KEY (idJoueur)
-) ENGINE=INNODB ;
+) ENGINE=INNODB;
 
 CREATE TABLE pfcls_Parties_en_attente
 (
