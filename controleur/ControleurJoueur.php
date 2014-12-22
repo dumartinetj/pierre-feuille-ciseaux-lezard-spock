@@ -37,6 +37,10 @@ require_once MODEL_PATH."Joueur.php";
                 $messageErreur="Vous n'avez pas entré un e-mail valide !";
                 break;
               }
+              if($_POST['age'] >= 1 && $_POST['age'] <= 100){
+                $messageErreur="Vous n'avez pas saisi un âge valide !";
+                break;
+              }
               $data = array(
                 "pseudo" => $_POST["pseudo"],
                 "sexe" => $_POST["sexe"],
