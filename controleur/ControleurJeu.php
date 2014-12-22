@@ -4,11 +4,15 @@ require_once MODEL_PATH."Jeu.php";
 
     if (empty($_GET)) {
       if(estConnecte()){
+        $dataWaiting = array(
+          "idJoueur" => $_SESSION['idJoueur']
+        );
+        $attente = Jeu::selectWhere($dataWaiting);
         if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
           $vue="waitLoad";
           $pagetitle="Chargement en cours des nouvelles données...";
         }
-        else if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+        else if($attente != null) { // on est en recherche d'un adversaire ?
             $pagetitle="En attente d'un adversaire !";
             $vue="attente";
         }
@@ -29,12 +33,16 @@ require_once MODEL_PATH."Jeu.php";
 
             case "rechercher":
                 if(estConnecte()){
+                  $dataWaiting = array(
+                    "idJoueur" => $_SESSION['idJoueur']
+                  );
+                  $attente = Jeu::selectWhere($dataWaiting);
                     if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
                       $vue="waitLoad";
                       $pagetitle="Chargement en cours des nouvelles données...";
                       break;
                     }
-                    else if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                    else if($attente != null) { // on est en recherche d'un adversaire ?
                         $pagetitle="En attente d'un adversaire !";
                         $vue="attente";
                         break;
@@ -48,9 +56,19 @@ require_once MODEL_PATH."Jeu.php";
                         "nbManche" => $_POST['nbManche']
                     );
                     if($search==NULL){
-                        Jeu::ajouterAttente($data);
-                        $vue="attente";
-                        $pagetitle="En attente d'un adversaire !";
+                        $dataWaiting = array(
+                          "idJoueur" => $_SESSION['idJoueur']
+                        );
+                        $attente = Jeu::selectWhere($dataWaiting);
+                        if($attente == null) { // on est en recherche d'un adversaire ?
+                          Jeu::insertion($data);
+                          $vue="attente";
+                          $pagetitle="En attente d'un adversaire !";
+                        }
+                        else{
+                          $messageErreur="Vous êtes déjà dans la file d'attente !";
+                          break;
+                        }
                     }
                     else{
                         unset($_SESSION['idJoueurAdverse']);
@@ -64,8 +82,14 @@ require_once MODEL_PATH."Jeu.php";
                             "idJoueur2" => $_SESSION['idJoueurAdverse'],
                             "nbManche" => $_POST['nbManche']
                         );
-                        Jeu::deleteAttente($_SESSION['idJoueur']);
-                        Jeu::deleteAttente($_SESSION['idJoueurAdverse']);
+                        $dataDel = array(
+                          "idJoueur" => $_SESSION['idJoueur']
+                        );
+                        Jeu::suppressionWhere($dataDel);
+                        $dataDel2 = array(
+                          "idJoueur" => $_SESSION['idJoueurAdverse']
+                        );
+                        Jeu::suppressionWhere($dataDel2);
                         $_SESSION['JoueurMaster'] = true;
                         $_SESSION['idPartieEnCours'] = Partie::insertion($data2);
                         $dataManche = array(
@@ -104,8 +128,11 @@ require_once MODEL_PATH."Jeu.php";
                       $pagetitle="Chargement en cours des nouvelles données...";
                       break;
                     } // donc on est attente ou non attente
-                    $en_attente = Jeu::checkDejaAttente($_SESSION['idJoueur']);
-                    if($en_attente){
+                    $dataWaiting = array(
+                      "idJoueur" => $_SESSION['idJoueur']
+                    );
+                    $attente = Jeu::selectWhere($dataWaiting);
+                    if($attente != null) { // on est en recherche d'un adversaire ?
                         $vue="attente";
                         $pagetitle="En attente d'un adversaire !";
                     }
@@ -149,7 +176,11 @@ require_once MODEL_PATH."Jeu.php";
 
             case "rejouerCoup":
                 if(estConnecte()){
-                        if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                        $dataWaiting = array(
+                          "idJoueur" => $_SESSION['idJoueur']
+                        );
+                        $attente = Jeu::selectWhere($dataWaiting);
+                        if($attente != null) { // on est en recherche d'un adversaire ?
                             $pagetitle="En attente d'un adversaire !";
                             $vue="attente";
                             break;
@@ -187,7 +218,11 @@ require_once MODEL_PATH."Jeu.php";
 
             case "jouer":
                 if(estConnecte()){
-                        if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                        $dataWaiting = array(
+                          "idJoueur" => $_SESSION['idJoueur']
+                        );
+                        $attente = Jeu::selectWhere($dataWaiting);
+                        if($attente != null) { // on est en recherche d'un adversaire ?
                             $pagetitle="En attente d'un adversaire !";
                             $vue="attente";
                             break;
@@ -273,7 +308,11 @@ require_once MODEL_PATH."Jeu.php";
 
             case "waitingLoad":
                 if(estConnecte()){
-                  if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                  $dataWaiting = array(
+                    "idJoueur" => $_SESSION['idJoueur']
+                  );
+                  $attente = Jeu::selectWhere($dataWaiting);
+                  if($attente != null) { // on est en recherche d'un adversaire ?
                       $pagetitle="En attente d'un adversaire !";
                       $vue="attente";
                       break;
@@ -418,6 +457,10 @@ require_once MODEL_PATH."Jeu.php";
 
             case "annulerPartie":
                 if(estConnecte()){
+                  $dataWaiting = array(
+                    "idJoueur" => $_SESSION['idJoueur']
+                  );
+                  $attente = Jeu::selectWhere($dataWaiting);
                     if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
                       $data = array(
                           "idPartie" => $_SESSION['idPartieEnCours']
@@ -431,7 +474,7 @@ require_once MODEL_PATH."Jeu.php";
                       $vue="partieAnnulee";
                       $pagetitle="Partie annulée !";
                     }
-                    else if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en attente ?
+                    else if($attente != null) { // on est en recherche d'un adversaire ?
                         $pagetitle="En attente d'un adversaire !";
                         $vue="attente";
                     }
@@ -448,13 +491,20 @@ require_once MODEL_PATH."Jeu.php";
 
             case "annuler":
                 if(estConnecte()){
+                  $dataWaiting = array(
+                    "idJoueur" => $_SESSION['idJoueur']
+                  );
+                  $attente = Jeu::selectWhere($dataWaiting);
                     if (isset($_SESSION['idJoueurAdverse'])) { // on est dans une partie ?
                       $vue="waitLoad";
                       $pagetitle="Chargement en cours des nouvelles données...";
                       break;
                     }
-                    else if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en attente ?
-                        Jeu::deleteAttente($_SESSION['idJoueur']);
+                    else if($attente != null) { // on est en recherche d'un adversaire ?
+                      $dataDel = array(
+                        "idJoueur" => $_SESSION['idJoueur']
+                      );
+                      Jeu::suppressionWhere($dataDel);
                         $vue="deleted";
                         $pagetitle="Annulation de la recherche d'une partie !";
                         break;
@@ -470,7 +520,11 @@ require_once MODEL_PATH."Jeu.php";
 
             case "eval":
                 if(estConnecte()){
-                    if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                    $dataWaiting = array(
+                      "idJoueur" => $_SESSION['idJoueur']
+                    );
+                    $attente = Jeu::selectWhere($dataWaiting);
+                    if($attente != null) { // on est en recherche d'un adversaire ?
                         $pagetitle="En attente d'un adversaire !";
                         $vue="attente";
                         break;
@@ -611,7 +665,11 @@ require_once MODEL_PATH."Jeu.php";
 
             case "waitingCoup":
                 if(estConnecte()){
-                    if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+                    $dataWaiting = array(
+                      "idJoueur" => $_SESSION['idJoueur']
+                    );
+                    $attente = Jeu::selectWhere($dataWaiting);
+                    if($attente != null) { // on est en recherche d'un adversaire ?
                         $pagetitle="En attente d'un adversaire !";
                         $vue="attente";
                         break;
@@ -720,7 +778,11 @@ require_once MODEL_PATH."Jeu.php";
             break;
 
         default :
-            if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+            $dataWaiting = array(
+              "idJoueur" => $_SESSION['idJoueur']
+            );
+            $attente = Jeu::selectWhere($dataWaiting);
+            if($attente != null) { // on est en recherche d'un adversaire ?
                 $pagetitle="En attente d'un adversaire !";
                 $vue="attente";
                 break;
@@ -734,7 +796,11 @@ require_once MODEL_PATH."Jeu.php";
         }
       }
       else {
-        if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+        $dataWaiting = array(
+          "idJoueur" => $_SESSION['idJoueur']
+        );
+        $attente = Jeu::selectWhere($dataWaiting);
+        if($attente != null) { // on est en recherche d'un adversaire ?
             $pagetitle="En attente d'un adversaire !";
             $vue="attente";
         }

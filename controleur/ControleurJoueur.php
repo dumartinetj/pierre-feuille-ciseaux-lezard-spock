@@ -65,19 +65,6 @@ require_once MODEL_PATH."Joueur.php";
         break;
 
         /*
-         * action=connexion
-         * Permet d'accéder au formulaire de connexion
-         */
-        case "connexion":
-            if(!estConnecte()){
-                $vue="connexion";
-                $pagetitle="Connexion";
-                break;
-            }
-            else{
-              header('Location: .');
-            }
-        /*
          * action=connect
          * Verifie que les données saisies dans le formulaire sont bonnes et ouvre la session
          */
@@ -112,8 +99,15 @@ require_once MODEL_PATH."Joueur.php";
 
         case "deconnexion":
             if(estConnecte()){
-              if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){
-                Jeu::deleteAttente($_SESSION['idJoueur']);
+              $dataWaiting = array(
+                "idJoueur" => $_SESSION['idJoueur']
+              );
+              $attente = Jeu::selectWhere($dataWaiting);
+              if($attente != null) { // on est en recherche d'un adversaire ?
+                $dataDel = array(
+                  "idJoueur" => $_SESSION['idJoueur']
+                );
+                Jeu::suppressionWhere($dataDel);
               }
                 Joueur::deconnexion();
                 header('Location: .');
@@ -139,8 +133,15 @@ require_once MODEL_PATH."Joueur.php";
                 "idJoueur" => $_SESSION['idJoueur'],
               );
               Joueur::suppression($data);
-              if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){
-                Jeu::deleteAttente($_SESSION['idJoueur']);
+              $dataWaiting = array(
+                "idJoueur" => $_SESSION['idJoueur']
+              );
+              $attente = Jeu::selectWhere($dataWaiting);
+              if($attente != null) { // on est en recherche d'un adversaire ?
+                $dataDel = array(
+                  "idJoueur" => $_SESSION['idJoueur']
+                );
+                Jeu::suppressionWhere($dataDel);
               }
               Joueur::deconnexion();
               $vue="deleted";

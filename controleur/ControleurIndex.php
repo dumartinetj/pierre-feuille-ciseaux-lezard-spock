@@ -27,7 +27,11 @@
         case "choixmode":
 
             if(estConnecte()){
-                if(Jeu::checkDejaAttente($_SESSION['idJoueur'])){ // on est en recherche d'un adversaire ?
+              $dataWaiting = array(
+                "idJoueur" => $_SESSION['idJoueur']
+              );
+              $attente = Jeu::selectWhere($dataWaiting);
+                if($attente != null) { // on est en recherche d'un adversaire ?
                     $pagetitle="En attente d'un adversaire !";
                     $page="jeu";
                     $vue="attente";
@@ -44,7 +48,7 @@
                 break;
             }
             else {
-                header('Location: joueur.php?action=connexion');
+                header('Location: .');
             }
         break;
 
