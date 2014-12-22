@@ -9,19 +9,8 @@ require_once 'Modele.php';
 
 class Coup extends Modele {
 
-    public static function getCoup($id) {
-        try {
-                $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idCoup=".$id);
-                $req->execute();
-                if ($req->rowCount() != 0) {
-                    $data_recup = $req->fetch(PDO::FETCH_OBJ);
-                    return $data_recup;
-                }
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-                die("Erreur lors de la récupération du coup dans la BDD");
-            }
-    }
+  protected static $table = "pfcls_Coups";
+  protected static $primary_index = "idCoup";
 
     public static function getDernierCoup($data) {
         try {
@@ -51,73 +40,6 @@ class Coup extends Modele {
             }
     }
 
-    public static function getIDFigureJoueur1($id) {
-        try {
-                $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idCoup=".$id);
-                $req->execute();
-                if ($req->rowCount() != 0) {
-                    $data_recup = $req->fetch(PDO::FETCH_OBJ);
-                    return $data_recup->idFigure1;
-                }
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-                die("Erreur lors de la récupération de l'ID de la figure du joueur 1 du coup dans la BDD");
-            }
-    }
-
-    public static function getIDFigureJoueur2($id) {
-        try {
-                $req = self::$pdo->prepare("SELECT * FROM pfcls_Coups WHERE idCoup=".$id);
-                $req->execute();
-                if ($req->rowCount() != 0) {
-                    $data_recup = $req->fetch(PDO::FETCH_OBJ);
-                    return $data_recup->idFigure2;
-                }
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-                die("Erreur lors de la récupération de l'ID de la figure du joueur 2 du coup dans la BDD");
-            }
-    }
-
-    public static function getIDJoueur1($id){
-        try {
-                $req = self::$pdo->prepare("SELECT idJoueur1 FROM pfcls_Coups WHERE idCoup=".$id);
-                $req->execute();
-                if ($req->rowCount() != 0) {
-                    $data_recup = $req->fetch(PDO::FETCH_OBJ);
-                    return $data_recup->idJoueur1;
-                }
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-                die("Erreur lors de la récupération de l'ID du joueur 1 du coup dans la BDD");
-            }
-    }
-
-    public static function getIDJoueur2($id){
-        try {
-                $req = self::$pdo->prepare("SELECT idJoueur2 FROM pfcls_Coups WHERE idCoup=".$id);
-                $req->execute();
-                if ($req->rowCount() != 0) {
-                    $data_recup = $req->fetch(PDO::FETCH_OBJ);
-                    return $data_recup->idJoueur2;
-                }
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-                die("Erreur lors de la récupération de l'ID du joueur 2 du coup dans la BDD");
-            }
-    }
-
-    public static function ajoutCoup($data) {
-        try {
-                $req = self::$pdo->prepare('INSERT INTO pfcls_Coups (idJoueur1, idJoueur2, idManche) VALUES (:idJoueur1, :idJoueur2, :idManche)');
-                $req->execute($data);
-                return self::$pdo->lastInsertId(); //retourne le dernier id insérer dans la BDD sur cette session
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-                $messageErreur="Erreur lors de l'insertion d'un coup dans la BDD";
-            }
-    }
-
     public static function whoUpdateCoup($data) {
         try {
                 $req = self::$pdo->prepare("SELECT MAX(idCoup) AS id FROM pfcls_Coups WHERE idJoueur2= :idJoueur2 AND idFigure2 IS NULL");
@@ -129,20 +51,6 @@ class Coup extends Modele {
             } catch (PDOException $e) {
                 echo $e->getMessage();
                 $messageErreur="Erreur lors de who MAJ d'un coup dans la BDD";
-            }
-    }
-
-    public static function updateCoup($data) {
-        try {
-                reset($data); // remettre le pointeur interne du tableau au début, on ne sait jamais
-                $cle = key($data);
-                $sql = "UPDATE pfcls_Coups SET ".$cle."=:".$cle." WHERE idCoup = :idCoup";
-                $req = self::$pdo->prepare($sql);
-                $req->execute($data);
-
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-                $messageErreur="Erreur lors de la MAJ d'un coup dans la BDD";
             }
     }
 
@@ -168,40 +76,50 @@ class Coup extends Modele {
             }
     }
 
-    public static function setGagnant($id, $idJGagnant){
-        try {
-                $req = self::$pdo->prepare("UPDATE pfcls_Coups SET idJoueurGagnant=".$idJGagnant." WHERE idCoup=".$id);
-                $req->execute();
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-                die("Erreur lors de la MAJ de l'ID du joueur gagnant du coup dans la BDD");
-            }
-    }
-
     public static function evaluer($id) {
-            $idF1 = self::getIDFigureJoueur1($id);
-            $idF2 = self::getIDFigureJoueur2($id);
-            $idJ1 = self::getIDJoueur1($id);
-            $idJ2 = self::getIDJoueur2($id);
+            $data = array(
+              "idCoup" => $id
+            );
+            $coup = self::select($data);
+            $idF1 = $coup->idFigure1;
+            $idF2 = $coup->idFigure2;
+            $idJ1 = $coup->idJoueur1;
+            $idJ2 = $coup->idJoueur2;
             $J1Win = Figure::estDansSesForces($idF2,$idF1);
             $J1Win = ($J1Win && Figure::estDansSesFaiblesses($idF1,$idF2));
             if ($J1Win) {
-                self::setGagnant($id,$idJ1);
+              $data = array(
+                "idCoup" => $id,
+                "idJoueurGagnant" => $idJ1
+              );
+                self::update($data);
             }
             else {
-                self::setGagnant($id,$idJ2);
+              $data = array(
+                "idCoup" => $id,
+                "idJoueurGagnant" => $idJ2
+              );
+              self::update($data);
             }
     }
 
     public static function estUnDraw($id) {
-        $idF1 = self::getIDFigureJoueur1($id);
-        $idF2 = self::getIDFigureJoueur2($id);
+      $data = array(
+        "idCoup" => $id
+      );
+      $coup = self::select($data);
+      $idF1 = $coup->idFigure1;
+      $idF2 = $coup->idFigure2;
         return ($idF1 == $idF2);
     }
 
     public static function retourneIDs($id){
-	     $idF1 = self::getIDFigureJoueur1($id);
-       $idF2 = self::getIDFigureJoueur2($id);
+      $data = array(
+        "idCoup" => $id
+      );
+      $coup = self::select($data);
+      $idF1 = $coup->idFigure1;
+      $idF2 = $coup->idFigure2;
 	     return $idF1.$idF2;
     }
 }

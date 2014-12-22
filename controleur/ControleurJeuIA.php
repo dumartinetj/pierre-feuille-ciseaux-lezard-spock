@@ -32,7 +32,7 @@ else if (isset($action)) {
         "idJoueur2" => 0,
         "idManche" => $_SESSION['idMancheEnCours']
       );
-      $_SESSION['idCoupEnCours'] = Coup::ajoutCoup($data3);
+      $_SESSION['idCoupEnCours'] = Coup::insertion($data3);
       $data4 = array(
         "listeCoups" =>   $_SESSION['idCoupEnCours'],
         "idManche" => $_SESSION['idMancheEnCours']
@@ -53,16 +53,19 @@ else if (isset($action)) {
           "idFigure1" => $_POST['idFigure'],
           "idCoup" => $_SESSION['idCoupEnCours']
       );
-      Coup::updateCoup($data);
+      Coup::update($data);
       $idFigureRand = mt_rand(1,5); //random pour le moment
       $data2 = array(
         "idFigure2" => $idFigureRand,
         "idCoup" => $_SESSION['idCoupEnCours']
       );
-      Coup::updateCoup($data2);
+      Coup::update($data2);
           if (!Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
             Coup::evaluer($_SESSION['idCoupEnCours']);
-            $coup = Coup::getCoup($_SESSION['idCoupEnCours']);
+            $data= array(
+              "idCoup" =>$_SESSION['idCoupEnCours']
+            );
+            $coup = Coup::select($data);
             $idF1 = $coup->idFigure1;
             $idF2 = $coup->idFigure2;
             $idJG = $coup->idJoueurGagnant;
@@ -90,7 +93,7 @@ else if (isset($action)) {
             "idJoueur2" => 0,
             "idManche" => $_SESSION['idMancheEnCours']
             );
-            $_SESSION['idCoupEnCours'] = Coup::ajoutCoup($data3);
+            $_SESSION['idCoupEnCours'] = Coup::insertion($data3);
             $data4 = array(
             "listeCoups" =>  $_SESSION['idCoupEnCours'],
             "idManche" => $_SESSION['idMancheEnCours']
@@ -154,7 +157,7 @@ else if (isset($action)) {
             "idJoueur2" => 0,
             "idManche" => $_SESSION['idMancheEnCours']
             );
-            $_SESSION['idCoupEnCours'] = Coup::ajoutCoup($data3);
+            $_SESSION['idCoupEnCours'] = Coup::insertion($data3);
             $data4 = array(
             "listeCoups" =>   $_SESSION['idCoupEnCours'],
             "idManche" => $_SESSION['idMancheEnCours']

@@ -79,7 +79,7 @@ require_once MODEL_PATH."Jeu.php";
                             "idJoueur2" => $_SESSION['idJoueurAdverse'],
                             "idManche" => $_SESSION['idMancheEnCours']
                         );
-                        $_SESSION['idCoupEnCours'] = Coup::ajoutCoup($data3);
+                        $_SESSION['idCoupEnCours'] = Coup::insertion($data3);
                         $data4 = array(
                             "listeCoups" =>   $_SESSION['idCoupEnCours'],
                             "idManche" => $_SESSION['idMancheEnCours']
@@ -242,7 +242,7 @@ require_once MODEL_PATH."Jeu.php";
                                 "idJoueur2" => $_SESSION['idJoueurAdverse'],
                                 "idManche" => $_SESSION['idMancheEnCours']
                             );
-                            $_SESSION['idCoupEnCours'] = Coup::ajoutCoup($data3);
+                            $_SESSION['idCoupEnCours'] = Coup::insertion($data3);
                             $data4 = array(
                                 "listeCoups" =>   $_SESSION['idCoupEnCours'],
                                 "idManche" => $_SESSION['idMancheEnCours']
@@ -322,7 +322,7 @@ require_once MODEL_PATH."Jeu.php";
                             "idJoueur2" => $_SESSION['idJoueurAdverse'],
                             "idManche" => $_SESSION['idMancheEnCours']
                         );
-                        $_SESSION['idCoupEnCours'] = Coup::ajoutCoup($data3);
+                        $_SESSION['idCoupEnCours'] = Coup::insertion($data3);
                         $data4 = array(
                             "listeCoups" =>   $_SESSION['idCoupEnCours'],
                             "idManche" => $_SESSION['idMancheEnCours']
@@ -497,12 +497,15 @@ require_once MODEL_PATH."Jeu.php";
                       );
 
                     }
-                    Coup::updateCoup($data);
+                    Coup::update($data);
                     if(Coup::checkCoupPretAEvaluer($_SESSION['idCoupEnCours'])){
                         if($_SESSION['JoueurMaster'] == true) {
                           if (!Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
                               Coup::evaluer($_SESSION['idCoupEnCours']);
-                              $coup = Coup::getCoup($_SESSION['idCoupEnCours']);
+                              $data= array(
+                                "idCoup" =>$_SESSION['idCoupEnCours']
+                              );
+                              $coup = Coup::select($data);
                               $idF1 = $coup->idFigure1;
                               $idF2 = $coup->idFigure2;
                               $idJG = $coup->idJoueurGagnant;
@@ -530,7 +533,7 @@ require_once MODEL_PATH."Jeu.php";
                                 "idJoueur2" => $_SESSION['idJoueurAdverse'],
                                 "idManche" => $_SESSION['idMancheEnCours']
                             );
-                            $_SESSION['idCoupEnCours'] = Coup::ajoutCoup($data3);
+                            $_SESSION['idCoupEnCours'] = Coup::insertion($data3);
                             $data4 = array(
                                 "listeCoups" =>  $_SESSION['idCoupEnCours'],
                                 "idManche" => $_SESSION['idMancheEnCours']
@@ -554,7 +557,10 @@ require_once MODEL_PATH."Jeu.php";
                                 $pagetitle="En attente du coup de votre adversaire !";
                                 break;
                               }
-                              $coup = Coup::getCoup($_SESSION['idCoupEnCours']);
+                              $data= array(
+                                "idCoup" =>$_SESSION['idCoupEnCours']
+                              );
+                              $coup = Coup::select($data);
                               $idF2 = $coup->idFigure1; // on échange pour afficher notre figure
                               $idF1 = $coup->idFigure2; // en premier sur la vue
                               $idJG = $coup->idJoueurGagnant;
@@ -602,7 +608,10 @@ require_once MODEL_PATH."Jeu.php";
                         if($_SESSION['JoueurMaster'] == true) {
                           if (!Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
                               Coup::evaluer($_SESSION['idCoupEnCours']);
-                              $coup = Coup::getCoup($_SESSION['idCoupEnCours']);
+                              $data= array(
+                                "idCoup" =>$_SESSION['idCoupEnCours']
+                              );
+                              $coup = Coup::select($data);
                               $idF1 = $coup->idFigure1;
                               $idF2 = $coup->idFigure2;
                               $idJG = $coup->idJoueurGagnant;
@@ -630,8 +639,11 @@ require_once MODEL_PATH."Jeu.php";
                                 "idJoueur2" => $_SESSION['idJoueurAdverse'],
                                 "idManche" => $_SESSION['idMancheEnCours']
                             );
-                            $idF = Coup::getCoup($_SESSION['idCoupEnCours'])->idFigure1;
-                            $_SESSION['idCoupEnCours'] = Coup::ajoutCoup($data3);
+                            $data= array(
+                              "idCoup" =>$_SESSION['idCoupEnCours']
+                            );
+                            $idF = Coup::select($data)->idFigure1;
+                            $_SESSION['idCoupEnCours'] = Coup::insertion($data3);
                             $data4 = array(
                                 "listeCoups" =>   $_SESSION['idCoupEnCours'],
                                 "idManche" => $_SESSION['idMancheEnCours']
@@ -643,7 +655,10 @@ require_once MODEL_PATH."Jeu.php";
                         }
                         else { //on est pas le master
                             if (Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
-                              $idF = Coup::getCoup($_SESSION['idCoupEnCours'])->idFigure1;
+                              $data= array(
+                                "idCoup" =>$_SESSION['idCoupEnCours']
+                              );
+                              $idF = Coup::select($data)->idFigure1;
                               $vue="resultatDraw";
                               $pagetitle="Et c'est le draw !";
                             }
@@ -653,7 +668,10 @@ require_once MODEL_PATH."Jeu.php";
                                 $pagetitle="En attente du coup de votre adversaire !";
                                 break;
                               }
-                              $coup = Coup::getCoup($_SESSION['idCoupEnCours']);
+                              $data= array(
+                                "idCoup" =>$_SESSION['idCoupEnCours']
+                              );
+                              $coup = Coup::select($data);
                               $idF2 = $coup->idFigure1; // on échange pour afficher notre figure
                               $idF1 = $coup->idFigure2; // en premier sur la vue
                               $idJG = $coup->idJoueurGagnant;
