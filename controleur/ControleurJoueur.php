@@ -32,6 +32,11 @@ require_once MODEL_PATH."Joueur.php";
               if (!(isset($_POST['pseudo']) && isset($_POST['sexe']) && isset($_POST['age']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['email']))) {
                   header('Location: joueur.php?action=inscription');
               }
+              // il faut check les données en plus du html
+              if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+                $messageErreur="Vous n'avez pas entré un e-mail valide !";
+                break;
+              }
               $data = array(
                 "pseudo" => $_POST["pseudo"],
                 "sexe" => $_POST["sexe"],
@@ -50,7 +55,20 @@ require_once MODEL_PATH."Joueur.php";
               }
 			        else if($_POST['pwd']==$_POST["pwd2"]){
                   $data['pwd'] = hash('sha256',$data['pwd'].Config::getSeed());
-                  $idUser = Joueur::insertion($data);
+                  $data['active'] = md5(uniqid(rand(),true));
+                  $active = $data['active'];
+                  $idJoueur = Joueur::insertion($data);
+                  //on créer l'email et on l'envoi
+                  $to = $_POST['email'];
+                  $subject = "Confirmation d'inscription à PFCLS";
+                  $body = nl2br("Merci de vous être inscrit sur notre site !\nPour activer votre compte, cliquez sur le lien suivant : ".URL.BASE."joueur.php?action=activation&key=$active \nL'équipe de PFCLS \n");
+                  $additionalheaders = "From: <".SITEEMAIL.">\r\n";
+                  $additionalheaders .= "Reply-To: $".SITEEMAIL."\r\n";
+                  $additionalheaders .= "MIME-Version: 1.0\r\n";
+                  $additionalheaders .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                  $additionalheaders .='Content-Transfer-Encoding: 8bit';
+                  mail($to, $subject, $body, $additionalheaders);
+
                   $vue="created";
                   $pagetitle="Inscription terminée !";
               }
@@ -62,6 +80,36 @@ require_once MODEL_PATH."Joueur.php";
             else{
               header('Location: .');
             }
+        break;
+
+        case "activation":
+        if(!estConnecte()){
+          $active = trim($_GET['key']);
+          if(!empty($active)){
+            $data = array(
+              "active" => $active
+            );
+            $user = Joueur::selectWhere($data);
+            if($user != null) {
+              $data2 = array(
+                "idJoueur" => $user[0]->idJoueur,
+                "active" => "Oui"
+              );
+              Joueur::update($data2);
+              $vue="activated";
+              $pagetitle="Validation complétée avec succès !";
+            }
+            else {
+              $messageErreur="Votre compte est déjà activé ou ce lien est invalide !";
+            }
+          }
+          else {
+            header('Location:.');
+          }
+        }
+        else{
+          header('Location:.');
+        }
         break;
 
         /*
@@ -79,6 +127,7 @@ require_once MODEL_PATH."Joueur.php";
                 );
                 $user = Joueur::selectWhere($data);
                 if($user != null) {
+                  if($user[0]->active == "Oui") {
                     $data2 = array(
                       "idJoueur" => $user[0]->idJoueur,
                       "pseudo" => $user[0]->pseudo
@@ -87,6 +136,10 @@ require_once MODEL_PATH."Joueur.php";
                     if(isset($_POST['redirurl'])) $url = $_POST['redirurl'];
                     else $url = ".";
                     header("Location:$url");
+                  }
+                  else {
+                    $messageErreur="Votre compte n'est pas activé ! Vérifié vos e-mails et cliquez sur le lien d'activation !";
+                  }
                 }
                 else{
                     $messageErreur="Le pseudo ou le mot de passe est erroné !";
@@ -115,6 +168,140 @@ require_once MODEL_PATH."Joueur.php";
             else{
               header('Location: .');
             }
+        break;
+
+        case "recoverypwd":
+          if(!estConnecte()){
+            $vue="recovery";
+            $pagetitle="Récupération de mot de passe";
+            break;
+          }
+          else{
+            header('Location:.');
+          }
+        break;
+
+        case "recoveredpwd":
+          if(!estConnecte()){
+            if (!(isset($_POST['email']))){
+              header('Location:.');
+            }
+            else {
+              if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+                $messageErreur="Vous n'avez pas entré un e-mail valide !";
+              }
+              else {
+                $data = array(
+                  "email" => $_POST['email']
+                );
+                $user = Joueur::selectWhere($data);
+                if($user == null) {
+                  $messageErreur="L'email fournit n'existe pas dans la base données !";
+                }
+                else {
+                  $token = md5(uniqid(rand(),true));
+                  $data2 = array(
+                    "idJoueur" => $user[0]->idJoueur,
+                    "resetToken" => $token,
+                    "resetCompleted" => "Non"
+                  );
+                  Joueur::update($data2);
+                  //on créer l'email et on l'envoi
+                  $to = $_POST['email'];
+                  $subject = "Remise à zéro du mot de passe";
+                  $body = nl2br("Quelqu'un a demandé la remise à zéro de votre mot de passe.\nSi c'est une erreur, ignorez simplement cet e-mail et rien n'arrivera.\nPour reset votre mot de passe, cliquez sur le lien suivant : ".URL.BASE."joueur.php?action=reset&key=$token \nL'équipe de PFCLS\n");
+                  $additionalheaders = "From: <".SITEEMAIL.">\r\n";
+                  $additionalheaders .= "Reply-To: $".SITEEMAIL."\r\n";
+                  $additionalheaders .= "MIME-Version: 1.0\r\n";
+                  $additionalheaders .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                  $additionalheaders .='Content-Transfer-Encoding: 8bit';
+                  mail($to, $subject, $body, $additionalheaders);
+
+                  $vue="recovered";
+                  $pagetitle="Remise à zéro du mot de passe !";
+                }
+              }
+            }
+            break;
+          }
+          else{
+            header('Location:.');
+          }
+        break;
+
+        case "reset":
+          if(!estConnecte()){
+            $key = trim($_GET['key']);
+            if(!empty($key)){
+              $data = array(
+                "resetToken" => $key
+              );
+              $user = Joueur::selectWhere($data);
+              if($user != null) {
+                if($user[0]->resetCompleted == "Oui") {
+                  $messageErreur="Votre mot de passe a déjà été modifié !";
+                }
+                else {
+                  $vue="reset";
+                  $pagetitle="Choisir le nouveau mot de passe";
+                }
+              }
+              else {
+                $messageErreur="Votre compte est déjà activé ou ce lien est invalide !";
+              }
+            }
+            header('Location:.');
+          }
+          else{
+            header('Location:.');
+          }
+        break;
+
+        case "reseted":
+          if(!estConnecte()){
+            $key = trim($_POST['key']);
+            if(!empty($key)){
+              if (!(isset($_POST['pwd']) && isset($_POST['pwd2']))){
+                header('Location:.');
+                break;
+              }
+              else if($_POST['pwd']!=$_POST["pwd2"]){
+                $messageErreur="Vos mots de passe ne correpondent pas !";
+                break;
+              }
+              else {
+                $pwdcrypt = hash('sha256',$_POST["pwd"].Config::getSeed());
+              }
+              $data = array(
+                "resetToken" => $key
+              );
+              $user = Joueur::selectWhere($data);
+              if($user != null) {
+                if($user[0]->resetCompleted == "Oui") {
+                  $messageErreur="Votre mot de passe a déjà été changé !";
+                }
+                else {
+                  $data2 = array(
+                    "idJoueur" => $user[0]->idJoueur,
+                    "resetCompleted" => "Oui",
+                    "pwd" => $pwdcrypt
+                  );
+                  Joueur::update($data2);
+                  $vue="reseted";
+                  $pagetitle="Mot de passe reseted !";
+                }
+              }
+              else {
+                $messageErreur="Votre compte est déjà activé ou ce lien est invalide !";
+              }
+            }
+            else {
+              header('Location:.');
+            }
+          }
+          else{
+            header('Location:.');
+          }
         break;
 
         case "delete":
