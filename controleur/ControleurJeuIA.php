@@ -66,7 +66,10 @@ else if (isset($action)) {
             $idF1 = $coup->idFigure1;
             $idF2 = $coup->idFigure2;
             $idJG = $coup->idJoueurGagnant;
-            $nomJoueurGagnant = Joueur::getPseudo($idJG);
+            $data= array(
+              "idJoueur"=> $idJG
+            );
+            $nomJoueurGagnant = Joueur::select($data)->pseudo;
             if($idJG == $_SESSION['idJoueur']) {
               $message = "Vous remportez la manche !";
             }
@@ -108,7 +111,10 @@ else if (isset($action)) {
     if(estConnecte()){
         if(Partie::estTerminee($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],0)) {
           $idJoueurGagnant = Partie::getIDJoueurGagnant($_SESSION['idPartieEnCours']);
-          $nomJoueurGagnant = Joueur::getPseudo($idJoueurGagnant);
+          $data= array(
+            "idJoueur"=> $idJoueurGagnant
+          );
+          $nomJoueurGagnant = Joueur::select($data)->pseudo;
           if($idJoueurGagnant == $_SESSION['idJoueur']) {
             Joueur::updateNbVictoire($_SESSION['idJoueur']);
             Joueur::updateNbDefaite(0);

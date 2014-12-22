@@ -198,7 +198,10 @@ require_once MODEL_PATH."Jeu.php";
                         if($_SESSION['JoueurMaster'] == true) {
                           if(Partie::estTerminee($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],$_SESSION['idJoueurAdverse'])) {
                             $idJoueurGagnant = Partie::getIDJoueurGagnant($_SESSION['idPartieEnCours']);
-                            $nomJoueurGagnant = Joueur::getPseudo($idJoueurGagnant);
+                            $data= array(
+                              "idJoueur"=> $idJoueurGagnant
+                            );
+                            $nomJoueurGagnant = Joueur::select($data)->pseudo;
                             if($idJoueurGagnant == $_SESSION['idJoueur']) {
                               Joueur::updateNbVictoire($_SESSION['idJoueur']);
                               Joueur::updateNbDefaite($_SESSION['idJoueurAdverse']);
@@ -275,7 +278,10 @@ require_once MODEL_PATH."Jeu.php";
                     if($_SESSION['JoueurMaster'] == true) {
                       if(Partie::estTerminee($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],$_SESSION['idJoueurAdverse'])) {
                         $idJoueurGagnant = Partie::getIDJoueurGagnant($_SESSION['idPartieEnCours']);
-                        $nomJoueurGagnant = Joueur::getPseudo($idJoueurGagnant);
+                        $data= array(
+                          "idJoueur"=> $idJoueurGagnant
+                        );
+                        $nomJoueurGagnant = Joueur::select($data)->pseudo;
                         if($idJoueurGagnant == $_SESSION['idJoueur']) {
                           Joueur::updateNbVictoire($_SESSION['idJoueur']);
                           Joueur::updateNbDefaite($_SESSION['idJoueurAdverse']);
@@ -364,7 +370,10 @@ require_once MODEL_PATH."Jeu.php";
                       }
                     }
                     else {
-                      $nomJoueurGagnant = Joueur::getPseudo($idJoueurGagnant);
+                      $data= array(
+                        "idJoueur"=> $idJoueurGagnant
+                      );
+                      $nomJoueurGagnant = Joueur::select($data)->pseudo;
                       if($idJoueurGagnant == $_SESSION['idJoueur']) {
                         $messageFinal = "Vous remportez la partie !";
                       }
@@ -497,7 +506,10 @@ require_once MODEL_PATH."Jeu.php";
                               $idF1 = $coup->idFigure1;
                               $idF2 = $coup->idFigure2;
                               $idJG = $coup->idJoueurGagnant;
-                              $nomJoueurGagnant = Joueur::getPseudo($idJG);
+                              $data= array(
+                                "idJoueur"=> $idJG
+                              );
+                              $nomJoueurGagnant = Joueur::select($data)->pseudo;
                               if($idJG == $_SESSION['idJoueur']) {
                                 $message = "Vous remportez la manche !";
                               }
@@ -546,7 +558,10 @@ require_once MODEL_PATH."Jeu.php";
                               $idF2 = $coup->idFigure1; // on échange pour afficher notre figure
                               $idF1 = $coup->idFigure2; // en premier sur la vue
                               $idJG = $coup->idJoueurGagnant;
-                              $nomJoueurGagnant = Joueur::getPseudo($idJG);
+                              $data= array(
+                                "idJoueur"=> $idJG
+                              );
+                              $nomJoueurGagnant = Joueur::select($data)->pseudo;
                               if($idJG == $_SESSION['idJoueur']) {
                                 $message = "Vous remportez la manche !";
                               }
@@ -591,7 +606,10 @@ require_once MODEL_PATH."Jeu.php";
                               $idF1 = $coup->idFigure1;
                               $idF2 = $coup->idFigure2;
                               $idJG = $coup->idJoueurGagnant;
-                              $nomJoueurGagnant = Joueur::getPseudo($idJG);
+                              $data= array(
+                                "idJoueur"=> $idJG
+                              );
+                              $nomJoueurGagnant = Joueur::select($data)->pseudo;
                               if($idJG == $_SESSION['idJoueur']) {
                                 $message = "Vous remportez la manche !";
                               }
@@ -639,7 +657,10 @@ require_once MODEL_PATH."Jeu.php";
                               $idF2 = $coup->idFigure1; // on échange pour afficher notre figure
                               $idF1 = $coup->idFigure2; // en premier sur la vue
                               $idJG = $coup->idJoueurGagnant;
-                              $nomJoueurGagnant = Joueur::getPseudo($idJG);
+                              $data= array(
+                                "idJoueur"=> $idJG
+                              );
+                              $nomJoueurGagnant = Joueur::select($data)->pseudo;
                               if($idJG == $_SESSION['idJoueur']) {
                                 $message = "Vous remportez la manche !";
                               }
