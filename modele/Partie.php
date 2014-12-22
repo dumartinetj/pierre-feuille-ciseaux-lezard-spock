@@ -44,61 +44,6 @@ class Partie extends Modele {
         }
     }
 
-    public static function getIDJoueurGagnant($idP) {
-        try {
-            $req = self::$pdo->prepare('SELECT idJoueurGagnant FROM pfcls_Parties WHERE idPartie ='.$idP);
-            $req->execute();
-            if ($req->rowCount() != 0) {
-                $data_recup = $req->fetch(PDO::FETCH_OBJ);
-                  return $data_recup->idJoueurGagnant;
-            }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            $messageErreur="Erreur lors de la récupération de l'ID du joueur gagnant de la partie dans la base de données";
-        }
-    }
-
-    public static function setIDJoueurGagnant($data) {
-     try {
-         $req = self::$pdo->prepare('UPDATE pfcls_Parties SET idJoueurGagnant=:idJoueurGagnant WHERE idPartie=:idPartie');
-         $req->execute($data);
-     } catch (PDOException $e) {
-         echo $e->getMessage();
-         $messageErreur="Erreur lors de la MAJ de l'idJoueurGagnant de la partie dans la base de données";
-     }
-         }
-
-    public static function ajouterPartie($data) {
-        try {
-            $req = self::$pdo->prepare('INSERT INTO pfcls_Parties (nbManche, idJoueur1, idJoueur2) VALUES (:nbManche, :idJoueur1, :idJoueur2) ');
-            $req->execute($data);
-            return self::$pdo->lastInsertId(); //retourne le dernier id insérer dans la BDD sur cette session
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            $messageErreur="Erreur lors de l'insertion de la partie dans la base de données";
-        }
-    }
-
-    public static function deletePartie($data) {
-        try {
-            $req = self::$pdo->prepare('DELETE FROM pfcls_Parties WHERE idPartie=:idPartie');
-            $req->execute($data);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            $messageErreur="Erreur lors de la suppression de la partie dans la base de données";
-        }
-    }
-
-	public static function ajoutListeManche($data) {
-   try {
-       $req = self::$pdo->prepare('UPDATE pfcls_Parties SET listeManches=:listeManches WHERE idPartie=:idPartie');
-       $req->execute($data);
-   } catch (PDOException $e) {
-       echo $e->getMessage();
-       $messageErreur="Erreur lors de l'insertion du coup dans la liste de manches de la partie dans la base de données";
-   }
-       }
-
    public static function updateListeManche($data) {
        try {
            $req = self::$pdo->prepare("UPDATE pfcls_Parties SET listeManches = CONCAT(listeManches,',','".$data['listeManches']."') WHERE idPartie=".$data['idPartie']);
@@ -109,39 +54,14 @@ class Partie extends Modele {
        }
    }
 
-   public static function getListeManches($idP) {
-       try {
-           $req = self::$pdo->prepare('SELECT listeManches FROM pfcls_Parties WHERE idPartie='.$idP);
-           $req->execute();
-           if ($req->rowCount() != 0) {
-                $data_recup = $req->fetch(PDO::FETCH_OBJ);
-                $listeManches = explode(",",$data_recup->listeManches);
-                return $listeManches;
-            }
-       } catch (PDOException $e) {
-           echo $e->getMessage();
-           $messageErreur="Erreur lors de récupération de la liste des manches de la partie dans la base de données";
-       }
-   }
-
-   public static function getNbManches($idP) {
-       try {
-           $req = self::$pdo->prepare('SELECT nbManche FROM pfcls_Parties WHERE idPartie='.$idP);
-           $req->execute();
-           if ($req->rowCount() != 0) {
-                $data_recup = $req->fetch(PDO::FETCH_OBJ);
-                return $data_recup->nbManche;
-            }
-       } catch (PDOException $e) {
-           echo $e->getMessage();
-           $messageErreur="Erreur lors de récupération du nombre de manches de la partie dans la base de données";
-       }
-   }
-
    public static function estTerminee($idP, $idJ, $idJA) {
        $nbVictoireJ1 = 0;
        $nbVictoireJ2 = 0;
-       $listeManches = static::getListeManches($idP);
+       $dataLM = array(
+         "idPartie"=> $idP
+       );
+       $liste = self::select($dataLM)->listeManches;
+       $listeManches = explode(",",$liste);
        if (is_null($listeManches)) return true;
        foreach($listeManches as $manche){
          $data = array(
@@ -155,14 +75,17 @@ class Partie extends Modele {
            $nbVictoireJ2++;
          }
        }
-       $nbMancheMini=static::getNbManches($idP);
+       $dataNM = array(
+         "idPartie"=> $idP
+       );
+       $nbMancheMini = self::select($dataNM)->nbManche;
        $nbMancheMini = $nbMancheMini/2;
        if(($nbVictoireJ1>$nbVictoireJ2)and($nbVictoireJ1>$nbMancheMini)){
          $data = array(
              "idPartie" => $idP,
              "idJoueurGagnant" => $idJ
          );
-         Partie::setIDJoueurGagnant($data);
+         Partie::update($data);
          return true;
        }
        elseif (($nbVictoireJ1<$nbVictoireJ2)and($nbVictoireJ2>$nbMancheMini)) {
@@ -170,7 +93,7 @@ class Partie extends Modele {
              "idPartie" => $idP,
              "idJoueurGagnant" => $idJA
          );
-         Partie::setIDJoueurGagnant($data);
+         Partie::update($data);
          return true;
        }
        return false;
@@ -179,7 +102,11 @@ class Partie extends Modele {
   public static function getResultat($idP, $idJ, $idJA) {
       $nbVictoireJ1 = 0;
       $nbVictoireJ2 = 0;
-      $listeManches = static::getListeManches($idP);
+      $dataLM = array(
+        "idPartie"=> $idP
+      );
+      $liste = self::select($dataLM)->listeManches;
+      $listeManches = explode(",",$liste);
       foreach($listeManches as $manche){
         $data = array(
           "idManche"=> $manche
@@ -206,7 +133,11 @@ class Partie extends Modele {
      */
      public static function parsageListeManches($idP) {
           $chaineListeManches = "";
-          $listeManches = static::getListeManches($idP);
+          $dataLM = array(
+            "idPartie"=> $idP
+          );
+          $liste = self::select($dataLM)->listeManches;
+          $listeManches = explode(",",$liste);
           foreach ($listeManches as $manche) {
                $chaineListeManches .= Manche::parsageListeCoups($manche);
           }

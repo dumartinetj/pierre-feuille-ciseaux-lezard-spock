@@ -20,7 +20,7 @@ else if (isset($action)) {
         "idJoueur2" => 0,
         "nbManche" => $_POST['nbManche']
       );
-      $_SESSION['idPartieEnCours'] = Partie::ajouterPartie($data2);
+      $_SESSION['idPartieEnCours'] = Partie::insertion($data2);
       $dataManche = array(
         "idPartie" => $_SESSION['idPartieEnCours']
       );
@@ -29,7 +29,7 @@ else if (isset($action)) {
         "listeManches" =>   $_SESSION['idMancheEnCours'],
         "idPartie" => $_SESSION['idPartieEnCours']
       );
-      Partie::ajoutListeManche($data5); // ajout la manche dans listeManches de la partie
+      Partie::update($data5); // ajout la manche dans listeManches de la partie
       $data3 = array(
         "idJoueur1" => $_SESSION['idJoueur'],
         "idJoueur2" => 0,
@@ -116,7 +116,10 @@ else if (isset($action)) {
     case "jouer":
     if(estConnecte()){
         if(Partie::estTerminee($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],0)) {
-          $idJoueurGagnant = Partie::getIDJoueurGagnant($_SESSION['idPartieEnCours']);
+          $data= array(
+            "idPartie"=> $_SESSION['idPartieEnCours']
+          );
+          $idJoueurGagnant = Partie::select($data)->idJoueurGagnant;
           $data= array(
             "idJoueur"=> $idJoueurGagnant
           );

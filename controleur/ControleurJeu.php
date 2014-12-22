@@ -67,7 +67,7 @@ require_once MODEL_PATH."Jeu.php";
                         Jeu::deleteAttente($_SESSION['idJoueur']);
                         Jeu::deleteAttente($_SESSION['idJoueurAdverse']);
                         $_SESSION['JoueurMaster'] = true;
-                        $_SESSION['idPartieEnCours'] = Partie::ajouterPartie($data2);
+                        $_SESSION['idPartieEnCours'] = Partie::insertion($data2);
                         $dataManche = array(
                           "idPartie" => $_SESSION['idPartieEnCours']
                         );
@@ -76,7 +76,7 @@ require_once MODEL_PATH."Jeu.php";
                             "listeManches" =>   $_SESSION['idMancheEnCours'],
                             "idPartie" => $_SESSION['idPartieEnCours']
                         );
-                        Partie::ajoutListeManche($data5); // ajout la manche dans listeManches de la partie
+                        Partie::update($data5); // ajout la manche dans listeManches de la partie
                         $data3 = array(
                             "idJoueur1" => $_SESSION['idJoueur'],
                             "idJoueur2" => $_SESSION['idJoueurAdverse'],
@@ -200,7 +200,10 @@ require_once MODEL_PATH."Jeu.php";
                         } // donc on est dans une partie
                         if($_SESSION['JoueurMaster'] == true) {
                           if(Partie::estTerminee($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],$_SESSION['idJoueurAdverse'])) {
-                            $idJoueurGagnant = Partie::getIDJoueurGagnant($_SESSION['idPartieEnCours']);
+                            $data= array(
+                              "idPartie"=> $_SESSION['idPartieEnCours']
+                            );
+                            $idJoueurGagnant = Partie::select($data)->idJoueurGagnant;
                             $data= array(
                               "idJoueur"=> $idJoueurGagnant
                             );
@@ -283,7 +286,10 @@ require_once MODEL_PATH."Jeu.php";
                   } // donc on est dans une partie
                     if($_SESSION['JoueurMaster'] == true) {
                       if(Partie::estTerminee($_SESSION['idPartieEnCours'],$_SESSION['idJoueur'],$_SESSION['idJoueurAdverse'])) {
-                        $idJoueurGagnant = Partie::getIDJoueurGagnant($_SESSION['idPartieEnCours']);
+                        $data= array(
+                          "idPartie"=> $_SESSION['idPartieEnCours']
+                        );
+                        $idJoueurGagnant = Partie::select($data)->idJoueurGagnant;
                         $data= array(
                           "idJoueur"=> $idJoueurGagnant
                         );
@@ -342,7 +348,10 @@ require_once MODEL_PATH."Jeu.php";
                       }
                     }
                     else {
-                    $idJoueurGagnant = Partie::getIDJoueurGagnant($_SESSION['idPartieEnCours']);
+                      $data= array(
+                        "idPartie"=> $_SESSION['idPartieEnCours']
+                      );
+                      $idJoueurGagnant = Partie::select($data)->idJoueurGagnant;
                     if ($idJoueurGagnant == NULL) {
                       $dataAnnul = array(
                           "idJoueur1" => $_SESSION['idJoueur'],
@@ -413,7 +422,7 @@ require_once MODEL_PATH."Jeu.php";
                       $data = array(
                           "idPartie" => $_SESSION['idPartieEnCours']
                       );
-                      Partie::deletePartie($data);
+                      Partie::suppression($data);
                       unset($_SESSION['idJoueurAdverse']);
                       unset($_SESSION['idPartieEnCours']);
                       unset($_SESSION['idMancheEnCours']); // si elle existe pas, rien ne sera fait
