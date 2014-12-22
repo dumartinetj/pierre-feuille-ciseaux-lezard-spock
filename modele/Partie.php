@@ -8,6 +8,9 @@ require_once 'Manche.php';
 
 class Partie extends Modele {
 
+  protected static $table = "pfcls_Parties";
+  protected static $primary_index = "idPartie";
+
     public static function getIDAdversaire($data) {
         try {
             $req = self::$pdo->prepare('SELECT idJoueur1, idJoueur2 FROM pfcls_Parties WHERE idJoueurGagnant IS NULL AND (idJoueur1 = :idJoueur1 OR idJoueur2 = :idJoueur2)');
@@ -141,7 +144,10 @@ class Partie extends Modele {
        $listeManches = static::getListeManches($idP);
        if (is_null($listeManches)) return true;
        foreach($listeManches as $manche){
-         $jgm = Manche::getIDJoueurGagnant($manche);
+         $data = array(
+           "idManche"=> $manche
+         );
+         $jgm = Manche::select($data)->idJoueurGagnant;
          if($jgm==$idJ){
            $nbVictoireJ1++;
          }
@@ -175,7 +181,10 @@ class Partie extends Modele {
       $nbVictoireJ2 = 0;
       $listeManches = static::getListeManches($idP);
       foreach($listeManches as $manche){
-        $jgm = Manche::getIDJoueurGagnant($manche);
+        $data = array(
+          "idManche"=> $manche
+        );
+        $jgm = Manche::select($data)->idJoueurGagnant;
         if($jgm==$idJ){
           $nbVictoireJ1++;
         }

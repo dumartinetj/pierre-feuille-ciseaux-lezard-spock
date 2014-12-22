@@ -21,7 +21,10 @@ else if (isset($action)) {
         "nbManche" => $_POST['nbManche']
       );
       $_SESSION['idPartieEnCours'] = Partie::ajouterPartie($data2);
-      $_SESSION['idMancheEnCours'] = Manche::ajoutManche($_SESSION['idPartieEnCours']);
+      $dataManche = array(
+        "idPartie" => $_SESSION['idPartieEnCours']
+      );
+      $_SESSION['idMancheEnCours'] = Manche::insertion($dataManche);
       $data5 = array(
         "listeManches" =>   $_SESSION['idMancheEnCours'],
         "idPartie" => $_SESSION['idPartieEnCours']
@@ -37,7 +40,7 @@ else if (isset($action)) {
         "listeCoups" =>   $_SESSION['idCoupEnCours'],
         "idManche" => $_SESSION['idMancheEnCours']
       );
-      Manche::ajoutListeCoup($data4); // ajout le coup dans listeCoups de la manche
+      Manche::update($data4); // ajout le coup dans listeCoups de la manche
       $vue="choix";
       $pagetitle="Choisissez votre figure";
     }
@@ -83,7 +86,7 @@ else if (isset($action)) {
             "idManche" => $_SESSION['idMancheEnCours'],
             "idJoueurGagnant" => $idJG
             );
-            Manche::setGagnantManche($data5); // stocke le gagnant
+            $r = Manche::update($data5); // stocke le gagnant
             $vue="resulatCoup";
             $pagetitle="Résultat du coup !";
           }
@@ -146,7 +149,10 @@ else if (isset($action)) {
           $pagetitle="Partie terminée";
         }
         else {
-          $_SESSION['idMancheEnCours'] = Manche::ajoutManche($_SESSION['idPartieEnCours']);
+          $dataManche = array(
+            "idPartie" => $_SESSION['idPartieEnCours']
+          );
+          $_SESSION['idMancheEnCours'] = Manche::insertion($dataManche);
           $data5 = array(
             "listeManches" =>   $_SESSION['idMancheEnCours'],
             "idPartie" => $_SESSION['idPartieEnCours']
@@ -162,7 +168,7 @@ else if (isset($action)) {
             "listeCoups" =>   $_SESSION['idCoupEnCours'],
             "idManche" => $_SESSION['idMancheEnCours']
             );
-            Manche::ajoutListeCoup($data4);
+            Manche::update($data4);
             $vue="choix";
             $pagetitle="Choisissez votre figure";
           }
