@@ -40,7 +40,13 @@ require_once MODEL_PATH."Joueur.php";
                 "email" => $_POST["email"]
               );
 			        if($_POST['pwd']==$_POST["pwd2"]){
-                  Joueur::inscription($data);
+                if(!(Joueur::checkAlreadyExist($data))) {
+                    Joueur::inscription($data);
+                  }
+                  else {
+                    $messageErreur="Ce pseudo ou cet email est déjà utilisé !";
+                    break;
+                  }
               }
               else {
                   $messageErreur="Vous avez saisi deux mots de passe différents !";
@@ -182,7 +188,13 @@ require_once MODEL_PATH."Joueur.php";
               "email" => $_POST["email"]
             );
 			      if($_POST['pwd']==$_POST["pwd2"]){
+              if(!(Joueur::checkAlreadyExist($data))) {
                 Joueur::updateProfil($data);
+              }
+              else{
+                $messageErreur="Ce pseudo ou cet email déjà utilisé !";
+                break;
+              }
             }
             else {
                 $messageErreur="Vous avez saisi deux mots de passe différents !";

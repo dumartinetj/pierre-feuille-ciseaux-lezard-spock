@@ -47,7 +47,6 @@ class Joueur extends Modele {
 
 
     public static function inscription($data) {
-        if(!(Joueur::checkAlreadyExist($data))) {
             try {
                 $data['pwd'] = hash('sha256',$data['pwd'].Config::getSeed());
                 $req = self::$pdo->prepare('INSERT INTO pfcls_Joueurs (pseudo, sexe, age, pwd, email) VALUES (:pseudo, :sexe, :age, :pwd, :email) ');
@@ -56,10 +55,6 @@ class Joueur extends Modele {
                 echo $e->getMessage();
                 $messageErreur="Erreur lors de l'insertion dans la base de données pour inscription";
             }
-        }
-        else {
-            $messageErreur="Pseudo ou email déjà existant";
-        }
     }
 
     public static function checkAlreadyExist($data) {
@@ -91,7 +86,6 @@ class Joueur extends Modele {
     }
 
     public static function updateProfil($data) {
-        if(!(Joueur::checkAlreadyExist($data))) {
             try {
                 $data['pwd'] = hash('sha256',$data['pwd'].Config::getSeed());
                 $req = self::$pdo->prepare('UPDATE pfcls_Joueurs SET pseudo= :pseudo, age= :age, pwd= :pwd, email= :email WHERE idJoueur='.$_SESSION['idJoueur']);
@@ -100,10 +94,6 @@ class Joueur extends Modele {
                 echo $e->getMessage();
                 $messageErreur="Erreur lors de la mise à jour d'un joueur dans la base de données";
             }
-        }
-        else{
-            $messageErreur="Pseudo ou email déjà utilisé !";
-        }
     }
 
     public static function deleteProfil() {
