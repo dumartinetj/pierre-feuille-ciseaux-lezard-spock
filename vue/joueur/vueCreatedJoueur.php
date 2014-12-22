@@ -1,2 +1,3 @@
-<h2 class="mainhead">Succès ! <br />
-<span>Un e-mail de confirmation d'inscription vous a été envoyé !</span></h2>
+<h2 class="mainhead"><span class="fa fa-angellist "></span> Succès !</h2>
+<hr>
+<p>Un e-mail de confirmation d'inscription vous a été envoyé ! <span class="fa fa-at"></span></p>

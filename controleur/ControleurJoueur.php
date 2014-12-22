@@ -37,7 +37,7 @@ require_once MODEL_PATH."Joueur.php";
                 $messageErreur="Vous n'avez pas entré un e-mail valide !";
                 break;
               }
-              if($_POST['age'] >= 1 && $_POST['age'] <= 100){
+              if($_POST['age'] < 1 || $_POST['age'] > 100){
                 $messageErreur="Vous n'avez pas saisi un âge valide !";
                 break;
               }
@@ -66,10 +66,9 @@ require_once MODEL_PATH."Joueur.php";
                   $to = $_POST['email'];
                   $subject = "Confirmation d'inscription à PFCLS";
                   $body = nl2br("Merci de vous être inscrit sur notre site !\nPour activer votre compte, cliquez sur le lien suivant : ".URL.BASE."joueur.php?action=activation&key=$active \nL'équipe de PFCLS \n");
-                  $additionalheaders = "From: <".SITEEMAIL.">\r\n";
-                  $additionalheaders .= "Reply-To: $".SITEEMAIL."\r\n";
-                  $additionalheaders .= "MIME-Version: 1.0\r\n";
-                  $additionalheaders .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                  $additionalheaders = "From: <".SITEEMAIL.">\n";
+                  $additionalheaders .= "Reply-To: $".SITEEMAIL."\n";
+                  $additionalheaders .='Content-Type: text/html; charset="UTF-8"'."\n";
                   $additionalheaders .='Content-Transfer-Encoding: 8bit';
                   mail($to, $subject, $body, $additionalheaders);
 
@@ -216,8 +215,7 @@ require_once MODEL_PATH."Joueur.php";
                   $body = nl2br("Quelqu'un a demandé la remise à zéro de votre mot de passe.\nSi c'est une erreur, ignorez simplement cet e-mail et rien n'arrivera.\nPour reset votre mot de passe, cliquez sur le lien suivant : ".URL.BASE."joueur.php?action=reset&key=$token \nL'équipe de PFCLS\n");
                   $additionalheaders = "From: <".SITEEMAIL.">\r\n";
                   $additionalheaders .= "Reply-To: $".SITEEMAIL."\r\n";
-                  $additionalheaders .= "MIME-Version: 1.0\r\n";
-                  $additionalheaders .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                  $additionalheaders .='Content-Type: text/html; charset="UTF-8"'."\n";
                   $additionalheaders .='Content-Transfer-Encoding: 8bit';
                   mail($to, $subject, $body, $additionalheaders);
 
@@ -254,7 +252,9 @@ require_once MODEL_PATH."Joueur.php";
                 $messageErreur="Votre compte est déjà activé ou ce lien est invalide !";
               }
             }
-            header('Location:.');
+            else {
+              header('Location:.');
+            }
           }
           else{
             header('Location:.');

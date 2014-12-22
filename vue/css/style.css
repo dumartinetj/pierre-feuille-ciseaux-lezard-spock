@@ -199,6 +199,6 @@ input[type="radio"]:checked + label .fa-circle-o {
   display: none;
 }
 
-input[type="image"]{
+.choixjeu {
   font-size:8em;
 }

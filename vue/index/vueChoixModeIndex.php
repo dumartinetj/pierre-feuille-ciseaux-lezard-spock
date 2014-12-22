@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-md-6">
     <form method="post" action="jouer.php">
-      <input type="image" alt="&#xf007;"/>
+      <input type='submit' class='btn choixjeu' value='&#xf007;'>
     </form>
     <div class="caption">
       <h3>Joueur humanoïde</h3>
@@ -11,7 +11,7 @@
   </div>
   <div class="col-md-6">
     <form method="post" action="jouerIA.php">
-      <input type="image" alt="&#xf121;"/>
+      <input type='submit' class='btn choixjeu' value='&#xf121;'>
     </form>
     <div class="caption">
       <h3>Intelligence Artificielle</h3>
