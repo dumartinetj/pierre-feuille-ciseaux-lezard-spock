@@ -198,3 +198,7 @@ input[type="checkbox"]:checked + label .fa-check {
 input[type="radio"]:checked + label .fa-circle-o {
   display: none;
 }
+
+input[type="image"]{
+  font-size:8em;
+}
