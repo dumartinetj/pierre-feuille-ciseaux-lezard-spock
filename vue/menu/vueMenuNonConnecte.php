@@ -6,7 +6,7 @@
       <input type="password" id="id_pwd" class="form-control" name="pwd" placeholder="Mot de passe" required/><br/>
       <input type="hidden" name="redirurl" value="<?php if(isset($_SERVER['HTTP_REFERER'])) echo $_SERVER['HTTP_REFERER']; ?>" />
       <input type="submit" class="btn btn-default" name="submit" value="&#xf205; Connexion"/><br/><br/>
-      <a href="joueur.php?action=recoverypwd"><small><span class="fa fa-question-circle"></span> Mot de passe oublié ?</smal></a><br/>
+      <a href="joueur.php?action=recoverypwd"><small><span class="fa fa-question-circle"></span> Mot de passe oublié ?</small></a><br/>
     </form>
   </div>
 </li>

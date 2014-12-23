@@ -48,7 +48,7 @@
                 break;
             }
             else {
-                header('Location: .');
+              $messageErreur="Vous n'êtes pas connecté, vous ne pouvez pas jouer !";
             }
         break;
 

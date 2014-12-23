@@ -1,4 +1,4 @@
-<h1 id="mainhead"><span class="fa fa-users"></span> L'équipe</h1>
+<h2 id="mainhead"><span class="fa fa-users"></span> L'équipe</h2>
 <hr>
 <div class="row">
           <div class="col-md-1">
@@ -73,9 +73,9 @@
             </div>
           </div>
       </div>
-<h1 id="mainhead"><span class="fa fa-bar-chart"></span> Le projet</h1>
+<h2 id="mainhead"><span class="fa fa-bar-chart"></span> Le projet</h2>
 <hr>
   <div class="col-md-12">
-    <p> description du projet à réaliser en séparant le partie jeu et la partie IA   
+    <p> description du projet à réaliser en séparant le partie jeu et la partie IA
     </p>
   </div>
