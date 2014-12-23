@@ -42,6 +42,18 @@ class Joueur extends Modele {
             }
     }
 
+    public static function getRatio($nbv,$nbd){
+      $r = 0;
+      if($nbv==0 && $nbd!=0) $r = 0;
+      if($nbv!=0 && $nbd==0) {
+        $r = $nbv;
+      }
+      if($nbv!=0 && $nbd!=0) {
+        $r = $nbv/$nbd;
+      }
+      return $r;
+    }
+
 }
 
 ?>

@@ -349,22 +349,39 @@ require_once MODEL_PATH."Joueur.php";
                   "idJoueur"=>$_SESSION['idJoueur']
                 );
                 $joueur = Joueur::select($data);
-                $p = $joueur->pseudo;
                 $a = $joueur->age;
                 $s = $joueur->sexe;
                 $e = $joueur->email;
                 $nbv = $joueur->nbV;
                 $nbd = $joueur->nbD;
-                $r = 0;
-				        if($nbv==0 && $nbd!=0) $r = 0;
-				        if($nbv!=0 && $nbd==0) {
-					         $r = $nbv;
-					         $r = substr($r, 0, 4);
+                $r = Joueur::getRatio($nbv,$nbd);
+
+                $listeJoueurs = Joueur::selectAll();
+                $cl = 1;
+                $compteur = 0;
+                foreach ($listeJoueurs as $joueur) {
+                  $compteur += 1;
+                  if ($joueur->idJoueur != $_SESSION['idJoueur']) {
+                    $ratio = Joueur::getRatio($joueur->nbV,$joueur->nbD);
+                    if ($ratio >= $r) $cl += 1;
+                  }
                 }
-                if($nbv!=0 && $nbd!=0) {
-					         $r = $nbv/$nbd;
-					         $r = substr($r, 0, 4); // on coupe la chaine de caractère $r 2 chiffres après la virgule
-				        }
+
+                $progressbar = 100-intval(($cl*100)/$compteur);
+
+                if ($progressbar <= 20) $couleurpb = " progress-bar-danger";
+                else if (20 < $progressbar && $progressbar <= 40) $couleurpb = " progress-bar-warning";
+                else if (40 < $progressbar && $progressbar <= 60) $couleurpb = "";
+                else if (60 < $progressbar && $progressbar <= 80) $couleurpb = " progress-bar-info";
+                else $couleurpb = " progress-bar-success";
+
+                if ($s == "H") $s = "";
+                else $s = "fe";
+
+                if ($cl == 1) $eme = "er";
+                else $eme = "ème";
+
+                $r = substr($r, 0, 4); // on coupe la chaine de caractère $r 2 chiffres après la virgule
                 $vue="profil";
                 $pagetitle="Votre profil";
             }

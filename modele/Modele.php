@@ -76,6 +76,17 @@ class Modele {
       }
     }
 
+    public static function selectAll() {
+      try {
+        $sql = "SELECT * FROM " . static::$table;
+        $req = self::$pdo->query($sql);
+        return $req->fetchAll(PDO::FETCH_OBJ);
+      } catch (PDOException $e) {
+        echo $e->getMessage();
+        die("Erreur lors de la recherche de tous les objets de la BDD " . static::$table);
+      }
+    }
+
     public static function select($data) {
       try {
         $table = static::$table;

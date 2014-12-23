@@ -10,6 +10,7 @@
         <link href="<?= VIEW_PATH_BASE; ?>css/font-awesome.min.css" rel="stylesheet">
         <link href="<?= VIEW_PATH_BASE; ?>css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
         <link href="<?= VIEW_PATH_BASE; ?>css/strength-meter.min.css" rel="stylesheet">
+        <link href="<?= VIEW_PATH_BASE; ?>css/bootstrap-tabs-x.min.css" rel="stylesheet">
         <link href="<?= VIEW_PATH_BASE; ?>css/style.css" rel="stylesheet">
     </head>
     <body>
@@ -68,5 +69,6 @@
         <script src="<?= VIEW_PATH_BASE; ?>js/jquery.smartmenus.min.js"></script>
         <script type="text/javascript" src="<?= VIEW_PATH_BASE; ?>js/canvasjs.min.js"></script>
         <script type="text/javascript" src="<?= VIEW_PATH_BASE; ?>js/strength-meter.min.js"></script>
+        <script type="text/javascript" src="<?= VIEW_PATH_BASE; ?>js/bootstrap-tabs-x.min.js"></script>
     </body >
 </html >
