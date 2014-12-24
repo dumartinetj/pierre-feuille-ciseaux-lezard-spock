@@ -311,7 +311,7 @@ require_once MODEL_PATH."Joueur.php";
         case "delete":
             if(estConnecte()){
                 $vue="delete";
-                $pagetitle="Confirmation suppression de votre profil";
+                $pagetitle="Confirmation suppression de votre compte";
             }
             else{
               header('Location: .');
