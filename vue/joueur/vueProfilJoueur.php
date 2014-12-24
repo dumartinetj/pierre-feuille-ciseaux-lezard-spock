@@ -12,10 +12,9 @@
               <h2><?php echo $_SESSION['pseudo']; ?></h2>
               <h3><i class="fa fa-<?php echo $s; ?>male"></i> | <?php echo $a; ?> ans</h3>
               <h3><i class="fa fa-envelope"></i> <?php echo $e; ?></h3>
-              <hr>
-              <h3>Classement - <?php echo $cl; ?><sup><?php echo $eme; ?></sup></h3>
+              <h3>Classement - <?php echo $cl; ?><sup>></h3>
               <div class="progress">
-                <div class="progress-bar <?php echo $couleurpb; ?>" style="width: <?php echo $progressbar; ?>%;"></div>
+                <div class="progress-bar" style="width: 50%;"></div>
               </div>
               <div class="row">
                 <div class="col-md-12">

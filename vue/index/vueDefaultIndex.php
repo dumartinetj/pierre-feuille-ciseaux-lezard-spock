@@ -4,7 +4,7 @@
 			<p></p>
 			<h3>PFCLS est une interface web permettant de jouer au jeu Pierre Feuille Ciseaux Lézard Spock !</h3>
 			<p></p>
-			<a href="index.php?action=choixmode" class="btn btn-default">Commencer une partie !</a>
+			<a href="joueur.php?action=inscription" class="btn btn-default">S'inscrire !</a>
 			<p></p>
 		</div>
 		<div class="col-md-7">
