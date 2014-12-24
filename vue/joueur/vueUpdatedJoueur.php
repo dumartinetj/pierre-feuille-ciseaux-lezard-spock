@@ -1,3 +1,4 @@
-<h1 id="mainhead"> Profil mis à jour </h1>
-<p> Votre profil a bien été mis à jour ! </p>
-<a href="joueur.php?action=profil">Revenir à votre profil</a>
+<h2 class="mainhead"><span class="fa fa-angellist "></span> Succès !</h2>
+<hr>
+<p> Votre profil a bien été mis à jour !<br/>
+<a href="joueur.php?action=profil">Retour au profil</a></p>

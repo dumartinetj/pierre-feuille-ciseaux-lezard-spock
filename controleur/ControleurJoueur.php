@@ -424,6 +424,8 @@ require_once MODEL_PATH."Joueur.php";
                 $a = $joueur->age;
                 $s = $joueur->sexe;
                 $e = $joueur->email;
+                if ($s == "H") $s = "";
+                else $s = "fe";
                 $vue="update";
                 $pagetitle="Mise à jour de votre profil";
                 break;
