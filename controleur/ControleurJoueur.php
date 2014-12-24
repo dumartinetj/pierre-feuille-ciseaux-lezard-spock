@@ -348,6 +348,9 @@ require_once MODEL_PATH."Joueur.php";
                 $data= array(
                   "idJoueur"=>$_SESSION['idJoueur']
                 );
+
+                //profil
+
                 $joueur = Joueur::select($data);
                 $a = $joueur->age;
                 $s = $joueur->sexe;
@@ -382,6 +385,27 @@ require_once MODEL_PATH."Joueur.php";
                 else $eme = "ème";
 
                 $r = substr($r, 0, 4); // on coupe la chaine de caractère $r 2 chiffres après la virgule
+
+                //historique
+
+                $listeParties = Joueur::getHistorique($_SESSION['idJoueur']);
+                $tableauVue = '<div class="table-responsive"><table class="table table-bordered table-hover"><thead>
+                <tr><th> Adversaire </th><th> Gagnant </th><th> Score </th></tr></thead><tbody>';
+                foreach ($listeParties as $partie) {
+                  if ($partie->idJoueur1 == $_SESSION['idJoueur']) $idJoueurAdverse = $partie->idJoueur2;
+                  else $idJoueurAdverse = $partie->idJoueur1;
+                  $data = array(
+                      "idJoueur"=> $idJoueurAdverse
+                  );
+                  $tableauVue .= '<tr><td>'.Joueur::select($data)->pseudo.'</td>';
+                  $data2 = array(
+                    "idJoueur"=> $partie->idJoueurGagnant
+                  );
+                  $tableauVue .= '<td>'.Joueur::select($data2)->pseudo.'</td>';
+                  $resultat = Partie::getResultat($partie->idPartie,$_SESSION['idJoueur'],$idJoueurAdverse);
+                  $tableauVue .= '<td>'.$resultat['nbVictoireJ1'].'-'.$resultat['nbVictoireJ2'].'</td></tr>';
+                }
+                $tableauVue .= '</tbody></table></div>';
                 $vue="profil";
                 $pagetitle="Votre profil";
             }

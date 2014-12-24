@@ -202,3 +202,7 @@ input[type="radio"]:checked + label .fa-circle-o {
 .choixjeu {
   font-size:8em;
 }
+
+.table th {
+  text-align: center;
+}

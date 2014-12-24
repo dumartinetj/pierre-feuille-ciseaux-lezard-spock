@@ -54,6 +54,17 @@ class Joueur extends Modele {
       return $r;
     }
 
+    public static function getHistorique($idJ) {
+      try {
+        $sql = 'SELECT * FROM pfcls_Parties WHERE idJoueur1='.$idJ.' OR idJoueur2='.$idJ.' ORDER BY idPartie DESC LIMIT 10';
+        $req = self::$pdo->query($sql);
+        return $req->fetchAll(PDO::FETCH_OBJ);
+      } catch (PDOException $e) {
+        echo $e->getMessage();
+        $messageErreur="Erreur lors de la mise à jour du nb de défaite d'un joueur dans la base de données";
+      }
+    }
+
 }
 
 ?>

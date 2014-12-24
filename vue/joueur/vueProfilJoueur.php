@@ -30,7 +30,12 @@
           </div>
         </div>
         <div class="tab-pane fade" id="stats"><p>...</p></div>
-        <div class="tab-pane fade" id="historique"><p>...</p></div>
+        <div class="tab-pane fade" id="historique">
+          <h3>Dernières parties jouées</h3>
+            <?php if (empty($listeParties))  echo "<h4>Vous n'avez pas encore joué de partie !</h4>";
+              else  echo $tableauVue;
+            ?>
+        </div>
       </div>
     </div>
   </div>

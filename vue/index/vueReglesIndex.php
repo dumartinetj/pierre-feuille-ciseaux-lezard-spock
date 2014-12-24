@@ -32,6 +32,7 @@
   </div>
   <div class="col-md-12">
     <h3 class="featurette-heading">Ainsi qu'un tableau qui liste toutes les possibilités</h3>
+    <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -86,6 +87,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
   <h2 id="mainhead"><span class="fa fa-question-circle"></span> Comment jouer ?</h2>
   <hr>
