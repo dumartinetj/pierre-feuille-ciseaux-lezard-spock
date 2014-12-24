@@ -65,6 +65,17 @@ class Joueur extends Modele {
       }
     }
 
+    public static function getClassement() {
+      $listeJoueurs = Joueur::selectAll();
+      $tableau = array();
+      foreach ($listeJoueurs as $joueur) {
+          $ratio = Joueur::getRatio($joueur->nbV,$joueur->nbD);
+          $tableau[$joueur->pseudo] = $ratio;
+      }
+      arsort($tableau);
+      return $tableau;
+    }
+
 }
 
 ?>

@@ -15,13 +15,30 @@
         case "regles":
                 $vue="regles";
                 $pagetitle="Règles du jeu";
-                break;
         break;
 
         case "apropos":
                 $vue="apropos";
                 $pagetitle="À propos";
-                break;
+        break;
+
+        case "classement":
+          $tableau = Joueur::getClassement();
+
+          $tableauVue = '<div class="table-responsive"><table class="table table-bordered table-hover"><thead>
+          <tr><th> Classement </th><th> Pseudo </th><th> Ratio </th></tr></thead><tbody>';
+          $compteur = 1;
+          foreach ($tableau as $pseudo=>$ratio) {
+            $tableauVue .= '<tr';
+            if ($compteur == 1) $tableauVue .= ' style ="background-color: #FDD017;"';
+            else if ($compteur == 2) $tableauVue .= ' style ="background-color: #C0C0C0;"';
+            else if ($compteur == 3) $tableauVue .= ' style ="background-color: #B87333;"';
+            $tableauVue .= '><td>'.$compteur.'</td><td>'.$pseudo.'</td><td>'.$ratio.'</td></tr>';
+            $compteur += 1;
+          }
+          $tableauVue .= '</tbody></table></div>';
+          $vue="classement";
+          $pagetitle="Classement";
         break;
 
         case "choixmode":
