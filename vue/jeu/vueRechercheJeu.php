@@ -1,6 +1,6 @@
 <?php
   function vueListeAttente($listeJoueurs) {
-    if($listeJoueurs == null) echo "Aucun utilisateur n'est en attente d'un adversaire !";
+    if($listeJoueurs == null) echo "Aucun utilisateur n'est en attente d'un adversaire ! <span class='fa fa-frown-o'></span> ";
     else {
       foreach($listeJoueurs as $joueur) {
         $p = $joueur->pseudo;
@@ -34,22 +34,16 @@
 ?>
 
 <h2 id="mainhead">Recherche d'un adversaire à affronter !</h2>
+<span class="fa fa-user choixjeu"></span>
 <hr>
-  <h2>Liste des joueurs en attente d'un adversaire :</h2>
-    <div class="center-block">
-    <?php vueListeAttente($listeJoueurs); ?>
-    </div>
-<hr>
-<p>Choisissez le nombre de manches que vous voulez jouer !<br/>
-Pour connaître les règles du jeu et le déroulement d'une partie, rendez-vous sur la <a href="index.php?action=regles">page des règles du jeu</a></p>
-
+<p>Choisissez le nombre de manches que vous voulez jouer !</p>
 <div class="row">
   <div class="col-md-1">
   </div>
   <div class="col-md-2">
     <form method="post" action="jouer.php?action=rechercher">
       <input type="hidden" name="nbManche" id="id_nbManche" value="1">
-      <button type="submit" class="btn btn-info btn-lg">1</button>
+      <button type="submit" class="btn btn-info btn-lg">1 <span class="fa fa-smile-o fa-lg"></span></button>
     </form>
   </div>
   <div class="col-md-1">
@@ -57,7 +51,7 @@ Pour connaître les règles du jeu et le déroulement d'une partie, rendez-vous 
   <div class="col-md-2">
     <form method="post" action="jouer.php?action=rechercher">
       <input type="hidden" name="nbManche" id="id_nbManche" value="3">
-      <button type="submit" class="btn btn-success btn-lg">3</button>
+      <button type="submit" class="btn btn-success btn-lg">3 <span class="fa fa-star fa-lg"></span></button>
     </form>
   </div>
   <div class="col-md-1">
@@ -65,7 +59,7 @@ Pour connaître les règles du jeu et le déroulement d'une partie, rendez-vous 
   <div class="col-md-2">
     <form method="post" action="jouer.php?action=rechercher">
       <input type="hidden" name="nbManche" id="id_nbManche" value="5">
-      <button type="submit" class="btn btn-primary btn-lg">5</button>
+      <button type="submit" class="btn btn-primary btn-lg">5 <span class="fa fa-futbol-o fa-lg"></span></button>
     </form>
   </div>
   <div class="col-md-1">
@@ -73,7 +67,7 @@ Pour connaître les règles du jeu et le déroulement d'une partie, rendez-vous 
   <div class="col-md-2">
     <form method="post" action="jouer.php?action=rechercher">
       <input type="hidden" name="nbManche" id="id_nbManche" value="7">
-      <button type="submit" class="btn btn-warning btn-lg">7</button>
+      <button type="submit" class="btn btn-warning btn-lg">7 <span class="fa fa-bolt fa-lg"></span></button>
     </form>
   </div>
   <div class="col-md-1">
@@ -81,7 +75,13 @@ Pour connaître les règles du jeu et le déroulement d'une partie, rendez-vous 
   <div class="col-md-2">
     <form method="post" action="jouer.php?action=rechercher">
       <input type="hidden" name="nbManche" id="id_nbManche" value="9">
-      <button type="submit" class="btn btn-danger btn-lg">9</button>
+      <button type="submit" class="btn btn-danger btn-lg">9 <span class="fa fa-rocket fa-lg"></button>
     </form>
   </div>
 </div>
+<hr>
+<div class="center-block">
+  <?php vueListeAttente($listeJoueurs); ?>
+</div>
+<hr>
+<div class="alert alert-info">Pour connaître les règles du jeu et le déroulement d'une partie, rendez-vous sur la page des <a href="index.php?action=regles">règles du jeu</a></div>

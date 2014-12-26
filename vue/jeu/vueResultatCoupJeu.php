@@ -24,18 +24,17 @@
           <div class="col-md-2"></div>
 </div>
 <h1 id="mainhead"><?= $message ?></h1>
-<h5>Cette page s'actualisera automatiquement dans 5 secondes...</h5>
 <form name="jouer" id="jouer" action="jouer.php?action=jouer" method="POST">
 </form>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script> 
+<script>
 window.onload=function(){
     $("div.left").animate({
       left:'25%'
     });
 });
-</script> 
-<script> 
+</script>
+<script>
 window.onload=function(){
     $("div.right").animate({
       right:'25%'
@@ -46,7 +45,7 @@ window.onload=function(){
       opacity:'1'
     });
 });
-</script> 
+</script>
 <script type="text/javascript">
     window.onload=function(){
         var auto = setTimeout(function(){ autoRefresh(); }, 100);

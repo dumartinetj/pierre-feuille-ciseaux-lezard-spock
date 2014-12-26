@@ -1,4 +1,5 @@
 <h2 id="mainhead">Choix du nombre de manches à jouer contre l'IA</h2>
+<span class="fa fa-code choixjeu"></span>
 <hr>
   <div class="row">
     <div class="col-md-1">

@@ -22,8 +22,7 @@
           <div class="col-md-1"></div>
           <div class="col-md-2"></div>
 </div>
-<h1 id="mainhead"><?= $message ?></h1>
-<h5>Cette page s'actualisera automatiquement dans 5 secondes...</h5>
+<h2 id="mainhead"><?= $message ?></h2>
 <form name="jouer" id="jouer" action="<?php $_SERVER['PHP_SELF']; ?>?action=jouer" method="POST">
 </form>
 
