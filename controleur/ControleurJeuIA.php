@@ -37,7 +37,7 @@ else if (isset($action)) {
         "idManche" => $_SESSION['idMancheEnCours']
       );
       $_SESSION['idCoupEnCours'] = Coup::insertion($data3); 
-      $idPremierCoup= $_SESSION['idCoupEnCours'];
+      $_SESSION['idPremierCoup'] = $_SESSION['idCoupEnCours'];
       $data4 = array(
         "listeCoups" =>   $_SESSION['idCoupEnCours'],
         "idManche" => $_SESSION['idMancheEnCours']
@@ -63,7 +63,7 @@ else if (isset($action)) {
           'idJoueur'=>$_SESSION['idJoueur']
       );
       $dejaJoue=StatsPerso::selectWhere($dataDejaJoue);
-      if($idPremierCoup==$_SESSION['idCoupEnCours']){
+      if($_SESSION['idPremierCoup'] == $_SESSION['idCoupEnCours']){
             if($dejaJoue!=NULL){
                 $listeCoupsJoueur="";
                 foreach ($dejaJoue as $key => $value) {
