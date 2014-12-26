@@ -140,6 +140,7 @@ class Partie extends Modele {
           $listeManches = explode(",",$liste);
           foreach ($listeManches as $manche) {
                $chaineListeManches .= Manche::parsageListeCoups($manche);
+               $chaineListeManches .= ",";
           }
           $chaineListeManches=rtrim($chaineListeManches,",");
           return $chaineListeManches;
