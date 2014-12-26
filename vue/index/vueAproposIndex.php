@@ -1,8 +1,7 @@
 <h2 id="mainhead"><span class="fa fa-bar-chart"></span> Le projet</h2>
 <hr>
 <div class="col-md-12">
-  <p>Le jeu <em>Pierre Feuille Ciseaux Lézard Spock</em> est un jeu non-coopératif fondamental, opposant deux joueurs,
-    où il faut affronter son adversaire à l'aide de cinq « figures » que sont la pierre, la feuille,
+  <p>Le jeu <em>Pierre Feuille Ciseaux Lézard Spock</em> est un jeu non-coopératif fondamental, où deux joueurs s'affronte à l'aide de cinq « figures » que sont la pierre, la feuille,
     les ciseaux, le lézard et Spock et en suivant <a href="index.php?action=regles">quelques règles simples</a>.
   </p>
   <p>
