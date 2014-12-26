@@ -25,9 +25,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li <?php if (isset($vue)) if ($page=="index" && $vue=="regles") echo 'class="active"'; ?>><a href="index.php?action=regles"><span class="fa fa-file-text"></span> Règles du jeu</a></li>
-                    <li <?php if (isset($vue)) if ($page=="index" && $vue=="classement") echo 'class="active"'; ?>><a href="index.php?action=classement"><span class="fa fa-sort-amount-asc"></span> Classement</a></li>
-                    <li <?php if (isset($vue)) if ($page=="index" && $vue=="statistiques") echo 'class="active"'; ?>><a href="index.php?action=statistiques"><span class="fa fa-pie-chart"></span> Statistiques</a></li>
                     <?php if(estConnecte()) include_once VIEW_PATH.'menu'.DS.'vueMenuConnecte.php';
                     else include_once  VIEW_PATH.'menu'.DS.'vueMenuNonConnecte.php';
                     ?>
