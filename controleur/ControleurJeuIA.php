@@ -89,7 +89,6 @@ else if (isset($action)) {
                     'idFigure'=>$figuremax
                 );
                 $faiblesses=Figure::select($dataFaiblesses)->faiblesses;
-                var_dump($faiblesses);
                 $valeurs = explode(",",$faiblesses);
                 $faiblesserandom = array_rand($valeurs);
                 $choixFigure = $valeurs[$faiblesserandom];
