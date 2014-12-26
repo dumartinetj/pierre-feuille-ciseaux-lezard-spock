@@ -2,6 +2,7 @@
 
 require_once MODEL_PATH."JeuIA.php";
 require_once MODEL_PATH."Jeu.php";
+require_once MODEL_PATH."StatsPerso.php";
 
 if (empty($_GET)) {
   if(estConnecte()){
@@ -35,7 +36,8 @@ else if (isset($action)) {
         "idJoueur2" => 0,
         "idManche" => $_SESSION['idMancheEnCours']
       );
-      $_SESSION['idCoupEnCours'] = Coup::insertion($data3);
+      $_SESSION['idCoupEnCours'] = Coup::insertion($data3); 
+      $_SESSION['idPremierCoup'] = $_SESSION['idCoupEnCours'];
       $data4 = array(
         "listeCoups" =>   $_SESSION['idCoupEnCours'],
         "idManche" => $_SESSION['idMancheEnCours']
@@ -57,12 +59,56 @@ else if (isset($action)) {
           "idCoup" => $_SESSION['idCoupEnCours']
       );
       Coup::update($data);
-      $idFigureRand = mt_rand(1,5); //random pour le moment
-      $data2 = array(
-        "idFigure2" => $idFigureRand,
-        "idCoup" => $_SESSION['idCoupEnCours']
+      $dataDejaJoue = array(
+          'idJoueur'=>$_SESSION['idJoueur']
       );
-      Coup::update($data2);
+      $dejaJoue=StatsPerso::selectWhere($dataDejaJoue);
+      if($_SESSION['idPremierCoup'] == $_SESSION['idCoupEnCours']){
+            if($dejaJoue!=NULL){
+                $listeCoupsJoueur="";
+                foreach ($dejaJoue as $key => $value) {
+                    $listeCoupsJoueur .= str_replace(',', '', $value->listeCoups);
+                }
+                $figureCount = array(
+                    '1'=>substr_count($listeCoupsJoueur,'1',0,strlen($listeCoupsJoueur)),
+                    '2'=>substr_count($listeCoupsJoueur,'2',0,strlen($listeCoupsJoueur)),
+                    '3'=>substr_count($listeCoupsJoueur,'3',0,strlen($listeCoupsJoueur)),
+                    '4'=>substr_count($listeCoupsJoueur,'4',0,strlen($listeCoupsJoueur)),
+                    '5'=>substr_count($listeCoupsJoueur,'5',0,strlen($listeCoupsJoueur))
+                );
+                $nbOccumax=0;
+                $figuremax=0;
+                foreach($figureCount as $figure => $nbOccu){
+                    if($nbOccu>$nbOccumax){
+                        $nbOccumax=$nbOccu;
+                        $figuremax=$figure;
+                    }
+                }
+                $dataFaiblesses = array(
+                    'idFigure'=>$figuremax
+                );
+                $faiblesses=Figure::select($dataFaiblesses)->faiblesses;
+                $valeurs = explode(",",$faiblesses);
+                $faiblesserandom = array_rand($valeurs);
+                $choixFigure = $valeurs[$faiblesserandom];
+                $dataCas1 = array(
+                    "idFigure2" => $choixFigure,
+                    "idCoup" => $_SESSION['idCoupEnCours']
+                );
+                Coup::update($dataCas1);
+            }
+            else{
+                $idFigureRand = mt_rand(1,5);
+                $dataCas2 = array(
+                    "idFigure2" => $idFigureRand,
+                    "idCoup" => $_SESSION['idCoupEnCours']
+                );
+                Coup::update($dataCas2);
+            }
+      }
+      else{
+          
+      }
           if (!Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
             Coup::evaluer($_SESSION['idCoupEnCours']);
             $data= array(
