@@ -17,6 +17,11 @@
                 $pagetitle="Règles du jeu";
         break;
 
+        case "statistiques":
+          $vue="statistiques";
+          $pagetitle="Statistiques";
+        break;
+
         case "apropos":
                 $vue="apropos";
                 $pagetitle="À propos";
