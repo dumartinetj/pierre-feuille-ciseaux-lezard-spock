@@ -37,7 +37,7 @@ else if (isset($action)) {
         "idManche" => $_SESSION['idMancheEnCours']
       );
       $_SESSION['idCoupEnCours'] = Coup::insertion($data3); 
-      $_SESSION['idPremierCoup']= $_SESSION['idCoupEnCours'];
+      $idPremierCoup= $_SESSION['idCoupEnCours'];
       $data4 = array(
         "listeCoups" =>   $_SESSION['idCoupEnCours'],
         "idManche" => $_SESSION['idMancheEnCours']
@@ -63,14 +63,13 @@ else if (isset($action)) {
           'idJoueur'=>$_SESSION['idJoueur']
       );
       $dejaJoue=StatsPerso::selectWhere($dataDejaJoue);
-      if($_SESSION['idPremierCoup']==$_SESSION['idCoupEnCours']){ //Si c'est le premier coup de la partie
-            echo'C LE PREMIER COUP TAHVU';
-            if($dejaJoue!=NULL){ //Si il y'a déjà des données sur le joueur
+      if($idPremierCoup==$_SESSION['idCoupEnCours']){
+            if($dejaJoue!=NULL){
                 $listeCoupsJoueur="";
                 foreach ($dejaJoue as $key => $value) {
                     $listeCoupsJoueur .= str_replace(',', '', $value->listeCoups);
                 }
-                $figureCount = array( //Listes figures avec nb d'utilisations par le joueur
+                $figureCount = array(
                     '1'=>substr_count($listeCoupsJoueur,'1',0,strlen($listeCoupsJoueur)),
                     '2'=>substr_count($listeCoupsJoueur,'2',0,strlen($listeCoupsJoueur)),
                     '3'=>substr_count($listeCoupsJoueur,'3',0,strlen($listeCoupsJoueur)),
@@ -79,7 +78,7 @@ else if (isset($action)) {
                 );
                 $nbOccumax=0;
                 $figuremax=0;
-                foreach($figureCount as $figure => $nbOccu){ //On check quelle est la figure la plus utilisée.
+                foreach($figureCount as $figure => $nbOccu){
                     if($nbOccu>$nbOccumax){
                         $nbOccumax=$nbOccu;
                         $figuremax=$figure;
@@ -98,8 +97,8 @@ else if (isset($action)) {
                 );
                 Coup::update($dataCas1);
             }
-            else{ //Si le FDP a jamais joué
-                $idFigureRand = mt_rand(1,5); //random pour le moment
+            else{
+                $idFigureRand = mt_rand(1,5);
                 $dataCas2 = array(
                     "idFigure2" => $idFigureRand,
                     "idCoup" => $_SESSION['idCoupEnCours']
