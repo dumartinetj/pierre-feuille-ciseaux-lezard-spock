@@ -1,4 +1,4 @@
-<h1 id="mainhead">Quel sera votre choix ?</h1>
+<h2 id="mainhead">Quel sera votre choix ?</h2>
 <hr>
 <div class="row">
           <div class="col-md-1">

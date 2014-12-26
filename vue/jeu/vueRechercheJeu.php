@@ -33,7 +33,7 @@
 }
 ?>
 
-<h1 id="mainhead">Recherche d'un adversaire</h1>
+<h2 id="mainhead">Recherche d'un adversaire à affronter !</h2>
 <hr>
   <h2>Liste des joueurs en attente d'un adversaire :</h2>
     <div class="center-block">

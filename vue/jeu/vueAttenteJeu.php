@@ -1,7 +1,8 @@
-<img class="img-responsive center-block" src="<?= VIEW_PATH_BASE.'jeu/img/load.gif'?>">
-<h1 id="mainhead">Vous êtes actuellement en attente d'un adversaire !</h1>
-<h5>Cette page s'actualisera automatiquement toutes les 5 secondes...</h5>
-<a href="<?php $_SERVER['PHP_SELF']; ?>?action=annuler">Annuler votre recherche d'adversaire</a>
+<h2 id="mainhead">Vous êtes actuellement en attente d'un adversaire !</h2>
+<hr>
+<span class="fa fa-spinner fa-spin choixjeu"></span>
+<hr>
+<p><a href="<?php $_SERVER['PHP_SELF']; ?>?action=annuler" class="btn btn-xs btn-danger"><span class="fa fa-close"></span> Annuler votre recherche d'adversaire</a></p>
 <form name="waiting" id="waiting" action="<?php $_SERVER['PHP_SELF']; ?>?action=waiting" method="POST">
 </form>
 
