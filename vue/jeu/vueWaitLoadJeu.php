@@ -1,5 +1,7 @@
-<img class="img-responsive center-block" src="<?= VIEW_PATH_BASE.'jeu/img/load.gif'?>">
-<h1 id="mainhead">Préparation des données, veuillez patienter...</h1>
+<h2 id="mainhead">Préparation des données, veuillez patienter...</h2>
+<hr>
+<span class="fa fa-spinner fa-spin choixjeu"></span>
+<hr>
 <form name="waitingLoad" id="waitingLoad" action="jouer.php?action=waitingLoad" method="POST">
 </form>
 
