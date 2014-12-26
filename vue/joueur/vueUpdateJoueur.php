@@ -9,7 +9,7 @@
         <div class="input-group"><span class="input-group-addon"><i class="fa fa-calculator"></i></span><input type="number" class="form-control" value="<?php echo $a ?>" name="age" id="id_age" min="1" max="100" required/></div><br/>
         <div class="input-group"><span class="input-group-addon"><i class="fa fa-key"></i></span><input type="password" class="form-control strength" name="pwd" placeholder="Nouveau mot de passe" id="id_pwd" autocomplete="off"/></div><br/>
         <div class="input-group"><span class="input-group-addon"><i class="fa fa-envelope"></i></span><input type="email" class="form-control" value="<?php echo $e ?>" name="email" id="id_email" required/></div><br/>
-        <input type="submit" class="btn btn-default" value="&#xf021; Mettre à jour à jour" />
+        <input type="submit" class="btn btn-default" value="&#xf021; Mettre à jour" />
     </fieldset>
 </form>
 </div>
