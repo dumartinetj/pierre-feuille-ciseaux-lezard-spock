@@ -6,6 +6,7 @@
 
 require_once 'Modele.php';
 require_once 'Jeu.php';
+require_once 'StatsPerso.php';
 
 class Joueur extends Modele {
 
@@ -74,6 +75,26 @@ class Joueur extends Modele {
       }
       arsort($tableau);
       return $tableau;
+    }
+
+    public static function premierCoupStats($idJoueur) {
+      $data = array('idJoueur'=>$idJoueur);
+      $dejaJoue = StatsPerso::selectWhere($data);
+      if($dejaJoue == NULL) {
+        return array();
+      }
+      $listeCoupsJoueur="";
+      foreach ($dejaJoue as $key => $value) {
+        $listeCoupsJoueur .= str_replace(',', '', $value->listeCoups);
+      }
+      $figureCount = array(
+            '1'=>substr_count($listeCoupsJoueur,'1',0,strlen($listeCoupsJoueur)),
+            '2'=>substr_count($listeCoupsJoueur,'2',0,strlen($listeCoupsJoueur)),
+            '3'=>substr_count($listeCoupsJoueur,'3',0,strlen($listeCoupsJoueur)),
+            '4'=>substr_count($listeCoupsJoueur,'4',0,strlen($listeCoupsJoueur)),
+            '5'=>substr_count($listeCoupsJoueur,'5',0,strlen($listeCoupsJoueur))
+      );
+      return $figureCount;
     }
 
 }

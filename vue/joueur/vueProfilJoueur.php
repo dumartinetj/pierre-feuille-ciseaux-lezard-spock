@@ -29,7 +29,13 @@
             </div>
           </div>
         </div>
-        <div class="tab-pane fade" id="stats"><p>...</p></div>
+        <div class="tab-pane fade" id="stats">
+          <div class="row">
+            <div class="col-md-6">
+              <div id="premierCoup" style="height: 400px; width: 100%;"></div>
+            </div>
+          </div>
+        </div>
         <div class="tab-pane fade" id="historique">
           <h3>Dernières parties jouées</h3>
             <?php if (empty($listeParties))  echo "<h4>Vous n'avez pas encore joué de partie !</h4>";
@@ -40,14 +46,56 @@
     </div>
   </div>
         <script type="text/javascript">
-        var nbv = <?php echo $nbv ?>;
-        var nbd = <?php echo $nbd ?>;
-        if(nbv+nbd==0) {
-          document.getElementById("ratio").innerHTML = "Aucune données de jeu n'est disponible !";
-        }
-        else {
           window.onload = function () {
-            var chart = new CanvasJS.Chart("ratio",
+            var nbv = <?php echo $nbv ?>;
+            var nbd = <?php echo $nbd ?>;
+            if(nbv+nbd==0) {
+              document.getElementById("ratio").innerHTML = "Aucune données de jeu n'est disponible !";
+            }
+            else {
+              var chartRatio = new CanvasJS.Chart("ratio",
+              {
+                backgroundColor: "#eeeeee",
+                legend: {
+                  horizontalAlign: "center", // "center" , "right"
+                  verticalAlign: "bottom",  // "top" , "bottom"
+                  fontFamily: "Asap"
+                },
+                data: [
+                {
+                  type: "doughnut",
+                  showInLegend: true,
+                  startAngle:0,
+                  indexLabelFontSize: 25,
+                  indexLabelFontFamily: "Asap",
+                  indexLabelFontColor: "#eeeeee",
+                  indexLabelLineColor: "#eeeeee",
+                  indexLabelPlacement: "outside",
+                  indexLabelLineThickness: 0,
+                  toolTipContent: "{y} {label} - <strong>#percent%</strong>",
+                  indexLabel: "",
+                  dataPoints: [
+                  {  y: nbv, legendText:"Victoire(s)", label: "victoire(s)" },
+                  {  y: nbd, legendText:"Défaite(s)", label: "défaite(s)" }
+                  ]
+                }
+                ]
+              });
+              chartRatio.render();
+              chartRatio = {};
+          }
+          // nouveau chart
+          var compte = <?php echo $compte ?>;
+          if(compte==0) {
+            document.getElementById("premierCoup").innerHTML = "Aucune données de jeu n'est disponible !";
+          }
+          else {
+            var f1 = <?php echo $premierCoup['1']*100/$compte ?>;
+            var f2 = <?php echo $premierCoup['2']*100/$compte ?>;
+            var f3 = <?php echo $premierCoup['3']*100/$compte ?>;
+            var f4 = <?php echo $premierCoup['4']*100/$compte ?>;
+            var f5 = <?php echo $premierCoup['5']*100/$compte ?>;
+            var chartPremierCoup = new CanvasJS.Chart("premierCoup",
             {
               backgroundColor: "#eeeeee",
               legend: {
@@ -55,27 +103,38 @@
                 verticalAlign: "bottom",  // "top" , "bottom"
                 fontFamily: "Asap"
               },
+              title:{
+                text: "Premier coup joué"
+              },
+              axisY: {
+                title: "Pourcentage"
+              },
               data: [
               {
-                type: "doughnut",
-                showInLegend: true,
-                startAngle:0,
+                type: "column",
+                showInLegend: false,
                 indexLabelFontSize: 25,
                 indexLabelFontFamily: "Asap",
                 indexLabelFontColor: "#eeeeee",
                 indexLabelLineColor: "#eeeeee",
                 indexLabelPlacement: "outside",
-                indexLabelLineThickness: 0,
-                toolTipContent: "{y} {label} - <strong>#percent%</strong>",
+                //indexLabelLineThickness: 0,
+                toolTipContent: "{y}% de {label}",
+                valueFormatString: "0.00",
                 indexLabel: "",
                 dataPoints: [
-                {  y: nbv, legendText:"Victoire(s)", label: "victoire(s)" },
-                {  y: nbd, legendText:"Défaite(s)", label: "défaite(s)" }
+                {y: f1, label: "Pierre" },
+                {y: f2,  label: "Feuille" },
+                {y: f3,  label: "Ciseaux" },
+                {y: f4,  label: "Lézard" },
+                {y: f5,  label: "Spock" },
                 ]
               }
               ]
             });
-            chart.render();
+            chartPremierCoup.render();
+            chartPremierCoup = {};
+
           }
         }
         </script>

@@ -386,6 +386,15 @@ require_once MODEL_PATH."Joueur.php";
 
                 $r = substr($r, 0, 4); // on coupe la chaine de caractère $r 2 chiffres après la virgule
 
+                //statistiques
+
+                $premierCoup = Joueur::premierCoupStats($_SESSION['idJoueur']);
+
+                $compte = 0;
+                foreach($premierCoup as $numFi => $nb){
+                  $compte += $nb;
+                }
+                
                 //historique
 
                 $listeParties = Joueur::getHistorique($_SESSION['idJoueur']);
