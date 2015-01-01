@@ -398,10 +398,15 @@ require_once MODEL_PATH."Joueur.php";
                       "idJoueur"=> $idJoueurAdverse
                   );
                   $tableauVue .= '<tr><td>'.Joueur::select($data)->pseudo.'</td>';
-                  $data2 = array(
-                    "idJoueur"=> $partie->idJoueurGagnant
-                  );
-                  $tableauVue .= '<td>'.Joueur::select($data2)->pseudo.'</td>';
+                  if($partie->idJoueurGagnant == null) {
+                    $tableauVue .= '<td>Aucun (NULL)</td>';
+                  }
+                  else {
+                    $data2 = array(
+                      "idJoueur"=> $partie->idJoueurGagnant
+                    );
+                    $tableauVue .= '<td>'.Joueur::select($data2)->pseudo.'</td>';
+                  }
                   $resultat = Partie::getResultat($partie->idPartie,$_SESSION['idJoueur'],$idJoueurAdverse);
                   $tableauVue .= '<td>'.$resultat['nbVictoireJ1'].'-'.$resultat['nbVictoireJ2'].'</td></tr>';
                 }
