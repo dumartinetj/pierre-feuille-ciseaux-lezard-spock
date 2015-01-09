@@ -42,7 +42,7 @@ class JeuIA extends Modele{
 	
     public static function coupSuiv($array, $sequence){
         
-        $arrayValeurs();  // on va y mettre les séquences qui ont une valeur après la séquence que l'ont recherche
+        $arrayValeurs=array();  // on va y mettre les séquences qui ont une valeur après la séquence que l'ont recherche
         foreach($array as $value){
             $arrayValeurs = strstr($value,"$sequence",true); //ajoute les séquence qui contiennent la séquence recherché 
             //avec la séquence recherchée en début de chaine de caractère et la suite de la chaine. 
@@ -55,16 +55,12 @@ class JeuIA extends Modele{
             // les n premiers caractères sont déterminer par "1" (on ne veut que le coup jouer après la séquence).
         }
 		
-        return (occurence($arrayValeurs)); // renvoie le nombre d'occurence du caractère q
+        return (self::occurence($arrayValeurs)); // renvoie le nombre d'occurence du caractère q
     } 
 	
 	
     public static function occurence($arrayValeur){
-        $a;
-        $b;
-        $c;
-        $d;
-        $e;
+        $a = $b = $c = $d = $e = 0;
         foreach ($arrayValeur as $value){
             if ($value == "1"){
                 $a = $a+1;
