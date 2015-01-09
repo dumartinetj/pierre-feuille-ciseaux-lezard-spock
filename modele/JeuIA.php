@@ -9,9 +9,9 @@ class JeuIA extends Modele{
 	protected static $table = "pfcls_Parties_en_attente";
 	protected static $primary_index = "idPartie_en_attente";
 	
-	/*
-	public static function rechercheSequence($sequence){
-		if (estConnecte()){
+	
+	/*public static function recupSequence(){//permet de récup la séquence de coup en cour du joueur 
+		//if (estConnecte()){
 		    $data = array("listeCoups" => "%".$sequence."%");
 			try{
 			
@@ -22,17 +22,16 @@ class JeuIA extends Modele{
                 $messageErreur="Erreur lors de la récupération de la séquence";
             }
         
-            
-            string substr( string $string , int $start [, int $length ] ) // ça c'est pour récup 4 caractères
+		//}
             
             $resultat = $pdo->query($requete);
             $check=$resultat->fetch(PDO::FETCH_NUM);
              
-            //TO DO 
+            
             
     }
-	echo rechercheSequence($sequence);
 	*/
+	
 
     public static function reducSeq($sequence){
 		
@@ -41,10 +40,9 @@ class JeuIA extends Modele{
     }
 	
     public static function coupSuiv($array, $sequence){
-        
-        $arrayValeurs=array();  // on va y mettre les séquences qui ont une valeur après la séquence que l'ont recherche
+         // on va y mettre les séquences qui ont une valeur après la séquence que l'ont recherche
         foreach($array as $value){
-            $arrayValeurs = strstr($value,"$sequence",true); //ajoute les séquence qui contiennent la séquence recherché 
+            $arrayValeurs = array(strstr($value,"$sequence",true),); //ajoute les séquence qui contiennent la séquence recherché 
             //avec la séquence recherchée en début de chaine de caractère et la suite de la chaine. 
             //exemple: on cherche la séquence 123 dans la chaine 241312345 on obtiendra la chaine 12345 dans le tableau.
         }
