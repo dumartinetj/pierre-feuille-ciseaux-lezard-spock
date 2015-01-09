@@ -54,7 +54,7 @@
             <h2><span class="fa fa-graduation-cap"></span> <small>Étudiant</small></h2>
             Metal \m/, les Harley, séries, films, heroic fantasy<br/>
             <p>
-			        <a class="btn btn-default btn-xs" href="#" target="_blank" role="button"><span class="fa fa-user"></span> Site (en cours de développement)</a>
+			        <a class="btn btn-default btn-xs disabled" href="#" target="_blank" role="button"><span class="fa fa-user"></span> Site (en cours)</a>
               <a href="mailto:pierre.marais@hotmail.fr" target="_top" class="btn btn-info btn-xs"><span class="fa fa-envelope"></span> E-mail</a>
             </p>
             </div>
@@ -68,7 +68,7 @@
             <h2><span class="fa fa-graduation-cap"></span> <small>Étudiant</small></h2>
 			Littérature, Star Trek, les mystères de l'univers, nouvelle technologie et bricolage<br/>
             <p>
-              <a class="btn btn-default btn-xs" href="#" target="_blank" role="button"><span class="fa fa-user"></span> Site (en cours)</a>
+              <a class="btn btn-default btn-xs disabled" href="#" target="_blank" role="button"><span class="fa fa-user"></span> Site (en cours)</a>
               <a class="btn btn-info btn-xs" href="mailto:loic.forthoffer@wanadoo.fr" target="_top" role="button"><span class="fa fa-envelope"></span> E-mail</a>
             </p>
             </div>

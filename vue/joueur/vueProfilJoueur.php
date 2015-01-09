@@ -31,8 +31,8 @@
         </div>
         <div class="tab-pane fade" id="stats">
           <div class="row">
-            <div class="col-md-6">
-              <div id="premierCoup" style="height: 400px; width: 100%;"></div>
+            <div class="col-md-6 col-md-offset-3">
+              <div id="premiereFigure" style="height: 400px; width: 100%;"></div>
             </div>
           </div>
         </div>
@@ -87,7 +87,7 @@
           // nouveau chart
           var compte = <?php echo $compte ?>;
           if(compte==0) {
-            document.getElementById("premierCoup").innerHTML = "Aucune données de jeu n'est disponible !";
+            document.getElementById("premiereFigure").innerHTML = "Aucune données de jeu n'est disponible !";
           }
           else {
             var f1 = <?php echo $premierCoup['1']*100/$compte ?>;
@@ -95,7 +95,7 @@
             var f3 = <?php echo $premierCoup['3']*100/$compte ?>;
             var f4 = <?php echo $premierCoup['4']*100/$compte ?>;
             var f5 = <?php echo $premierCoup['5']*100/$compte ?>;
-            var chartPremierCoup = new CanvasJS.Chart("premierCoup",
+            var chartPremierCoup = new CanvasJS.Chart("premiereFigure",
             {
               backgroundColor: "#eeeeee",
               legend: {
@@ -104,7 +104,7 @@
                 fontFamily: "Asap"
               },
               title:{
-                text: "Premier coup joué"
+                text: "Première figure jouée"
               },
               axisY: {
                 title: "Pourcentage"
