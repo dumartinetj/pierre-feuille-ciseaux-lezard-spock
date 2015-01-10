@@ -53,14 +53,19 @@ class JeuIA extends Modele{
 			}
 			
         }
-        /*for($j=0;$j<count($arrayValeurs);$j++){
-            $arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($arrayValeurs[$j],strlen($sequence)+1)-1)));   //strlen(string) renvoie la longueur de string.
-            // substr renvoie les n premier caractère de $value en commençant par le caractère n°"strlen(string)" (dans "abcd" le n°0="a")
-            // donc on va aller chercher le caractère juste après la séquence
-            // les n premiers caractères sont déterminer par "1" (on ne veut que le coup jouer après la séquence).
-        }*/
+        for($j=0;$j<count($arrayValeurs);$j++){
+			if(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))>1){
+				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))-1));   //strlen(string) renvoie la longueur de string.
+				// substr renvoie les n premier caractère de $value en commençant par le caractère n°"strlen(string)" (dans "abcd" le n°0="a")
+				// donc on va aller chercher le caractère juste après la séquence
+				// les n premiers caractères sont déterminer par "1" (on ne veut que le coup jouer après la séquence).
+			}
+			else{
+				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1);
+			}
+        }
 		
-        return $arrayValeurs; // renvoie le nombre d'occurence du caractère q
+        return $arrayValeur; // renvoie le nombre d'occurence du caractère q
     } 
 	
 	

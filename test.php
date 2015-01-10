@@ -9,6 +9,7 @@
 	$sequence4 = "1,2,3,4";
 	$sequence5 = "1,2,4,5";
 	$sequence6 = "3,4,1,2,3,4,7";
+	
 	/*$arrayValeurs = array();
 	$arrayValeurs[] = strstr($sequence2, $sequence ,  $before_sequence = false);
 	$arrayValeurs[] = strstr($sequence5, $sequence ,  $before_sequence = false);
@@ -25,10 +26,9 @@
 	var_dump($array);
     $test2=JeuIA::coupSuiv($array , $sequence);
 	var_dump($test2);
-	for($i=0;$i<=count($test2);$i++){ 
-		echo $test2[$i]."\r";
-		break;
-	}
+	/*for($i=0;$i<=count($test2);$i++){ 
+			echo $test2[$i]."\r";
+	}*/
 	$test=JeuIA::reducSeq($sequence);
 	var_dump($test);
 	echo $test;
