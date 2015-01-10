@@ -39,29 +39,32 @@ class JeuIA extends Modele{
         
     }
 	
-    public static function coupSuiv($array, $sequence){
+    public static function coupSuiv(array $array, $sequence){
          // on va y mettre les séquences qui ont une valeur après la séquence que l'ont recherche
 		
-        foreach($array as $value){
-			
-            $arrayValeurs[] = strstr($value, $sequence ,  $before_sequence = false); //ajoute les séquence qui contiennent la séquence recherché 
+        for($i=0;$i<count($array);$i++){
+			if(strstr($array[$i], $sequence ,  $before_sequence = false)!=false){
+            $arrayValeurs[] = strstr($array[$i], $sequence ,  $before_sequence = false); //ajoute les séquence qui contiennent la séquence recherché 
             //avec la séquence recherchée en début de chaine de caractère et la suite de la chaine. 
             //exemple: on cherche la séquence 123 dans la chaine 241312345 on obtiendra la chaine 12345 dans le tableau.
+			}
+			else{
+				
+			}
 			
-			break;
         }
-        foreach($arrayValeurs as $value){
-            $value = substr($value,strlen($sequence),1);   //strlen(string) renvoie la longueur de string.
+        /*for($j=0;$j<count($arrayValeurs);$j++){
+            $arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($arrayValeurs[$j],strlen($sequence)+1)-1)));   //strlen(string) renvoie la longueur de string.
             // substr renvoie les n premier caractère de $value en commençant par le caractère n°"strlen(string)" (dans "abcd" le n°0="a")
             // donc on va aller chercher le caractère juste après la séquence
             // les n premiers caractères sont déterminer par "1" (on ne veut que le coup jouer après la séquence).
-        }
+        }*/
 		
-        return (self::occurence($arrayValeurs)); // renvoie le nombre d'occurence du caractère q
+        return $arrayValeurs; // renvoie le nombre d'occurence du caractère q
     } 
 	
 	
-    public static function occurence($arrayValeur){
+    public static function occurence(array $arrayValeur){
         $a = $b = $c = $d = $e = 0;
         foreach ($arrayValeur as $value){
             if ($value == "1"){
