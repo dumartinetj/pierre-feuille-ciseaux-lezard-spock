@@ -41,10 +41,14 @@ class JeuIA extends Modele{
 	
     public static function coupSuiv($array, $sequence){
          // on va y mettre les séquences qui ont une valeur après la séquence que l'ont recherche
+		
         foreach($array as $value){
-            $arrayValeurs = array(strstr($value,"$sequence",true),); //ajoute les séquence qui contiennent la séquence recherché 
+			
+            $arrayValeurs[] = strstr($value, $sequence ,  $before_sequence = false); //ajoute les séquence qui contiennent la séquence recherché 
             //avec la séquence recherchée en début de chaine de caractère et la suite de la chaine. 
             //exemple: on cherche la séquence 123 dans la chaine 241312345 on obtiendra la chaine 12345 dans le tableau.
+			
+			break;
         }
         foreach($arrayValeurs as $value){
             $value = substr($value,strlen($sequence),1);   //strlen(string) renvoie la longueur de string.
