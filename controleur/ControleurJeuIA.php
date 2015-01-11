@@ -37,7 +37,6 @@ else if (isset($action)) {
         "idManche" => $_SESSION['idMancheEnCours']
       );
       $_SESSION['idCoupEnCours'] = Coup::insertion($data3);
-      $_SESSION['idPremierCoup'] = $_SESSION['idCoupEnCours'];
       $data4 = array(
         "listeCoups" =>   $_SESSION['idCoupEnCours'],
         "idManche" => $_SESSION['idMancheEnCours']
@@ -54,21 +53,16 @@ else if (isset($action)) {
     case "eval":
         if(estConnecte()){
 
-          $data = array(
-              "idFigure1" => $_POST['idFigure'],
-              "idCoup" => $_SESSION['idCoupEnCours']
-          );
-          Coup::update($data);
           // algo de l'IA
-          if($_SESSION['idPremierCoup'] == $_SESSION['idCoupEnCours']){
+          if(!isset($_SESSION['sequenceCoups'])){
             $choixFigure = JeuIA::premierCoup($_SESSION['idJoueur']);
+            //on l'initialise
+            $_SESSION['sequenceCoups'] = "";
           }
           else{
             //pas premier coup on appelle la grosse fonction qui va renvoyer
             //l'id de la figure à jouer
-            //$choixFigure = JeuIA::grossefonction($param1,$param2);
-            //random pour le moment le temps que l'IA soit dev
-            $choixFigure = mt_rand(1,5);
+            $choixFigure = JeuIA::IA($_SESSION['idJoueur'],$_SESSION['sequenceCoups']);
           }
           //on enregistre le coup de l'IA
           $dataIA = array(
@@ -76,6 +70,17 @@ else if (isset($action)) {
             "idFigure2" => $choixFigure
           );
           Coup::update($dataIA);
+          //on enregistre le coup du joueur
+          $data = array(
+            "idFigure1" => $_POST['idFigure'],
+            "idCoup" => $_SESSION['idCoupEnCours']
+          );
+          Coup::update($data);
+          //et on stocke son coup dans la sequence
+          if(($_SESSION['sequenceCoups'])!=""){
+            $_SESSION['sequenceCoups'] .= ",";
+          }
+          $_SESSION['sequenceCoups'] .= $_POST['idFigure'];
           //evaluation du coup
           if (!Coup::estUnDraw($_SESSION['idCoupEnCours'])) {
             Coup::evaluer($_SESSION['idCoupEnCours']);
@@ -162,6 +167,7 @@ else if (isset($action)) {
           unset($_SESSION['idMancheEnCours']);
           unset($_SESSION['idCoupEnCours']);
           unset($_SESSION['JoueurMaster']);
+          unset($_SESSION['sequenceCoups']);
           $vue="resultatPartie";
           $pagetitle="Partie terminée";
         }
