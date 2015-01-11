@@ -42,6 +42,11 @@ else if (isset($action)) {
         "idManche" => $_SESSION['idMancheEnCours']
       );
       Manche::update($data4); // ajout le coup dans listeCoups de la manche
+      //on récup le sexe et l'age du monsieur en SESSION
+      $dataJoueur= array("idCoup" =>$_SESSION['idCoupEnCours']);
+      $joueur = Joueur::select($dataJoueur);
+      $_SESSION['sexe'] = $joueur->sexe;
+      $_SESSION['age'] = $joueur->age;
       $vue="choix";
       $pagetitle="Choisissez votre figure";
     }
