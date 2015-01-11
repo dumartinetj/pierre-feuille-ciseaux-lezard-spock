@@ -65,9 +65,8 @@ class JeuIA extends Modele{
 		$arrayValeur=array(1 => $a,$b,$c,$d,$e);
 		return array_search(max($arrayValeur),$arrayValeur);
 	}
-	
+
 	public static function figureAJouer($figure){
-	
 		$dataFaiblesses = array('idFigure'=>$figure);
 		$faiblesses=Figure::select($dataFaiblesses)->faiblesses;
 		$valeurs = explode(",",$faiblesses);
@@ -75,7 +74,7 @@ class JeuIA extends Modele{
 		$choixFigure = $valeurs[$faiblesserandom];
 		return $choixFigure;
 	}
-	
+
 	public static function coupSuiv(array $array, $sequence){
 		// on va y mettre les séquences qui ont une valeur après la séquence que l'ont recherche
 		for($i=0;$i<count($array);$i++){
@@ -89,7 +88,7 @@ class JeuIA extends Modele{
 		// maintenant on récupère uniquement le coup jouer après les séquences stocker dans $arrayValeurs
 		for($j=0;$j<count($arrayValeurs);$j++){
 			if(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))>1){
-				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))-1)); 
+				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))-1));
 			}
 			else{
 				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1);
@@ -98,27 +97,27 @@ class JeuIA extends Modele{
 		}
 		return JeuIA::figureAJouer(JeuIA::occurence($arrayValeur)); // renvoie le nombre d'occurence du caractère q
 	}
-	
-	
 
-	/*public static function recupSequence(){//permet de récup la séquence de coup en cour du joueur
-		//if (estConnecte()){
-		    $data = array("listeCoups" => "%".$sequence."%");
-			try{
-
-			 $req = self::$pdo->prepare('SELECT listeCoups FROM pfcls_statistiquespersonnelles WHERE listeCoups LIKE :listeCoups');
-			 $req -> execute($data);
-			} catch (PDOException $e) {
-                echo $e->getMessage();
-                $messageErreur="Erreur lors de la récupération de la séquence";
-            }
-
-		//}
-            $resultat = $pdo->query($requete);
-            $check=$resultat->fetch(PDO::FETCH_NUM);
+	public static function recupSequence($idJoueur,$sequence){
+		$data = array(
+			"listeCoups" => "%".$sequence."%",
+			"idJoueur" => $idJoueur
+		);
+		$donnees = array();
+		try{
+			$req = self::$pdo->prepare('SELECT listeCoups FROM pfcls_statistiquespersonnelles WHERE idJoueur = :idJoueur AND listeCoups LIKE :listeCoups');
+			$req->execute($data);
+			while ($ligne = $req->fetch()) {
+				array_push($donnees, $ligne['listeCoups']);
+			}
+			return $donnees;
+		} catch (PDOException $e) {
+       echo $e->getMessage();
+       $messageErreur="Erreur lors de la récupération de la séquence 1";
+      }
+            //$resultat = $pdo->query($requete);
+            //$check=$resultat->fetch(PDO::FETCH_NUM);
     }
-	*/
-
 
 }
 
