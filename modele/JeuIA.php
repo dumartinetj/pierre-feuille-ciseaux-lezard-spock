@@ -84,7 +84,7 @@ class JeuIA extends Modele{
         }
         for($j=0;$j<count($arrayValeurs);$j++){
 			if(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))>1){
-				$arrayValeur = array();
+				
 				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))-1));   //strlen(string) renvoie la longueur de string.
 				// substr renvoie les n premier caractère de $value en commençant par le caractère n°"strlen(string)" (dans "abcd" le n°0="a")
 				// donc on va aller chercher le caractère juste après la séquence
@@ -95,7 +95,9 @@ class JeuIA extends Modele{
 			}
         }
 		
-        return JeuIA::occurence($arrayValeur); // renvoie le nombre d'occurence du caractère q
+		return $arrayValeur;
+		
+        //return JeuIA::occurence($arrayValeur); // renvoie le nombre d'occurence du caractère q
     } 
 
 }

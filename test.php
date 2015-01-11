@@ -31,9 +31,9 @@
 	
 	
 	
-	//$test3=JeuIA::occurence($test2);
-	//var_dump($test3);
-	//echo $test3."\r";
+	$test3=JeuIA::occurence($test2);
+	var_dump($test3);
+	echo $test3."\r";
 	$test=JeuIA::reducSeq($sequence);
 	var_dump($test);
 	echo $test;
