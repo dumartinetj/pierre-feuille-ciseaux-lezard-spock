@@ -43,6 +43,140 @@ class JeuIA extends Modele{
 		return $choixFigure;
 	}
 
+	public static function IA($idJoueur,$sequence,$age,$sexe){
+
+		$sequenceClone=$sequence;
+		$listeSequences = JeuIA::recupSequence($idJoueur,$sequence);
+		$boolean=false;
+		if($sexe=="M")  $sexeOpposer="F";
+		else{ $sexeOpposer="M";}
+
+		while($boolean==false){
+			if($listeSequences!=null){
+				$coupSuiv=JeuIA::coupSuiv($listeSequences,$sequenceClone);
+				$boolean=true;
+			}
+			// si y'a pas de séquences trouvées
+			else {
+				//on réduit si on peut
+				if(strlen($sequenceClone)>3){
+					$sequenceCloner=reducSeq($sequenceClone);
+					// mieux !
+				}
+				//sinon on sort
+				else{
+					$boolean=true;
+				}
+			}
+		}
+
+		//ici il faut pas check si $coupSuiv existe ?
+		// si oui on fait return $coupSuiv;
+		//sinon on continue à chercher
+
+		if($coupSuiv!=0) return $coupSuiv; //one line bitch, yes i know biatch
+		else{
+			$sequenceClone=$sequence;
+
+			$listeSequenceAutre=JeuIA::recupSequenceAll($sexe,$age-2,$age+2,$sequence);
+			$boolean=false;
+			while($boolean==false){
+				if($listeSequenceAutre!=null){
+					$coupSuiv=coupSuiv($listeSequenceAutre,$sequenceClone);
+					$boolean=true;
+				}
+				else {
+					//on réduit si on peut
+					if(strlen($sequenceClone)>3){
+						$sequenceClone=reducSeq($sequenceClone);
+						// mieux !
+					}
+					//sinon on sort
+					else{
+						$boolean=true;
+					}
+				}
+			}
+
+
+		}
+		if($coupSuiv!=0) return $coupSuiv;
+		else{
+			$sequenceClone=$sequence;
+
+			$listeSequenceAutre=JeuIA::recupSequenceAll($sexeOpposer,$age-2,$age+2,$sequence);
+			$boolean=false;
+			while($boolean==false){
+				if($listeSequenceAutre!=null){
+					$coupSuiv=coupSuiv($listeSequenceAutre,$sequenceClone);
+					$boolean=true;
+				}
+				else {
+					//on réduit si on peut
+					if(strlen($sequenceClone)>3){
+						$sequenceClone=reducSeq($sequenceClone);
+						// mieux !
+					}
+					//sinon on sort
+					else{
+						$boolean=true;
+					}
+				}
+			}
+		}
+		if($coupSuiv!=0) return $coupSuiv;
+		else{
+			$sequenceClone=$sequence;
+
+			$listeSequenceAutre=JeuIA::recupSequenceAll($sexe,$age-5,$age+5,$sequence);
+			$boolean=false;
+			while($boolean==false){
+				if($listeSequenceAutre!=null){
+					$coupSuiv=coupSuiv($listeSequenceAutre,$sequenceClone);
+					$boolean=true;
+				}
+				else {
+					//on réduit si on peut
+					if(strlen($sequenceClone)>3){
+						$sequenceClone=reducSeq($sequenceClone);
+						// mieux !
+					}
+					//sinon on sort
+					else{
+						$boolean=true;
+					}
+				}
+			}
+		}
+		if($coupSuiv!=0) return $coupSuiv;
+		else{
+			$sequenceClone=$sequence;
+
+			$listeSequenceAutre=JeuIA::recupSequenceAll($sexeOpposer,$age-5,$age+5,$sequence);
+			$boolean=false;
+			while($boolean==false){
+				if($listeSequenceAutre!=null){
+					$coupSuiv=coupSuiv($listeSequenceAutre,$sequenceClone);
+					$boolean=true;
+				}
+				else {
+					//on réduit si on peut
+					if(strlen($sequenceClone)>3){
+						$sequenceClone=reducSeq($sequenceClone);
+						// mieux !
+					}
+					//sinon on sort
+					else{
+						$boolean=true;
+					}
+				}
+			}
+		}
+		if($coupSuiv!=0) return $coupSuiv;
+		else{ return mt_rand(1,5);}
+
+	}
+
 	public static function reducSeq($sequence){
 		return substr($sequence,2);
 	}
