@@ -95,7 +95,8 @@ class JeuIA extends Modele{
 			}
 
 		}
-		return JeuIA::figureAJouer(JeuIA::occurence($arrayValeur)); // renvoie le nombre d'occurence du caractère q
+		if ($arrayValeur==NULL) return 0;
+		else return JeuIA::figureAJouer(JeuIA::occurence($arrayValeur)); // renvoie le nombre d'occurence du caractère q
 	}
 
 	public static function recupSequence($idJoueur,$sequence){
