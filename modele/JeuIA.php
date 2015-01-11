@@ -65,33 +65,41 @@ class JeuIA extends Modele{
 		$arrayValeur=array(1 => $a,$b,$c,$d,$e);
 		return array_search(max($arrayValeur),$arrayValeur);
 	}
-
+	
+	public static function figureAJouer($figure){
+	
+		$dataFaiblesses = array('idFigure'=>$figure);
+		$faiblesses=Figure::select($dataFaiblesses)->faiblesses;
+		$valeurs = explode(",",$faiblesses);
+		$faiblesserandom = array_rand($valeurs);
+		$choixFigure = $valeurs[$faiblesserandom];
+		return $choixFigure;
+	}
+	
 	public static function coupSuiv(array $array, $sequence){
 		// on va y mettre les séquences qui ont une valeur après la séquence que l'ont recherche
 		for($i=0;$i<count($array);$i++){
 			if(strstr($array[$i], $sequence ,  $before_sequence = false)!=false){
-				$arrayValeurs[] = strstr($array[$i], $sequence ,  $before_sequence = false); //ajoute les séquence qui contiennent la séquence recherché
-				//avec la séquence recherchée en début de chaine de caractère et la suite de la chaine.
-				//exemple: on cherche la séquence 123 dans la chaine 241312345 on obtiendra la chaine 12345 dans le tableau.
+				$arrayValeurs[] = strstr($array[$i], $sequence ,  $before_sequence = false);
 			}
 			else{
 
 			}
 		}
+		// maintenant on récupère uniquement le coup jouer après les séquences stocker dans $arrayValeurs
 		for($j=0;$j<count($arrayValeurs);$j++){
 			if(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))>1){
-				$arrayValeur = array();
-				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))-1));   //strlen(string) renvoie la longueur de string.
-				// substr renvoie les n premier caractère de $value en commençant par le caractère n°"strlen(string)" (dans "abcd" le n°0="a")
-				// donc on va aller chercher le caractère juste après la séquence
-				// les n premiers caractères sont déterminer par "1" (on ne veut que le coup jouer après la séquence).
+				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))-1)); 
 			}
 			else{
 				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1);
 			}
+
 		}
-		return JeuIA::occurence($arrayValeur); // renvoie le nombre d'occurence du caractère q
+		return JeuIA::figureAJouer(JeuIA::occurence($arrayValeur)); // renvoie le nombre d'occurence du caractère q
 	}
+	
+	
 
 	/*public static function recupSequence(){//permet de récup la séquence de coup en cour du joueur
 		//if (estConnecte()){
@@ -110,6 +118,7 @@ class JeuIA extends Modele{
             $check=$resultat->fetch(PDO::FETCH_NUM);
     }
 	*/
+
 
 }
 
