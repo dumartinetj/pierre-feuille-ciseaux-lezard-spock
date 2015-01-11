@@ -39,7 +39,36 @@ class JeuIA extends Modele{
         
     }
 	
-    public static function coupSuiv(array $array, $sequence){
+    
+	
+	
+    public static function occurence($arrayValeur){
+        $a = $b = $c = $d = $e = 0;
+		
+        for($i=0;$i<count($arrayValeur);$i++){
+            if ((strcasecmp($arrayValeur[$i],"1"))==0){
+                $a=$a+1;
+            } elseif ((strcasecmp($arrayValeur[$i],"2"))==0) {
+                $b=$b+1;
+            } elseif ((strcasecmp($arrayValeur[$i],"3"))==0) {
+                $c=$c+1;
+            } elseif ((strcasecmp($arrayValeur[$i],"4"))==0) {
+                $d=$d+1;
+            } elseif ((strcasecmp($arrayValeur[$i],"5"))==0) {
+                $e=$e+1;
+            }
+			
+			
+        }
+					
+		$arrayValeur=array(1 => $a,$b,$c,$d,$e);
+						
+		return array_search(max($arrayValeur),$arrayValeur);
+		
+        
+    }
+	
+	public static function coupSuiv(array $array, $sequence){
          // on va y mettre les séquences qui ont une valeur après la séquence que l'ont recherche
 		
         for($i=0;$i<count($array);$i++){
@@ -55,6 +84,7 @@ class JeuIA extends Modele{
         }
         for($j=0;$j<count($arrayValeurs);$j++){
 			if(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))>1){
+				$arrayValeur = array();
 				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))-1));   //strlen(string) renvoie la longueur de string.
 				// substr renvoie les n premier caractère de $value en commençant par le caractère n°"strlen(string)" (dans "abcd" le n°0="a")
 				// donc on va aller chercher le caractère juste après la séquence
@@ -65,129 +95,8 @@ class JeuIA extends Modele{
 			}
         }
 		
-        return $arrayValeur; // renvoie le nombre d'occurence du caractère q
+        return JeuIA::occurence($arrayValeur); // renvoie le nombre d'occurence du caractère q
     } 
-	
-	
-    public static function occurence(array $arrayValeur){
-        $a = $b = $c = $d = $e = 0;
-		$f="1";
-		$g="2";
-		$h="3";
-		$i="4";
-		$j="5";
-        for($i=0;$i>count($arrayValeur);$i++){
-            if (strcasecmp($arrayValeur[$i],$f)==0){
-                $a++;
-            } elseif (strcasecmp($arrayValeur[$i],$g)==0) {
-                $b++;
-            } elseif (strcasecmp($arrayValeur[$i],$f)==0) {
-                $c++;
-            } elseif (strcasecmp($arrayValeur[$i],$h)==0) {
-                $d++;
-            } elseif (strcasecmp($arrayValeur[$i],$j)==0) {
-                $e++;
-            }
-			
-			
-        }
-		
-		
-		$arrayValeur=array(1 => $a,$b,$c,$d,$e);
-						
-		return $arrayValeur;//array_search(max($arrayValeur),$arrayValeur);
-		
-		/*
-		$rand= rand(0,1);
-		
-        if ($a>$b && $a>$c && $a>$d && $a>$e){
-            return ($a);
-        } elseif ($b>$c && $b>$d && $b>$e){
-            return($b);
-        } elseif ($c>$d && $c>$e){
-            return($c);
-        } elseif ($d>$e){
-            return($d);
-        } else{
-            return($e);
-        }
-		
-		if ($a==$b){
-			if(rand==0){
-				return $a;
-			}else{
-				return $b;
-			}
-		}
-		elseif ($a==$c){
-			if(rand==0){
-				return $a;
-			}else{
-				return $c;
-			}
-		}
-		elseif ($a==$d){
-			if(rand==0){
-				return $a;
-			}else{
-				return $d;
-			}
-		}
-		elseif ($a==$e){
-			if(rand==0){
-				return $a;
-			}else{
-				return $e;
-			}
-		}
-		elseif ($b==$c){
-			if(rand==0){
-				return $c;
-			}else{
-				return $b;
-			}
-		}
-		elseif ($b==$d){
-			if(rand==0){
-				return $d;
-			}else{
-				return $b;
-			}
-		}
-		elseif ($b==$e){
-			if(rand==0){
-				return $e;
-			}else{
-				return $b;
-			}
-		}
-		elseif ($c==$d){
-			if(rand==0){
-				return $d;
-			}else{
-				return $c;
-			}
-		}
-		elseif ($c==$e){
-			if(rand==0){
-				return $e;
-			}else{
-				return $c;
-			}
-		}
-		elseif ($d==$e){
-			if(rand==0){
-				return $e;
-			}else{
-				return $d;
-			}
-		}
-		else{
-			return $e;
-		}
-		*/
-        
-    }
 
 }
 
