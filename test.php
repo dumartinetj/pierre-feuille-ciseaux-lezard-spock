@@ -29,6 +29,9 @@
 	/*for($i=0;$i<=count($test2);$i++){ 
 			echo $test2[$i]."\r";
 	}*/
+	
+	$test4=strncasecmp($sequence2,$sequence4,3);
+	echo $test4;
 	$test3=JeuIA::occurence($test2);
 	var_dump($test3);
 	echo $test3."\r";

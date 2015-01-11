@@ -71,25 +71,31 @@ class JeuIA extends Modele{
 	
     public static function occurence(array $arrayValeur){
         $a = $b = $c = $d = $e = 0;
+		$f="1";
+		$g="2";
+		$h="3";
+		$i="4";
+		$j="5";
         for($i=0;$i>count($arrayValeur);$i++){
-            if ($arrayValeur[$i] == "1"){
-                $a = $a++;
-            } elseif ($arrayValeur[$i] == "2") {
-                $b = $b++;
-            } elseif ($arrayValeur[$i] == "3") {
-                $c = $c++;
-            } elseif ($arrayValeur[$i] == "4") {
-                $d= $d++;
-            } elseif ($arrayValeur[$i] == "5") {
-                $e = $e++;
+            if (strcasecmp($arrayValeur[$i],$f)==0){
+                $a++;
+            } elseif (strcasecmp($arrayValeur[$i],$g)==0) {
+                $b++;
+            } elseif (strcasecmp($arrayValeur[$i],$f)==0) {
+                $c++;
+            } elseif (strcasecmp($arrayValeur[$i],$h)==0) {
+                $d++;
+            } elseif (strcasecmp($arrayValeur[$i],$j)==0) {
+                $e++;
             }
 			
 			
         }
 		
+		
 		$arrayValeur=array(1 => $a,$b,$c,$d,$e);
 						
-		return array_search(max($arrayValeur),$arrayValeur);
+		return $arrayValeur;//array_search(max($arrayValeur),$arrayValeur);
 		
 		/*
 		$rand= rand(0,1);
