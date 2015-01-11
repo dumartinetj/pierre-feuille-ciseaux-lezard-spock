@@ -21,7 +21,7 @@
 	//break; 
 	
 	//}*/
-	var_dump($sequence);
+	
 	$array = array($sequence3,$sequence2,$sequence4,$sequence5,$sequence6);
 	var_dump($array);
     $test2=JeuIA::coupSuiv($array , $sequence);
@@ -30,11 +30,15 @@
 	echo $test2."\r";
 	
 	
-	
+	/*
 	$test3=JeuIA::occurence($test2);
 	var_dump($test3);
 	echo $test3."\r";
 	$test=JeuIA::reducSeq($sequence);
 	var_dump($test);
-	echo $test;
+	echo $test."\r";
+
+	$test4=JeuIA::figureAJouer($test2);
+	var_dump($test4);
+	echo $test4."\r";*/
 ?>
