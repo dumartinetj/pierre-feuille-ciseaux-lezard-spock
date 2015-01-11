@@ -81,9 +81,6 @@ class JeuIA extends Modele{
 			if(strstr($array[$i], $sequence ,  $before_sequence = false)!=false){
 				$arrayValeurs[] = strstr($array[$i], $sequence ,  $before_sequence = false);
 			}
-			else{
-
-			}
 		}
 		// maintenant on récupère uniquement le coup jouer après les séquences stocker dans $arrayValeurs
 		for($j=0;$j<count($arrayValeurs);$j++){
@@ -106,7 +103,7 @@ class JeuIA extends Modele{
 		);
 		$donnees = array();
 		try{
-			$req = self::$pdo->prepare('SELECT listeCoups FROM pfcls_statistiquespersonnelles WHERE idJoueur = :idJoueur AND listeCoups LIKE :listeCoups');
+			$req = self::$pdo->prepare('SELECT listeCoups FROM pfcls_StatistiquesPersonnelles WHERE idJoueur = :idJoueur AND listeCoups LIKE :listeCoups');
 			$req->execute($data);
 			while ($ligne = $req->fetch()) {
 				array_push($donnees, $ligne['listeCoups']);
@@ -116,9 +113,31 @@ class JeuIA extends Modele{
        echo $e->getMessage();
        $messageErreur="Erreur lors de la récupération de la séquence 1";
       }
-            //$resultat = $pdo->query($requete);
-            //$check=$resultat->fetch(PDO::FETCH_NUM);
-    }
+  }
+
+	public static function recupSequenceAll($sexe,$agemini,$agemaxi,$sequence){
+		$data = array(
+			"listeCoups" => "%".$sequence."%",
+		);
+		$donnees = array();
+		try{
+			$sql = "SELECT listeCoups FROM pfcls_StatistiquesPersonnelles sp ";
+			$sql .= "INNER JOIN pfcls_Joueurs jo ON sp.idJoueur = jo.idJoueur ";
+			$sql .= "AND jo.sexe = '".$sexe."' ";
+			$sql .= "AND jo.age >= ".$agemini." ";
+			$sql .= "AND jo.age <= ".$agemaxi." ";
+			$sql .= "AND sp.listeCoups LIKE :listeCoups";
+			$req = self::$pdo->prepare($sql);
+			$req->execute($data);
+			while ($ligne = $req->fetch()) {
+				array_push($donnees, $ligne['listeCoups']);
+			}
+			return $donnees;
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+			$messageErreur="Erreur lors de la récupération de la séquence 2";
+		}
+	}
 
 }
 
