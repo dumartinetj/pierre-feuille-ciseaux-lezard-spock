@@ -71,30 +71,115 @@ class JeuIA extends Modele{
 	
     public static function occurence(array $arrayValeur){
         $a = $b = $c = $d = $e = 0;
-        foreach ($arrayValeur as $value){
-            if ($value == "1"){
-                $a = $a+1;
-            } elseif ($value == "2") {
-                $b = $b+1;
-            } elseif ($value == "3") {
-                $c = $c+1;
-            } elseif ($value == "4") {
-                $d= $d+1;
-            } elseif ($value == "5") {
-                $e = $e+1;
+        for($i=0;$i>count($arrayValeur);$i++){
+            if ($arrayValeur[$i] == "1"){
+                $a = $a++;
+            } elseif ($arrayValeur[$i] == "2") {
+                $b = $b++;
+            } elseif ($arrayValeur[$i] == "3") {
+                $c = $c++;
+            } elseif ($arrayValeur[$i] == "4") {
+                $d= $d++;
+            } elseif ($arrayValeur[$i] == "5") {
+                $e = $e++;
             }
-        } 
-        if ($a>$b and $a>$c and $a>$d and $a>$e){
+			
+			
+        }
+		
+		$arrayValeur=array(1 => $a,$b,$c,$d,$e);
+						
+		return array_search(max($arrayValeur),$arrayValeur);
+		
+		/*
+		$rand= rand(0,1);
+		
+        if ($a>$b && $a>$c && $a>$d && $a>$e){
             return ($a);
-        } elseif ($b>$a and $b>$c and $b>$d and $b>$e){
+        } elseif ($b>$c && $b>$d && $b>$e){
             return($b);
-        } elseif ($c>$a and $c>$b and $c>$d and $c>$e){
+        } elseif ($c>$d && $c>$e){
             return($c);
-        } elseif ($d>$a and $d>$c and $d>$b and $d>$e){
+        } elseif ($d>$e){
             return($d);
-        } elseif ($e>$a and $e>$c and $e>$d and $e>$b){
+        } else{
             return($e);
         }
+		
+		if ($a==$b){
+			if(rand==0){
+				return $a;
+			}else{
+				return $b;
+			}
+		}
+		elseif ($a==$c){
+			if(rand==0){
+				return $a;
+			}else{
+				return $c;
+			}
+		}
+		elseif ($a==$d){
+			if(rand==0){
+				return $a;
+			}else{
+				return $d;
+			}
+		}
+		elseif ($a==$e){
+			if(rand==0){
+				return $a;
+			}else{
+				return $e;
+			}
+		}
+		elseif ($b==$c){
+			if(rand==0){
+				return $c;
+			}else{
+				return $b;
+			}
+		}
+		elseif ($b==$d){
+			if(rand==0){
+				return $d;
+			}else{
+				return $b;
+			}
+		}
+		elseif ($b==$e){
+			if(rand==0){
+				return $e;
+			}else{
+				return $b;
+			}
+		}
+		elseif ($c==$d){
+			if(rand==0){
+				return $d;
+			}else{
+				return $c;
+			}
+		}
+		elseif ($c==$e){
+			if(rand==0){
+				return $e;
+			}else{
+				return $c;
+			}
+		}
+		elseif ($d==$e){
+			if(rand==0){
+				return $e;
+			}else{
+				return $d;
+			}
+		}
+		else{
+			return $e;
+		}
+		*/
         
     }
 

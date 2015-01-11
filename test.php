@@ -29,6 +29,9 @@
 	/*for($i=0;$i<=count($test2);$i++){ 
 			echo $test2[$i]."\r";
 	}*/
+	$test3=JeuIA::occurence($test2);
+	var_dump($test3);
+	echo $test3."\r";
 	$test=JeuIA::reducSeq($sequence);
 	var_dump($test);
 	echo $test;
