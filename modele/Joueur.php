@@ -100,7 +100,7 @@ class Joueur extends Modele {
       if($donneesDeJeu == NULL) {
         return array();
       }
-      return $donneesDeJeu;
+      //
     }
 
 }

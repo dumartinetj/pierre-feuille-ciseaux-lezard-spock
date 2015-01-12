@@ -203,6 +203,7 @@ class JeuIA extends Modele{
 	}
 
 	public static function figureAJouer($figure){
+		if ($figure==0) return 0;
 		$dataFaiblesses = array('idFigure'=>$figure);
 		$faiblesses=Figure::select($dataFaiblesses)->faiblesses;
 		$valeurs = explode(",",$faiblesses);
@@ -212,30 +213,41 @@ class JeuIA extends Modele{
 	}
 
 	public static function coupSuiv($array, $sequence){
-		//12123 123 
+		//12123 123
 		// maintenant on récupère uniquement le coup jouer après les séquences stocker dans $arrayValeurs
+		$donnees = array();
 		for($j=0;$j<count($array);$j++){
 			$boolean=false;
 			$arrayClone=$array[$j];
-			while(strlen($arrayClone)>strlen($sequence)&&$boolean==false){
-				if(strstr($arrayClone,$sequence)!=false){
-					if(strlen(substr($arrayClone,strlen($sequence)+1))>1){
-						$arrayValeur[] = substr($arrayClone,strlen($sequence)+1,-(strlen(substr($arrayClone,strlen($sequence)+1))-1));
+
+			while((strlen($arrayClone)>strlen($sequence))&&($boolean==false)){
+				$arrayClone = strstr($arrayClone,$sequence);
+				if($arrayClone!=false){
+					//si y'a une occurrence dans la chaine
+					$longueur = (strlen($arrayClone))-(strlen($sequence));
+					if($longueur>1) {
+						//si il y une suite, c'est ok on stock
+						$del_debut = (strlen($sequence)+1);
+						$del_fin = -((strlen($arrayClone))-(strlen($sequence))-2);
+						if ($del_fin==0) $valeur = substr($arrayClone, $del_debut);
+						else $valeur = substr($arrayClone, $del_debut,$del_fin);
+						array_push($donnees, $valeur);
+						// et on racourci la seq
+						$arrayClone = substr($arrayClone,strlen($sequence)+1);
 					}
-					elseif(substr($arrayClone,strlen($sequence))==NULL) $boolean=true;
-						else{
-							$arrayValeur[] = substr($arrayClone,strlen($sequence)+1);
-						}
-				}
-				elseif(strlen(substr($arrayClone,strlen($sequence)+3))==NULL) $boolean=true;
+					//sinon s'il y a pas de suite bah on sort on passe au suivant
 					else{
-					$arrayClone=substr($arrayClone,strlen($sequence)+3);
+						$boolean=true;
 					}
-				
+					// si y'a pas une occurence y'en aura pas d'autre donc au suivant
+				}
+				else{
+					$boolean=true;
+				}
 			}
 		}
-		if ($arrayValeur==NULL) return 0;
-		else return JeuIA::occurence($arrayValeur); // renvoie le nombre d'occurence du caractère q
+		if (empty($donnees)) return 0;
+		else return JeuIA::occurence($donnees); // renvoie le nombre d'occurence du caractère q
 	}
 
 	public static function recupSequence($idJoueur,$sequence){
