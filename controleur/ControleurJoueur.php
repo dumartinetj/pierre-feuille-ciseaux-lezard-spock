@@ -388,13 +388,21 @@ require_once MODEL_PATH."Joueur.php";
 
                 //statistiques
 
-                $premierCoup = Joueur::premierCoupStats($_SESSION['idJoueur']);
+                $dataJ = array('idJoueur'=>$_SESSION['idJoueur']);
+                $donneesDeJeu = StatsPerso::selectWhere($dataJ);
+                $listeCoupsJoueur=array();
+                foreach ($donneesDeJeu as $key => $value) {
+                  array_push($listeCoupsJoueur, $value->listeCoups);
+                }
 
+                $premierCoup = Joueur::premierCoupStats($listeCoupsJoueur);
                 $compte = 0;
                 foreach($premierCoup as $numFi => $nb){
                   $compte += $nb;
                 }
-                
+
+                //$apresPierre = Joueur::apresFigure($listeCoupsJoueur,1);
+
                 //historique
 
                 $listeParties = Joueur::getHistorique($_SESSION['idJoueur']);

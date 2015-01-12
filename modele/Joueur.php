@@ -77,24 +77,30 @@ class Joueur extends Modele {
       return $tableau;
     }
 
-    public static function premierCoupStats($idJoueur) {
-      $data = array('idJoueur'=>$idJoueur);
-      $dejaJoue = StatsPerso::selectWhere($data);
-      if($dejaJoue == NULL) {
+    public static function premierCoupStats($donneesDeJeu) {
+      if($donneesDeJeu == NULL) {
         return array();
       }
-      $listeCoupsJoueur="";
-      foreach ($dejaJoue as $key => $value) {
-        $listeCoupsJoueur .= str_replace(',', '', $value->listeCoups);
+      $var1 = $var2 = $var3 = $var4 = $var5 = 0;
+      foreach ($donneesDeJeu as $key => $value) {
+          $varTemp=substr($value,0,1);
+          switch ($varTemp) {
+            case 1: $var1 ++; break;
+            case 2: $var2 ++; break;
+            case 3: $var3 ++; break;
+            case 4: $var4 ++; break;
+            case 5: $var5 ++; break;
+          }
       }
-      $figureCount = array(
-            '1'=>substr_count($listeCoupsJoueur,'1',0,strlen($listeCoupsJoueur)),
-            '2'=>substr_count($listeCoupsJoueur,'2',0,strlen($listeCoupsJoueur)),
-            '3'=>substr_count($listeCoupsJoueur,'3',0,strlen($listeCoupsJoueur)),
-            '4'=>substr_count($listeCoupsJoueur,'4',0,strlen($listeCoupsJoueur)),
-            '5'=>substr_count($listeCoupsJoueur,'5',0,strlen($listeCoupsJoueur))
-      );
-      return $figureCount;
+      return $arrayValeur=array(1 => $var1,$var2,$var3,$var4,$var5);
+      //return array_search(max($arrayValeur),$arrayValeur);
+    }
+
+    public static function apresFigure($donneesDeJeu,$idFigure) {
+      if($donneesDeJeu == NULL) {
+        return array();
+      }
+      return $donneesDeJeu;
     }
 
 }

@@ -9,31 +9,30 @@ class JeuIA extends Modele{
 
 	public static function premierCoup($idJoueur){
 		$dataDejaJoue = array('idJoueur'=>$idJoueur);
-		$dejaJoue=StatsPerso::selectWhere($dataDejaJoue);
-		if($dejaJoue!=NULL){
-			$listeCoupsJoueur="";
-			foreach ($dejaJoue as $key => $value) {
-				$listeCoupsJoueur .= str_replace(',', '', $value->listeCoups);
+		$donneesDeJeu=StatsPerso::selectWhere($dataDejaJoue);
+		$listeCoupsJoueur=array();
+		foreach ($donneesDeJeu as $key => $value) {
+			array_push($listeCoupsJoueur, $value->listeCoups);
+		}
+		if($donneesDeJeu != NULL) {
+		$var1 = $var2 = $var3 = $var4 = $var5 = 0;
+		foreach ($donneesDeJeu as $key => $value) {
+			$varTemp=substr($value,0,1);
+			switch ($varTemp) {
+				case 1: $var1 ++; break;
+				case 2: $var2 ++; break;
+				case 3: $var3 ++; break;
+				case 4: $var4 ++; break;
+				case 5: $var5 ++; break;
 			}
-			$figureCount = array(
-				'1'=>substr_count($listeCoupsJoueur,'1',0,strlen($listeCoupsJoueur)),
-				'2'=>substr_count($listeCoupsJoueur,'2',0,strlen($listeCoupsJoueur)),
-				'3'=>substr_count($listeCoupsJoueur,'3',0,strlen($listeCoupsJoueur)),
-				'4'=>substr_count($listeCoupsJoueur,'4',0,strlen($listeCoupsJoueur)),
-				'5'=>substr_count($listeCoupsJoueur,'5',0,strlen($listeCoupsJoueur))
-			);
-			$nbOccumax=$figuremax=0;
-			foreach($figureCount as $figure => $nbOccu){
-				if($nbOccu>$nbOccumax){
-					$nbOccumax=$nbOccu;
-					$figuremax=$figure;
-				}
-			}
-			$dataFaiblesses = array('idFigure'=>$figuremax);
-			$faiblesses=Figure::select($dataFaiblesses)->faiblesses;
-			$valeurs = explode(",",$faiblesses);
-			$faiblesserandom = array_rand($valeurs);
-			$choixFigure = $valeurs[$faiblesserandom];
+		}
+		$arrayValeur=array(1 => $var1,$var2,$var3,$var4,$var5);
+		$idFigurePlusJouer = array_search(max($arrayValeur),$arrayValeur);
+		$dataFaiblesses = array('idFigure'=>$idFigurePlusJouer);
+		$faiblesses=Figure::select($dataFaiblesses)->faiblesses;
+		$valeurs = explode(",",$faiblesses);
+		$faiblesserandom = array_rand($valeurs);
+		$choixFigure = $valeurs[$faiblesserandom];
 		}
 		else{
 			$choixFigure = mt_rand(1,5);
