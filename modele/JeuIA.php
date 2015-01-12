@@ -60,7 +60,7 @@ class JeuIA extends Modele{
 			else {
 				//on réduit si on peut
 				if(strlen($sequenceClone)>3){
-					$sequenceCloner=reducSeq($sequenceClone);
+					$sequenceCloner=JeuIA::reducSeq($sequenceClone);
 					// mieux !
 				}
 				//sinon on sort
@@ -88,7 +88,7 @@ class JeuIA extends Modele{
 				else {
 					//on réduit si on peut
 					if(strlen($sequenceClone)>3){
-						$sequenceClone=reducSeq($sequenceClone);
+						$sequenceClone=JeuIA::reducSeq($sequenceClone);
 						// mieux !
 					}
 					//sinon on sort
@@ -114,7 +114,7 @@ class JeuIA extends Modele{
 				else {
 					//on réduit si on peut
 					if(strlen($sequenceClone)>3){
-						$sequenceClone=reducSeq($sequenceClone);
+						$sequenceClone=JeuIA::reducSeq($sequenceClone);
 						// mieux !
 					}
 					//sinon on sort
@@ -138,7 +138,7 @@ class JeuIA extends Modele{
 				else {
 					//on réduit si on peut
 					if(strlen($sequenceClone)>3){
-						$sequenceClone=reducSeq($sequenceClone);
+						$sequenceClone=JeuIA::reducSeq($sequenceClone);
 						// mieux !
 					}
 					//sinon on sort
@@ -162,7 +162,7 @@ class JeuIA extends Modele{
 				else {
 					//on réduit si on peut
 					if(strlen($sequenceClone)>3){
-						$sequenceClone=reducSeq($sequenceClone);
+						$sequenceClone=JeuIA::reducSeq($sequenceClone);
 						// mieux !
 					}
 					//sinon on sort
