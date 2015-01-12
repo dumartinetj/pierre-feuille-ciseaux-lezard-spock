@@ -1,5 +1,6 @@
 <?php
     require_once MODEL_PATH."Jeu.php";
+    require_once MODEL_PATH."Joueur.php";
     if (empty($_GET)) {
       if(estConnecte()){
         header('Location: index.php?action=choixmode');
@@ -18,19 +19,52 @@
         break;
 
         case "statistiques":
-          $donneesDeJeuAll = StatsPerso::selectAll();
-          $listeCoupsAll=array();
-          foreach ($donneesDeJeuAll as $key => $value) {
-            array_push($listeCoupsAll, $value->listeCoups);
-          }
-          $premierCoup = Joueur::premierCoupStats($listeCoupsAll);
-          $compte = 0;
-          foreach($premierCoup as $numFi => $nb){
-            $compte += $nb;
-          }
-
-
           $vue="statistiques";
+          $pagetitle="Statistiques";
+        break;
+
+        case "stats":
+          $sexe = $_POST['sexe'];
+          $marge = $_POST['marge'];
+          $age = $_POST['age'];
+          $agemini = $age-$marge;
+          $agemaxi = $age+$marge;
+
+          if ($sexe == "H") $s = "";
+          else $s = "fe";
+
+          if ($marge == 0) $trancheage = $age." ans";
+          else $trancheage = $agemini." ans - ".$agemaxi." ans";
+
+          $donneesDeJeu = StatsPerso::selectSequence($sexe,$agemini,$agemaxi);
+          $listeCoupsJoueur=array();
+          foreach ($donneesDeJeu as $key => $value) {
+            array_push($listeCoupsJoueur, $value);
+          }
+          $premierCoup = Joueur::premierCoupStats($listeCoupsJoueur);
+          $compte = 0;
+          foreach($premierCoup as $numFi => $nb) $compte += $nb;
+
+          $apresPierre = Joueur::apresFigure($listeCoupsJoueur,'1');
+          $comptePierre = 0;
+          foreach($apresPierre as $numFi => $nb) $comptePierre += $nb;
+
+          $apresFeuille = Joueur::apresFigure($listeCoupsJoueur,'2');
+          $compteFeuille = 0;
+          foreach($apresFeuille as $numFi => $nb) $compteFeuille += $nb;
+
+          $apresCiseaux = Joueur::apresFigure($listeCoupsJoueur,'3');
+          $compteCiseaux = 0;
+          foreach($apresCiseaux as $numFi => $nb) $compteCiseaux += $nb;
+
+          $apresLezard = Joueur::apresFigure($listeCoupsJoueur,'4');
+          $compteLezard = 0;
+          foreach($apresLezard as $numFi => $nb) $compteLezard += $nb;
+
+          $apresSpock = Joueur::apresFigure($listeCoupsJoueur,'5');
+          $compteSpock = 0;
+          foreach($apresSpock as $numFi => $nb) $compteSpock += $nb;
+          $vue="stats";
           $pagetitle="Statistiques";
         break;
 
