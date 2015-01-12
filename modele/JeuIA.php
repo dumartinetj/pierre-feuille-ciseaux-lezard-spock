@@ -82,7 +82,7 @@ class JeuIA extends Modele{
 			$boolean=false;
 			while($boolean==false){
 				if($listeSequenceAutre!=null){
-					$coupSuiv=coupSuiv($listeSequenceAutre,$sequenceClone);
+					$coupSuiv=JeuIA::coupSuiv($listeSequenceAutre,$sequenceClone);
 					$boolean=true;
 				}
 				else {
@@ -108,7 +108,7 @@ class JeuIA extends Modele{
 			$boolean=false;
 			while($boolean==false){
 				if($listeSequenceAutre!=null){
-					$coupSuiv=coupSuiv($listeSequenceAutre,$sequenceClone);
+					$coupSuiv=JeuIA::coupSuiv($listeSequenceAutre,$sequenceClone);
 					$boolean=true;
 				}
 				else {
@@ -132,7 +132,7 @@ class JeuIA extends Modele{
 			$boolean=false;
 			while($boolean==false){
 				if($listeSequenceAutre!=null){
-					$coupSuiv=coupSuiv($listeSequenceAutre,$sequenceClone);
+					$coupSuiv=JeuIA::coupSuiv($listeSequenceAutre,$sequenceClone);
 					$boolean=true;
 				}
 				else {
@@ -156,7 +156,7 @@ class JeuIA extends Modele{
 			$boolean=false;
 			while($boolean==false){
 				if($listeSequenceAutre!=null){
-					$coupSuiv=coupSuiv($listeSequenceAutre,$sequenceClone);
+					$coupSuiv=JeuIA::coupSuiv($listeSequenceAutre,$sequenceClone);
 					$boolean=true;
 				}
 				else {
@@ -209,8 +209,8 @@ class JeuIA extends Modele{
 		return $choixFigure;
 	}
 
-	public static function coupSuiv(array $array, $sequence){
-		
+	public static function coupSuiv($array, $sequence){
+
 		// maintenant on récupère uniquement le coup jouer après les séquences stocker dans $arrayValeurs
 		for($j=0;$j<count($array);$j++){
 			if(strlen($array[$j])<=strlen($sequence));
