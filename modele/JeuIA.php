@@ -210,21 +210,18 @@ class JeuIA extends Modele{
 	}
 
 	public static function coupSuiv(array $array, $sequence){
-		// on va y mettre les séquences qui ont une valeur après la séquence que l'ont recherche
-		for($i=0;$i<count($array);$i++){
-			if(strstr($array[$i], $sequence ,  $before_sequence = false)!=false){
-				$arrayValeurs[] = strstr($array[$i], $sequence ,  $before_sequence = false);
-			}
-		}
+		
 		// maintenant on récupère uniquement le coup jouer après les séquences stocker dans $arrayValeurs
-		for($j=0;$j<count($arrayValeurs);$j++){
-			if(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))>1){
-				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))-1));
-			}
+		for($j=0;$j<count($array);$j++){
+			if(strlen($array[$j])<=strlen($sequence));
 			else{
-				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1);
+				if(strlen(substr($array[$j],strlen($sequence)+1))>1){
+					$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($array[$j],strlen($sequence)+1))-1));
+				}
+				else{
+					$arrayValeur[] = substr($array[$j],strlen($sequence)+1);
+				}
 			}
-
 		}
 		if ($arrayValeur==NULL) return 0;
 		else return JeuIA::figureAJouer(JeuIA::occurence($arrayValeur)); // renvoie le nombre d'occurence du caractère q
