@@ -37,6 +37,13 @@
           else $trancheage = $agemini." ans - ".$agemaxi." ans";
 
           $donneesDeJeu = StatsPerso::selectSequence($sexe,$agemini,$agemaxi);
+
+          if ($donneesDeJeu==null) {
+            $messageErreur="Il n'y a pas de données disponibles pour ces paramètres !<br/>
+            <h5><a href='index.php?action=statistiques'><i class='fa fa-reply'></i> Retour à la sélection des paramètres</a></<h5>";
+            break;
+          }
+
           $listeCoupsJoueur=array();
           foreach ($donneesDeJeu as $key => $value) {
             array_push($listeCoupsJoueur, $value);
