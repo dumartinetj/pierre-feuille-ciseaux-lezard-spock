@@ -47,6 +47,7 @@ else if (isset($action)) {
       $joueur = Joueur::select($dataJoueur);
       $_SESSION['sexe'] = $joueur->sexe;
       $_SESSION['age'] = $joueur->age;
+      $_SESSION['sequenceCoups'] = "";
       $vue="choix";
       $pagetitle="Choisissez votre figure";
     }
@@ -59,10 +60,8 @@ else if (isset($action)) {
         if(estConnecte()){
 
           // algo de l'IA
-          if(!isset($_SESSION['sequenceCoups'])){
+          if($_SESSION['sequenceCoups']==""){
             $choixFigure = JeuIA::premierCoup($_SESSION['idJoueur']);
-            //on l'initialise
-            $_SESSION['sequenceCoups'] = "";
           }
           else{
             //pas premier coup on appelle la grosse fonction qui va renvoyer
@@ -173,6 +172,8 @@ else if (isset($action)) {
           unset($_SESSION['idCoupEnCours']);
           unset($_SESSION['JoueurMaster']);
           unset($_SESSION['sequenceCoups']);
+          unset($_SESSION['sexe']);
+          unset($_SESSION['age']);
           $vue="resultatPartie";
           $pagetitle="Partie terminée";
         }
