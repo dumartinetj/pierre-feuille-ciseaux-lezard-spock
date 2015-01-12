@@ -1,8 +1,6 @@
 <?php
 
 require_once 'Modele.php';
-require_once 'Partie.php';
-require_once MODEL_PATH.'Joueur.php';
 
 class JeuIA extends Modele{
 
@@ -61,7 +59,7 @@ class JeuIA extends Modele{
 			else {
 				//on réduit si on peut
 				if(strlen($sequenceClone)>3){
-					$sequenceCloner=JeuIA::reducSeq($sequenceClone);
+					$sequenceClone=JeuIA::reducSeq($sequenceClone);
 					// mieux !
 				}
 				//sinon on sort
