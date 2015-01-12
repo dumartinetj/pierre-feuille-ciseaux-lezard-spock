@@ -6,7 +6,9 @@
 
 require_once 'Modele.php';
 require_once 'Jeu.php';
+require_once 'JeuIA.php';
 require_once 'StatsPerso.php';
+
 
 class Joueur extends Modele {
 
@@ -100,9 +102,19 @@ class Joueur extends Modele {
       if($donneesDeJeu == NULL) {
         return array();
       }
-      //
+      $donnees = JeuIA::coupSuiv($donneesDeJeu,$idFigure);
+      $var1 = $var2 = $var3 = $var4 = $var5 = 0;
+      foreach ($donnees as $key => $value) {
+        switch (intval($value)) {
+          case 1: $var1 ++; break;
+          case 2: $var2 ++; break;
+          case 3: $var3 ++; break;
+          case 4: $var4 ++; break;
+          case 5: $var5 ++; break;
+        }
+      }
+      return $arrayValeur=array(1 => $var1,$var2,$var3,$var4,$var5);
     }
-
 }
 
 ?>

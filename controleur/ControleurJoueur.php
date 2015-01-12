@@ -388,20 +388,35 @@ require_once MODEL_PATH."Joueur.php";
 
                 //statistiques
 
-                $dataJ = array('idJoueur'=>$_SESSION['idJoueur']);
+                $dataJ = array('idJoueur'=> intval($_SESSION['idJoueur']));
                 $donneesDeJeu = StatsPerso::selectWhere($dataJ);
                 $listeCoupsJoueur=array();
                 foreach ($donneesDeJeu as $key => $value) {
                   array_push($listeCoupsJoueur, $value->listeCoups);
                 }
-
                 $premierCoup = Joueur::premierCoupStats($listeCoupsJoueur);
                 $compte = 0;
-                foreach($premierCoup as $numFi => $nb){
-                  $compte += $nb;
-                }
+                foreach($premierCoup as $numFi => $nb) $compte += $nb;
 
-                //$apresPierre = Joueur::apresFigure($listeCoupsJoueur,1);
+                $apresPierre = Joueur::apresFigure($listeCoupsJoueur,'1');
+                $comptePierre = 0;
+                foreach($apresPierre as $numFi => $nb) $comptePierre += $nb;
+
+                $apresFeuille = Joueur::apresFigure($listeCoupsJoueur,'2');
+                $compteFeuille = 0;
+                foreach($apresFeuille as $numFi => $nb) $compteFeuille += $nb;
+
+                $apresCiseaux = Joueur::apresFigure($listeCoupsJoueur,'3');
+                $compteCiseaux = 0;
+                foreach($apresCiseaux as $numFi => $nb) $compteCiseaux += $nb;
+
+                $apresLezard = Joueur::apresFigure($listeCoupsJoueur,'4');
+                $compteLezard = 0;
+                foreach($apresLezard as $numFi => $nb) $compteLezard += $nb;
+
+                $apresSpock = Joueur::apresFigure($listeCoupsJoueur,'5');
+                $compteSpock = 0;
+                foreach($apresSpock as $numFi => $nb) $compteSpock += $nb;
 
                 //historique
 
