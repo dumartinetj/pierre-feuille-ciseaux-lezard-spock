@@ -9,30 +9,31 @@ class JeuIA extends Modele{
 
 	public static function premierCoup($idJoueur){
 		$dataDejaJoue = array('idJoueur'=>$idJoueur);
-		$donneesDeJeu=StatsPerso::selectWhere($dataDejaJoue);
-		$listeCoupsJoueur=array();
-		foreach ($donneesDeJeu as $key => $value) {
-			array_push($listeCoupsJoueur, $value->listeCoups);
-		}
-		if($donneesDeJeu != NULL) {
-		$var1 = $var2 = $var3 = $var4 = $var5 = 0;
-		foreach ($donneesDeJeu as $key => $value) {
-			$varTemp=substr($value,0,1);
-			switch ($varTemp) {
-				case 1: $var1 ++; break;
-				case 2: $var2 ++; break;
-				case 3: $var3 ++; break;
-				case 4: $var4 ++; break;
-				case 5: $var5 ++; break;
+		$dejaJoue=StatsPerso::selectWhere($dataDejaJoue);
+		if($dejaJoue!=NULL){
+			$listeCoupsJoueur="";
+			foreach ($dejaJoue as $key => $value) {
+				$listeCoupsJoueur .= str_replace(',', '', $value->listeCoups);
 			}
-		}
-		$arrayValeur=array(1 => $var1,$var2,$var3,$var4,$var5);
-		$idFigurePlusJouer = array_search(max($arrayValeur),$arrayValeur);
-		$dataFaiblesses = array('idFigure'=>$idFigurePlusJouer);
-		$faiblesses=Figure::select($dataFaiblesses)->faiblesses;
-		$valeurs = explode(",",$faiblesses);
-		$faiblesserandom = array_rand($valeurs);
-		$choixFigure = $valeurs[$faiblesserandom];
+			$figureCount = array(
+				'1'=>substr_count($listeCoupsJoueur,'1',0,strlen($listeCoupsJoueur)),
+				'2'=>substr_count($listeCoupsJoueur,'2',0,strlen($listeCoupsJoueur)),
+				'3'=>substr_count($listeCoupsJoueur,'3',0,strlen($listeCoupsJoueur)),
+				'4'=>substr_count($listeCoupsJoueur,'4',0,strlen($listeCoupsJoueur)),
+				'5'=>substr_count($listeCoupsJoueur,'5',0,strlen($listeCoupsJoueur))
+			);
+			$nbOccumax=$figuremax=0;
+			foreach($figureCount as $figure => $nbOccu){
+				if($nbOccu>$nbOccumax){
+					$nbOccumax=$nbOccu;
+					$figuremax=$figure;
+				}
+			}
+			$dataFaiblesses = array('idFigure'=>$figuremax);
+			$faiblesses=Figure::select($dataFaiblesses)->faiblesses;
+			$valeurs = explode(",",$faiblesses);
+			$faiblesserandom = array_rand($valeurs);
+			$choixFigure = $valeurs[$faiblesserandom];
 		}
 		else{
 			$choixFigure = mt_rand(1,5);
@@ -51,7 +52,7 @@ class JeuIA extends Modele{
 		while($boolean==false){
 			$listeSequences = JeuIA::recupSequence($idJoueur,$sequenceClone);
 			if($listeSequences!=null){
-				$coupSuiv=JeuIA::coupSuiv($listeSequences,$sequenceClone);
+				$coupSuiv=JeuIA::figureAJouer(JeuIA::coupSuiv($listeSequences,$sequenceClone));
 				$boolean=true;
 			}
 			// si y'a pas de séquences trouvées
@@ -81,7 +82,7 @@ class JeuIA extends Modele{
 			while($boolean==false){
 				$listeSequenceAutre=JeuIA::recupSequenceAll($sexe,$age-2,$age+2,$sequenceClone);
 				if($listeSequenceAutre!=null){
-					$coupSuiv=JeuIA::coupSuiv($listeSequenceAutre,$sequenceClone);
+					$coupSuiv=JeuIA::figureAJouer(JeuIA::coupSuiv($listeSequences,$sequenceClone));
 					$boolean=true;
 				}
 				else {
@@ -108,7 +109,7 @@ class JeuIA extends Modele{
 			while($boolean==false){
 				$listeSequenceAutre=JeuIA::recupSequenceAll($sexeOpposer,$age-2,$age+2,$sequenceClone);
 				if($listeSequenceAutre!=null){
-					$coupSuiv=JeuIA::coupSuiv($listeSequenceAutre,$sequenceClone);
+					$coupSuiv=JeuIA::figureAJouer(JeuIA::coupSuiv($listeSequences,$sequenceClone));
 					$boolean=true;
 				}
 				else {
@@ -133,7 +134,7 @@ class JeuIA extends Modele{
 			while($boolean==false){
 				$listeSequenceAutre=JeuIA::recupSequenceAll($sexe,$age-5,$age+5,$sequenceClone);
 				if($listeSequenceAutre!=null){
-					$coupSuiv=JeuIA::coupSuiv($listeSequenceAutre,$sequenceClone);
+					$coupSuiv=JeuIA::figureAJouer(JeuIA::coupSuiv($listeSequences,$sequenceClone));
 					$boolean=true;
 				}
 				else {
@@ -158,7 +159,7 @@ class JeuIA extends Modele{
 			while($boolean==false){
 				$listeSequenceAutre=JeuIA::recupSequenceAll($sexeOpposer,$age-5,$age+5,$sequenceClone);
 				if($listeSequenceAutre!=null){
-					$coupSuiv=JeuIA::coupSuiv($listeSequenceAutre,$sequenceClone);
+					$coupSuiv=JeuIA::figureAJouer(JeuIA::coupSuiv($listeSequences,$sequenceClone));
 					$boolean=true;
 				}
 				else {
@@ -211,21 +212,30 @@ class JeuIA extends Modele{
 	}
 
 	public static function coupSuiv($array, $sequence){
-
+		//12123 123 
 		// maintenant on récupère uniquement le coup jouer après les séquences stocker dans $arrayValeurs
 		for($j=0;$j<count($array);$j++){
-			if(strlen($array[$j])<=strlen($sequence));
-			else{
-				if(strlen(substr($array[$j],strlen($sequence)+1))>1){
-					$arrayValeur[] = substr($array[$j],strlen($sequence)+1,-(strlen(substr($array[$j],strlen($sequence)+1))-1));
+			$boolean=false;
+			$arrayClone=$array[$j];
+			while(strlen($arrayClone)>strlen($sequence)&&$boolean==false){
+				if(strstr($arrayClone,$sequence)!=false){
+					if(strlen(substr($arrayClone,strlen($sequence)+1))>1){
+						$arrayValeur[] = substr($arrayClone,strlen($sequence)+1,-(strlen(substr($arrayClone,strlen($sequence)+1))-1));
+					}
+					elseif(substr($arrayClone,strlen($sequence))==NULL) $boolean=true;
+						else{
+							$arrayValeur[] = substr($arrayClone,strlen($sequence)+1);
+						}
 				}
-				else{
-					$arrayValeur[] = substr($array[$j],strlen($sequence)+1);
-				}
+				elseif(strlen(substr($arrayClone,strlen($sequence)+3))==NULL) $boolean=true;
+					else{
+					$arrayClone=substr($arrayClone,strlen($sequence)+3);
+					}
+				
 			}
 		}
 		if ($arrayValeur==NULL) return 0;
-		else return JeuIA::figureAJouer(JeuIA::occurence($arrayValeur)); // renvoie le nombre d'occurence du caractère q
+		else return JeuIA::occurence($arrayValeur); // renvoie le nombre d'occurence du caractère q
 	}
 
 	public static function recupSequence($idJoueur,$sequence){
