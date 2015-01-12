@@ -203,6 +203,7 @@ class JeuIA extends Modele{
 	}
 
 	public static function figureAJouer($figure){
+		if ($figure==0) return 0;
 		$dataFaiblesses = array('idFigure'=>$figure);
 		$faiblesses=Figure::select($dataFaiblesses)->faiblesses;
 		$valeurs = explode(",",$faiblesses);
