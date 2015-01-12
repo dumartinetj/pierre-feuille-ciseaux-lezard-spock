@@ -42,6 +42,11 @@ else if (isset($action)) {
         "idManche" => $_SESSION['idMancheEnCours']
       );
       Manche::update($data4); // ajout le coup dans listeCoups de la manche
+      //on récup le sexe et l'age du monsieur en SESSION
+      $dataJoueur= array("idJoueur" =>$_SESSION['idJoueur']);
+      $joueur = Joueur::select($dataJoueur);
+      $_SESSION['sexe'] = $joueur->sexe;
+      $_SESSION['age'] = $joueur->age;
       $vue="choix";
       $pagetitle="Choisissez votre figure";
     }
@@ -62,7 +67,7 @@ else if (isset($action)) {
           else{
             //pas premier coup on appelle la grosse fonction qui va renvoyer
             //l'id de la figure à jouer
-            $choixFigure = JeuIA::IA($_SESSION['idJoueur'],$_SESSION['sequenceCoups']);
+            $choixFigure = JeuIA::IA($_SESSION['idJoueur'],$_SESSION['sequenceCoups'],$_SESSION['age'],$_SESSION['sexe']);
           }
           //on enregistre le coup de l'IA
           $dataIA = array(

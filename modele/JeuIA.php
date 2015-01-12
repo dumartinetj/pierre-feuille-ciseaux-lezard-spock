@@ -43,6 +43,140 @@ class JeuIA extends Modele{
 		return $choixFigure;
 	}
 
+	public static function IA($idJoueur,$sequence,$age,$sexe){
+
+		$sequenceClone=$sequence;
+		$listeSequences = JeuIA::recupSequence($idJoueur,$sequence);
+		$boolean=false;
+		if($sexe=="M")  $sexeOpposer="F";
+		else{ $sexeOpposer="M";}
+
+		while($boolean==false){
+			if($listeSequences!=null){
+				$coupSuiv=JeuIA::coupSuiv($listeSequences,$sequenceClone);
+				$boolean=true;
+			}
+			// si y'a pas de séquences trouvées
+			else {
+				//on réduit si on peut
+				if(strlen($sequenceClone)>3){
+					$sequenceCloner=reducSeq($sequenceClone);
+					// mieux !
+				}
+				//sinon on sort
+				else{
+					$boolean=true;
+				}
+			}
+		}
+
+		//ici il faut pas check si $coupSuiv existe ?
+		// si oui on fait return $coupSuiv;
+		//sinon on continue à chercher
+
+		if($coupSuiv!=0) return $coupSuiv; //one line bitch, yes i know biatch
+		else{
+			$sequenceClone=$sequence;
+
+			$listeSequenceAutre=JeuIA::recupSequenceAll($sexe,$age-2,$age+2,$sequence);
+			$boolean=false;
+			while($boolean==false){
+				if($listeSequenceAutre!=null){
+					$coupSuiv=coupSuiv($listeSequenceAutre,$sequenceClone);
+					$boolean=true;
+				}
+				else {
+					//on réduit si on peut
+					if(strlen($sequenceClone)>3){
+						$sequenceClone=reducSeq($sequenceClone);
+						// mieux !
+					}
+					//sinon on sort
+					else{
+						$boolean=true;
+					}
+				}
+			}
+
+
+		}
+		if($coupSuiv!=0) return $coupSuiv;
+		else{
+			$sequenceClone=$sequence;
+
+			$listeSequenceAutre=JeuIA::recupSequenceAll($sexeOpposer,$age-2,$age+2,$sequence);
+			$boolean=false;
+			while($boolean==false){
+				if($listeSequenceAutre!=null){
+					$coupSuiv=coupSuiv($listeSequenceAutre,$sequenceClone);
+					$boolean=true;
+				}
+				else {
+					//on réduit si on peut
+					if(strlen($sequenceClone)>3){
+						$sequenceClone=reducSeq($sequenceClone);
+						// mieux !
+					}
+					//sinon on sort
+					else{
+						$boolean=true;
+					}
+				}
+			}
+		}
+		if($coupSuiv!=0) return $coupSuiv;
+		else{
+			$sequenceClone=$sequence;
+
+			$listeSequenceAutre=JeuIA::recupSequenceAll($sexe,$age-5,$age+5,$sequence);
+			$boolean=false;
+			while($boolean==false){
+				if($listeSequenceAutre!=null){
+					$coupSuiv=coupSuiv($listeSequenceAutre,$sequenceClone);
+					$boolean=true;
+				}
+				else {
+					//on réduit si on peut
+					if(strlen($sequenceClone)>3){
+						$sequenceClone=reducSeq($sequenceClone);
+						// mieux !
+					}
+					//sinon on sort
+					else{
+						$boolean=true;
+					}
+				}
+			}
+		}
+		if($coupSuiv!=0) return $coupSuiv;
+		else{
+			$sequenceClone=$sequence;
+
+			$listeSequenceAutre=JeuIA::recupSequenceAll($sexeOpposer,$age-5,$age+5,$sequence);
+			$boolean=false;
+			while($boolean==false){
+				if($listeSequenceAutre!=null){
+					$coupSuiv=coupSuiv($listeSequenceAutre,$sequenceClone);
+					$boolean=true;
+				}
+				else {
+					//on réduit si on peut
+					if(strlen($sequenceClone)>3){
+						$sequenceClone=reducSeq($sequenceClone);
+						// mieux !
+					}
+					//sinon on sort
+					else{
+						$boolean=true;
+					}
+				}
+			}
+		}
+		if($coupSuiv!=0) return $coupSuiv;
+		else{ return mt_rand(1,5);}
+
+	}
+
 	public static function reducSeq($sequence){
 		return substr($sequence,2);
 	}
@@ -65,9 +199,8 @@ class JeuIA extends Modele{
 		$arrayValeur=array(1 => $a,$b,$c,$d,$e);
 		return array_search(max($arrayValeur),$arrayValeur);
 	}
-	
+
 	public static function figureAJouer($figure){
-	
 		$dataFaiblesses = array('idFigure'=>$figure);
 		$faiblesses=Figure::select($dataFaiblesses)->faiblesses;
 		$valeurs = explode(",",$faiblesses);
@@ -75,74 +208,70 @@ class JeuIA extends Modele{
 		$choixFigure = $valeurs[$faiblesserandom];
 		return $choixFigure;
 	}
-	
+
 	public static function coupSuiv(array $array, $sequence){
 		// on va y mettre les séquences qui ont une valeur après la séquence que l'ont recherche
 		for($i=0;$i<count($array);$i++){
 			if(strstr($array[$i], $sequence ,  $before_sequence = false)!=false){
 				$arrayValeurs[] = strstr($array[$i], $sequence ,  $before_sequence = false);
 			}
-			else{
-
-			}
 		}
 		// maintenant on récupère uniquement le coup jouer après les séquences stocker dans $arrayValeurs
 		for($j=0;$j<count($arrayValeurs);$j++){
 			if(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))>1){
-				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))-1)); 
+				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($arrayValeurs[$j],strlen($sequence)+1))-1));
 			}
 			else{
 				$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1);
 			}
 
 		}
-		return JeuIA::figureAJouer(JeuIA::occurence($arrayValeur)); // renvoie le nombre d'occurence du caractère q
+		if ($arrayValeur==NULL) return 0;
+		else return JeuIA::figureAJouer(JeuIA::occurence($arrayValeur)); // renvoie le nombre d'occurence du caractère q
 	}
-	
-	
 
-	public static function IA($idJoueur,$sequence,$age,$sexe){
+	public static function recupSequence($idJoueur,$sequence){
+		$data = array(
+			"listeCoups" => "%".$sequence."%",
+			"idJoueur" => $idJoueur
+		);
+		$donnees = array();
+		try{
+			$req = self::$pdo->prepare('SELECT listeCoups FROM pfcls_StatistiquesPersonnelles WHERE idJoueur = :idJoueur AND listeCoups LIKE :listeCoups');
+			$req->execute($data);
+			while ($ligne = $req->fetch()) {
+				array_push($donnees, $ligne['listeCoups']);
+			}
+			return $donnees;
+		} catch (PDOException $e) {
+       echo $e->getMessage();
+       $messageErreur="Erreur lors de la récupération de la séquence 1";
+      }
+  }
 
-
-		$arrayCoupJoueur=self::$pdo->prepare('SELECT listeCoups FROM pfcls_statistiquespersonnelles WHERE idJoueur='.$idJoueur);
-		
-		while($boolean==false){
-			if(arrayCoupJoueur!=null){
-				$coupSuiv=JeuIA::coupSuiv($arrayCoupJoueur,$sequence);
-				$boolean=true;
+	public static function recupSequenceAll($sexe,$agemini,$agemaxi,$sequence){
+		$data = array(
+			"listeCoups" => "%".$sequence."%",
+		);
+		$donnees = array();
+		try{
+			$sql = "SELECT listeCoups FROM pfcls_StatistiquesPersonnelles sp ";
+			$sql .= "INNER JOIN pfcls_Joueurs jo ON sp.idJoueur = jo.idJoueur ";
+			$sql .= "AND jo.sexe = '".$sexe."' ";
+			$sql .= "AND jo.age >= ".$agemini." ";
+			$sql .= "AND jo.age <= ".$agemaxi." ";
+			$sql .= "AND sp.listeCoups LIKE :listeCoups";
+			$req = self::$pdo->prepare($sql);
+			$req->execute($data);
+			while ($ligne = $req->fetch()) {
+				array_push($donnees, $ligne['listeCoups']);
 			}
-			elseif($coupSuiv==0)
-				if($sequence.length()>3){
-					reducSeq($sequence);
-				}
-				else{
-					$boolean=true;
-				}
-			}
-		}  
-		    
-		if($boolean==true){
-			
-			$idJ=self::$pdo->prepare('SELECT idJoueur FROM pfcls_statistiquespersonnelles p
-																JOIN pfcls_joueurs j ON p.idJoueur=j.idJoueur WHERE age='.$age' AND sexe='.$sexe);
-			$sequence=self::$pdo->prepare('SELECT listeCoups FROM pfcls_statistiquespersonnelles p
-																JOIN pfcls_joueurs j ON p.idJoueur=j.idJoueur WHERE age='.$age' AND sexe='.$sexe);
-			$tableaux();
-			i=0;
-			
-			foreach($idJ as $value){
-				if(rechercheSequence($value,$sequence)!=null){
-					coupSuiv($sequence);
-					$tableau=array(i,);
-					
-				}
-			}
-			
-																
+			return $donnees;
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+			$messageErreur="Erreur lors de la récupération de la séquence 2";
 		}
 	}
-	
-
 
 }
 
