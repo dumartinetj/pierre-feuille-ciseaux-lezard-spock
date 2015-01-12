@@ -101,23 +101,47 @@ class JeuIA extends Modele{
 	
 	
 
-	/*public static function recupSequence(){//permet de récup la séquence de coup en cour du joueur
-		//if (estConnecte()){
-		    $data = array("listeCoups" => "%".$sequence."%");
-			try{
+	public static function IA($idJoueur,$sequence,$age,$sexe){
 
-			 $req = self::$pdo->prepare('SELECT listeCoups FROM pfcls_statistiquespersonnelles WHERE listeCoups LIKE :listeCoups');
-			 $req -> execute($data);
-			} catch (PDOException $e) {
-                echo $e->getMessage();
-                $messageErreur="Erreur lors de la récupération de la séquence";
-            }
 
-		//}
-            $resultat = $pdo->query($requete);
-            $check=$resultat->fetch(PDO::FETCH_NUM);
-    }
-	*/
+		$arrayCoupJoueur=self::$pdo->prepare('SELECT listeCoups FROM pfcls_statistiquespersonnelles WHERE idJoueur='.$idJoueur);
+		
+		while($boolean==false){
+			if(arrayCoupJoueur!=null){
+				$coupSuiv=JeuIA::coupSuiv($arrayCoupJoueur,$sequence);
+				$boolean=true;
+			}
+			elseif($coupSuiv==0)
+				if($sequence.length()>3){
+					reducSeq($sequence);
+				}
+				else{
+					$boolean=true;
+				}
+			}
+		}  
+		    
+		if($boolean==true){
+			
+			$idJ=self::$pdo->prepare('SELECT idJoueur FROM pfcls_statistiquespersonnelles p
+																JOIN pfcls_joueurs j ON p.idJoueur=j.idJoueur WHERE age='.$age' AND sexe='.$sexe);
+			$sequence=self::$pdo->prepare('SELECT listeCoups FROM pfcls_statistiquespersonnelles p
+																JOIN pfcls_joueurs j ON p.idJoueur=j.idJoueur WHERE age='.$age' AND sexe='.$sexe);
+			$tableaux();
+			i=0;
+			
+			foreach($idJ as $value){
+				if(rechercheSequence($value,$sequence)!=null){
+					coupSuiv($sequence);
+					$tableau=array(i,);
+					
+				}
+			}
+			
+																
+		}
+	}
+	
 
 
 }
