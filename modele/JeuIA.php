@@ -76,7 +76,7 @@ class JeuIA extends Modele{
 		//sinon on continue à chercher
 
 		if($coupSuiv!=0) return $coupSuiv; //one line bitch, yes i know biatch
-		else{
+
 			$sequenceClone=$sequence;
 
 
@@ -101,9 +101,9 @@ class JeuIA extends Modele{
 			}
 
 
-		}
+
 		if($coupSuiv!=0) return $coupSuiv;
-		else{
+
 			$sequenceClone=$sequence;
 
 
@@ -126,9 +126,9 @@ class JeuIA extends Modele{
 					}
 				}
 			}
-		}
+
 		if($coupSuiv!=0) return $coupSuiv;
-		else{
+
 			$sequenceClone=$sequence;
 
 
@@ -151,9 +151,9 @@ class JeuIA extends Modele{
 					}
 				}
 			}
-		}
+
 		if($coupSuiv!=0) return $coupSuiv;
-		else{
+
 			$sequenceClone=$sequence;
 
 
@@ -176,10 +176,9 @@ class JeuIA extends Modele{
 					}
 				}
 			}
-		}
-		if($coupSuiv!=0) return $coupSuiv;
-		else{ return mt_rand(1,5);}
 
+		if($coupSuiv!=0) return $coupSuiv;
+		return mt_rand(1,5);
 	}
 
 	public static function reducSeq($sequence){
@@ -221,7 +220,7 @@ class JeuIA extends Modele{
 			if(strlen($array[$j])<=strlen($sequence));
 			else{
 				if(strlen(substr($array[$j],strlen($sequence)+1))>1){
-					$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($array[$j],strlen($sequence)+1))-1));
+					$arrayValeur[] = substr($array[$j],strlen($sequence)+1,-(strlen(substr($array[$j],strlen($sequence)+1))-1));
 				}
 				else{
 					$arrayValeur[] = substr($array[$j],strlen($sequence)+1);
