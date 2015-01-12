@@ -216,7 +216,7 @@ class JeuIA extends Modele{
 			if(strlen($array[$j])<=strlen($sequence));
 			else{
 				if(strlen(substr($array[$j],strlen($sequence)+1))>1){
-					$arrayValeur[] = substr($arrayValeurs[$j],strlen($sequence)+1,-(strlen(substr($array[$j],strlen($sequence)+1))-1));
+					$arrayValeur[] = substr($array[$j],strlen($sequence)+1,-(strlen(substr($array[$j],strlen($sequence)+1))-1));
 				}
 				else{
 					$arrayValeur[] = substr($array[$j],strlen($sequence)+1);
