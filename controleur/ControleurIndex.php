@@ -18,6 +18,18 @@
         break;
 
         case "statistiques":
+          $donneesDeJeuAll = StatsPerso::selectAll();
+          $listeCoupsAll=array();
+          foreach ($donneesDeJeuAll as $key => $value) {
+            array_push($listeCoupsAll, $value->listeCoups);
+          }
+          $premierCoup = Joueur::premierCoupStats($listeCoupsAll);
+          $compte = 0;
+          foreach($premierCoup as $numFi => $nb){
+            $compte += $nb;
+          }
+
+
           $vue="statistiques";
           $pagetitle="Statistiques";
         break;
