@@ -48,7 +48,7 @@ class JeuIA extends Modele{
 		$boolean=false;
 		if($sexe=="M")  $sexeOpposer="F";
 		else{ $sexeOpposer="M";}
-
+		$coupSuiv=0;
 		while($boolean==false){
 			$listeSequences = JeuIA::recupSequence($idJoueur,$sequenceClone);
 			if($listeSequences!=null){
