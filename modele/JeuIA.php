@@ -46,12 +46,13 @@ class JeuIA extends Modele{
 	public static function IA($idJoueur,$sequence,$age,$sexe){
 
 		$sequenceClone=$sequence;
-		$listeSequences = JeuIA::recupSequence($idJoueur,$sequence);
+
 		$boolean=false;
 		if($sexe=="M")  $sexeOpposer="F";
 		else{ $sexeOpposer="M";}
 
 		while($boolean==false){
+			$listeSequences = JeuIA::recupSequence($idJoueur,$sequenceClone);
 			if($listeSequences!=null){
 				$coupSuiv=JeuIA::coupSuiv($listeSequences,$sequenceClone);
 				$boolean=true;
@@ -78,9 +79,10 @@ class JeuIA extends Modele{
 		else{
 			$sequenceClone=$sequence;
 
-			$listeSequenceAutre=JeuIA::recupSequenceAll($sexe,$age-2,$age+2,$sequence);
+
 			$boolean=false;
 			while($boolean==false){
+				$listeSequenceAutre=JeuIA::recupSequenceAll($sexe,$age-2,$age+2,$sequenceClone);
 				if($listeSequenceAutre!=null){
 					$coupSuiv=JeuIA::coupSuiv($listeSequenceAutre,$sequenceClone);
 					$boolean=true;
@@ -104,9 +106,10 @@ class JeuIA extends Modele{
 		else{
 			$sequenceClone=$sequence;
 
-			$listeSequenceAutre=JeuIA::recupSequenceAll($sexeOpposer,$age-2,$age+2,$sequence);
+
 			$boolean=false;
 			while($boolean==false){
+				$listeSequenceAutre=JeuIA::recupSequenceAll($sexeOpposer,$age-2,$age+2,$sequenceClone);
 				if($listeSequenceAutre!=null){
 					$coupSuiv=JeuIA::coupSuiv($listeSequenceAutre,$sequenceClone);
 					$boolean=true;
@@ -128,9 +131,10 @@ class JeuIA extends Modele{
 		else{
 			$sequenceClone=$sequence;
 
-			$listeSequenceAutre=JeuIA::recupSequenceAll($sexe,$age-5,$age+5,$sequence);
+
 			$boolean=false;
 			while($boolean==false){
+				$listeSequenceAutre=JeuIA::recupSequenceAll($sexe,$age-5,$age+5,$sequenceClone);
 				if($listeSequenceAutre!=null){
 					$coupSuiv=JeuIA::coupSuiv($listeSequenceAutre,$sequenceClone);
 					$boolean=true;
@@ -152,9 +156,10 @@ class JeuIA extends Modele{
 		else{
 			$sequenceClone=$sequence;
 
-			$listeSequenceAutre=JeuIA::recupSequenceAll($sexeOpposer,$age-5,$age+5,$sequence);
+
 			$boolean=false;
 			while($boolean==false){
+				$listeSequenceAutre=JeuIA::recupSequenceAll($sexeOpposer,$age-5,$age+5,$sequenceClone);
 				if($listeSequenceAutre!=null){
 					$coupSuiv=JeuIA::coupSuiv($listeSequenceAutre,$sequenceClone);
 					$boolean=true;
