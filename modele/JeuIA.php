@@ -52,7 +52,7 @@ class JeuIA extends Modele{
 		while($boolean==false){
 			$listeSequences = JeuIA::recupSequence($idJoueur,$sequenceClone);
 			if($listeSequences!=null){
-				$coupSuiv=JeuIA::figureAJouer(JeuIA::coupSuiv($listeSequences,$sequenceClone));
+				$coupSuiv=JeuIA::figureAJouer(JeuIA::occurence(JeuIA::coupSuiv($listeSequences,$sequenceClone)));
 				$boolean=true;
 			}
 			// si y'a pas de séquences trouvées
@@ -82,7 +82,7 @@ class JeuIA extends Modele{
 			while($boolean==false){
 				$listeSequenceAutre=JeuIA::recupSequenceAll($sexe,$age-2,$age+2,$sequenceClone);
 				if($listeSequenceAutre!=null){
-					$coupSuiv=JeuIA::figureAJouer(JeuIA::coupSuiv($listeSequences,$sequenceClone));
+					$coupSuiv=JeuIA::figureAJouer(JeuIA::occurence(JeuIA::coupSuiv($listeSequences,$sequenceClone)));
 					$boolean=true;
 				}
 				else {
@@ -109,7 +109,7 @@ class JeuIA extends Modele{
 			while($boolean==false){
 				$listeSequenceAutre=JeuIA::recupSequenceAll($sexeOpposer,$age-2,$age+2,$sequenceClone);
 				if($listeSequenceAutre!=null){
-					$coupSuiv=JeuIA::figureAJouer(JeuIA::coupSuiv($listeSequences,$sequenceClone));
+					$coupSuiv=JeuIA::figureAJouer(JeuIA::occurence(JeuIA::coupSuiv($listeSequences,$sequenceClone)));
 					$boolean=true;
 				}
 				else {
@@ -134,7 +134,7 @@ class JeuIA extends Modele{
 			while($boolean==false){
 				$listeSequenceAutre=JeuIA::recupSequenceAll($sexe,$age-5,$age+5,$sequenceClone);
 				if($listeSequenceAutre!=null){
-					$coupSuiv=JeuIA::figureAJouer(JeuIA::coupSuiv($listeSequences,$sequenceClone));
+					$coupSuiv=JeuIA::figureAJouer(JeuIA::occurence(JeuIA::coupSuiv($listeSequences,$sequenceClone)));
 					$boolean=true;
 				}
 				else {
@@ -159,7 +159,7 @@ class JeuIA extends Modele{
 			while($boolean==false){
 				$listeSequenceAutre=JeuIA::recupSequenceAll($sexeOpposer,$age-5,$age+5,$sequenceClone);
 				if($listeSequenceAutre!=null){
-					$coupSuiv=JeuIA::figureAJouer(JeuIA::coupSuiv($listeSequences,$sequenceClone));
+					$coupSuiv=JeuIA::figureAJouer(JeuIA::occurence(JeuIA::coupSuiv($listeSequences,$sequenceClone)));
 					$boolean=true;
 				}
 				else {
@@ -247,7 +247,7 @@ class JeuIA extends Modele{
 			}
 		}
 		if (empty($donnees)) return 0;
-		else return JeuIA::occurence($donnees); // renvoie le nombre d'occurence du caractère q
+		else return $donnees; // renvoie le nombre d'occurence du caractère q
 	}
 
 	public static function recupSequence($idJoueur,$sequence){
