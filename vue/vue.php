@@ -57,7 +57,7 @@
         </div>
         <div id="footer">
             <div class="container">
-                <p class="credit">PFCLS <span class="fa fa-copyright"></span> 2014 - <a href="index.php?action=apropos">À propos</a></p>
+                <p class="credit">PFCLS <span class="fa fa-copyright"></span> 2015 - <a href="index.php?action=apropos">À propos</a></p>
             </div>
         </div>
         <!-- JS placé à la fin pour un chargement plus rapide -->

@@ -1,62 +1,45 @@
     <h2 id="mainhead"><span class="fa fa-pie-chart"></span> Statistiques</h2>
     <hr>
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div id="premiereFigure" style="height: 400px; width: 100%;"></div>
-      </div>
+    <div class="col-md-12">
+      <p>Cette page présente les résultats de notre projet.<br/>
+        Pour en savoir plus sur celui-ci, rendez-vous sur la page <a href="index.php?action=apropos"><span class="fa fa-bar-chart"></span> À propos</a>
+      </p>
+      <p>
+        Pour obtenir les statistiques que vous souhaitez, <br/>
+        choisissez un sexe, un âge (entre 1 et 100) et une marge d'âge (entre 0 et 10).
+      </p>
+      <p class="alert alert-info">
+        Pour obtenir des statistiques sur un âge précis, choisir une marge de 0
+      </p>
+      <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+      <form method="post" action="index.php?action=stats">
+        <fieldset>
+          <div>
+            <input type="radio" name="sexe" id="homme" value="H" required/>
+            <label for="homme">
+              <span class="fa-stack">
+                <i class="fa fa-circle-o fa-stack-2x"></i>
+                <i class="fa fa-circle fa-stack-2x"></i>
+              </span>
+              <i class="fa fa-male fa-3x"></i><br/>
+            </label>
+            <input type="radio" name="sexe" id="femme" value="F" required/>
+            <label for="femme">
+              <span class="fa-stack">
+                <i class="fa fa-circle-o fa-stack-2x"></i>
+                <i class="fa fa-circle fa-stack-2x"></i>
+              </span>
+              <i class="fa fa-female fa-3x"></i><br/>
+            </label>
+          </div><br/>
+          <div class="input-group"><span class="input-group-addon"><i class="fa fa-calculator"></i></span><input type="number" class="form-control" placeholder="Âge" name="age" id="id_age" min="1" max="100" required/></div><br/>
+          <div class="input-group"><span class="input-group-addon"><i class="fa fa-calculator"></i></span><input type="number" class="form-control" placeholder="Marge" name="marge" id="id_marge" min="0" max="10" required/></div><br/>
+          <input type="submit" class="btn btn-default btn-lg" value="&#xf00c; Générer les statistiques !" />
+        </fieldset>
+      </form>
     </div>
-
-    <script type="text/javascript">
-    window.onload = function () {
-      var compte = <?php echo $compte ?>;
-      if(compte==0) {
-        document.getElementById("premiereFigure").innerHTML = "Aucune données de jeu n'est disponible !";
-      }
-      else {
-        var f1 = <?php echo $premierCoup['1']*100/$compte ?>;
-        var f2 = <?php echo $premierCoup['2']*100/$compte ?>;
-        var f3 = <?php echo $premierCoup['3']*100/$compte ?>;
-        var f4 = <?php echo $premierCoup['4']*100/$compte ?>;
-        var f5 = <?php echo $premierCoup['5']*100/$compte ?>;
-        var chartPremierCoup = new CanvasJS.Chart("premiereFigure",
-        {
-          backgroundColor: "#eeeeee",
-          legend: {
-            horizontalAlign: "center", // "center" , "right"
-            verticalAlign: "bottom",  // "top" , "bottom"
-            fontFamily: "Asap"
-          },
-          title:{
-            text: "Première figure jouée"
-          },
-          axisY: {
-            title: "Pourcentage"
-          },
-          data: [
-          {
-            type: "column",
-            showInLegend: false,
-            indexLabelFontSize: 25,
-            indexLabelFontFamily: "Asap",
-            indexLabelFontColor: "#eeeeee",
-            indexLabelLineColor: "#eeeeee",
-            indexLabelPlacement: "outside",
-            //indexLabelLineThickness: 0,
-            toolTipContent: "{y}% de {label}",
-            valueFormatString: "0.00",
-            indexLabel: "",
-            dataPoints: [
-            {y: f1, label: "Pierre" },
-            {y: f2,  label: "Feuille" },
-            {y: f3,  label: "Ciseaux" },
-            {y: f4,  label: "Lézard" },
-            {y: f5,  label: "Spock" },
-            ]
-          }
-          ]
-        });
-        chartPremierCoup.render();
-        chartPremierCoup = {};
-      }
-    }
-  </script>
+  </div>
+    </div>
+  </div>
