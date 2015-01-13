@@ -3,7 +3,6 @@
 <div class="row">
 <div class="col-md-offset-3 col-md-6">
 <form method="post" action="joueur.php?action=save">
-    <fieldset>
             <div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span><input type="text" class="form-control" placeholder="Pseudo" name="pseudo" id="id_pseudo" required/></div><br/>
             <div>
                 <input type="radio" name="sexe" id="homme" value="H" required/>
@@ -27,8 +26,7 @@
             <div class="input-group"><span class="input-group-addon"><i class="fa fa-key"></i></span><input type="password" class="form-control strength" name="pwd" placeholder="Mot de passe" id="id_pwd" required/></div><br/>
             <div class="input-group"><span class="input-group-addon"><i class="fa fa-key"></i></span><input type="password" class="form-control" name="pwd2" placeholder="Confirmer votre mot de passe" id="id_pwd2" required/></div><br/>
             <div class="input-group"><span class="input-group-addon"><i class="fa fa-envelope"></i></span><input type="email" class="form-control" placeholder="E-mail" name="email" id="id_email" required/></div><br/>
-            <input type="submit" class="btn btn-default btn-lg" value="&#xf00c; Valider votre inscription" />
-    </fieldset>
+            <input type="submit" class="btn btn-default" value="&#xf00c; Valider votre inscription" />
 </form>
 </div>
 </div>
