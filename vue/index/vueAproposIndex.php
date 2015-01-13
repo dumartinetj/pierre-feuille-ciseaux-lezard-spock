@@ -48,11 +48,11 @@
           <div class="col-md-1">
           </div>
           <div class="col-md-2">
-           <img class="img-circle img-responsive center-block" src="<?php echo VIEW_PATH_BASE.'index/img/pierre.png'?>" style="width: 100px; height: 100px;" alt="Gaël">
+           <img class="img-circle img-responsive center-block" src="<?php echo VIEW_PATH_BASE.'index/img/pierre.jpg'?>" style="width: 100px; height: 100px;" alt="Gaël">
             <div class="caption">
             <h2>Pierre Marais</h2>
             <h2><span class="fa fa-graduation-cap"></span> <small>Étudiant</small></h2>
-            Metal \m/, les Harley, séries, films, heroic fantasy<br/>
+            le Metal , les Harley, les séries télé, les films, les livres d'heroic fantasy<br/>
             <p>
 			        <a class="btn btn-default btn-xs disabled" href="#" target="_blank" role="button"><span class="fa fa-user"></span> Site (en cours)</a>
               <a href="mailto:pierre.marais@hotmail.fr" target="_top" class="btn btn-info btn-xs"><span class="fa fa-envelope"></span> E-mail</a>
