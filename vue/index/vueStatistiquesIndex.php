@@ -9,6 +9,10 @@
         Pour obtenir les statistiques que vous souhaitez, <br/>
         choisissez un sexe, un âge (entre 1 et 100) et une marge d'âge (entre 0 et 10).
       </p>
+      <p><em>La marge est l’écart que vous donnerez à la tranche d’âge.
+        Par exemple si vous choisissez un âge de 20 ans et une marge de 2 cela calculera
+        des statistiques de personnes ayant entre 18 et 22 ans.
+      </em></p>
       <p class="alert alert-info">
         Pour obtenir des statistiques sur un âge précis, choisir une marge de 0
       </p>
