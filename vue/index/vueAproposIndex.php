@@ -62,7 +62,7 @@
           <div class="col-md-1">
           </div>
           <div class="col-md-2">
-            <img class="img-circle" src="<?php echo VIEW_PATH_BASE.'index/img/loic.jpeg'?>" alt="">
+            <img class="img-circle"  width="100px" height="100" src="<?php echo VIEW_PATH_BASE.'index/img/loic.jpg'?>" alt="">
             <div class="caption">
             <h2>Loïc Forthoffer</h2>
             <h2><span class="fa fa-graduation-cap"></span> <small>Étudiant</small></h2>
