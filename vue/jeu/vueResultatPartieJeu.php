@@ -6,4 +6,4 @@ echo <<< EOT
 EOT;
 ?>
 <hr>
-<h3><i class="fa fa-reply"></i> <a href="index.php?action=choixmode">Retour au choix du mode de jeu</a></<h3>
+<h3><i class="fa fa-reply"></i> <a href="index.php?action=choixmode">Retour au choix du mode de jeu</a></h3>
