@@ -38,12 +38,6 @@
 
           $donneesDeJeu = StatsPerso::selectSequence($sexe,$agemini,$agemaxi);
 
-          if ($donneesDeJeu==null) {
-            $messageErreur="Il n'y a pas de données disponibles pour ces paramètres !<br/>
-            <h5><a href='index.php?action=statistiques'><i class='fa fa-reply'></i> Retour à la sélection des paramètres</a></<h5>";
-            break;
-          }
-
           $listeCoupsJoueur=array();
           foreach ($donneesDeJeu as $key => $value) {
             array_push($listeCoupsJoueur, $value);
@@ -71,6 +65,14 @@
           $apresSpock = Joueur::apresFigure($listeCoupsJoueur,'5');
           $compteSpock = 0;
           foreach($apresSpock as $numFi => $nb) $compteSpock += $nb;
+
+          if ($donneesDeJeu==null||$comptePierre==0||$compteFeuille==0||$compteCiseaux==0||$compteLezard==0||$compteSpock==0) {
+            $messageErreur="Il n'y a pas assez de données disponibles pour ces paramètres pour établir des statistiques !<br/>
+            <h3>Essayez de modifier vos paramètres !</h3>
+            <h4><a href='index.php?action=statistiques'><i class='fa fa-reply'></i> Retour à la sélection des paramètres</a></<h4>";
+            break;
+          }
+
           $vue="stats";
           $pagetitle="Statistiques";
         break;

@@ -104,6 +104,7 @@ class Joueur extends Modele {
       }
       $donnees = JeuIA::coupSuiv($donneesDeJeu,$idFigure);
       $var1 = $var2 = $var3 = $var4 = $var5 = 0;
+      if(!is_array($donnees)) return $arrayValeur=array(1 => $var1,$var2,$var3,$var4,$var5);
       foreach ($donnees as $key => $value) {
         switch (intval($value)) {
           case 1: $var1 ++; break;
